@@ -1,0 +1,55 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "#sides",
+    "down": "mek:block/fuelwood_heater/bottom_active",
+    "up": "mek:block/fuelwood_heater/top_active",
+    "north": "#front",
+    "east": "mek:block/fuelwood_heater/left_active",
+    "south": "mek:block/fuelwood_heater/back_active",
+    "west": "mek:block/fuelwood_heater/right_active",
+    "sides": "mek:block/fuelwood_heater/right",
+    "front": "mek:block/fuelwood_heater/front_active"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up",
+          "rotation": 180
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

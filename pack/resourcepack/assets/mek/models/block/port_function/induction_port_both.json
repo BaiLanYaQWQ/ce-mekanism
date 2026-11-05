@@ -1,0 +1,7 @@
+{
+  "parent": "mek:block/induction_port",
+  "textures": {
+    "all": "mek:block/port_function/induction_port_all_both",
+    "led": "mek:block/port_function/induction_port_led_both"
+  }
+}

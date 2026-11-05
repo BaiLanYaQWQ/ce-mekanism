@@ -1,0 +1,597 @@
+# 感应矩阵（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 main/java/mekanism/common/content/matrix/MatrixValidator.java。
+blocks:
+  mek:induction_casing:
+    state:
+      auto_state: note_block
+      model: mek:block/induction_casing
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:induction_casing
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:induction_casing:
+    data:
+      item_name: '<!i><white><lang:mek.structure.induction_casing>'
+    model: mek:block/induction_casing
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/induction_casing
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:induction_casing
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:induction_port:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:induction_port
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/induction_port_input
+        output:
+          auto_state: note_block
+          model: mek:block/induction_port_active
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/induction_port_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/induction_port_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/induction_port_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/induction_port_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:induction_port:
+    data:
+      item_name: '<!i><white><lang:mek.structure.induction_port>'
+    model: mek:block/induction_port
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:induction_port
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/induction_port_input
+            output:
+              auto_state: note_block
+              model: mek:block/induction_port_active
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/induction_port_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/induction_port_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/induction_port_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/induction_port_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+        behavior:
+          type: cemekanism:multiblock
+
+blocks:
+  mek:basic_induction_cell:
+    state:
+      auto_state: note_block
+      model: mek:block/basic_induction_cell
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:basic_induction_cell
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:basic_induction_cell:
+    data:
+      item_name: '<!i><white><lang:mek.structure.basic_induction_cell>'
+    model: mek:block/basic_induction_cell
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/basic_induction_cell
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:basic_induction_cell
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:advanced_induction_cell:
+    state:
+      auto_state: note_block
+      model: mek:block/advanced_induction_cell
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:advanced_induction_cell
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:advanced_induction_cell:
+    data:
+      item_name: '<!i><white><lang:mek.structure.advanced_induction_cell>'
+    model: mek:block/advanced_induction_cell
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/advanced_induction_cell
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:advanced_induction_cell
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:elite_induction_cell:
+    state:
+      auto_state: note_block
+      model: mek:block/elite_induction_cell
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:elite_induction_cell
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:elite_induction_cell:
+    data:
+      item_name: '<!i><white><lang:mek.structure.elite_induction_cell>'
+    model: mek:block/elite_induction_cell
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/elite_induction_cell
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:elite_induction_cell
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:ultimate_induction_cell:
+    state:
+      auto_state: note_block
+      model: mek:block/ultimate_induction_cell
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:ultimate_induction_cell
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:ultimate_induction_cell:
+    data:
+      item_name: '<!i><white><lang:mek.structure.ultimate_induction_cell>'
+    model: mek:block/ultimate_induction_cell
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/ultimate_induction_cell
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:ultimate_induction_cell
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:basic_induction_provider:
+    state:
+      auto_state: note_block
+      model: mek:block/basic_induction_provider
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:basic_induction_provider
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:basic_induction_provider:
+    data:
+      item_name: '<!i><white><lang:mek.structure.basic_induction_provider>'
+    model: mek:block/basic_induction_provider
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/basic_induction_provider
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:basic_induction_provider
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:advanced_induction_provider:
+    state:
+      auto_state: note_block
+      model: mek:block/advanced_induction_provider
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:advanced_induction_provider
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:advanced_induction_provider:
+    data:
+      item_name: '<!i><white><lang:mek.structure.advanced_induction_provider>'
+    model: mek:block/advanced_induction_provider
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/advanced_induction_provider
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:advanced_induction_provider
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:elite_induction_provider:
+    state:
+      auto_state: note_block
+      model: mek:block/elite_induction_provider
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:elite_induction_provider
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:elite_induction_provider:
+    data:
+      item_name: '<!i><white><lang:mek.structure.elite_induction_provider>'
+    model: mek:block/elite_induction_provider
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/elite_induction_provider
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:elite_induction_provider
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:ultimate_induction_provider:
+    state:
+      auto_state: note_block
+      model: mek:block/ultimate_induction_provider
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:ultimate_induction_provider
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:ultimate_induction_provider:
+    data:
+      item_name: '<!i><white><lang:mek.structure.ultimate_induction_provider>'
+    model: mek:block/ultimate_induction_provider
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/ultimate_induction_provider
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:ultimate_induction_provider
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe

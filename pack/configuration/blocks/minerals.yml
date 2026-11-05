@@ -1,0 +1,867 @@
+# 上游矿石、盐和资源块；由 mek.py generate 生成。
+blocks:
+  mek:block_bio_fuel:
+    state:
+      auto_state: solid
+      model: mek:item/block_bio_fuel
+    settings:
+      hardness: 0.5
+      resistance: 0.5
+      sounds:
+        break: minecraft:block.grass.break
+        step: minecraft:block.grass.step
+        place: minecraft:block.grass.place
+        hit: minecraft:block.grass.hit
+        fall: minecraft:block.grass.fall
+      item: mek:block_bio_fuel
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_bio_fuel
+          conditions:
+            - type: survives_explosion
+  mek:block_bronze:
+    state:
+      auto_state: solid
+      model: mek:item/block_bronze
+    settings:
+      hardness: 5.0
+      resistance: 9.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_bronze
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_bronze
+          conditions:
+            - type: survives_explosion
+  mek:block_charcoal:
+    state:
+      auto_state: solid
+      model: mek:item/block_charcoal
+    settings:
+      hardness: 5.0
+      resistance: 6.0
+      required_break_power: 0
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_charcoal
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_charcoal
+          conditions:
+            - type: survives_explosion
+  mek:block_fluorite:
+    state:
+      auto_state: solid
+      model: mek:item/block_fluorite
+    settings:
+      hardness: 5.0
+      resistance: 9.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_fluorite
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_fluorite
+          conditions:
+            - type: survives_explosion
+  mek:block_lead:
+    state:
+      auto_state: solid
+      model: mek:item/block_lead
+    settings:
+      hardness: 5.0
+      resistance: 9.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_lead
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_lead
+          conditions:
+            - type: survives_explosion
+  mek:block_osmium:
+    state:
+      auto_state: solid
+      model: mek:item/block_osmium
+    settings:
+      hardness: 7.5
+      resistance: 12.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_osmium
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_osmium
+          conditions:
+            - type: survives_explosion
+  mek:block_raw_lead:
+    state:
+      auto_state: solid
+      model: mek:item/block_raw_lead
+    settings:
+      hardness: 5.0
+      resistance: 9.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_raw_lead
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_raw_lead
+          conditions:
+            - type: survives_explosion
+  mek:block_raw_osmium:
+    state:
+      auto_state: solid
+      model: mek:item/block_raw_osmium
+    settings:
+      hardness: 7.5
+      resistance: 12.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_raw_osmium
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_raw_osmium
+          conditions:
+            - type: survives_explosion
+  mek:block_raw_tin:
+    state:
+      auto_state: solid
+      model: mek:item/block_raw_tin
+    settings:
+      hardness: 5.0
+      resistance: 6.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_raw_tin
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_raw_tin
+          conditions:
+            - type: survives_explosion
+  mek:block_raw_uranium:
+    state:
+      auto_state: solid
+      model: mek:item/block_raw_uranium
+    settings:
+      hardness: 5.0
+      resistance: 9.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_raw_uranium
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_raw_uranium
+          conditions:
+            - type: survives_explosion
+  mek:block_refined_glowstone:
+    state:
+      auto_state: solid
+      model: mek:item/block_refined_glowstone
+    settings:
+      hardness: 5.0
+      resistance: 6.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      luminance: 15
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_refined_glowstone
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_refined_glowstone
+          conditions:
+            - type: survives_explosion
+  mek:block_refined_obsidian:
+    state:
+      auto_state: solid
+      model: mek:item/block_refined_obsidian
+    settings:
+      hardness: 50.0
+      resistance: 2400.0
+      required_break_power: 4
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      luminance: 8
+      push_reaction: IMMOVEABLE
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_refined_obsidian
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_refined_obsidian
+          conditions:
+            - type: survives_explosion
+  mek:block_salt:
+    state:
+      auto_state: solid
+      model: mek:item/block_salt
+    settings:
+      hardness: 0.5
+      resistance: 0.5
+      tags:
+        - minecraft:mineable/shovel
+      sounds:
+        break: minecraft:block.sand.break
+        step: minecraft:block.sand.step
+        place: minecraft:block.sand.place
+        hit: minecraft:block.sand.hit
+        fall: minecraft:block.sand.fall
+      item: mek:block_salt
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:block_salt
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:salt
+                  functions:
+                    - type: set_count
+                      count: 4
+                      add: false
+                    - type: explosion_decay
+  mek:block_steel:
+    state:
+      auto_state: solid
+      model: mek:item/block_steel
+    settings:
+      hardness: 5.0
+      resistance: 9.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_steel
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_steel
+          conditions:
+            - type: survives_explosion
+  mek:block_tin:
+    state:
+      auto_state: solid
+      model: mek:item/block_tin
+    settings:
+      hardness: 5.0
+      resistance: 6.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_tin
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_tin
+          conditions:
+            - type: survives_explosion
+  mek:block_uranium:
+    state:
+      auto_state: solid
+      model: mek:item/block_uranium
+    settings:
+      hardness: 5.0
+      resistance: 9.0
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:block_uranium
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:block_uranium
+          conditions:
+            - type: survives_explosion
+  mek:deepslate_fluorite_ore:
+    state:
+      auto_state: solid
+      model: mek:item/deepslate_fluorite_ore
+    settings:
+      hardness: 4.5
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        step: minecraft:block.deepslate.step
+        place: minecraft:block.deepslate.place
+        hit: minecraft:block.deepslate.hit
+        fall: minecraft:block.deepslate.fall
+      item: mek:deepslate_fluorite_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:deepslate_fluorite_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:fluorite_gem
+                  functions:
+                    - type: set_count
+                      count:
+                        type: uniform
+                        max: 4
+                        min: 2
+                      add: false
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+    behavior:
+      type: drop_experience_block
+      amount: '1~4'
+      condition:
+        type: enchantment
+        predicate: 'minecraft:silk_touch<=0'
+  mek:deepslate_lead_ore:
+    state:
+      auto_state: solid
+      model: mek:item/deepslate_lead_ore
+    settings:
+      hardness: 4.5
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        step: minecraft:block.deepslate.step
+        place: minecraft:block.deepslate.place
+        hit: minecraft:block.deepslate.hit
+        fall: minecraft:block.deepslate.fall
+      item: mek:deepslate_lead_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:deepslate_lead_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_lead
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+  mek:deepslate_osmium_ore:
+    state:
+      auto_state: solid
+      model: mek:item/deepslate_osmium_ore
+    settings:
+      hardness: 4.5
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        step: minecraft:block.deepslate.step
+        place: minecraft:block.deepslate.place
+        hit: minecraft:block.deepslate.hit
+        fall: minecraft:block.deepslate.fall
+      item: mek:deepslate_osmium_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:deepslate_osmium_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_osmium
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+  mek:deepslate_tin_ore:
+    state:
+      auto_state: solid
+      model: mek:item/deepslate_tin_ore
+    settings:
+      hardness: 4.5
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        step: minecraft:block.deepslate.step
+        place: minecraft:block.deepslate.place
+        hit: minecraft:block.deepslate.hit
+        fall: minecraft:block.deepslate.fall
+      item: mek:deepslate_tin_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:deepslate_tin_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_tin
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+  mek:deepslate_uranium_ore:
+    state:
+      auto_state: solid
+      model: mek:item/deepslate_uranium_ore
+    settings:
+      hardness: 4.5
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        step: minecraft:block.deepslate.step
+        place: minecraft:block.deepslate.place
+        hit: minecraft:block.deepslate.hit
+        fall: minecraft:block.deepslate.fall
+      item: mek:deepslate_uranium_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:deepslate_uranium_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_uranium
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+  mek:fluorite_ore:
+    state:
+      auto_state: solid
+      model: mek:item/fluorite_ore
+    settings:
+      hardness: 3
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:fluorite_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:fluorite_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:fluorite_gem
+                  functions:
+                    - type: set_count
+                      count:
+                        type: uniform
+                        max: 4
+                        min: 2
+                      add: false
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+    behavior:
+      type: drop_experience_block
+      amount: '1~4'
+      condition:
+        type: enchantment
+        predicate: 'minecraft:silk_touch<=0'
+  mek:lead_ore:
+    state:
+      auto_state: solid
+      model: mek:item/lead_ore
+    settings:
+      hardness: 3
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:lead_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:lead_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_lead
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+  mek:osmium_ore:
+    state:
+      auto_state: solid
+      model: mek:item/osmium_ore
+    settings:
+      hardness: 3
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:osmium_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:osmium_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_osmium
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+  mek:tin_ore:
+    state:
+      auto_state: solid
+      model: mek:item/tin_ore
+    settings:
+      hardness: 3
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:tin_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:tin_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_tin
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay
+  mek:uranium_ore:
+    state:
+      auto_state: solid
+      model: mek:item/uranium_ore
+    settings:
+      hardness: 3
+      resistance: 3
+      required_break_power: 2
+      require_correct_tools: true
+      correct_tools:
+        - '#minecraft:pickaxes'
+      tags:
+        - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        step: minecraft:block.stone.step
+        place: minecraft:block.stone.place
+        hit: minecraft:block.stone.hit
+        fall: minecraft:block.stone.fall
+      item: mek:uranium_ore
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: alternatives
+              children:
+                - type: item
+                  item: mek:uranium_ore
+                  conditions:
+                    - type: enchantment
+                      predicate: 'minecraft:silk_touch>=1'
+                - type: item
+                  item: mek:raw_uranium
+                  functions:
+                    - type: apply_bonus
+                      enchantment: minecraft:fortune
+                      formula:
+                        type: ore_drops
+                    - type: explosion_decay

@@ -1,0 +1,136 @@
+{
+  "parent": "block/block",
+  "gui_light": "front",
+  "textures": {
+    "1": "mek:block/models/energy_cube",
+    "2": "mek:block/models/ports",
+    "3": "mek:block/models/ports_led",
+    "4": "mek:block/models/leds",
+    "corner": "mek:block/models/energy_cube_ultimate_corner",
+    "particle": "mek:block/energy_cube_particle"
+  },
+  "elements": [
+    {
+      "name": "ledFront1",
+      "from": [
+        3,
+        7.5,
+        7.1
+      ],
+      "to": [
+        3.5,
+        8.5,
+        8
+      ],
+      "shade_direction_override": "up",
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "east": {
+          "uv": [
+            2,
+            0,
+            2.9,
+            1
+          ],
+          "texture": "#4"
+        },
+        "south": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "up": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        }
+      }
+    },
+    {
+      "name": "ledFront2",
+      "from": [
+        12.5,
+        7.5,
+        7.1
+      ],
+      "to": [
+        13,
+        8.5,
+        8
+      ],
+      "shade_direction_override": "up",
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "south": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "west": {
+          "uv": [
+            2,
+            0,
+            2.9,
+            1
+          ],
+          "texture": "#4"
+        },
+        "up": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,951 @@
+# 材料（mek.py generate 生成，勿手改：改 tools/curation.yml 后重新生成）
+items:
+  mek:advanced_control_circuit:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.advanced_control_circuit>'
+    texture: mek:item/advanced_control_circuit
+    settings:
+      tags:
+        - mek:circuits/advanced
+  mek:alloy_atomic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.alloy_atomic>'
+    texture: mek:item/alloy_atomic
+    settings:
+      tags:
+        - mek:alloys/atomic
+        - mek:alloys/ultimate
+  mek:alloy_infused:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.alloy_infused>'
+    texture: mek:item/alloy_infused
+    settings:
+      tags:
+        - mek:alloys/infused
+  mek:alloy_reinforced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.alloy_reinforced>'
+    texture: mek:item/alloy_reinforced
+    settings:
+      tags:
+        - mek:alloys/reinforced
+  mek:basic_control_circuit:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.basic_control_circuit>'
+    texture: mek:item/basic_control_circuit
+    settings:
+      tags:
+        - mek:circuits/basic
+  mek:bio_fuel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.bio_fuel>'
+    texture: mek:item/bio_fuel
+    settings:
+      tags:
+        - mek:fuels/bio
+  mek:block_bio_fuel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_bio_fuel>'
+    model: mek:item/block_bio_fuel
+    behavior:
+      type: block_item
+      block: mek:block_bio_fuel
+    settings:
+      fuel_time: 1000
+  mek:block_bronze:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_bronze>'
+    model: mek:item/block_bronze
+    behavior:
+      type: block_item
+      block: mek:block_bronze
+  mek:block_charcoal:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_charcoal>'
+    model: mek:item/block_charcoal
+    behavior:
+      type: block_item
+      block: mek:block_charcoal
+    settings:
+      fuel_time: 16000
+  mek:block_fluorite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_fluorite>'
+    model: mek:item/block_fluorite
+    behavior:
+      type: block_item
+      block: mek:block_fluorite
+  mek:block_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_lead>'
+    model: mek:item/block_lead
+    behavior:
+      type: block_item
+      block: mek:block_lead
+  mek:block_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_osmium>'
+    model: mek:item/block_osmium
+    behavior:
+      type: block_item
+      block: mek:block_osmium
+  mek:block_raw_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_raw_lead>'
+    model: mek:item/block_raw_lead
+    behavior:
+      type: block_item
+      block: mek:block_raw_lead
+  mek:block_raw_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_raw_osmium>'
+    model: mek:item/block_raw_osmium
+    behavior:
+      type: block_item
+      block: mek:block_raw_osmium
+  mek:block_raw_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_raw_tin>'
+    model: mek:item/block_raw_tin
+    behavior:
+      type: block_item
+      block: mek:block_raw_tin
+  mek:block_raw_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_raw_uranium>'
+    model: mek:item/block_raw_uranium
+    behavior:
+      type: block_item
+      block: mek:block_raw_uranium
+  mek:block_refined_glowstone:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_refined_glowstone>'
+    model: mek:item/block_refined_glowstone
+    behavior:
+      type: block_item
+      block: mek:block_refined_glowstone
+  mek:block_refined_obsidian:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_refined_obsidian>'
+    model: mek:item/block_refined_obsidian
+    behavior:
+      type: block_item
+      block: mek:block_refined_obsidian
+  mek:block_salt:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_salt>'
+    model: mek:item/block_salt
+    behavior:
+      type: block_item
+      block: mek:block_salt
+  mek:block_steel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_steel>'
+    model: mek:item/block_steel
+    behavior:
+      type: block_item
+      block: mek:block_steel
+  mek:block_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_tin>'
+    model: mek:item/block_tin
+    behavior:
+      type: block_item
+      block: mek:block_tin
+  mek:block_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.block_uranium>'
+    model: mek:item/block_uranium
+    behavior:
+      type: block_item
+      block: mek:block_uranium
+  mek:configuration_card:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.configuration_card>'
+      max_stack_size: 1
+    texture: mek:item/configuration_card
+  mek:configurator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.configurator>'
+      lore:
+        - '<!i><gray>选面：中央当前面，边条邻面，四角背面'
+        - '<!i><gray>Shift+右键空气：切换配置器功能'
+        - '<!i><gray>右键：配置所选面；旋转模式改变朝向'
+      max_stack_size: 1
+    texture: mek:item/configurator_config
+  mek:crafting_formula:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crafting_formula>'
+    texture: mek:item/crafting_formula
+  mek:deepslate_fluorite_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.deepslate_fluorite_ore>'
+    model: mek:item/deepslate_fluorite_ore
+    behavior:
+      type: block_item
+      block: mek:deepslate_fluorite_ore
+  mek:deepslate_lead_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.deepslate_lead_ore>'
+    model: mek:item/deepslate_lead_ore
+    behavior:
+      type: block_item
+      block: mek:deepslate_lead_ore
+  mek:deepslate_osmium_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.deepslate_osmium_ore>'
+    model: mek:item/deepslate_osmium_ore
+    behavior:
+      type: block_item
+      block: mek:deepslate_osmium_ore
+  mek:deepslate_tin_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.deepslate_tin_ore>'
+    model: mek:item/deepslate_tin_ore
+    behavior:
+      type: block_item
+      block: mek:deepslate_tin_ore
+  mek:deepslate_uranium_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.deepslate_uranium_ore>'
+    model: mek:item/deepslate_uranium_ore
+    behavior:
+      type: block_item
+      block: mek:deepslate_uranium_ore
+  mek:dictionary:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dictionary>'
+      max_stack_size: 1
+    texture: mek:item/dictionary
+  mek:dosimeter:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dosimeter>'
+      max_stack_size: 1
+    texture: mek:item/dosimeter
+  mek:dust_bronze:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_bronze>'
+    texture: mek:item/dust_bronze
+  mek:dust_charcoal:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_charcoal>'
+    texture: mek:item/dust_charcoal
+  mek:dust_coal:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_coal>'
+    texture: mek:item/dust_coal
+  mek:dust_copper:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_copper>'
+    texture: mek:item/dust_copper
+  mek:dust_diamond:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_diamond>'
+    texture: mek:item/dust_diamond
+  mek:dust_emerald:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_emerald>'
+    texture: mek:item/dust_emerald
+  mek:dust_fluorite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_fluorite>'
+    texture: mek:item/dust_fluorite
+  mek:dust_gold:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_gold>'
+    texture: mek:item/dust_gold
+    settings:
+      tags:
+        - mek:dusts/gold
+  mek:dust_iron:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_iron>'
+    texture: mek:item/dust_iron
+    settings:
+      tags:
+        - mek:dusts/iron
+  mek:dust_lapis_lazuli:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_lapis_lazuli>'
+    texture: mek:item/dust_lapis_lazuli
+  mek:dust_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_lead>'
+    texture: mek:item/dust_lead
+  mek:dust_obsidian:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_obsidian>'
+    texture: mek:item/dust_obsidian
+  mek:dust_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_osmium>'
+    texture: mek:item/dust_osmium
+    settings:
+      tags:
+        - mek:dusts/osmium
+  mek:dust_quartz:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_quartz>'
+    texture: mek:item/dust_quartz
+  mek:dust_refined_obsidian:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_refined_obsidian>'
+    texture: mek:item/dust_refined_obsidian
+  mek:dust_steel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_steel>'
+    texture: mek:item/dust_steel
+  mek:dust_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_tin>'
+    texture: mek:item/dust_tin
+  mek:dust_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_uranium>'
+    texture: mek:item/dust_uranium
+  mek:electrolytic_core:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.electrolytic_core>'
+    texture: mek:item/electrolytic_core
+  mek:elite_control_circuit:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.elite_control_circuit>'
+    texture: mek:item/elite_control_circuit
+    settings:
+      tags:
+        - mek:circuits/elite
+  mek:energy_tablet:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.energy_tablet>'
+      max_stack_size: 1
+    texture: mek:item/energy_tablet
+  mek:enriched_carbon:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.enriched_carbon>'
+    texture: mek:item/enriched_carbon
+  mek:enriched_diamond:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.enriched_diamond>'
+    texture: mek:item/enriched_diamond
+  mek:enriched_gold:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.enriched_gold>'
+    texture: mek:item/enriched_gold
+  mek:enriched_iron:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.enriched_iron>'
+    texture: mek:item/enriched_iron
+  mek:enriched_redstone:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.enriched_redstone>'
+    texture: mek:item/enriched_redstone
+  mek:enriched_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.enriched_tin>'
+    texture: mek:item/enriched_tin
+  mek:fluorite_gem:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.fluorite_gem>'
+    texture: mek:item/fluorite_gem
+    settings:
+      tags:
+        - mek:gems/fluorite
+  mek:fluorite_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.fluorite_ore>'
+    model: mek:item/fluorite_ore
+    behavior:
+      type: block_item
+      block: mek:fluorite_ore
+  mek:gauge_dropper:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.gauge_dropper>'
+      max_stack_size: 1
+    texture: mek:item/gauge_dropper
+  mek:geiger_counter:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.geiger_counter>'
+      max_stack_size: 1
+    texture: mek:item/geiger_counter_0
+  mek:ingot_bronze:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_bronze>'
+    texture: mek:item/ingot_bronze
+    settings:
+      tags:
+        - mek:ingots/bronze
+  mek:ingot_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_lead>'
+    texture: mek:item/ingot_lead
+    settings:
+      tags:
+        - mek:ingots/lead
+  mek:ingot_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_osmium>'
+    texture: mek:item/ingot_osmium
+    settings:
+      tags:
+        - mek:ingots/osmium
+  mek:ingot_refined_glowstone:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_refined_glowstone>'
+    texture: mek:item/ingot_refined_glowstone
+    settings:
+      tags:
+        - mek:ingots/refined_glowstone
+  mek:ingot_refined_obsidian:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_refined_obsidian>'
+    texture: mek:item/ingot_refined_obsidian
+    settings:
+      tags:
+        - mek:ingots/refined_obsidian
+  mek:ingot_steel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_steel>'
+    texture: mek:item/ingot_steel
+    settings:
+      tags:
+        - mek:ingots/steel
+  mek:ingot_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_tin>'
+    texture: mek:item/ingot_tin
+    settings:
+      tags:
+        - mek:ingots/tin
+  mek:ingot_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ingot_uranium>'
+    texture: mek:item/ingot_uranium
+    settings:
+      tags:
+        - mek:ingots/uranium
+  mek:lead_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.lead_ore>'
+    model: mek:item/lead_ore
+    behavior:
+      type: block_item
+      block: mek:lead_ore
+  mek:network_reader:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.network_reader>'
+      max_stack_size: 1
+    texture: mek:item/network_reader
+  mek:osmium_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.osmium_ore>'
+    model: mek:item/osmium_ore
+    behavior:
+      type: block_item
+      block: mek:osmium_ore
+  mek:salt:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.salt>'
+    texture: mek:item/salt
+    settings:
+      tags:
+        - mek:dusts/salt
+  mek:sawdust:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.sawdust>'
+    texture: mek:item/sawdust
+  mek:solar_panel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.solar_panel>'
+    texture: mek:item/solar_panel
+  mek:steel_casing:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.steel_casing>'
+    model: mek:item/steel_casing
+  mek:tin_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.tin_ore>'
+    model: mek:item/tin_ore
+    behavior:
+      type: block_item
+      block: mek:tin_ore
+  mek:turbine_blade:
+    material: paper
+    data:
+      item_name: '<!i><white><lang:mek.item.turbine_blade>'
+    texture: mek:item/turbine_blade
+  mek:ultimate_control_circuit:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.ultimate_control_circuit>'
+    texture: mek:item/ultimate_control_circuit
+    settings:
+      tags:
+        - mek:circuits/ultimate
+  mek:upgrade_installer:
+    material: paper
+    data:
+      item_name: '<!i><white><lang:mek.item.upgrade_installer>'
+      max_stack_size: 1
+    texture: mek:item/advanced_tier_installer
+  mek:uranium_ore:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.uranium_ore>'
+    model: mek:item/uranium_ore
+    behavior:
+      type: block_item
+      block: mek:uranium_ore
+  mek:portable_qio_dashboard:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.portable_qio_dashboard>'
+      max_stack_size: 1
+    texture: mek:item/portable_qio_dashboard
+  mek:qio_drive_base:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.qio_drive_base>'
+      max_stack_size: 1
+    texture: mek:item/qio_drive_base
+  mek:qio_drive_hyper_dense:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.qio_drive_hyper_dense>'
+      max_stack_size: 1
+    texture: mek:item/qio_drive_hyper_dense
+  mek:qio_drive_supermassive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.qio_drive_supermassive>'
+      max_stack_size: 1
+    texture: mek:item/qio_drive_supermassive
+  mek:qio_drive_time_dilating:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.qio_drive_time_dilating>'
+      max_stack_size: 1
+    texture: mek:item/qio_drive_time_dilating
+  mek:robit:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.robit>'
+      max_stack_size: 1
+    model: mek:item/robit
+  mek:teleportation_core:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.teleportation_core>'
+    texture: mek:item/teleportation_core
+  mek:hohlraum:
+    material: paper
+    data:
+      item_name: '<!i><white><lang:mek.item.hohlraum>'
+      max_stack_size: 1
+    texture: mek:item/hohlraum
+  mek:clump_copper:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.clump_copper>'
+    texture: mek:item/clump_copper
+  mek:clump_gold:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.clump_gold>'
+    texture: mek:item/clump_gold
+  mek:clump_iron:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.clump_iron>'
+    texture: mek:item/clump_iron
+  mek:clump_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.clump_lead>'
+    texture: mek:item/clump_lead
+  mek:clump_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.clump_osmium>'
+    texture: mek:item/clump_osmium
+  mek:clump_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.clump_tin>'
+    texture: mek:item/clump_tin
+  mek:clump_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.clump_uranium>'
+    texture: mek:item/clump_uranium
+  mek:crystal_copper:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crystal_copper>'
+    texture: mek:item/crystal_copper
+  mek:crystal_gold:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crystal_gold>'
+    texture: mek:item/crystal_gold
+  mek:crystal_iron:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crystal_iron>'
+    texture: mek:item/crystal_iron
+  mek:crystal_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crystal_lead>'
+    texture: mek:item/crystal_lead
+  mek:crystal_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crystal_osmium>'
+    texture: mek:item/crystal_osmium
+  mek:crystal_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crystal_tin>'
+    texture: mek:item/crystal_tin
+  mek:crystal_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.crystal_uranium>'
+    texture: mek:item/crystal_uranium
+  mek:dirty_dust_copper:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_dust_copper>'
+    texture: mek:item/dirty_dust_copper
+  mek:dirty_dust_gold:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_dust_gold>'
+    texture: mek:item/dirty_dust_gold
+  mek:dirty_dust_iron:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_dust_iron>'
+    texture: mek:item/dirty_dust_iron
+  mek:dirty_dust_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_dust_lead>'
+    texture: mek:item/dirty_dust_lead
+  mek:dirty_dust_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_dust_osmium>'
+    texture: mek:item/dirty_dust_osmium
+  mek:dirty_dust_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_dust_tin>'
+    texture: mek:item/dirty_dust_tin
+  mek:dirty_dust_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_dust_uranium>'
+    texture: mek:item/dirty_dust_uranium
+  mek:dirty_netherite_scrap:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dirty_netherite_scrap>'
+    texture: mek:item/dirty_netherite_scrap
+  mek:dust_lithium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_lithium>'
+    texture: mek:item/dust_lithium
+    settings:
+      tags:
+        - mek:dusts/lithium
+  mek:dust_netherite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_netherite>'
+    texture: mek:item/dust_netherite
+  mek:dust_sulfur:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dust_sulfur>'
+    texture: mek:item/dust_sulfur
+  mek:dye_base:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.dye_base>'
+    texture: mek:item/dye_base
+  mek:enriched_refined_obsidian:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.enriched_refined_obsidian>'
+    texture: mek:item/enriched_refined_obsidian
+  mek:hdpe_pellet:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.hdpe_pellet>'
+    texture: mek:item/hdpe_pellet
+  mek:hdpe_rod:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.hdpe_rod>'
+    texture: mek:item/hdpe_rod
+  mek:hdpe_sheet:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.hdpe_sheet>'
+    texture: mek:item/hdpe_sheet
+  mek:hdpe_stick:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.hdpe_stick>'
+    texture: mek:item/hdpe_stick
+  mek:nugget_bronze:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_bronze>'
+    texture: mek:item/nugget_bronze
+    settings:
+      tags:
+        - mek:nuggets/bronze
+  mek:nugget_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_lead>'
+    texture: mek:item/nugget_lead
+    settings:
+      tags:
+        - mek:nuggets/lead
+  mek:nugget_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_osmium>'
+    texture: mek:item/nugget_osmium
+    settings:
+      tags:
+        - mek:nuggets/osmium
+  mek:nugget_refined_glowstone:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_refined_glowstone>'
+    texture: mek:item/nugget_refined_glowstone
+    settings:
+      tags:
+        - mek:nuggets/refined_glowstone
+  mek:nugget_refined_obsidian:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_refined_obsidian>'
+    texture: mek:item/nugget_refined_obsidian
+    settings:
+      tags:
+        - mek:nuggets/refined_obsidian
+  mek:nugget_steel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_steel>'
+    texture: mek:item/nugget_steel
+    settings:
+      tags:
+        - mek:nuggets/steel
+  mek:nugget_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_tin>'
+    texture: mek:item/nugget_tin
+    settings:
+      tags:
+        - mek:nuggets/tin
+  mek:nugget_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.nugget_uranium>'
+    texture: mek:item/nugget_uranium
+    settings:
+      tags:
+        - mek:nuggets/uranium
+  mek:pellet_antimatter:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.pellet_antimatter>'
+    texture: mek:item/pellet_antimatter
+    settings:
+      tags:
+        - mek:pellets/antimatter
+  mek:pellet_plutonium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.pellet_plutonium>'
+    texture: mek:item/pellet_plutonium
+    settings:
+      tags:
+        - mek:pellets/plutonium
+  mek:pellet_polonium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.pellet_polonium>'
+    texture: mek:item/pellet_polonium
+    settings:
+      tags:
+        - mek:pellets/polonium
+  mek:raw_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.raw_lead>'
+    texture: mek:item/raw_lead
+    settings:
+      tags:
+        - mek:raw_materials/lead
+  mek:raw_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.raw_osmium>'
+    texture: mek:item/raw_osmium
+    settings:
+      tags:
+        - mek:raw_materials/osmium
+  mek:raw_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.raw_tin>'
+    texture: mek:item/raw_tin
+    settings:
+      tags:
+        - mek:raw_materials/tin
+  mek:raw_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.raw_uranium>'
+    texture: mek:item/raw_uranium
+    settings:
+      tags:
+        - mek:raw_materials/uranium
+  mek:reprocessed_fissile_fragment:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.reprocessed_fissile_fragment>'
+    texture: mek:item/reprocessed_fissile_fragment
+  mek:shard_copper:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.shard_copper>'
+    texture: mek:item/shard_copper
+  mek:shard_gold:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.shard_gold>'
+    texture: mek:item/shard_gold
+  mek:shard_iron:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.shard_iron>'
+    texture: mek:item/shard_iron
+  mek:shard_lead:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.shard_lead>'
+    texture: mek:item/shard_lead
+  mek:shard_osmium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.shard_osmium>'
+    texture: mek:item/shard_osmium
+  mek:shard_tin:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.shard_tin>'
+    texture: mek:item/shard_tin
+  mek:shard_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.shard_uranium>'
+    texture: mek:item/shard_uranium
+  mek:substrate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.substrate>'
+    texture: mek:item/substrate
+  mek:yellow_cake_uranium:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.yellow_cake_uranium>'
+    texture: mek:item/yellow_cake_uranium

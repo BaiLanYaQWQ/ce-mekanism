@@ -1,0 +1,189 @@
+# 动态储罐（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 main/java/mekanism/common/content/tank/TankValidator.java。
+blocks:
+  mek:dynamic_tank:
+    state:
+      auto_state: note_block
+      model: mek:block/dynamic_tank
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:dynamic_tank
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:dynamic_tank:
+    data:
+      item_name: '<!i><white><lang:mek.structure.dynamic_tank>'
+    model: mek:block/dynamic_tank
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/dynamic_tank
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:dynamic_tank
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:dynamic_valve:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:dynamic_valve
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/dynamic_valve_input
+        output:
+          auto_state: note_block
+          model: mek:block/port_function/dynamic_valve_output
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/dynamic_valve_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/dynamic_valve_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/dynamic_valve_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/dynamic_valve_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:dynamic_valve:
+    data:
+      item_name: '<!i><white><lang:mek.structure.dynamic_valve>'
+    model: mek:block/dynamic_valve
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:dynamic_valve
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/dynamic_valve_input
+            output:
+              auto_state: note_block
+              model: mek:block/port_function/dynamic_valve_output
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/dynamic_valve_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/dynamic_valve_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/dynamic_valve_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/dynamic_valve_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+        behavior:
+          type: cemekanism:multiblock

@@ -1,0 +1,55 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "#sides",
+    "down": "mek:block/purification_chamber/bottom",
+    "up": "mek:block/purification_chamber/top_active",
+    "north": "#front",
+    "east": "mek:block/purification_chamber/left_active",
+    "south": "mek:block/purification_chamber/back_active",
+    "west": "mek:block/purification_chamber/right_active",
+    "sides": "mek:block/purification_chamber/right",
+    "front": "mek:block/purification_chamber/front_active"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up",
+          "rotation": 180
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

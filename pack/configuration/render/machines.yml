@@ -1,0 +1,868 @@
+# 非满机器方块的隐藏渲染物品（不要配方，也不进内容表）。
+# 上游声明 withCustomShape 的方块用透明叶子载体，模型交给 item_display。
+items:
+  mek:render/advanced_chemical_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/advanced_chemical_tank
+  mek:render/advanced_energy_cube:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/advanced_energy_cube
+  mek:render/advanced_fluid_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank
+  mek:render/advanced_fluid_tank_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_inactive
+  mek:render/advanced_fluid_tank_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_active
+  mek:render/antiprotonic_nucleosynthesizer:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/antiprotonic_nucleosynthesizer
+  mek:render/basic_chemical_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/basic_chemical_tank
+  mek:render/basic_energy_cube:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/basic_energy_cube
+  mek:render/basic_fluid_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank
+  mek:render/basic_fluid_tank_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_inactive
+  mek:render/basic_fluid_tank_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_active
+  mek:render/chargepad:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/chargepad
+  mek:render/chemical_crystallizer:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/chemical_crystallizer
+  mek:render/chemical_dissolution_chamber:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/chemical_dissolution_chamber
+  mek:render/chemical_infuser:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/chemical_infuser
+  mek:render/chemical_injection_chamber_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/basic
+  mek:render/chemical_injection_chamber_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/basic_inactive
+  mek:render/chemical_injection_chamber_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/basic_active
+  mek:render/chemical_injection_chamber_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/advanced
+  mek:render/chemical_injection_chamber_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/advanced_inactive
+  mek:render/chemical_injection_chamber_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/advanced_active
+  mek:render/chemical_injection_chamber_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/elite
+  mek:render/chemical_injection_chamber_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/elite_inactive
+  mek:render/chemical_injection_chamber_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/elite_active
+  mek:render/chemical_injection_chamber_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/ultimate
+  mek:render/chemical_injection_chamber_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/ultimate_inactive
+  mek:render/chemical_injection_chamber_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/injecting/ultimate_active
+  mek:render/chemical_oxidizer:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/chemical_oxidizer
+  mek:render/chemical_washer:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/chemical_washer
+  mek:render/combiner_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/basic
+  mek:render/combiner_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/basic_inactive
+  mek:render/combiner_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/basic_active
+  mek:render/combiner_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/advanced
+  mek:render/combiner_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/advanced_inactive
+  mek:render/combiner_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/advanced_active
+  mek:render/combiner_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/elite
+  mek:render/combiner_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/elite_inactive
+  mek:render/combiner_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/elite_active
+  mek:render/combiner_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/ultimate
+  mek:render/combiner_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/ultimate_inactive
+  mek:render/combiner_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/combining/ultimate_active
+  mek:render/crusher_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/basic
+  mek:render/crusher_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/basic_inactive
+  mek:render/crusher_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/basic_active
+  mek:render/crusher_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/advanced
+  mek:render/crusher_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/advanced_inactive
+  mek:render/crusher_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/advanced_active
+  mek:render/crusher_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/elite
+  mek:render/crusher_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/elite_inactive
+  mek:render/crusher_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/elite_active
+  mek:render/crusher_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/ultimate
+  mek:render/crusher_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/ultimate_inactive
+  mek:render/crusher_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/crushing/ultimate_active
+  mek:render/digital_miner:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/digital_miner
+  mek:render/digital_miner_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/digital_miner_inactive
+  mek:render/digital_miner_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/digital_miner_active
+  mek:render/electric_pump:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/electric_pump
+  mek:render/electrolytic_separator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/electrolytic_separator
+  mek:render/elite_chemical_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/elite_chemical_tank
+  mek:render/elite_energy_cube:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/elite_energy_cube
+  mek:render/elite_fluid_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank
+  mek:render/elite_fluid_tank_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_inactive
+  mek:render/elite_fluid_tank_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_active
+  mek:render/energized_smelter_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/basic
+  mek:render/energized_smelter_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/basic_inactive
+  mek:render/energized_smelter_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/basic_active
+  mek:render/energized_smelter_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/advanced
+  mek:render/energized_smelter_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/advanced_inactive
+  mek:render/energized_smelter_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/advanced_active
+  mek:render/energized_smelter_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/elite
+  mek:render/energized_smelter_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/elite_inactive
+  mek:render/energized_smelter_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/elite_active
+  mek:render/energized_smelter_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/ultimate
+  mek:render/energized_smelter_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/ultimate_inactive
+  mek:render/energized_smelter_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/smelting/ultimate_active
+  mek:render/enrichment_chamber_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/basic
+  mek:render/enrichment_chamber_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/basic_inactive
+  mek:render/enrichment_chamber_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/basic_active
+  mek:render/enrichment_chamber_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/advanced
+  mek:render/enrichment_chamber_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/advanced_inactive
+  mek:render/enrichment_chamber_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/advanced_active
+  mek:render/enrichment_chamber_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/elite
+  mek:render/enrichment_chamber_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/elite_inactive
+  mek:render/enrichment_chamber_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/elite_active
+  mek:render/enrichment_chamber_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/ultimate
+  mek:render/enrichment_chamber_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/ultimate_inactive
+  mek:render/enrichment_chamber_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/enriching/ultimate_active
+  mek:render/isotopic_centrifuge:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/isotopic_centrifuge
+  mek:render/laser:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/laser
+  mek:render/laser_amplifier:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/laser_amplifier
+  mek:render/logistical_sorter:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/logistical_sorter
+  mek:render/logistical_sorter_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/logistical_sorter_inactive
+  mek:render/logistical_sorter_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/logistical_sorter_active
+  mek:render/metallurgic_infuser:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/metallurgic_infuser
+  mek:render/metallurgic_infuser_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/basic
+  mek:render/metallurgic_infuser_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/basic_inactive
+  mek:render/metallurgic_infuser_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/basic_active
+  mek:render/metallurgic_infuser_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/advanced
+  mek:render/metallurgic_infuser_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/advanced_inactive
+  mek:render/metallurgic_infuser_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/advanced_active
+  mek:render/metallurgic_infuser_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/elite
+  mek:render/metallurgic_infuser_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/elite_inactive
+  mek:render/metallurgic_infuser_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/elite_active
+  mek:render/metallurgic_infuser_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/ultimate
+  mek:render/metallurgic_infuser_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/ultimate_inactive
+  mek:render/metallurgic_infuser_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/infusing/ultimate_active
+  mek:render/osmium_compressor_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/basic
+  mek:render/osmium_compressor_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/basic_inactive
+  mek:render/osmium_compressor_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/basic_active
+  mek:render/osmium_compressor_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/advanced
+  mek:render/osmium_compressor_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/advanced_inactive
+  mek:render/osmium_compressor_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/advanced_active
+  mek:render/osmium_compressor_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/elite
+  mek:render/osmium_compressor_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/elite_inactive
+  mek:render/osmium_compressor_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/elite_active
+  mek:render/osmium_compressor_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/ultimate
+  mek:render/osmium_compressor_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/ultimate_inactive
+  mek:render/osmium_compressor_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/compressing/ultimate_active
+  mek:render/personal_chest:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/personal_chest
+  mek:render/pigment_mixer:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/pigment_mixer
+  mek:render/pigment_mixer_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/pigment_mixer_inactive
+  mek:render/pigment_mixer_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/pigment_mixer_active
+  mek:render/precision_sawmill_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/basic
+  mek:render/precision_sawmill_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/basic_inactive
+  mek:render/precision_sawmill_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/basic_active
+  mek:render/precision_sawmill_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/advanced
+  mek:render/precision_sawmill_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/advanced_inactive
+  mek:render/precision_sawmill_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/advanced_active
+  mek:render/precision_sawmill_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/elite
+  mek:render/precision_sawmill_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/elite_inactive
+  mek:render/precision_sawmill_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/elite_active
+  mek:render/precision_sawmill_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/ultimate
+  mek:render/precision_sawmill_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/ultimate_inactive
+  mek:render/precision_sawmill_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/sawing/ultimate_active
+  mek:render/pressurized_reaction_chamber:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/pressurized_reaction_chamber
+  mek:render/purification_chamber_factory_basic:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/basic
+  mek:render/purification_chamber_factory_basic_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/basic_inactive
+  mek:render/purification_chamber_factory_basic_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/basic_active
+  mek:render/purification_chamber_factory_advanced:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/advanced
+  mek:render/purification_chamber_factory_advanced_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/advanced_inactive
+  mek:render/purification_chamber_factory_advanced_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/advanced_active
+  mek:render/purification_chamber_factory_elite:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/elite
+  mek:render/purification_chamber_factory_elite_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/elite_inactive
+  mek:render/purification_chamber_factory_elite_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/elite_active
+  mek:render/purification_chamber_factory_ultimate:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/ultimate
+  mek:render/purification_chamber_factory_ultimate_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/ultimate_inactive
+  mek:render/purification_chamber_factory_ultimate_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/factory/purifying/ultimate_active
+  mek:render/qio_dashboard:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_dashboard
+  mek:render/qio_dashboard_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_dashboard_inactive
+  mek:render/qio_dashboard_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_dashboard_active
+  mek:render/qio_drive_array:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_drive_array
+  mek:render/qio_drive_array_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_drive_array_inactive
+  mek:render/qio_drive_array_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_drive_array_active
+  mek:render/qio_exporter:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_exporter
+  mek:render/qio_exporter_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_exporter_inactive
+  mek:render/qio_exporter_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_exporter_active
+  mek:render/qio_importer:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_importer
+  mek:render/qio_importer_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_importer_inactive
+  mek:render/qio_importer_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_importer_active
+  mek:render/qio_redstone_adapter:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/qio_redstone_adapter_unlit
+  mek:render/radioactive_waste_barrel:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/radioactive_waste_barrel
+  mek:render/resistive_heater:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/resistive_heater
+  mek:render/resistive_heater_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/resistive_heater_inactive
+  mek:render/resistive_heater_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/resistive_heater_active
+  mek:render/rotary_condensentrator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/rotary_condensentrator
+  mek:render/solar_neutron_activator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/solar_neutron_activator
+  mek:render/solar_neutron_activator_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/solar_neutron_activator_inactive
+  mek:render/solar_neutron_activator_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/solar_neutron_activator_active
+  mek:render/ultimate_chemical_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/ultimate_chemical_tank
+  mek:render/ultimate_energy_cube:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/ultimate_energy_cube
+  mek:render/ultimate_fluid_tank:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank
+  mek:render/ultimate_fluid_tank_inactive:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_inactive
+  mek:render/ultimate_fluid_tank_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/fluid_tank_active

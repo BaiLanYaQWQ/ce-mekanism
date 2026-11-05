@@ -1,0 +1,24 @@
+name: CeMekanism
+version: '${version}'
+main: net.kuzuanpa.cemekanism.CeMekanismPlugin
+api-version: '1.20'
+author: kuzuanpa
+description: CraftEngine 侧 Mekanism 复刻：核心接线、刻调度与注册自检（内容全在资源包里）
+softdepend:
+  - CraftEngine
+commands:
+  mek:
+    description: 自检：资源包注册、核心登记、调度器
+    usage: /mek selfcheck
+    permission: mek.command
+    permission-message: 你没有 mek.command 权限
+  mekrecipes:
+    description: 浏览原版、CraftEngine、机器与多方块配方
+    usage: /mekrecipes
+    aliases: [mrecipes]
+    permission: mek.recipes
+    permission-message: 你没有 mek.recipes 权限
+permissions:
+  mek.recipes:
+    description: 打开全部配方浏览页
+    default: true

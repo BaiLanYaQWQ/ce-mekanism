@@ -1,0 +1,8 @@
+# Runtime tuning for the B5 digital miner.
+b5:
+  # Candidate blocks inspected per server tick. Values are clamped to 1..4096.
+  miner_scan_budget: 128
+  # Same server-side default as Mekanism GeneralConfig.digitalMiner.silkMultiplier.
+  miner_silk_multiplier: 12
+  # CraftEngine blocks default off because their loot/event lifecycle is owned by the block behavior.
+  miner_custom_blocks: false

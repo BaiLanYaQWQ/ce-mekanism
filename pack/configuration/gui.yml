@@ -1,0 +1,706 @@
+# 由 tools/gui_assets.py 生成，别手改；改布局请改脚本后重跑。
+# 面板四周 3px 透明边；面板 ascent 16，动态条 ascent 0。
+images:
+  mek:gui/panel_advanced_bin:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_advanced_bin.png
+  mek:gui/panel_advanced_chemical_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_advanced_chemical_tank.png
+  mek:gui/panel_advanced_energy_cube:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_advanced_energy_cube.png
+  mek:gui/panel_advanced_fluid_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_advanced_fluid_tank.png
+  mek:gui/panel_advanced_solar_generator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_advanced_solar_generator.png
+  mek:gui/panel_antiprotonic_nucleosynthesizer:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_antiprotonic_nucleosynthesizer.png
+  mek:gui/panel_basic_bin:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_basic_bin.png
+  mek:gui/panel_basic_chemical_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_basic_chemical_tank.png
+  mek:gui/panel_basic_energy_cube:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_basic_energy_cube.png
+  mek:gui/panel_basic_fluid_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_basic_fluid_tank.png
+  mek:gui/panel_bio_generator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_bio_generator.png
+  mek:gui/panel_chargepad:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chargepad.png
+  mek:gui/panel_chemical_crystallizer:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_crystallizer.png
+  mek:gui/panel_chemical_dissolution_chamber:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_dissolution_chamber.png
+  mek:gui/panel_chemical_infuser:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_infuser.png
+  mek:gui/panel_chemical_injection_chamber:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_injection_chamber.png
+  mek:gui/panel_chemical_injection_chamber_factory_advanced:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_injection_chamber_factory_advanced.png
+  mek:gui/panel_chemical_injection_chamber_factory_basic:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_injection_chamber_factory_basic.png
+  mek:gui/panel_chemical_injection_chamber_factory_elite:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_injection_chamber_factory_elite.png
+  mek:gui/panel_chemical_injection_chamber_factory_ultimate:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_injection_chamber_factory_ultimate.png
+  mek:gui/panel_chemical_oxidizer:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_oxidizer.png
+  mek:gui/panel_chemical_washer:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_chemical_washer.png
+  mek:gui/panel_combiner:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_combiner.png
+  mek:gui/panel_combiner_factory_advanced:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_combiner_factory_advanced.png
+  mek:gui/panel_combiner_factory_basic:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_combiner_factory_basic.png
+  mek:gui/panel_combiner_factory_elite:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_combiner_factory_elite.png
+  mek:gui/panel_combiner_factory_ultimate:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_combiner_factory_ultimate.png
+  mek:gui/panel_crusher:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_crusher.png
+  mek:gui/panel_crusher_factory_advanced:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_crusher_factory_advanced.png
+  mek:gui/panel_crusher_factory_basic:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_crusher_factory_basic.png
+  mek:gui/panel_crusher_factory_elite:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_crusher_factory_elite.png
+  mek:gui/panel_crusher_factory_ultimate:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_crusher_factory_ultimate.png
+  mek:gui/panel_digital_miner:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_digital_miner.png
+  mek:gui/panel_electric_pump:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_electric_pump.png
+  mek:gui/panel_electrolytic_separator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_electrolytic_separator.png
+  mek:gui/panel_elite_bin:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_elite_bin.png
+  mek:gui/panel_elite_chemical_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_elite_chemical_tank.png
+  mek:gui/panel_elite_energy_cube:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_elite_energy_cube.png
+  mek:gui/panel_elite_fluid_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_elite_fluid_tank.png
+  mek:gui/panel_energized_smelter:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_energized_smelter.png
+  mek:gui/panel_energized_smelter_factory_advanced:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_energized_smelter_factory_advanced.png
+  mek:gui/panel_energized_smelter_factory_basic:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_energized_smelter_factory_basic.png
+  mek:gui/panel_energized_smelter_factory_elite:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_energized_smelter_factory_elite.png
+  mek:gui/panel_energized_smelter_factory_ultimate:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_energized_smelter_factory_ultimate.png
+  mek:gui/panel_enrichment_chamber:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_enrichment_chamber.png
+  mek:gui/panel_enrichment_chamber_factory_advanced:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_enrichment_chamber_factory_advanced.png
+  mek:gui/panel_enrichment_chamber_factory_basic:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_enrichment_chamber_factory_basic.png
+  mek:gui/panel_enrichment_chamber_factory_elite:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_enrichment_chamber_factory_elite.png
+  mek:gui/panel_enrichment_chamber_factory_ultimate:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_enrichment_chamber_factory_ultimate.png
+  mek:gui/panel_fuelwood_heater:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_fuelwood_heater.png
+  mek:gui/panel_gas_burning_generator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_gas_burning_generator.png
+  mek:gui/panel_heat_generator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_heat_generator.png
+  mek:gui/panel_isotopic_centrifuge:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_isotopic_centrifuge.png
+  mek:gui/panel_laser:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_laser.png
+  mek:gui/panel_laser_amplifier:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_laser_amplifier.png
+  mek:gui/panel_logistical_sorter:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_logistical_sorter.png
+  mek:gui/panel_metallurgic_infuser:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_metallurgic_infuser.png
+  mek:gui/panel_metallurgic_infuser_factory_advanced:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_metallurgic_infuser_factory_advanced.png
+  mek:gui/panel_metallurgic_infuser_factory_basic:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_metallurgic_infuser_factory_basic.png
+  mek:gui/panel_metallurgic_infuser_factory_elite:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_metallurgic_infuser_factory_elite.png
+  mek:gui/panel_metallurgic_infuser_factory_ultimate:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_metallurgic_infuser_factory_ultimate.png
+  mek:gui/panel_osmium_compressor:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_osmium_compressor.png
+  mek:gui/panel_osmium_compressor_factory_advanced:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_osmium_compressor_factory_advanced.png
+  mek:gui/panel_osmium_compressor_factory_basic:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_osmium_compressor_factory_basic.png
+  mek:gui/panel_osmium_compressor_factory_elite:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_osmium_compressor_factory_elite.png
+  mek:gui/panel_osmium_compressor_factory_ultimate:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_osmium_compressor_factory_ultimate.png
+  mek:gui/panel_painting_machine:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_painting_machine.png
+  mek:gui/panel_pigment_extractor:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_pigment_extractor.png
+  mek:gui/panel_pigment_mixer:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_pigment_mixer.png
+  mek:gui/panel_precision_sawmill:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_precision_sawmill.png
+  mek:gui/panel_precision_sawmill_factory_advanced:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_precision_sawmill_factory_advanced.png
+  mek:gui/panel_precision_sawmill_factory_basic:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_precision_sawmill_factory_basic.png
+  mek:gui/panel_precision_sawmill_factory_elite:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_precision_sawmill_factory_elite.png
+  mek:gui/panel_precision_sawmill_factory_ultimate:
+    height: 192
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_precision_sawmill_factory_ultimate.png
+  mek:gui/panel_pressurized_reaction_chamber:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_pressurized_reaction_chamber.png
+  mek:gui/panel_purification_chamber:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_purification_chamber.png
+  mek:gui/panel_purification_chamber_factory_advanced:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_purification_chamber_factory_advanced.png
+  mek:gui/panel_purification_chamber_factory_basic:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_purification_chamber_factory_basic.png
+  mek:gui/panel_purification_chamber_factory_elite:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_purification_chamber_factory_elite.png
+  mek:gui/panel_purification_chamber_factory_ultimate:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_purification_chamber_factory_ultimate.png
+  mek:gui/panel_qio_dashboard:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_qio_dashboard.png
+  mek:gui/panel_qio_drive_array:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_qio_drive_array.png
+  mek:gui/panel_qio_exporter:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_qio_exporter.png
+  mek:gui/panel_qio_importer:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_qio_importer.png
+  mek:gui/panel_qio_redstone_adapter:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_qio_redstone_adapter.png
+  mek:gui/panel_radioactive_waste_barrel:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_radioactive_waste_barrel.png
+  mek:gui/panel_resistive_heater:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_resistive_heater.png
+  mek:gui/panel_rotary_condensentrator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_rotary_condensentrator.png
+  mek:gui/panel_solar_generator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_solar_generator.png
+  mek:gui/panel_solar_neutron_activator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_solar_neutron_activator.png
+  mek:gui/panel_ultimate_bin:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_ultimate_bin.png
+  mek:gui/panel_ultimate_chemical_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_ultimate_chemical_tank.png
+  mek:gui/panel_ultimate_energy_cube:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_ultimate_energy_cube.png
+  mek:gui/panel_ultimate_fluid_tank:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_ultimate_fluid_tank.png
+  mek:gui/panel_wind_generator:
+    height: 174
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_wind_generator.png
+  mek:gui/panel_digital_miner_filters:
+    height: 228
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_digital_miner_filters.png
+  mek:gui/miner_digits:
+    height: 37
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/miner_digits.png
+    grid_size: 1,11
+  mek:gui/panel_mb_thermoelectric_boiler:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_thermoelectric_boiler.png
+  mek:gui/panel_mb_thermoelectric_boiler_stats:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_thermoelectric_boiler_stats.png
+  mek:gui/panel_mb_industrial_turbine:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_industrial_turbine.png
+  mek:gui/panel_mb_industrial_turbine_stats:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_industrial_turbine_stats.png
+  mek:gui/panel_mb_thermal_evaporation_plant:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_thermal_evaporation_plant.png
+  mek:gui/panel_mb_dynamic_tank:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_dynamic_tank.png
+  mek:gui/panel_mb_induction_matrix:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_induction_matrix.png
+  mek:gui/panel_mb_induction_matrix_stats:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_induction_matrix_stats.png
+  mek:gui/panel_mb_fission_reactor:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_fission_reactor.png
+  mek:gui/panel_mb_fission_reactor_stats:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_fission_reactor_stats.png
+  mek:gui/panel_mb_fusion_reactor:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_fusion_reactor.png
+  mek:gui/panel_mb_fusion_reactor_heat:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_fusion_reactor_heat.png
+  mek:gui/panel_mb_fusion_reactor_fuel:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_fusion_reactor_fuel.png
+  mek:gui/panel_mb_fusion_reactor_stats:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_fusion_reactor_stats.png
+  mek:gui/panel_mb_sps:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_sps.png
+  mek:gui/panel_mb_teleporter:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_teleporter.png
+  mek:gui/panel_mb_qio:
+    height: 210
+    ascent: 16
+    font: mek:ui
+    file: mek:font/gui/panel_mb_qio.png
+  mek:gui/miner_scan:
+    height: 51
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/miner_scan.png
+    grid_size: 1,21
+  mek:gui/bar_v:
+    height: 54
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_v.png
+    grid_size: 1,21
+  mek:gui/bar_v_mb:
+    height: 75
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_v_mb.png
+    grid_size: 1,21
+  mek:gui/progress_h:
+    height: 38
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/progress_h.png
+    grid_size: 1,21
+  mek:gui/bar_h_r0:
+    height: 15
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_r0.png
+    grid_size: 1,21
+  mek:gui/bar_h_tank_r0:
+    height: 15
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_tank_r0.png
+    grid_size: 1,21
+  mek:gui/progress_v_r0:
+    height: 21
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/progress_v_r0.png
+    grid_size: 1,21
+  mek:gui/bar_h_r1:
+    height: 33
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_r1.png
+    grid_size: 1,21
+  mek:gui/bar_h_tank_r1:
+    height: 33
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_tank_r1.png
+    grid_size: 1,21
+  mek:gui/progress_v_r1:
+    height: 39
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/progress_v_r1.png
+    grid_size: 1,21
+  mek:gui/bar_h_r2:
+    height: 51
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_r2.png
+    grid_size: 1,21
+  mek:gui/bar_h_tank_r2:
+    height: 51
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_tank_r2.png
+    grid_size: 1,21
+  mek:gui/progress_v_r2:
+    height: 57
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/progress_v_r2.png
+    grid_size: 1,21
+  mek:gui/bar_h_r3:
+    height: 69
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_r3.png
+    grid_size: 1,21
+  mek:gui/bar_h_tank_r3:
+    height: 69
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_tank_r3.png
+    grid_size: 1,21
+  mek:gui/progress_v_r3:
+    height: 75
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/progress_v_r3.png
+    grid_size: 1,21
+  mek:gui/bar_h_r4:
+    height: 87
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_r4.png
+    grid_size: 1,21
+  mek:gui/bar_h_tank_r4:
+    height: 87
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_tank_r4.png
+    grid_size: 1,21
+  mek:gui/progress_v_r4:
+    height: 93
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/progress_v_r4.png
+    grid_size: 1,21
+  mek:gui/bar_h_r5:
+    height: 105
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_r5.png
+    grid_size: 1,21
+  mek:gui/bar_h_tank_r5:
+    height: 105
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/bar_h_tank_r5.png
+    grid_size: 1,21
+  mek:gui/progress_v_r5:
+    height: 111
+    ascent: 0
+    font: mek:ui
+    file: mek:font/gui/progress_v_r5.png
+    grid_size: 1,21

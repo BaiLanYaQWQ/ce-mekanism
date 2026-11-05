@@ -1,0 +1,15 @@
+recipes:
+  mek:upgrade_installer:
+    type: shaped
+    pattern:
+      - ' C '
+      - 'AXA'
+      - ' S '
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+      X: mek:configurator
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:upgrade_installer
+      count: 1

@@ -1,0 +1,43 @@
+# 发电机方块实体的隐藏渲染物品（不要配方，也不进内容表）。
+# 方块用 transparent 清掉载体模型，再由 entity_renderer 的 item_display 画这个模型。
+items:
+  mek:render/advanced_solar_generator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/advanced_solar_generator
+  mek:render/bio_generator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/bio_generator
+  mek:render/gas_burning_generator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/gas_burning_generator
+  mek:render/heat_generator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/heat_generator
+  mek:render/heat_generator_active:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/heat_generator_active
+  mek:render/solar_generator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/solar_generator
+  mek:render/wind_blades:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/wind_generator_blades
+  mek:render/wind_generator:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/wind_generator

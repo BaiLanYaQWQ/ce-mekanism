@@ -1,0 +1,55 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "#sides",
+    "down": "mek:block/precision_sawmill/bottom",
+    "up": "mek:block/precision_sawmill/top",
+    "north": "#front",
+    "east": "mek:block/precision_sawmill/left",
+    "south": "mek:block/precision_sawmill/back",
+    "west": "mek:block/precision_sawmill/right",
+    "sides": "mek:block/precision_sawmill/right",
+    "front": "mek:block/precision_sawmill/front"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up",
+          "rotation": 180
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

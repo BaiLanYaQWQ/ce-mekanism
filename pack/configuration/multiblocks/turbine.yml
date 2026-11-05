@@ -1,0 +1,526 @@
+# 工业蒸汽涡轮（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 generators/java/mekanism/generators/common/content/turbine/TurbineValidator.java。
+blocks:
+  mek:turbine_casing:
+    state:
+      auto_state: note_block
+      model: mek:block/turbine_casing
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:turbine_casing
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:turbine_casing:
+    data:
+      item_name: '<!i><white><lang:mek.structure.turbine_casing>'
+    model: mek:block/turbine_casing
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/turbine_casing
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:turbine_casing
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:turbine_valve:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:turbine_valve
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_valve_input
+        output:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_valve_output
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_valve_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_valve_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_valve_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_valve_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:turbine_valve:
+    data:
+      item_name: '<!i><white><lang:mek.structure.turbine_valve>'
+    model: mek:block/turbine_valve
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:turbine_valve
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_valve_input
+            output:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_valve_output
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_valve_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_valve_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_valve_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_valve_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+        behavior:
+          type: cemekanism:multiblock
+
+blocks:
+  mek:turbine_vent:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:turbine_vent
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_vent_input
+        output:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_vent_output
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_vent_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_vent_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_vent_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/turbine_vent_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+items:
+  mek:turbine_vent:
+    data:
+      item_name: '<!i><white><lang:mek.structure.turbine_vent>'
+    model: mek:block/turbine_vent
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:turbine_vent
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_vent_input
+            output:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_vent_output
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_vent_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_vent_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_vent_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/turbine_vent_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+
+blocks:
+  mek:turbine_rotor:
+    state:
+      auto_state: note_block
+      model: mek:block/turbine_rotor
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:turbine_rotor
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:turbine_rotor:
+    data:
+      item_name: '<!i><white><lang:mek.structure.turbine_rotor>'
+    model: mek:block/turbine_rotor
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/turbine_rotor
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:turbine_rotor
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:rotational_complex:
+    state:
+      auto_state: note_block
+      model: mek:block/rotational_complex
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:rotational_complex
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:rotational_complex:
+    data:
+      item_name: '<!i><white><lang:mek.structure.rotational_complex>'
+    model: mek:block/rotational_complex
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/rotational_complex
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:rotational_complex
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:electromagnetic_coil:
+    state:
+      auto_state: note_block
+      model: mek:block/electromagnetic_coil
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:electromagnetic_coil
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:electromagnetic_coil:
+    data:
+      item_name: '<!i><white><lang:mek.structure.electromagnetic_coil>'
+    model: mek:block/electromagnetic_coil
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/electromagnetic_coil
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:electromagnetic_coil
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:saturating_condenser:
+    state:
+      auto_state: note_block
+      model: mek:block/saturating_condenser
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:saturating_condenser
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:saturating_condenser:
+    data:
+      item_name: '<!i><white><lang:mek.structure.saturating_condenser>'
+    model: mek:block/saturating_condenser
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/saturating_condenser
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:saturating_condenser
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe

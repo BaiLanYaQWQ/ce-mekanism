@@ -1,0 +1,159 @@
+# 通用线缆（mekanism:universal_cable）—— mek.py generate 生成，勿手改。
+# 方块 id ↔ 族 ↔ 级 的映射在 GeneratedContent.TRANSMITTERS；
+# 单态方块（06 第九节的形状选型：不做六向连接属性）。
+items:
+  mek:basic_universal_cable:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.basic_universal_cable>'
+    model: mek:item/transmitter/universal_cable/basic
+    item_model: mek:render/universal_cable_basic_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:basic_universal_cable
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true
+
+  mek:advanced_universal_cable:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.advanced_universal_cable>'
+    model: mek:item/transmitter/universal_cable/advanced
+    item_model: mek:render/universal_cable_advanced_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:advanced_universal_cable
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true
+
+  mek:elite_universal_cable:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.elite_universal_cable>'
+    model: mek:item/transmitter/universal_cable/elite
+    item_model: mek:render/universal_cable_elite_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:elite_universal_cable
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true
+
+  mek:ultimate_universal_cable:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.ultimate_universal_cable>'
+    model: mek:item/transmitter/universal_cable/ultimate
+    item_model: mek:render/universal_cable_ultimate_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:ultimate_universal_cable
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true

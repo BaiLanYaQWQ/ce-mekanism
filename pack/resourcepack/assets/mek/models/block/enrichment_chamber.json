@@ -1,0 +1,55 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "#sides",
+    "down": "mek:block/enrichment_chamber/bottom",
+    "up": "mek:block/enrichment_chamber/top",
+    "north": "#front",
+    "east": "mek:block/enrichment_chamber/left",
+    "south": "mek:block/enrichment_chamber/back",
+    "west": "mek:block/enrichment_chamber/right",
+    "sides": "mek:block/enrichment_chamber/right",
+    "front": "mek:block/enrichment_chamber/front"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up",
+          "rotation": 180
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

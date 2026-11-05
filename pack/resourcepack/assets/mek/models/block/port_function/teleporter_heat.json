@@ -1,0 +1,7 @@
+{
+  "parent": "mek:block/teleporter",
+  "textures": {
+    "all": "mek:block/port_function/teleporter_all_heat",
+    "led": "mek:block/port_function/teleporter_led_heat"
+  }
+}

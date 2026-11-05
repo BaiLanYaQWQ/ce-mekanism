@@ -1,0 +1,43 @@
+# GUI 占位/锚点物品：空槽用面板底色模型遮住原版槽底，条/锚点用空模型。
+items:
+  mek:gui_energy_slot:
+    material: paper
+    model:
+      type: empty
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_tank_slot:
+    material: paper
+    model:
+      type: empty
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_progress_slot:
+    material: paper
+    model:
+      type: empty
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_empty_slot:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_empty_slot
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_tooltip_anchor:
+    material: paper
+    model:
+      type: empty
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false

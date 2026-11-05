@@ -1,0 +1,22 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "mek:item/recipe/badge_fluid"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "mek:item/recipe/fluid_water",
+        "tints": [
+          {
+            "type": "minecraft:custom_model_data",
+            "index": 0,
+            "default": 16777215
+          }
+        ]
+      }
+    ]
+  }
+}

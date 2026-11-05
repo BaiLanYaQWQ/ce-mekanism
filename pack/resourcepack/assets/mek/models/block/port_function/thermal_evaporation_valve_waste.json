@@ -1,0 +1,6 @@
+{
+  "parent": "mek:block/thermal_evaporation_valve",
+  "textures": {
+    "all": "mek:block/port_function/thermal_evaporation_valve_all_waste"
+  }
+}

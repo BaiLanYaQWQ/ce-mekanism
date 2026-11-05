@@ -1,0 +1,27 @@
+# 能量立方的独立核心与六面端口层；核心颜色由等级/储量写入 dyed_color。
+items:
+  mek:render/energy_core:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:block/energy_core
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/energy_cube_port_off:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/energy_cube_port_off
+  mek:render/energy_cube_port_input:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/energy_cube_port_input
+  mek:render/energy_cube_port_output:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white> '
+    model: mek:block/energy_cube_port_output

@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "mek:item/recipe/badge_book"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "mek:block/logistical_sorter"
+      }
+    ]
+  }
+}

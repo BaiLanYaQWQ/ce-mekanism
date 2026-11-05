@@ -1,0 +1,1642 @@
+# 传输元件方块实体渲染用的隐藏模型物品；不要给配方，也不进内容表。
+items:
+  mek:render/universal_cable_basic_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_basic_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/basic
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_advanced_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/advanced
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_elite_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/elite
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/universal_cable_ultimate_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/universal_cable/ultimate
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_basic_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/basic
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_advanced_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/advanced
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_elite_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/elite
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/mechanical_pipe_ultimate_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/mechanical_pipe/ultimate
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_basic_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/basic
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_advanced_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/advanced
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_elite_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/elite
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/pressurized_tube_ultimate_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/pressurized_tube/ultimate
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_basic_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/basic_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_basic_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/basic_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_basic_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/basic_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_basic_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/basic_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_basic_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/basic
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_advanced_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/advanced_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_advanced_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/advanced_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_advanced_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/advanced_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_advanced_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/advanced_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_advanced_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/advanced
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_elite_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/elite_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_elite_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/elite_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_elite_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/elite_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_elite_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/elite_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_elite_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/elite
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_ultimate_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/ultimate_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_ultimate_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/ultimate_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_ultimate_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/ultimate_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_ultimate_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/ultimate_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/logistical_transporter_ultimate_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/logistical_transporter/ultimate
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_basic_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/basic
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_advanced_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/advanced
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_elite_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/elite
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_normal:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_normal
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_normal_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_normal_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_push:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_push
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_push_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_push_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_pull:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_pull
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_pull_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_pull_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_center:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_center
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_center_empty:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate_center_empty
+      tints:
+        - type: minecraft:dye
+          default: 16777215
+  mek:render/thermodynamic_conductor_ultimate_item:
+    material: minecraft:leather_helmet
+    data:
+      item_name: '<!i><white> '
+    model:
+      type: minecraft:model
+      path: mek:item/transmitter/thermodynamic_conductor/ultimate
+      tints:
+        - type: minecraft:dye
+          default: 16777215

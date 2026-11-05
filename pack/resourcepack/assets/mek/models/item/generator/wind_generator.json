@@ -1,0 +1,99 @@
+{
+  "parent": "mek:block/wind_generator",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.4247,
+        0.4247,
+        0.4247
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.2124,
+        0.2124,
+        0.2124
+      ]
+    },
+    "fixed": {
+      "scale": [
+        0.3398,
+        0.3398,
+        0.3398
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.25,
+        0
+      ],
+      "scale": [
+        0.3398,
+        0.3398,
+        0.3398
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.25,
+        0
+      ],
+      "scale": [
+        0.3398,
+        0.3398,
+        0.3398
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.2548,
+        0.2548,
+        0.2548
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.2548,
+        0.2548,
+        0.2548
+      ]
+    }
+  }
+}

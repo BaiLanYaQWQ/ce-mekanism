@@ -1,0 +1,6 @@
+{
+  "parent": "mek:block/turbine_valve",
+  "textures": {
+    "all": "mek:block/port_function/turbine_valve_all_heat"
+  }
+}

@@ -1,0 +1,38 @@
+# 升级组件（六项固定，id 与上限见核心 Upgrades）（mek.py generate 生成）
+items:
+  mek:speed_upgrade:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.speed_upgrade>'
+      max_stack_size: 8
+    texture: mek:item/upgrade/speed
+  mek:energy_upgrade:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.energy_upgrade>'
+      max_stack_size: 8
+    texture: mek:item/upgrade/energy
+  mek:chemical_upgrade:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.chemical_upgrade>'
+      max_stack_size: 8
+    texture: mek:item/upgrade/chemical
+  mek:muffling_upgrade:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.muffling_upgrade>'
+      max_stack_size: 4
+    texture: mek:item/upgrade/muffling
+  mek:filter_upgrade:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.filter_upgrade>'
+      max_stack_size: 1
+    texture: mek:item/upgrade/filter
+  mek:anchor_upgrade:
+    material: minecraft:paper
+    data:
+      item_name: '<!i><white><lang:mek.item.anchor_upgrade>'
+      max_stack_size: 1
+    texture: mek:item/upgrade/anchor

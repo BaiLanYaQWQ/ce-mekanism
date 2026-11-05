@@ -1,0 +1,55 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "#sides",
+    "down": "mek:block/osmium_compressor/bottom",
+    "up": "mek:block/osmium_compressor/top",
+    "north": "#front",
+    "east": "mek:block/osmium_compressor/left",
+    "south": "mek:block/osmium_compressor/back",
+    "west": "mek:block/osmium_compressor/right",
+    "sides": "mek:block/osmium_compressor/right",
+    "front": "mek:block/osmium_compressor/front"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up",
+          "rotation": 180
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

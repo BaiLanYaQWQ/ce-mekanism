@@ -1,0 +1,7 @@
+{
+  "parent": "mek:block/boiler_valve",
+  "textures": {
+    "all": "mek:block/port_function/boiler_valve_all_both",
+    "led": "mek:block/port_function/boiler_valve_led_both"
+  }
+}

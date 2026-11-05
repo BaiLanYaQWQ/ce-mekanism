@@ -1,0 +1,638 @@
+# 上游默认生成参数；仅新生成区块，不执行旧区块补矿。
+placed_features:
+  mek:ore_tin_small:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 4
+      discard_chance_on_air_exposure: 0.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:tin_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_tin_ore
+    placement:
+      - type: minecraft:count
+        count: 14
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            absolute: -20
+          max_inclusive:
+            absolute: 94
+          plateau: 0
+      - type: minecraft:biome
+  mek:ore_tin_large:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 9
+      discard_chance_on_air_exposure: 0.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:tin_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_tin_ore
+    placement:
+      - type: minecraft:count
+        count: 12
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            absolute: -32
+          max_inclusive:
+            absolute: 72
+          plateau: 0
+      - type: minecraft:biome
+  mek:ore_osmium_upper:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 7
+      discard_chance_on_air_exposure: 0.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:osmium_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_osmium_ore
+    placement:
+      - type: minecraft:count
+        count: 65
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            absolute: 72
+          max_inclusive:
+            below_top: -24
+          plateau: 8
+      - type: minecraft:biome
+  mek:ore_osmium_middle:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 9
+      discard_chance_on_air_exposure: 0.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:osmium_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_osmium_ore
+    placement:
+      - type: minecraft:count
+        count: 6
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            absolute: -32
+          max_inclusive:
+            absolute: 56
+          plateau: 0
+      - type: minecraft:biome
+  mek:ore_osmium_small:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 4
+      discard_chance_on_air_exposure: 0.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:osmium_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_osmium_ore
+    placement:
+      - type: minecraft:count
+        count: 8
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:uniform
+          min_inclusive:
+            above_bottom: 0
+          max_inclusive:
+            absolute: 64
+      - type: minecraft:biome
+  mek:ore_uranium_small:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 4
+      discard_chance_on_air_exposure: 0.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:uranium_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_uranium_ore
+    placement:
+      - type: minecraft:count
+        count: 4
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            above_bottom: 0
+          max_inclusive:
+            absolute: 8
+          plateau: 0
+      - type: minecraft:biome
+  mek:ore_uranium_buried:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 9
+      discard_chance_on_air_exposure: 0.75
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:uranium_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_uranium_ore
+    placement:
+      - type: minecraft:count
+        count: 7
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            above_bottom: -24
+          max_inclusive:
+            above_bottom: 56
+          plateau: 16
+      - type: minecraft:biome
+  mek:ore_fluorite_normal:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 5
+      discard_chance_on_air_exposure: 0.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:fluorite_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_fluorite_ore
+    placement:
+      - type: minecraft:count
+        count: 5
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:uniform
+          min_inclusive:
+            above_bottom: 0
+          max_inclusive:
+            absolute: 23
+      - type: minecraft:biome
+  mek:ore_fluorite_buried:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 13
+      discard_chance_on_air_exposure: 1.0
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:fluorite_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_fluorite_ore
+    placement:
+      - type: minecraft:count
+        count: 3
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            above_bottom: 0
+          max_inclusive:
+            absolute: 4
+          plateau: 0
+      - type: minecraft:biome
+  mek:ore_lead_normal:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:ore
+      size: 9
+      discard_chance_on_air_exposure: 0.25
+      targets:
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: 0
+                    max_inclusive: 2031
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:stone_ore_replaceables
+          state:
+            id: mek:lead_ore
+        - target:
+            predicate_type: minecraft:any_of
+            rules:
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:height_match
+                    min_inclusive: -2032
+                    max_inclusive: 8
+              - predicate_type: minecraft:all_of
+                rules:
+                  - predicate_type: minecraft:not
+                    rule:
+                      predicate_type: minecraft:tag_match
+                      tag: minecraft:height_specific_ore_replaceables
+                  - predicate_type: minecraft:tag_match
+                    tag: minecraft:deepslate_ore_replaceables
+          state:
+            id: mek:deepslate_lead_ore
+    placement:
+      - type: minecraft:count
+        count: 8
+      - type: minecraft:in_square
+      - type: minecraft:height_range
+        height:
+          type: minecraft:trapezoid
+          min_inclusive:
+            above_bottom: -24
+          max_inclusive:
+            absolute: 64
+          plateau: 0
+      - type: minecraft:biome
+  mek:salt:
+    dimension_type:
+      - minecraft:overworld
+    feature:
+      type: minecraft:disk
+      state_provider:
+        id: mek:block_salt
+      target:
+        type: minecraft:matching_blocks
+        blocks:
+          - minecraft:dirt
+          - minecraft:clay
+      radius:
+        type: minecraft:uniform
+        min_inclusive: 2
+        max_inclusive: 3
+      half_height: 1
+    placement:
+      - type: minecraft:count
+        count: 2
+      - type: minecraft:in_square
+      - type: minecraft:heightmap
+        heightmap: OCEAN_FLOOR_WG
+      - type: minecraft:block_predicate_filter
+        predicate:
+          type: minecraft:matching_fluids
+          fluids: minecraft:water
+      - type: minecraft:biome

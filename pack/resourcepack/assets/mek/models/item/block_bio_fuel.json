@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "particle": "mek:block/bio_fuel_block_top",
+    "top": "mek:block/bio_fuel_block_top",
+    "bottom": "mek:block/bio_fuel_block_bottom",
+    "side": "mek:block/bio_fuel_block_side"
+  }
+}

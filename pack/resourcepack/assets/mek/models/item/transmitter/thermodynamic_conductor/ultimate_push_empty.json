@@ -1,0 +1,184 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#center",
+    "center": "mek:block/models/multipart/ultimate_thermodynamic_conductor",
+    "side": "mek:block/models/multipart/ultimate_thermodynamic_conductor_vertical",
+    "contents": "mek:mek_liquid/heat",
+    "icon_center": "mek:block/models/multipart/ultimate_thermodynamic_conductor",
+    "icon_side": "mek:block/models/multipart/ultimate_thermodynamic_conductor_vertical"
+  },
+  "elements": [
+    {
+      "from": [
+        11,
+        5,
+        5
+      ],
+      "to": [
+        13,
+        11,
+        11
+      ],
+      "faces": {
+        "up": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        6,
+        6
+      ],
+      "to": [
+        15,
+        10,
+        10
+      ],
+      "faces": {
+        "up": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "from": [
+        15,
+        7,
+        7
+      ],
+      "to": [
+        16,
+        9,
+        9
+      ],
+      "faces": {
+        "up": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "east": {
+          "texture": "#center",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+# 传送器（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 curation。
+blocks:
+  mek:teleporter_frame:
+    state:
+      auto_state: note_block
+      model: mek:block/teleporter_frame
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:teleporter_frame
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:teleporter_frame:
+    data:
+      item_name: '<!i><white><lang:mek.structure.teleporter_frame>'
+    model: mek:block/teleporter_frame
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/teleporter_frame
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:teleporter_frame
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:teleporter:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:teleporter
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/teleporter_input
+        output:
+          auto_state: note_block
+          model: mek:block/port_function/teleporter_output
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/teleporter_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/teleporter_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/teleporter_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/teleporter_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:teleporter:
+    data:
+      item_name: '<!i><white><lang:mek.structure.teleporter>'
+    model: mek:block/teleporter
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:teleporter
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/teleporter_input
+            output:
+              auto_state: note_block
+              model: mek:block/port_function/teleporter_output
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/teleporter_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/teleporter_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/teleporter_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/teleporter_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+        behavior:
+          type: cemekanism:multiblock

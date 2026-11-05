@@ -1,0 +1,6 @@
+{
+  "parent": "mek:block/turbine_vent",
+  "textures": {
+    "all": "mek:block/port_function/turbine_vent_all_coolant"
+  }
+}

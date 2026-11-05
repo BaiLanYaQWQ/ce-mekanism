@@ -1,0 +1,6 @@
+{
+  "parent": "mek:block/fusion_reactor_port",
+  "textures": {
+    "all": "mek:block/port_function/fusion_reactor_port_all_input"
+  }
+}

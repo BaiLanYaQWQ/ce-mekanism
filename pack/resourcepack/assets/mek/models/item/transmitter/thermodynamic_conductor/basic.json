@@ -1,0 +1,393 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#center",
+    "center": "mek:block/models/multipart/basic_thermodynamic_conductor",
+    "side": "mek:block/models/multipart/basic_thermodynamic_conductor_vertical",
+    "contents": "mek:mek_liquid/heat",
+    "icon_center": "mek:block/models/multipart/basic_thermodynamic_conductor",
+    "icon_side": "mek:block/models/multipart/basic_thermodynamic_conductor_vertical"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        5,
+        5
+      ],
+      "to": [
+        11,
+        11,
+        11
+      ],
+      "faces": {
+        "down": {
+          "texture": "#icon_center",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#icon_center",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#icon_center",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#icon_center",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#icon_center",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#icon_center",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "down": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "west": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "east": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        11
+      ],
+      "to": [
+        11,
+        11,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "down": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "west": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "east": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        5,
+        5
+      ],
+      "to": [
+        5,
+        11,
+        11
+      ],
+      "faces": {
+        "up": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "north": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "south": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        5,
+        5
+      ],
+      "to": [
+        16,
+        11,
+        11
+      ],
+      "faces": {
+        "up": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "north": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "south": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        5,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "south": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "west": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "east": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        11,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "south": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "west": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        },
+        "east": {
+          "texture": "#icon_side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ]
+        }
+      }
+    }
+  ]
+}

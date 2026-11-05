@@ -1,0 +1,6 @@
+{
+  "parent": "mek:block/fission_reactor_port",
+  "textures": {
+    "all": "mek:block/port_function/fission_reactor_port_all_both"
+  }
+}

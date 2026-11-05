@@ -1,0 +1,165 @@
+# QIO 输出端口（mekanism:qio_exporter）—— mek.py generate 生成，勿手改。
+# 方块 id ↔ 蓝图 id ↔ 工厂等级的映射在 GeneratedContent.BLOCK_TO_BLUEPRINT。
+items:
+  mek:qio_exporter:
+    data:
+      item_name: '<!i><white><lang:mek.machine.qio_exporter>'
+    model: mek:block/qio_exporter
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:qio_exporter
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+            - minecraft:needs_stone_tool
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: true
+          fluid_state: false
+        behavior:
+          type: cemekanism:machine
+        states:
+          properties:
+            facing:
+              type: 4-direction
+              default: north
+            active:
+              type: boolean
+              default: false
+          appearances:
+            north_off:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_inactive
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,180,0'
+            north_on:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_active
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,180,0'
+            east_off:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_inactive
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,90,0'
+            east_on:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_active
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,90,0'
+            south_off:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_inactive
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,0,0'
+            south_on:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_active
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,0,0'
+            west_off:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_inactive
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,270,0'
+            west_on:
+              auto_state:
+                type: non_tintable_leaves
+                id: transparent
+              transparent: true
+              entity_culling: false
+              entity_renderer:
+                type: item_display
+                item: mek:render/qio_exporter_active
+                display_transform: none
+                scale: 1.0
+                translation: '0,0,0'
+                rotation: '0,270,0'
+          variants:
+            'facing=north,active=false':
+              appearance: north_off
+            'facing=east,active=false':
+              appearance: east_off
+            'facing=south,active=false':
+              appearance: south_off
+            'facing=west,active=false':
+              appearance: west_off
+            'facing=north,active=true':
+              appearance: north_on
+            'facing=east,active=true':
+              appearance: east_on
+            'facing=south,active=true':
+              appearance: south_on
+            'facing=west,active=true':
+              appearance: west_on

@@ -1,0 +1,155 @@
+# 由 tools/gui_assets.py 复制 Mek 原版图标并生成，中文名称由运行时 tooltip 提供。
+items:
+  mek:gui_mb_main:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_main
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_heat:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_heat
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_fuel:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_fuel
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_stats:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_stats
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_structure:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_structure
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_operation:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_operation
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_rate:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_rate
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_on:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_on
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_off:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_off
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_hohlraum:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_hohlraum
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_energy:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_energy
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_fluid:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_fluid
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_chemical:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_chemical
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_laser:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_laser
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_waste:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_waste
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_polonium:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_polonium
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false
+  mek:gui_mb_antimatter:
+    material: paper
+    model:
+      type: minecraft:model
+      path: mek:item/gui_mb_antimatter
+    data:
+      components:
+        minecraft:tooltip_display:
+          hide_tooltip: false

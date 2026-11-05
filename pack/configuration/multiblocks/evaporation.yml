@@ -1,0 +1,268 @@
+# 热力蒸馏塔（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 main/java/mekanism/common/content/evaporation/EvaporationValidator.java。
+blocks:
+  mek:thermal_evaporation_block:
+    state:
+      auto_state: note_block
+      model: mek:block/thermal_evaporation_block
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:thermal_evaporation_block
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:thermal_evaporation_block:
+    data:
+      item_name: '<!i><white><lang:mek.structure.thermal_evaporation_block>'
+    model: mek:block/thermal_evaporation_block
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/thermal_evaporation_block
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:thermal_evaporation_block
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:thermal_evaporation_valve:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:thermal_evaporation_valve
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/thermal_evaporation_valve_input
+        output:
+          auto_state: note_block
+          model: mek:block/port_function/thermal_evaporation_valve_output
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/thermal_evaporation_valve_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/thermal_evaporation_valve_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/thermal_evaporation_valve_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/thermal_evaporation_valve_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+items:
+  mek:thermal_evaporation_valve:
+    data:
+      item_name: '<!i><white><lang:mek.structure.thermal_evaporation_valve>'
+    model: mek:block/thermal_evaporation_valve
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:thermal_evaporation_valve
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/thermal_evaporation_valve_input
+            output:
+              auto_state: note_block
+              model: mek:block/port_function/thermal_evaporation_valve_output
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/thermal_evaporation_valve_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/thermal_evaporation_valve_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/thermal_evaporation_valve_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/thermal_evaporation_valve_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+
+blocks:
+  mek:thermal_evaporation_controller:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:thermal_evaporation_controller
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        off:
+          auto_state: note_block
+          model: mek:block/thermal_evaporation_controller_inactive
+        on:
+          auto_state: note_block
+          model: mek:block/thermal_evaporation_controller_active
+      variants:
+        'active=false':
+          appearance: off
+        'active=true':
+          appearance: on
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:thermal_evaporation_controller:
+    data:
+      item_name: '<!i><white><lang:mek.structure.thermal_evaporation_controller>'
+    model: mek:block/thermal_evaporation_controller
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:thermal_evaporation_controller
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            active:
+              type: boolean
+              default: false
+          appearances:
+            off:
+              auto_state: note_block
+              model: mek:block/thermal_evaporation_controller_inactive
+            on:
+              auto_state: note_block
+              model: mek:block/thermal_evaporation_controller_active
+          variants:
+            'active=false':
+              appearance: off
+            'active=true':
+              appearance: on
+        behavior:
+          type: cemekanism:multiblock

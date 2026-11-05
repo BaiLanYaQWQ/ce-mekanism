@@ -1,0 +1,21 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "mek:item/recipe/badge_tag"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "minecraft:block/dark_oak_leaves",
+        "tints": [
+          {
+            "type": "minecraft:constant",
+            "value": -12012264
+          }
+        ]
+      }
+    ]
+  }
+}

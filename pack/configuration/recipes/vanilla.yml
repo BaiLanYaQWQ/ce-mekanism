@@ -1,0 +1,2658 @@
+# 原版配方（工作台/熔炉）—— mek.py generate 生成。
+# 数据来自上游 datagen 的 data/*/recipe（摆位、数量、标签都按它），
+# 标签成员见 02 第七节的 D5：c: 那类通用标签的成员在 tools/curation.yml 的 tags.common。
+recipes:
+  mek:antiprotonic_nucleosynthesizer:
+    type: shaped
+    pattern:
+      - '#C#'
+      - AXA
+      - '#C#'
+    ingredients:
+      '#': mek:alloy_atomic
+      A: '#mek:pellets/antimatter'
+      C: '#mek:circuits/ultimate'
+      X: mek:steel_casing
+    result:
+      id: mek:antiprotonic_nucleosynthesizer
+      count: 1
+  mek:bin/advanced:
+    type: shaped
+    pattern:
+      - _C_
+      - APA
+      - ___
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/advanced'
+      P: mek:basic_bin
+      _:
+        - minecraft:blackstone
+        - minecraft:cobbled_deepslate
+        - minecraft:cobblestone
+    result:
+      id: mek:advanced_bin
+      count: 1
+  mek:bin/basic:
+    type: shaped
+    pattern:
+      - _C_
+      - 'A A'
+      - ___
+    ingredients:
+      A: minecraft:redstone
+      C: '#mek:circuits/basic'
+      _:
+        - minecraft:blackstone
+        - minecraft:cobbled_deepslate
+        - minecraft:cobblestone
+    result:
+      id: mek:basic_bin
+      count: 1
+  mek:bin/elite:
+    type: shaped
+    pattern:
+      - _C_
+      - APA
+      - ___
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      C: '#mek:circuits/elite'
+      P: mek:advanced_bin
+      _:
+        - minecraft:blackstone
+        - minecraft:cobbled_deepslate
+        - minecraft:cobblestone
+    result:
+      id: mek:elite_bin
+      count: 1
+  mek:bin/ultimate:
+    type: shaped
+    pattern:
+      - _C_
+      - APA
+      - ___
+    ingredients:
+      A: '#mek:alloys/atomic'
+      C: '#mek:circuits/ultimate'
+      P: mek:elite_bin
+      _:
+        - minecraft:blackstone
+        - minecraft:cobbled_deepslate
+        - minecraft:cobblestone
+    result:
+      id: mek:ultimate_bin
+      count: 1
+  mek:bio_fuel:
+    type: shapeless
+    ingredients:
+      - mek:block_bio_fuel
+    result:
+      id: mek:bio_fuel
+      count: 9
+  mek:boiler_casing:
+    type: shaped
+    pattern:
+      - ' S '
+      - SIS
+      - ' S '
+    ingredients:
+      I: minecraft:iron_ingot
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:boiler_casing
+      count: 4
+  mek:boiler_valve:
+    type: shaped
+    pattern:
+      - ' # '
+      - '#C#'
+      - ' # '
+    ingredients:
+      '#': mek:boiler_casing
+      C: '#mek:circuits/advanced'
+    result:
+      id: mek:boiler_valve
+      count: 2
+  mek:chargepad:
+    type: shaped
+    pattern:
+      - '###'
+      - SES
+    ingredients:
+      '#': minecraft:polished_blackstone_pressure_plate
+      E: mek:energy_tablet
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:chargepad
+      count: 1
+  mek:chemical_crystallizer:
+    type: shaped
+    pattern:
+      - IAI
+      - CXC
+      - IAI
+    ingredients:
+      A: '#mek:gems/fluorite'
+      C: '#mek:circuits/ultimate'
+      I: '#mek:ingots/refined_obsidian'
+      X: mek:steel_casing
+    result:
+      id: mek:chemical_crystallizer
+      count: 1
+  mek:chemical_dissolution_chamber:
+    type: shaped
+    pattern:
+      - ITI
+      - CXC
+      - ITI
+    ingredients:
+      C: '#mek:circuits/ultimate'
+      I: '#mek:ingots/refined_obsidian'
+      T: mek:basic_chemical_tank
+      X: mek:steel_casing
+    result:
+      id: mek:chemical_dissolution_chamber
+      count: 1
+  mek:chemical_infuser:
+    type: shaped
+    pattern:
+      - ACA
+      - TXT
+      - ACA
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+      T: mek:basic_chemical_tank
+      X: mek:steel_casing
+    result:
+      id: mek:chemical_infuser
+      count: 1
+  mek:chemical_injection_chamber:
+    type: shaped
+    pattern:
+      - ACA
+      - I#I
+      - ACA
+    ingredients:
+      '#': mek:purification_chamber
+      A: '#mek:alloys/reinforced'
+      C: '#mek:circuits/elite'
+      I: minecraft:gold_ingot
+    result:
+      id: mek:chemical_injection_chamber
+      count: 1
+  mek:chemical_oxidizer:
+    type: shaped
+    pattern:
+      - ACA
+      - P#T
+      - ACA
+    ingredients:
+      '#': mek:dynamic_tank
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+      P:
+        - mek:personal_barrel
+        - mek:personal_chest
+      T: mek:basic_chemical_tank
+    result:
+      id: mek:chemical_oxidizer
+      count: 1
+  mek:chemical_tank/advanced:
+    type: shaped
+    pattern:
+      - AOA
+      - OPO
+      - AOA
+    ingredients:
+      A: '#mek:alloys/infused'
+      O: '#mek:ingots/osmium'
+      P: mek:basic_chemical_tank
+    result:
+      id: mek:advanced_chemical_tank
+      count: 1
+  mek:chemical_tank/basic:
+    type: shaped
+    pattern:
+      - AOA
+      - 'O O'
+      - AOA
+    ingredients:
+      A: minecraft:redstone
+      O: '#mek:ingots/osmium'
+    result:
+      id: mek:basic_chemical_tank
+      count: 1
+  mek:chemical_tank/elite:
+    type: shaped
+    pattern:
+      - AOA
+      - OPO
+      - AOA
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      O: '#mek:ingots/osmium'
+      P: mek:advanced_chemical_tank
+    result:
+      id: mek:elite_chemical_tank
+      count: 1
+  mek:chemical_tank/ultimate:
+    type: shaped
+    pattern:
+      - AOA
+      - OPO
+      - AOA
+    ingredients:
+      A: '#mek:alloys/atomic'
+      O: '#mek:ingots/osmium'
+      P: mek:elite_chemical_tank
+    result:
+      id: mek:ultimate_chemical_tank
+      count: 1
+  mek:chemical_washer:
+    type: shaped
+    pattern:
+      - IBI
+      - CXC
+      - ITI
+    ingredients:
+      B: mek:basic_fluid_tank
+      C: '#mek:circuits/ultimate'
+      I: '#mek:ingots/refined_obsidian'
+      T: mek:basic_chemical_tank
+      X: mek:steel_casing
+    result:
+      id: mek:chemical_washer
+      count: 1
+  mek:combiner:
+    type: shaped
+    pattern:
+      - ACA
+      - _X_
+      - ACA
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      C: '#mek:circuits/elite'
+      X: mek:steel_casing
+      _:
+        - minecraft:blackstone
+        - minecraft:cobbled_deepslate
+        - minecraft:cobblestone
+    result:
+      id: mek:combiner
+      count: 1
+  mek:configuration_card:
+    type: shaped
+    pattern:
+      - ' A '
+      - ACA
+      - ' A '
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+    result:
+      id: mek:configuration_card
+      count: 1
+  mek:configurator:
+    type: shaped
+    pattern:
+      - II
+      - ' A'
+      - ' S'
+    ingredients:
+      A: '#mek:ingots/osmium'
+      I: minecraft:iron_ingot
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:configurator
+      count: 1
+  mek:control_circuit/advanced:
+    type: shaped
+    pattern:
+      - ACA
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+    result:
+      id: mek:advanced_control_circuit
+      count: 1
+  mek:control_circuit/elite:
+    type: shaped
+    pattern:
+      - ACA
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      C: '#mek:circuits/advanced'
+    result:
+      id: mek:elite_control_circuit
+      count: 1
+  mek:control_circuit/ultimate:
+    type: shaped
+    pattern:
+      - ACA
+    ingredients:
+      A: '#mek:alloys/atomic'
+      C: '#mek:circuits/elite'
+    result:
+      id: mek:ultimate_control_circuit
+      count: 1
+  mek:crafting_formula:
+    type: shapeless
+    ingredients:
+      - minecraft:paper
+      - '#mek:circuits/basic'
+    result:
+      id: mek:crafting_formula
+      count: 1
+  mek:dictionary:
+    type: shaped
+    pattern:
+      - C
+      - '#'
+    ingredients:
+      '#': minecraft:book
+      C: '#mek:circuits/basic'
+    result:
+      id: mek:dictionary
+      count: 1
+  mek:digital_miner:
+    type: shaped
+    pattern:
+      - ACA
+      - SRS
+      - TXT
+    ingredients:
+      A: '#mek:alloys/atomic'
+      C: '#mek:circuits/basic'
+      R: mek:robit
+      S: mek:logistical_sorter
+      T: mek:teleportation_core
+      X: mek:steel_casing
+    result:
+      id: mek:digital_miner
+      count: 1
+  mek:dosimeter:
+    type: shaped
+    pattern:
+      - ' I '
+      - IRI
+      - ' I '
+    ingredients:
+      I: '#mek:ingots/lead'
+      R: minecraft:redstone
+    result:
+      id: mek:dosimeter
+      count: 1
+  mek:dynamic_tank:
+    type: shaped
+    pattern:
+      - ' S '
+      - SBS
+      - ' S '
+    ingredients:
+      B: minecraft:bucket
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:dynamic_tank
+      count: 4
+  mek:dynamic_valve:
+    type: shaped
+    pattern:
+      - ' # '
+      - '#C#'
+      - ' # '
+    ingredients:
+      '#': mek:dynamic_tank
+      C: '#mek:circuits/basic'
+    result:
+      id: mek:dynamic_valve
+      count: 2
+  mek:electric_pump:
+    type: shaped
+    pattern:
+      - ' B '
+      - AXA
+      - OOO
+    ingredients:
+      A: '#mek:alloys/infused'
+      B: minecraft:bucket
+      O: '#mek:ingots/osmium'
+      X: mek:steel_casing
+    result:
+      id: mek:electric_pump
+      count: 1
+  mek:electrolytic_core:
+    type: shaped
+    pattern:
+      - AOA
+      - IA#
+      - AOA
+    ingredients:
+      '#': '#mek:dusts/gold'
+      A: '#mek:alloys/infused'
+      I: '#mek:dusts/iron'
+      O: '#mek:dusts/osmium'
+    result:
+      id: mek:electrolytic_core
+      count: 1
+  mek:electrolytic_separator:
+    type: shaped
+    pattern:
+      - IRI
+      - A#A
+      - IRI
+    ingredients:
+      '#': mek:electrolytic_core
+      A: '#mek:alloys/infused'
+      I: minecraft:iron_ingot
+      R: minecraft:redstone
+    result:
+      id: mek:electrolytic_separator
+      count: 1
+  mek:electromagnetic_coil:
+    type: shaped
+    pattern:
+      - SIS
+      - IEI
+      - SIS
+    ingredients:
+      E: mek:energy_tablet
+      I: minecraft:gold_ingot
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:electromagnetic_coil
+      count: 1
+  mek:energized_smelter:
+    type: shaped
+    pattern:
+      - ACA
+      - GXG
+      - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#mek:circuits/basic'
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      X: mek:steel_casing
+    result:
+      id: mek:energized_smelter
+      count: 1
+  mek:energy_cube/advanced:
+    type: shaped
+    pattern:
+      - AEA
+      - IPI
+      - AEA
+    ingredients:
+      A: '#mek:alloys/infused'
+      E: mek:energy_tablet
+      I: '#mek:ingots/osmium'
+      P: mek:basic_energy_cube
+    result:
+      id: mek:advanced_energy_cube
+      count: 1
+  mek:energy_cube/basic:
+    type: shaped
+    pattern:
+      - AEA
+      - IPI
+      - AEA
+    ingredients:
+      A: minecraft:redstone
+      E: mek:energy_tablet
+      I: minecraft:iron_ingot
+      P: mek:steel_casing
+    result:
+      id: mek:basic_energy_cube
+      count: 1
+  mek:energy_cube/elite:
+    type: shaped
+    pattern:
+      - AEA
+      - IPI
+      - AEA
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      E: mek:energy_tablet
+      I: minecraft:gold_ingot
+      P: mek:advanced_energy_cube
+    result:
+      id: mek:elite_energy_cube
+      count: 1
+  mek:energy_cube/ultimate:
+    type: shaped
+    pattern:
+      - AEA
+      - IPI
+      - AEA
+    ingredients:
+      A: '#mek:alloys/atomic'
+      E: mek:energy_tablet
+      I: minecraft:diamond
+      P: mek:elite_energy_cube
+    result:
+      id: mek:ultimate_energy_cube
+      count: 1
+  mek:energy_tablet:
+    type: shaped
+    pattern:
+      - RIR
+      - AIA
+      - RIR
+    ingredients:
+      A: '#mek:alloys/infused'
+      I: minecraft:gold_ingot
+      R: minecraft:redstone
+    result:
+      id: mek:energy_tablet
+      count: 1
+  mek:enrichment_chamber:
+    type: shaped
+    pattern:
+      - ACA
+      - IXI
+      - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#mek:circuits/basic'
+      I: minecraft:iron_ingot
+      X: mek:steel_casing
+    result:
+      id: mek:enrichment_chamber
+      count: 1
+  mek:fission_reactor/casing:
+    type: shaped
+    pattern:
+      - ' I '
+      - IXI
+      - ' I '
+    ingredients:
+      I: '#mek:ingots/lead'
+      X: mek:steel_casing
+    result:
+      id: mek:fission_reactor_casing
+      count: 4
+  mek:fission_reactor/control_rod_assembly:
+    type: shaped
+    pattern:
+      - ICI
+      - SIS
+      - SIS
+    ingredients:
+      C: '#mek:circuits/elite'
+      I: '#mek:ingots/lead'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:control_rod_assembly
+      count: 1
+  mek:fission_reactor/fuel_assembly:
+    type: shaped
+    pattern:
+      - ISI
+      - ITI
+      - ISI
+    ingredients:
+      I: '#mek:ingots/lead'
+      S: '#mek:ingots/steel'
+      T: mek:basic_chemical_tank
+    result:
+      id: mek:fission_fuel_assembly
+      count: 1
+  mek:fission_reactor/logic_adapter:
+    type: shaped
+    pattern:
+      - ' R '
+      - RFR
+      - ' R '
+    ingredients:
+      F: mek:fission_reactor_casing
+      R: minecraft:redstone
+    result:
+      id: mek:fission_reactor_logic_adapter
+      count: 1
+  mek:fission_reactor/port:
+    type: shaped
+    pattern:
+      - ' F '
+      - FCF
+      - ' F '
+    ingredients:
+      C: '#mek:circuits/elite'
+      F: mek:fission_reactor_casing
+    result:
+      id: mek:fission_reactor_port
+      count: 2
+  mek:fluid_tank/advanced:
+    type: shaped
+    pattern:
+      - AIA
+      - IPI
+      - AIA
+    ingredients:
+      A: '#mek:alloys/infused'
+      I: minecraft:iron_ingot
+      P: mek:basic_fluid_tank
+    result:
+      id: mek:advanced_fluid_tank
+      count: 1
+  mek:fluid_tank/basic:
+    type: shaped
+    pattern:
+      - AIA
+      - 'I I'
+      - AIA
+    ingredients:
+      A: minecraft:redstone
+      I: minecraft:iron_ingot
+    result:
+      id: mek:basic_fluid_tank
+      count: 1
+  mek:fluid_tank/elite:
+    type: shaped
+    pattern:
+      - AIA
+      - IPI
+      - AIA
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      I: minecraft:iron_ingot
+      P: mek:advanced_fluid_tank
+    result:
+      id: mek:elite_fluid_tank
+      count: 1
+  mek:fluid_tank/ultimate:
+    type: shaped
+    pattern:
+      - AIA
+      - IPI
+      - AIA
+    ingredients:
+      A: '#mek:alloys/atomic'
+      I: minecraft:iron_ingot
+      P: mek:elite_fluid_tank
+    result:
+      id: mek:ultimate_fluid_tank
+      count: 1
+  mek:fuelwood_heater:
+    type: shaped
+    pattern:
+      - SCS
+      - '#X#'
+      - SSS
+    ingredients:
+      '#':
+        - minecraft:blast_furnace
+        - minecraft:furnace
+        - minecraft:smoker
+      C: '#mek:circuits/basic'
+      S: '#mek:ingots/steel'
+      X: mek:steel_casing
+    result:
+      id: mek:fuelwood_heater
+      count: 1
+  mek:gauge_dropper:
+    type: shaped
+    pattern:
+      - ' O '
+      - 'G G'
+      - GGG
+    ingredients:
+      G:
+        - minecraft:black_stained_glass_pane
+        - minecraft:blue_stained_glass_pane
+        - minecraft:brown_stained_glass_pane
+        - minecraft:cyan_stained_glass_pane
+        - minecraft:glass_pane
+        - minecraft:gray_stained_glass_pane
+        - minecraft:green_stained_glass_pane
+        - minecraft:light_blue_stained_glass_pane
+        - minecraft:light_gray_stained_glass_pane
+        - minecraft:lime_stained_glass_pane
+        - minecraft:magenta_stained_glass_pane
+        - minecraft:orange_stained_glass_pane
+        - minecraft:pink_stained_glass_pane
+        - minecraft:purple_stained_glass_pane
+        - minecraft:red_stained_glass_pane
+        - minecraft:white_stained_glass_pane
+        - minecraft:yellow_stained_glass_pane
+      O: '#mek:ingots/osmium'
+    result:
+      id: mek:gauge_dropper
+      count: 1
+  mek:geiger_counter:
+    type: shaped
+    pattern:
+      - ' I '
+      - ICI
+      - ' I '
+    ingredients:
+      C: '#mek:circuits/basic'
+      I: '#mek:ingots/lead'
+    result:
+      id: mek:geiger_counter
+      count: 1
+  mek:generator/advanced_solar:
+    type: shaped
+    pattern:
+      - PAP
+      - PAP
+      - III
+    ingredients:
+      A: '#mek:alloys/infused'
+      I: minecraft:iron_ingot
+      P: mek:solar_generator
+    result:
+      id: mek:advanced_solar_generator
+      count: 1
+  mek:generator/bio:
+    type: shaped
+    pattern:
+      - RAR
+      - BCB
+      - IAI
+    ingredients:
+      A: '#mek:alloys/infused'
+      B: '#mek:fuels/bio'
+      C: '#mek:circuits/basic'
+      I: minecraft:iron_ingot
+      R: minecraft:redstone
+    result:
+      id: mek:bio_generator
+      count: 1
+  mek:generator/gas_burning:
+    type: shaped
+    pattern:
+      - OAO
+      - XCX
+      - OAO
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: mek:electrolytic_core
+      O: '#mek:ingots/osmium'
+      X: mek:steel_casing
+    result:
+      id: mek:gas_burning_generator
+      count: 1
+  mek:generator/heat:
+    type: shaped
+    pattern:
+      - III
+      - WOW
+      - CFC
+    ingredients:
+      C: minecraft:copper_ingot
+      F:
+        - minecraft:blast_furnace
+        - minecraft:furnace
+        - minecraft:smoker
+      I: minecraft:iron_ingot
+      O: '#mek:ingots/osmium'
+      W: '#minecraft:planks'
+    result:
+      id: mek:heat_generator
+      count: 1
+  mek:generator/solar:
+    type: shaped
+    pattern:
+      - '###'
+      - AIA
+      - OEO
+    ingredients:
+      '#': mek:solar_panel
+      A: '#mek:alloys/infused'
+      E: mek:energy_tablet
+      I: minecraft:iron_ingot
+      O: '#mek:ingots/osmium'
+    result:
+      id: mek:solar_generator
+      count: 1
+  mek:generator/wind:
+    type: shaped
+    pattern:
+      - ' O '
+      - OAO
+      - ECE
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+      E: mek:energy_tablet
+      O: '#mek:ingots/osmium'
+    result:
+      id: mek:wind_generator
+      count: 1
+  mek:induction/casing:
+    type: shaped
+    pattern:
+      - ' S '
+      - SES
+      - ' S '
+    ingredients:
+      E: mek:energy_tablet
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:induction_casing
+      count: 4
+  mek:induction/cell/advanced:
+    type: shaped
+    pattern:
+      - EPE
+      - P#P
+      - EPE
+    ingredients:
+      '#': mek:advanced_energy_cube
+      E: mek:energy_tablet
+      P: mek:basic_induction_cell
+    result:
+      id: mek:advanced_induction_cell
+      count: 1
+  mek:induction/cell/basic:
+    type: shaped
+    pattern:
+      - LEL
+      - E#E
+      - LEL
+    ingredients:
+      '#': mek:basic_energy_cube
+      E: mek:energy_tablet
+      L: '#mek:dusts/lithium'
+    result:
+      id: mek:basic_induction_cell
+      count: 1
+  mek:induction/cell/elite:
+    type: shaped
+    pattern:
+      - EPE
+      - P#P
+      - EPE
+    ingredients:
+      '#': mek:elite_energy_cube
+      E: mek:energy_tablet
+      P: mek:advanced_induction_cell
+    result:
+      id: mek:elite_induction_cell
+      count: 1
+  mek:induction/cell/ultimate:
+    type: shaped
+    pattern:
+      - EPE
+      - P#P
+      - EPE
+    ingredients:
+      '#': mek:ultimate_energy_cube
+      E: mek:energy_tablet
+      P: mek:elite_induction_cell
+    result:
+      id: mek:ultimate_induction_cell
+      count: 1
+  mek:induction/port:
+    type: shaped
+    pattern:
+      - ' # '
+      - '#C#'
+      - ' # '
+    ingredients:
+      '#': mek:induction_casing
+      C: '#mek:circuits/elite'
+    result:
+      id: mek:induction_port
+      count: 2
+  mek:induction/provider/advanced:
+    type: shaped
+    pattern:
+      - CPC
+      - P#P
+      - CPC
+    ingredients:
+      '#': mek:advanced_energy_cube
+      C: '#mek:circuits/advanced'
+      P: mek:basic_induction_provider
+    result:
+      id: mek:advanced_induction_provider
+      count: 1
+  mek:induction/provider/basic:
+    type: shaped
+    pattern:
+      - LCL
+      - C#C
+      - LCL
+    ingredients:
+      '#': mek:basic_energy_cube
+      C: '#mek:circuits/basic'
+      L: '#mek:dusts/lithium'
+    result:
+      id: mek:basic_induction_provider
+      count: 1
+  mek:induction/provider/elite:
+    type: shaped
+    pattern:
+      - CPC
+      - P#P
+      - CPC
+    ingredients:
+      '#': mek:elite_energy_cube
+      C: '#mek:circuits/elite'
+      P: mek:advanced_induction_provider
+    result:
+      id: mek:elite_induction_provider
+      count: 1
+  mek:induction/provider/ultimate:
+    type: shaped
+    pattern:
+      - CPC
+      - P#P
+      - CPC
+    ingredients:
+      '#': mek:ultimate_energy_cube
+      C: '#mek:circuits/ultimate'
+      P: mek:elite_induction_provider
+    result:
+      id: mek:ultimate_induction_provider
+      count: 1
+  mek:isotopic_centrifuge:
+    type: shaped
+    pattern:
+      - III
+      - CTC
+      - III
+    ingredients:
+      C: '#mek:circuits/ultimate'
+      I: '#mek:ingots/lead'
+      T: mek:basic_chemical_tank
+    result:
+      id: mek:isotopic_centrifuge
+      count: 1
+  mek:laser:
+    type: shaped
+    pattern:
+      - 'AE '
+      - AX#
+      - 'AE '
+    ingredients:
+      '#': minecraft:diamond
+      A: '#mek:alloys/reinforced'
+      E: mek:energy_tablet
+      X: mek:steel_casing
+    result:
+      id: mek:laser
+      count: 1
+  mek:laser_amplifier:
+    type: shaped
+    pattern:
+      - SSS
+      - SE#
+      - SSS
+    ingredients:
+      '#': minecraft:diamond
+      E: mek:basic_energy_cube
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:laser_amplifier
+      count: 1
+  mek:laser_focus_matrix:
+    type: shaped
+    pattern:
+      - ' G '
+      - GRG
+      - ' G '
+    ingredients:
+      G: mek:reactor_glass
+      R: minecraft:redstone_block
+    result:
+      id: mek:laser_focus_matrix
+      count: 2
+  mek:logistical_sorter:
+    type: shaped
+    pattern:
+      - I#I
+      - ICI
+      - III
+    ingredients:
+      '#': minecraft:piston
+      C: '#mek:circuits/basic'
+      I: minecraft:iron_ingot
+    result:
+      id: mek:logistical_sorter
+      count: 1
+  mek:metallurgic_infuser:
+    type: shaped
+    pattern:
+      - I#I
+      - ROR
+      - I#I
+    ingredients:
+      '#':
+        - minecraft:blast_furnace
+        - minecraft:furnace
+        - minecraft:smoker
+      I: minecraft:iron_ingot
+      O: '#mek:ingots/osmium'
+      R: minecraft:redstone
+    result:
+      id: mek:metallurgic_infuser
+      count: 1
+  mek:network_reader:
+    type: shaped
+    pattern:
+      - ' G '
+      - AEA
+      - ' S '
+    ingredients:
+      A: '#mek:alloys/infused'
+      E: mek:energy_tablet
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:network_reader
+      count: 1
+  mek:osmium_compressor:
+    type: shaped
+    pattern:
+      - ACA
+      - BXB
+      - ACA
+    ingredients:
+      A: '#mek:alloys/infused'
+      B: minecraft:bucket
+      C: '#mek:circuits/advanced'
+      X: mek:steel_casing
+    result:
+      id: mek:osmium_compressor
+      count: 1
+  mek:painting_machine:
+    type: shaped
+    pattern:
+      - ACA
+      - '#X#'
+      - ACA
+    ingredients:
+      '#': mek:dye_base
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/advanced'
+      X: mek:steel_casing
+    result:
+      id: mek:painting_machine
+      count: 1
+  mek:personal_barrel:
+    type: shaped
+    pattern:
+      - SGS
+      - PCP
+      - SSS
+    ingredients:
+      C: '#mek:circuits/basic'
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      P: minecraft:barrel
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:personal_barrel
+      count: 1
+  mek:personal_chest:
+    type: shaped
+    pattern:
+      - SGS
+      - PCP
+      - SSS
+    ingredients:
+      C: '#mek:circuits/basic'
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      P: minecraft:chest
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:personal_chest
+      count: 1
+  mek:pigment_extractor:
+    type: shaped
+    pattern:
+      - RCR
+      - '#X#'
+      - RCR
+    ingredients:
+      '#': minecraft:flint
+      C: '#mek:circuits/basic'
+      R: minecraft:redstone
+      X: mek:steel_casing
+    result:
+      id: mek:pigment_extractor
+      count: 1
+  mek:pigment_mixer:
+    type: shaped
+    pattern:
+      - ACA
+      - '#X#'
+      - ACA
+    ingredients:
+      '#': mek:hdpe_rod
+      A: '#mek:alloys/reinforced'
+      C: '#mek:circuits/elite'
+      X: mek:steel_casing
+    result:
+      id: mek:pigment_mixer
+      count: 1
+  mek:portable_qio_dashboard:
+    type: shaped
+    pattern:
+      - AAA
+      - A#A
+      - ATA
+    ingredients:
+      '#': mek:qio_dashboard
+      A: '#mek:pellets/polonium'
+      T: mek:teleportation_core
+    result:
+      id: mek:portable_qio_dashboard
+      count: 1
+  mek:precision_sawmill:
+    type: shaped
+    pattern:
+      - ICI
+      - AXA
+      - ICI
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+      I: minecraft:iron_ingot
+      X: mek:steel_casing
+    result:
+      id: mek:precision_sawmill
+      count: 1
+  mek:pressure_disperser:
+    type: shaped
+    pattern:
+      - S#S
+      - '#A#'
+      - S#S
+    ingredients:
+      '#':
+        - minecraft:copper_bars
+        - minecraft:exposed_copper_bars
+        - minecraft:iron_bars
+        - minecraft:oxidized_copper_bars
+        - minecraft:waxed_copper_bars
+        - minecraft:waxed_exposed_copper_bars
+        - minecraft:waxed_oxidized_copper_bars
+        - minecraft:waxed_weathered_copper_bars
+        - minecraft:weathered_copper_bars
+      A: '#mek:alloys/infused'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:pressure_disperser
+      count: 1
+  mek:pressurized_reaction_chamber:
+    type: shaped
+    pattern:
+      - SAS
+      - CPC
+      - T#T
+    ingredients:
+      '#': mek:dynamic_tank
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/basic'
+      P: mek:enrichment_chamber
+      S: '#mek:ingots/steel'
+      T: mek:basic_chemical_tank
+    result:
+      id: mek:pressurized_reaction_chamber
+      count: 1
+  mek:processing/bronze/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_bronze
+    result:
+      id: mek:ingot_bronze
+      count: 9
+  mek:processing/bronze/ingot/from_dust_blasting:
+    type: blasting
+    ingredient: mek:dust_bronze
+    result:
+      id: mek:ingot_bronze
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/bronze/ingot/from_dust_smelting:
+    type: smelting
+    ingredient: mek:dust_bronze
+    result:
+      id: mek:ingot_bronze
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/bronze/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/bronze'
+      P: mek:nugget_bronze
+    result:
+      id: mek:ingot_bronze
+      count: 1
+  mek:processing/fluorite/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_fluorite
+    result:
+      id: mek:fluorite_gem
+      count: 9
+  mek:processing/lead/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_lead
+    result:
+      id: mek:ingot_lead
+      count: 9
+  mek:processing/lead/ingot/from_dust_blasting:
+    type: blasting
+    ingredient: mek:dust_lead
+    result:
+      id: mek:ingot_lead
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/lead/ingot/from_dust_smelting:
+    type: smelting
+    ingredient: mek:dust_lead
+    result:
+      id: mek:ingot_lead
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/lead/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/lead'
+      P: mek:nugget_lead
+    result:
+      id: mek:ingot_lead
+      count: 1
+  mek:processing/lead/ingot/from_ore_blasting:
+    type: blasting
+    ingredient:
+      - mek:deepslate_lead_ore
+      - mek:lead_ore
+    result:
+      id: mek:ingot_lead
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/lead/ingot/from_ore_smelting:
+    type: smelting
+    ingredient:
+      - mek:deepslate_lead_ore
+      - mek:lead_ore
+    result:
+      id: mek:ingot_lead
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/lead/ingot/from_raw_blasting:
+    type: blasting
+    ingredient: mek:raw_lead
+    result:
+      id: mek:ingot_lead
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/lead/ingot/from_raw_smelting:
+    type: smelting
+    ingredient: mek:raw_lead
+    result:
+      id: mek:ingot_lead
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/lead/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:raw_materials/lead'
+      P: mek:raw_lead
+    result:
+      id: mek:block_raw_lead
+      count: 1
+  mek:processing/lead/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/lead'
+      P: mek:ingot_lead
+    result:
+      id: mek:block_lead
+      count: 1
+  mek:processing/osmium/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_osmium
+    result:
+      id: mek:ingot_osmium
+      count: 9
+  mek:processing/osmium/ingot/from_dust_blasting:
+    type: blasting
+    ingredient: mek:dust_osmium
+    result:
+      id: mek:ingot_osmium
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/osmium/ingot/from_dust_smelting:
+    type: smelting
+    ingredient: mek:dust_osmium
+    result:
+      id: mek:ingot_osmium
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/osmium/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/osmium'
+      P: mek:nugget_osmium
+    result:
+      id: mek:ingot_osmium
+      count: 1
+  mek:processing/osmium/ingot/from_ore_blasting:
+    type: blasting
+    ingredient:
+      - mek:deepslate_osmium_ore
+      - mek:osmium_ore
+    result:
+      id: mek:ingot_osmium
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/osmium/ingot/from_ore_smelting:
+    type: smelting
+    ingredient:
+      - mek:deepslate_osmium_ore
+      - mek:osmium_ore
+    result:
+      id: mek:ingot_osmium
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/osmium/ingot/from_raw_blasting:
+    type: blasting
+    ingredient: mek:raw_osmium
+    result:
+      id: mek:ingot_osmium
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/osmium/ingot/from_raw_smelting:
+    type: smelting
+    ingredient: mek:raw_osmium
+    result:
+      id: mek:ingot_osmium
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/osmium/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:raw_materials/osmium'
+      P: mek:raw_osmium
+    result:
+      id: mek:block_raw_osmium
+      count: 1
+  mek:processing/osmium/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/osmium'
+      P: mek:ingot_osmium
+    result:
+      id: mek:block_osmium
+      count: 1
+  mek:processing/refined_glowstone/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_refined_glowstone
+    result:
+      id: mek:ingot_refined_glowstone
+      count: 9
+  mek:processing/refined_glowstone/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/refined_glowstone'
+      P: mek:nugget_refined_glowstone
+    result:
+      id: mek:ingot_refined_glowstone
+      count: 1
+  mek:processing/refined_obsidian/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_refined_obsidian
+    result:
+      id: mek:ingot_refined_obsidian
+      count: 9
+  mek:processing/refined_obsidian/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/refined_obsidian'
+      P: mek:nugget_refined_obsidian
+    result:
+      id: mek:ingot_refined_obsidian
+      count: 1
+  mek:processing/steel/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_steel
+    result:
+      id: mek:ingot_steel
+      count: 9
+  mek:processing/steel/ingot/from_dust_blasting:
+    type: blasting
+    ingredient: mek:dust_steel
+    result:
+      id: mek:ingot_steel
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/steel/ingot/from_dust_smelting:
+    type: smelting
+    ingredient: mek:dust_steel
+    result:
+      id: mek:ingot_steel
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/steel/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/steel'
+      P: mek:nugget_steel
+    result:
+      id: mek:ingot_steel
+      count: 1
+  mek:processing/tin/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_tin
+    result:
+      id: mek:ingot_tin
+      count: 9
+  mek:processing/tin/ingot/from_dust_blasting:
+    type: blasting
+    ingredient: mek:dust_tin
+    result:
+      id: mek:ingot_tin
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/tin/ingot/from_dust_smelting:
+    type: smelting
+    ingredient: mek:dust_tin
+    result:
+      id: mek:ingot_tin
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/tin/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/tin'
+      P: mek:nugget_tin
+    result:
+      id: mek:ingot_tin
+      count: 1
+  mek:processing/tin/ingot/from_ore_blasting:
+    type: blasting
+    ingredient:
+      - mek:deepslate_tin_ore
+      - mek:tin_ore
+    result:
+      id: mek:ingot_tin
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/tin/ingot/from_ore_smelting:
+    type: smelting
+    ingredient:
+      - mek:deepslate_tin_ore
+      - mek:tin_ore
+    result:
+      id: mek:ingot_tin
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/tin/ingot/from_raw_blasting:
+    type: blasting
+    ingredient: mek:raw_tin
+    result:
+      id: mek:ingot_tin
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/tin/ingot/from_raw_smelting:
+    type: smelting
+    ingredient: mek:raw_tin
+    result:
+      id: mek:ingot_tin
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/tin/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:raw_materials/tin'
+      P: mek:raw_tin
+    result:
+      id: mek:block_raw_tin
+      count: 1
+  mek:processing/tin/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/tin'
+      P: mek:ingot_tin
+    result:
+      id: mek:block_tin
+      count: 1
+  mek:processing/uranium/ingot/from_block:
+    type: shapeless
+    ingredients:
+      - mek:block_uranium
+    result:
+      id: mek:ingot_uranium
+      count: 9
+  mek:processing/uranium/ingot/from_dust_blasting:
+    type: blasting
+    ingredient: mek:dust_uranium
+    result:
+      id: mek:ingot_uranium
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/uranium/ingot/from_dust_smelting:
+    type: smelting
+    ingredient: mek:dust_uranium
+    result:
+      id: mek:ingot_uranium
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/uranium/ingot/from_nuggets:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:nuggets/uranium'
+      P: mek:nugget_uranium
+    result:
+      id: mek:ingot_uranium
+      count: 1
+  mek:processing/uranium/ingot/from_ore_blasting:
+    type: blasting
+    ingredient:
+      - mek:deepslate_uranium_ore
+      - mek:uranium_ore
+    result:
+      id: mek:ingot_uranium
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/uranium/ingot/from_ore_smelting:
+    type: smelting
+    ingredient:
+      - mek:deepslate_uranium_ore
+      - mek:uranium_ore
+    result:
+      id: mek:ingot_uranium
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/uranium/ingot/from_raw_blasting:
+    type: blasting
+    ingredient: mek:raw_uranium
+    result:
+      id: mek:ingot_uranium
+      count: 1
+    experience: 0.3
+    time: 100
+  mek:processing/uranium/ingot/from_raw_smelting:
+    type: smelting
+    ingredient: mek:raw_uranium
+    result:
+      id: mek:ingot_uranium
+      count: 1
+    experience: 0.3
+    time: 200
+  mek:processing/uranium/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:raw_materials/uranium'
+      P: mek:raw_uranium
+    result:
+      id: mek:block_raw_uranium
+      count: 1
+  mek:processing/uranium/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/uranium'
+      P: mek:ingot_uranium
+    result:
+      id: mek:block_uranium
+      count: 1
+  mek:purification_chamber:
+    type: shaped
+    pattern:
+      - ACA
+      - OPO
+      - ACA
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/advanced'
+      O: '#mek:ingots/osmium'
+      P: mek:enrichment_chamber
+    result:
+      id: mek:purification_chamber
+      count: 1
+  mek:qio_dashboard:
+    type: shaped
+    pattern:
+      - IAI
+      - AGA
+      - ITI
+    ingredients:
+      A: minecraft:ender_pearl
+      G:
+        - minecraft:black_stained_glass_pane
+        - minecraft:blue_stained_glass_pane
+        - minecraft:brown_stained_glass_pane
+        - minecraft:cyan_stained_glass_pane
+        - minecraft:glass_pane
+        - minecraft:gray_stained_glass_pane
+        - minecraft:green_stained_glass_pane
+        - minecraft:light_blue_stained_glass_pane
+        - minecraft:light_gray_stained_glass_pane
+        - minecraft:lime_stained_glass_pane
+        - minecraft:magenta_stained_glass_pane
+        - minecraft:orange_stained_glass_pane
+        - minecraft:pink_stained_glass_pane
+        - minecraft:purple_stained_glass_pane
+        - minecraft:red_stained_glass_pane
+        - minecraft:white_stained_glass_pane
+        - minecraft:yellow_stained_glass_pane
+      I: '#mek:ingots/lead'
+      T: mek:teleportation_core
+    result:
+      id: mek:qio_dashboard
+      count: 1
+  mek:qio_drive_array:
+    type: shaped
+    pattern:
+      - TGT
+      - C#C
+      - TIT
+    ingredients:
+      '#':
+        - mek:personal_barrel
+        - mek:personal_chest
+      C: '#mek:circuits/ultimate'
+      G:
+        - minecraft:black_stained_glass_pane
+        - minecraft:blue_stained_glass_pane
+        - minecraft:brown_stained_glass_pane
+        - minecraft:cyan_stained_glass_pane
+        - minecraft:glass_pane
+        - minecraft:gray_stained_glass_pane
+        - minecraft:green_stained_glass_pane
+        - minecraft:light_blue_stained_glass_pane
+        - minecraft:light_gray_stained_glass_pane
+        - minecraft:lime_stained_glass_pane
+        - minecraft:magenta_stained_glass_pane
+        - minecraft:orange_stained_glass_pane
+        - minecraft:pink_stained_glass_pane
+        - minecraft:purple_stained_glass_pane
+        - minecraft:red_stained_glass_pane
+        - minecraft:white_stained_glass_pane
+        - minecraft:yellow_stained_glass_pane
+      I: minecraft:ender_pearl
+      T: mek:teleportation_core
+    result:
+      id: mek:qio_drive_array
+      count: 1
+  mek:qio_drive_base:
+    type: shaped
+    pattern:
+      - ICI
+      - C#C
+      - ICI
+    ingredients:
+      '#': minecraft:ender_pearl
+      C: mek:ultimate_control_circuit
+      I: '#mek:ingots/lead'
+    result:
+      id: mek:qio_drive_base
+      count: 1
+  mek:qio_drive_hyper_dense:
+    type: shaped
+    pattern:
+      - IPI
+      - P#P
+      - IPI
+    ingredients:
+      '#': mek:teleportation_core
+      I: '#mek:pellets/plutonium'
+      P: mek:qio_drive_base
+    result:
+      id: mek:qio_drive_hyper_dense
+      count: 1
+  mek:qio_drive_supermassive:
+    type: shaped
+    pattern:
+      - IPI
+      - P#P
+      - IPI
+    ingredients:
+      '#': '#mek:pellets/antimatter'
+      I: '#mek:pellets/polonium'
+      P: mek:qio_drive_time_dilating
+    result:
+      id: mek:qio_drive_supermassive
+      count: 1
+  mek:qio_drive_time_dilating:
+    type: shaped
+    pattern:
+      - IPI
+      - P#P
+      - IPI
+    ingredients:
+      '#': '#mek:pellets/polonium'
+      I: '#mek:pellets/plutonium'
+      P: mek:qio_drive_hyper_dense
+    result:
+      id: mek:qio_drive_time_dilating
+      count: 1
+  mek:qio_exporter:
+    type: shaped
+    pattern:
+      - ITI
+      - ACA
+      - ' # '
+    ingredients:
+      '#': minecraft:piston
+      A: minecraft:ender_pearl
+      C: '#mek:circuits/ultimate'
+      I: '#mek:ingots/lead'
+      T: mek:teleportation_core
+    result:
+      id: mek:qio_exporter
+      count: 1
+  mek:qio_importer:
+    type: shaped
+    pattern:
+      - ITI
+      - ACA
+      - ' # '
+    ingredients:
+      '#': minecraft:sticky_piston
+      A: minecraft:ender_pearl
+      C: '#mek:circuits/ultimate'
+      I: '#mek:ingots/lead'
+      T: mek:teleportation_core
+    result:
+      id: mek:qio_importer
+      count: 1
+  mek:qio_redstone_adapter:
+    type: shaped
+    pattern:
+      - IWI
+      - CRC
+      - ITI
+    ingredients:
+      C: '#mek:circuits/ultimate'
+      I: minecraft:ender_pearl
+      R: minecraft:redstone
+      T: mek:teleportation_core
+      W: minecraft:redstone_torch
+    result:
+      id: mek:qio_redstone_adapter
+      count: 1
+  mek:radioactive_waste_barrel:
+    type: shaped
+    pattern:
+      - SIS
+      - 'I I'
+      - SIS
+    ingredients:
+      I: '#mek:ingots/lead'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:radioactive_waste_barrel
+      count: 1
+  mek:reactor/controller:
+    type: shaped
+    pattern:
+      - CGC
+      - FTF
+      - FFF
+    ingredients:
+      C: '#mek:circuits/ultimate'
+      F: mek:fusion_reactor_frame
+      G:
+        - minecraft:black_stained_glass_pane
+        - minecraft:blue_stained_glass_pane
+        - minecraft:brown_stained_glass_pane
+        - minecraft:cyan_stained_glass_pane
+        - minecraft:glass_pane
+        - minecraft:gray_stained_glass_pane
+        - minecraft:green_stained_glass_pane
+        - minecraft:light_blue_stained_glass_pane
+        - minecraft:light_gray_stained_glass_pane
+        - minecraft:lime_stained_glass_pane
+        - minecraft:magenta_stained_glass_pane
+        - minecraft:orange_stained_glass_pane
+        - minecraft:pink_stained_glass_pane
+        - minecraft:purple_stained_glass_pane
+        - minecraft:red_stained_glass_pane
+        - minecraft:white_stained_glass_pane
+        - minecraft:yellow_stained_glass_pane
+      T: mek:basic_chemical_tank
+    result:
+      id: mek:fusion_reactor_controller
+      count: 1
+  mek:reactor/frame:
+    type: shaped
+    pattern:
+      - A#A
+      - '#X#'
+      - A#A
+    ingredients:
+      '#': '#mek:pellets/polonium'
+      A: '#mek:alloys/ultimate'
+      X: mek:steel_casing
+    result:
+      id: mek:fusion_reactor_frame
+      count: 4
+  mek:reactor/glass:
+    type: shaped
+    pattern:
+      - SIS
+      - IGI
+      - SIS
+    ingredients:
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      I: '#mek:ingots/lead'
+      S: mek:enriched_iron
+    result:
+      id: mek:reactor_glass
+      count: 4
+  mek:reactor/logic_adapter:
+    type: shaped
+    pattern:
+      - ' R '
+      - RFR
+      - ' R '
+    ingredients:
+      F: mek:fusion_reactor_frame
+      R: minecraft:redstone
+    result:
+      id: mek:fusion_reactor_logic_adapter
+      count: 1
+  mek:reactor/port:
+    type: shaped
+    pattern:
+      - ' F '
+      - FCF
+      - ' F '
+    ingredients:
+      C: '#mek:circuits/ultimate'
+      F: mek:fusion_reactor_frame
+    result:
+      id: mek:fusion_reactor_port
+      count: 2
+  mek:resistive_heater:
+    type: shaped
+    pattern:
+      - IRI
+      - RXR
+      - IEI
+    ingredients:
+      E: mek:energy_tablet
+      I: '#mek:ingots/tin'
+      R: minecraft:redstone
+      X: mek:steel_casing
+    result:
+      id: mek:resistive_heater
+      count: 1
+  mek:robit:
+    type: shaped
+    pattern:
+      - ' S '
+      - EAE
+      - IPI
+    ingredients:
+      A: '#mek:alloys/atomic'
+      E: mek:energy_tablet
+      I: '#mek:ingots/refined_obsidian'
+      P:
+        - mek:personal_barrel
+        - mek:personal_chest
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:robit
+      count: 1
+  mek:rotary_condensentrator:
+    type: shaped
+    pattern:
+      - GCG
+      - TE#
+      - GCG
+    ingredients:
+      '#': mek:basic_fluid_tank
+      C: '#mek:circuits/basic'
+      E: mek:energy_tablet
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      T: mek:basic_chemical_tank
+    result:
+      id: mek:rotary_condensentrator
+      count: 1
+  mek:rotational_complex:
+    type: shaped
+    pattern:
+      - SAS
+      - CAC
+      - SAS
+    ingredients:
+      A: '#mek:alloys/infused'
+      C: '#mek:circuits/advanced'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:rotational_complex
+      count: 1
+  mek:saturating_condenser:
+    type: shaped
+    pattern:
+      - SIS
+      - IBI
+      - SIS
+    ingredients:
+      B: minecraft:bucket
+      I: '#mek:ingots/tin'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:saturating_condenser
+      count: 1
+  mek:solar_neutron_activator:
+    type: shaped
+    pattern:
+      - A#A
+      - CXC
+      - III
+    ingredients:
+      '#': mek:hdpe_sheet
+      A: '#mek:alloys/reinforced'
+      C: '#mek:circuits/elite'
+      I: '#mek:ingots/bronze'
+      X: mek:steel_casing
+    result:
+      id: mek:solar_neutron_activator
+      count: 1
+  mek:solar_panel:
+    type: shaped
+    pattern:
+      - GGG
+      - RAR
+      - OOO
+    ingredients:
+      A: '#mek:alloys/infused'
+      G:
+        - minecraft:black_stained_glass_pane
+        - minecraft:blue_stained_glass_pane
+        - minecraft:brown_stained_glass_pane
+        - minecraft:cyan_stained_glass_pane
+        - minecraft:glass_pane
+        - minecraft:gray_stained_glass_pane
+        - minecraft:green_stained_glass_pane
+        - minecraft:light_blue_stained_glass_pane
+        - minecraft:light_gray_stained_glass_pane
+        - minecraft:lime_stained_glass_pane
+        - minecraft:magenta_stained_glass_pane
+        - minecraft:orange_stained_glass_pane
+        - minecraft:pink_stained_glass_pane
+        - minecraft:purple_stained_glass_pane
+        - minecraft:red_stained_glass_pane
+        - minecraft:white_stained_glass_pane
+        - minecraft:yellow_stained_glass_pane
+      O: '#mek:ingots/osmium'
+      R: minecraft:redstone
+    result:
+      id: mek:solar_panel
+      count: 1
+  mek:sps_casing:
+    type: shaped
+    pattern:
+      - PAP
+      - A#A
+      - PAP
+    ingredients:
+      '#': '#mek:pellets/plutonium'
+      A: '#mek:pellets/polonium'
+      P: mek:hdpe_sheet
+    result:
+      id: mek:sps_casing
+      count: 1
+  mek:sps_port:
+    type: shaped
+    pattern:
+      - ' # '
+      - '#C#'
+      - ' # '
+    ingredients:
+      '#': mek:sps_casing
+      C: '#mek:circuits/ultimate'
+    result:
+      id: mek:sps_port
+      count: 1
+  mek:steel_casing:
+    type: shaped
+    pattern:
+      - SGS
+      - GOG
+      - SGS
+    ingredients:
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      O: '#mek:ingots/osmium'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:steel_casing
+      count: 1
+  mek:storage_blocks/bio_fuel:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:fuels/bio'
+      P: mek:bio_fuel
+    result:
+      id: mek:block_bio_fuel
+      count: 1
+  mek:storage_blocks/bronze:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/bronze'
+      P: mek:ingot_bronze
+    result:
+      id: mek:block_bronze
+      count: 1
+  mek:storage_blocks/charcoal:
+    type: shaped
+    pattern:
+      - '###'
+      - '###'
+      - '###'
+    ingredients:
+      '#': minecraft:charcoal
+    result:
+      id: mek:block_charcoal
+      count: 1
+  mek:storage_blocks/fluorite:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:gems/fluorite'
+      P: mek:fluorite_gem
+    result:
+      id: mek:block_fluorite
+      count: 1
+  mek:storage_blocks/refined_glowstone:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/refined_glowstone'
+      P: mek:ingot_refined_glowstone
+    result:
+      id: mek:block_refined_glowstone
+      count: 1
+  mek:storage_blocks/refined_obsidian:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/refined_obsidian'
+      P: mek:ingot_refined_obsidian
+    result:
+      id: mek:block_refined_obsidian
+      count: 1
+  mek:storage_blocks/salt:
+    type: shaped
+    pattern:
+      - '##'
+      - '##'
+    ingredients:
+      '#': '#mek:dusts/salt'
+    result:
+      id: mek:block_salt
+      count: 1
+  mek:storage_blocks/steel:
+    type: shaped
+    pattern:
+      - '###'
+      - '#P#'
+      - '###'
+    ingredients:
+      '#': '#mek:ingots/steel'
+      P: mek:ingot_steel
+    result:
+      id: mek:block_steel
+      count: 1
+  mek:structural_glass:
+    type: shaped
+    pattern:
+      - ' S '
+      - SGS
+      - ' S '
+    ingredients:
+      G:
+        - minecraft:glass
+        - minecraft:glass_pane
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:structural_glass
+      count: 4
+  mek:supercharged_coil:
+    type: shaped
+    pattern:
+      - III
+      - C#C
+      - AAA
+    ingredients:
+      '#': mek:laser
+      A: '#mek:pellets/polonium'
+      C: '#mek:circuits/ultimate'
+      I: minecraft:copper_ingot
+    result:
+      id: mek:supercharged_coil
+      count: 1
+  mek:superheating_element:
+    type: shaped
+    pattern:
+      - AIA
+      - IXI
+      - AIA
+    ingredients:
+      A: minecraft:redstone
+      I: minecraft:copper_chain
+      X: mek:steel_casing
+    result:
+      id: mek:superheating_element
+      count: 1
+  mek:teleportation_core:
+    type: shaped
+    pattern:
+      - '#A#'
+      - IDI
+      - '#A#'
+    ingredients:
+      '#': minecraft:ender_pearl
+      A: '#mek:alloys/atomic'
+      D: minecraft:diamond
+      I: minecraft:gold_ingot
+    result:
+      id: mek:teleportation_core
+      count: 1
+  mek:teleporter:
+    type: shaped
+    pattern:
+      - CXC
+      - XTX
+      - CXC
+    ingredients:
+      C: '#mek:circuits/basic'
+      T: mek:teleportation_core
+      X: mek:steel_casing
+    result:
+      id: mek:teleporter
+      count: 1
+  mek:teleporter_frame:
+    type: shaped
+    pattern:
+      - III
+      - IGI
+      - III
+    ingredients:
+      G: '#mek:ingots/refined_glowstone'
+      I: '#mek:ingots/refined_obsidian'
+    result:
+      id: mek:teleporter_frame
+      count: 9
+  mek:thermal_evaporation/block:
+    type: shaped
+    pattern:
+      - ' S '
+      - SIS
+      - ' S '
+    ingredients:
+      I: minecraft:copper_ingot
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:thermal_evaporation_block
+      count: 4
+  mek:thermal_evaporation/controller:
+    type: shaped
+    pattern:
+      - CGC
+      - '#B#'
+      - '###'
+    ingredients:
+      '#': mek:thermal_evaporation_block
+      B: minecraft:bucket
+      C: '#mek:circuits/advanced'
+      G:
+        - minecraft:black_stained_glass_pane
+        - minecraft:blue_stained_glass_pane
+        - minecraft:brown_stained_glass_pane
+        - minecraft:cyan_stained_glass_pane
+        - minecraft:glass_pane
+        - minecraft:gray_stained_glass_pane
+        - minecraft:green_stained_glass_pane
+        - minecraft:light_blue_stained_glass_pane
+        - minecraft:light_gray_stained_glass_pane
+        - minecraft:lime_stained_glass_pane
+        - minecraft:magenta_stained_glass_pane
+        - minecraft:orange_stained_glass_pane
+        - minecraft:pink_stained_glass_pane
+        - minecraft:purple_stained_glass_pane
+        - minecraft:red_stained_glass_pane
+        - minecraft:white_stained_glass_pane
+        - minecraft:yellow_stained_glass_pane
+    result:
+      id: mek:thermal_evaporation_controller
+      count: 1
+  mek:thermal_evaporation/valve:
+    type: shaped
+    pattern:
+      - ' # '
+      - '#C#'
+      - ' # '
+    ingredients:
+      '#': mek:thermal_evaporation_block
+      C: '#mek:circuits/advanced'
+    result:
+      id: mek:thermal_evaporation_valve
+      count: 1
+  mek:transmitter/logistical_transporter/advanced:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/infused'
+      P: mek:basic_logistical_transporter
+    result:
+      id: mek:advanced_logistical_transporter
+      count: 8
+  mek:transmitter/logistical_transporter/basic:
+    type: shaped
+    pattern:
+      - S#S
+    ingredients:
+      '#': '#mek:circuits/basic'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:basic_logistical_transporter
+      count: 8
+  mek:transmitter/logistical_transporter/elite:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      P: mek:advanced_logistical_transporter
+    result:
+      id: mek:elite_logistical_transporter
+      count: 8
+  mek:transmitter/logistical_transporter/ultimate:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/atomic'
+      P: mek:elite_logistical_transporter
+    result:
+      id: mek:ultimate_logistical_transporter
+      count: 8
+  mek:transmitter/mechanical_pipe/advanced:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/infused'
+      P: mek:basic_mechanical_pipe
+    result:
+      id: mek:advanced_mechanical_pipe
+      count: 8
+  mek:transmitter/mechanical_pipe/basic:
+    type: shaped
+    pattern:
+      - S#S
+    ingredients:
+      '#': minecraft:bucket
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:basic_mechanical_pipe
+      count: 8
+  mek:transmitter/mechanical_pipe/elite:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      P: mek:advanced_mechanical_pipe
+    result:
+      id: mek:elite_mechanical_pipe
+      count: 8
+  mek:transmitter/mechanical_pipe/ultimate:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/atomic'
+      P: mek:elite_mechanical_pipe
+    result:
+      id: mek:ultimate_mechanical_pipe
+      count: 8
+  mek:transmitter/pressurized_tube/advanced:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/infused'
+      P: mek:basic_pressurized_tube
+    result:
+      id: mek:advanced_pressurized_tube
+      count: 8
+  mek:transmitter/pressurized_tube/basic:
+    type: shaped
+    pattern:
+      - S#S
+    ingredients:
+      '#':
+        - minecraft:glass
+        - minecraft:glass_pane
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:basic_pressurized_tube
+      count: 8
+  mek:transmitter/pressurized_tube/elite:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      P: mek:advanced_pressurized_tube
+    result:
+      id: mek:elite_pressurized_tube
+      count: 8
+  mek:transmitter/pressurized_tube/ultimate:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/atomic'
+      P: mek:elite_pressurized_tube
+    result:
+      id: mek:ultimate_pressurized_tube
+      count: 8
+  mek:transmitter/thermodynamic_conductor/advanced:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/infused'
+      P: mek:basic_thermodynamic_conductor
+    result:
+      id: mek:advanced_thermodynamic_conductor
+      count: 8
+  mek:transmitter/thermodynamic_conductor/basic:
+    type: shaped
+    pattern:
+      - S#S
+    ingredients:
+      '#': minecraft:copper_ingot
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:basic_thermodynamic_conductor
+      count: 8
+  mek:transmitter/thermodynamic_conductor/elite:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      P: mek:advanced_thermodynamic_conductor
+    result:
+      id: mek:elite_thermodynamic_conductor
+      count: 8
+  mek:transmitter/thermodynamic_conductor/ultimate:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/atomic'
+      P: mek:elite_thermodynamic_conductor
+    result:
+      id: mek:ultimate_thermodynamic_conductor
+      count: 8
+  mek:transmitter/universal_cable/advanced:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/infused'
+      P: mek:basic_universal_cable
+    result:
+      id: mek:advanced_universal_cable
+      count: 8
+  mek:transmitter/universal_cable/basic:
+    type: shaped
+    pattern:
+      - S#S
+    ingredients:
+      '#': minecraft:redstone
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:basic_universal_cable
+      count: 8
+  mek:transmitter/universal_cable/elite:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/reinforced'
+      P: mek:advanced_universal_cable
+    result:
+      id: mek:elite_universal_cable
+      count: 8
+  mek:transmitter/universal_cable/ultimate:
+    type: shaped
+    pattern:
+      - PPP
+      - PAP
+      - PPP
+    ingredients:
+      A: '#mek:alloys/atomic'
+      P: mek:elite_universal_cable
+    result:
+      id: mek:ultimate_universal_cable
+      count: 8
+  mek:turbine/blade:
+    type: shaped
+    pattern:
+      - ' S '
+      - SAS
+      - ' S '
+    ingredients:
+      A: '#mek:alloys/infused'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:turbine_blade
+      count: 1
+  mek:turbine/casing:
+    type: shaped
+    pattern:
+      - ' S '
+      - SOS
+      - ' S '
+    ingredients:
+      O: '#mek:ingots/osmium'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:turbine_casing
+      count: 4
+  mek:turbine/rotor:
+    type: shaped
+    pattern:
+      - SAS
+      - SAS
+      - SAS
+    ingredients:
+      A: '#mek:alloys/infused'
+      S: '#mek:ingots/steel'
+    result:
+      id: mek:turbine_rotor
+      count: 1
+  mek:turbine/valve:
+    type: shaped
+    pattern:
+      - ' # '
+      - '#C#'
+      - ' # '
+    ingredients:
+      '#': mek:turbine_casing
+      C: '#mek:circuits/advanced'
+    result:
+      id: mek:turbine_valve
+      count: 2
+  mek:turbine/vent:
+    type: shaped
+    pattern:
+      - ' # '
+      - '#B#'
+      - ' # '
+    ingredients:
+      '#': mek:turbine_casing
+      B:
+        - minecraft:copper_bars
+        - minecraft:exposed_copper_bars
+        - minecraft:iron_bars
+        - minecraft:oxidized_copper_bars
+        - minecraft:waxed_copper_bars
+        - minecraft:waxed_exposed_copper_bars
+        - minecraft:waxed_oxidized_copper_bars
+        - minecraft:waxed_weathered_copper_bars
+        - minecraft:weathered_copper_bars
+    result:
+      id: mek:turbine_vent
+      count: 2

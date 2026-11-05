@@ -1,0 +1,6 @@
+{
+  "parent": "mek:block/dynamic_valve",
+  "textures": {
+    "all": "mek:block/port_function/dynamic_valve_all_coolant"
+  }
+}

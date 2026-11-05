@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mek:item/recipe/badge_tag"
+  },
+  "display": {
+    "gui": {
+      "translation": [
+        0,
+        0,
+        20
+      ]
+    }
+  },
+  "gui_light": "front"
+}

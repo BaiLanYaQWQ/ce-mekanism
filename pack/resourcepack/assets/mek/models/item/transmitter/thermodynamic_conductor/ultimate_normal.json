@@ -1,0 +1,125 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#center",
+    "center": "mek:block/models/multipart/ultimate_thermodynamic_conductor",
+    "side": "mek:block/models/multipart/ultimate_thermodynamic_conductor_vertical",
+    "contents": "mek:mek_liquid/heat",
+    "icon_center": "mek:block/models/multipart/ultimate_thermodynamic_conductor",
+    "icon_side": "mek:block/models/multipart/ultimate_thermodynamic_conductor_vertical"
+  },
+  "elements": [
+    {
+      "from": [
+        11,
+        5,
+        5
+      ],
+      "to": [
+        16,
+        11,
+        11
+      ],
+      "faces": {
+        "up": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "from": [
+        10.5,
+        5.5,
+        5.5
+      ],
+      "to": [
+        16,
+        10.5,
+        10.5
+      ],
+      "faces": {
+        "up": {
+          "texture": "#contents",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90,
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "#contents",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90,
+          "tintindex": 0
+        },
+        "north": {
+          "texture": "#contents",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90,
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#contents",
+          "uv": [
+            0,
+            1.333,
+            16,
+            14.667
+          ],
+          "rotation": 90,
+          "tintindex": 0
+        }
+      }
+    }
+  ]
+}

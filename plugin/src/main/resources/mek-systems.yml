@@ -1,0 +1,341 @@
+# 系统参数（文档 02 第五节）：默认值 = 核心 V10Tables = 随库上游 10.8 的分级表。
+# 插件启动时读这个文件 → V10Tables.load(DataTag)；没写的项落回核心默认。
+# 想用 mcmod 的 v10 初版读数（管道/储罐/涡轮那几条）改这里的数就行。
+# gear/ 段是随身储电物品的数值（充电台充的就是它），取自上游 GearConfig。
+# multiblock/ 段是多方块那几个数（锅炉热导、蒸馏塔倍率、涡轮每线圈叶片数），
+# 默认值 = 上游 MekanismConfig.general 与 GeneratorsConfig 的默认（见 05 第七节）。
+# logistics/ 段是插件侧的三个旋钮（见 06 第十节）：红石刷新间隔、热导线缆热容、
+# 元件碰撞（full = 与客户端 leaves 满方块一致，默认；6px = 仅服务端小管径）。
+# radiation/ 段（07）：半衰期/间隔/距离取自上游 GeneralConfig（0.9995/s → 27719 刻），
+# 伤害与开启容器的倍率是插件侧口径，可按需改。
+# generator/ 与 steam/ 发电平衡固定为原版 1.21.x；来源及调整见 docs/energy-balance.md。
+# generator/ 段（11）：六台单方块发电机的燃烧/采光/风力/燃料表与默认端口；
+# defaults.<family>.sides 用上游 RelativeSide：front = blockstate facing，back = 反向，
+# left = 顺时针 90°，right = 逆时针 90°；改完 /mek reload，再用 /mek debug defaults 重落已放置的机器。
+# 方块模型、碰撞盒是生成期数据（tools/tables/generators.json → 资源包/GeneratedContent）。
+# demo/ 段（09 缺陷收口）：/mek demo 摆一条 机器→物品管道→机器 + 双储罐 的跑通示例；
+# charge_j = -1 表示按线缆容量灌满，起始料/水量/id 都可换。
+# gui/ 段（08 第十四节）：面板/槽位几何在 gui-layout.yml；这里只放运行时旋钮。
+# colors.title 是标题文字色（面板是浅灰 #BEBEBE，默认黑色才看得清）；
+# colors.energy/progress/fluid 只染字形条，不影响皮肤图。改完 /mek reload 生效。
+# title_width/title_detail 只作用于多方块标题；机器窗口标题固定为“机器名[·等级]”。
+gui:
+  refresh_ticks: 5
+  title_width: 158
+  title_detail: auto
+  colors:
+    title: '000000'
+    energy: 3BFB98
+    progress: 7DFFB2
+    fluid: 3F76E4
+  anchor_tooltips: true
+  max_distance: 8.0
+  # 逐方块皮肤/槽位覆盖（按需打开）：
+  # panel_overrides:
+  #   - block: mek:enrichment_chamber
+  #     image: mek:gui/panel_enrichment_chamber
+  # slot_overrides:
+  #   - block: mek:enrichment_chamber
+  #     slot: in#0
+  #     cell: "2,0"
+transmitter:
+  universal_cable/basic:
+    throughput: 8000
+    extract: 8000
+    buffer: 8000
+  universal_cable/advanced:
+    throughput: 128000
+    extract: 128000
+    buffer: 128000
+  universal_cable/elite:
+    throughput: 1024000
+    extract: 1024000
+    buffer: 1024000
+  universal_cable/ultimate:
+    throughput: 8192000
+    extract: 8192000
+    buffer: 8192000
+  mechanical_pipe/basic:
+    throughput: 2000
+    extract: 250
+    buffer: 2000
+  mechanical_pipe/advanced:
+    throughput: 8000
+    extract: 1000
+    buffer: 8000
+  mechanical_pipe/elite:
+    throughput: 32000
+    extract: 8000
+    buffer: 32000
+  mechanical_pipe/ultimate:
+    throughput: 128000
+    extract: 32000
+    buffer: 128000
+  pressurized_tube/basic:
+    throughput: 4000
+    extract: 750
+    buffer: 4000
+  pressurized_tube/advanced:
+    throughput: 16000
+    extract: 2000
+    buffer: 16000
+  pressurized_tube/elite:
+    throughput: 256000
+    extract: 64000
+    buffer: 256000
+  pressurized_tube/ultimate:
+    throughput: 1024000
+    extract: 256000
+    buffer: 1024000
+item_pipe:
+  basic:
+    per_second: 2.0
+    buffer_stacks: 1
+  advanced:
+    per_second: 32.0
+    buffer_stacks: 1
+  elite:
+    per_second: 64.0
+    buffer_stacks: 1
+  ultimate:
+    per_second: 128.0
+    buffer_stacks: 1
+energy_cube:
+  basic:
+    capacity: 4000000
+    rate: 4000
+  advanced:
+    capacity: 16000000
+    rate: 16000
+  elite:
+    capacity: 64000000
+    rate: 64000
+  ultimate:
+    capacity: 256000000
+    rate: 256000
+induction_element:
+  basic:
+    capacity: 8000000000
+    rate: 8000000000
+  advanced:
+    capacity: 64000000000
+    rate: 64000000000
+  elite:
+    capacity: 512000000000
+    rate: 512000000000
+  ultimate:
+    capacity: 4096000000000
+    rate: 4096000000000
+induction_provider:
+  basic:
+    capacity: 256000
+    rate: 256000
+  advanced:
+    capacity: 2048000
+    rate: 2048000
+  elite:
+    capacity: 16384000
+    rate: 16384000
+  ultimate:
+    capacity: 131072000
+    rate: 131072000
+chemical_tank:
+  basic:
+    capacity: 64000
+    rate: 1000
+  advanced:
+    capacity: 256000
+    rate: 16000
+  elite:
+    capacity: 1024000
+    rate: 128000
+  ultimate:
+    capacity: 8192000
+    rate: 512000
+fluid_tank:
+  basic:
+    capacity: 32000
+    rate: 1000
+  advanced:
+    capacity: 64000
+    rate: 4000
+  elite:
+    capacity: 128000
+    rate: 16000
+  ultimate:
+    capacity: 256000
+    rate: 64000
+energy_balance_version: 1
+steam:
+  energy_per_steam_mb: 10.0
+  storage_per_block_j: 16000000
+gear:
+  energy_tablet:
+    max_energy: 1000000
+    charge_rate: 5000
+  gauge_dropper:
+    capacity: 16000
+    transfer_rate: 250
+  energy_items:
+    - mek:energy_tablet
+multiblock:
+  ambient_k: 300.0
+  boiler:
+    base_temperature_k: 373.15
+    water_conductivity: 0.7
+    superheating_transfer: 16000000.0
+    steam_efficiency: 0.2
+    water_enthalpy: 10.0
+    casing_heat_capacity: 0.05
+  evaporation:
+    temp_multiplier: 0.4
+    max_temperature_k: 3000.0
+    max_height: 18
+    heat_capacity_per_layer: 0.1
+  turbine:
+    blades_per_coil: 4
+generator:
+  defaults:
+    heat_generator:
+      sides:
+        energy:
+          - front
+        items:
+          - front
+          - left
+          - back
+          - top
+          - bottom
+    solar_generator:
+      sides:
+        energy:
+          - bottom
+    advanced_solar_generator:
+      sides:
+        energy:
+          - front
+          - bottom
+    wind_generator:
+      sides:
+        energy:
+          - front
+          - bottom
+    bio_generator:
+      sides:
+        energy:
+          - front
+        items:
+          - front
+          - left
+          - back
+          - top
+          - bottom
+    gas_burning_generator:
+      sides:
+        energy:
+          - front
+        items:
+          - front
+          - left
+          - back
+          - top
+          - bottom
+  heat:
+    burn_ticks:
+      minecraft:coal: 1600
+      minecraft:charcoal: 1600
+      minecraft:coal_block: 16000
+      minecraft:lava_bucket: 20000
+      minecraft:blaze_rod: 2400
+      minecraft:stick: 100
+      minecraft:oak_planks: 300
+      minecraft:oak_log: 300
+      minecraft:crafting_table: 300
+      minecraft:wooden_pickaxe: 200
+    default_burn_ticks: 200
+    generation_j: 200
+    lava_per_side_j: 30
+    nether_bonus_j: 100
+    max_output_j: 510
+    lava_per_tick_mb: 10
+  solar:
+    min_sun_points: 5
+    peak_temperature: 0.8
+    temperature_factor: 0.3
+    humidity_factor: 0.3
+    generation_j: 50
+    advanced_generation_j: 300
+  wind:
+    min_y: 24
+    max_y: 320
+    no_wind_dimensions:
+      - minecraft:the_nether
+      - minecraft:the_end
+    generation_min_j: 60
+    generation_max_j: 480
+  bio:
+    fuel_per_item_mb: 64
+    fuel_per_block_mb: 576
+    fuel_item: mek:bio_fuel
+    fuel_block: mek:block_bio_fuel
+    fluid: mek:bioethanol
+    generation_j: 350
+  heater:
+    fuelwood_heat_per_tick_j: 400
+    fuelwood_tick_multiplier: 1
+    resistive_usage_j: 250
+    resistive_efficiency: 0.6
+  gas:
+    tank_capacity_mb: 18000
+    fuels:
+      mek:hydrogen:
+        energy_density: 200
+        max_burn_mb: 256
+        burn_ticks: 1
+      mek:ethene:
+        energy_density: 28200
+        max_burn_mb: 6.4
+        burn_ticks: 40
+logistics:
+  redstone_interval: 4
+  heat_conductor_capacity: 1.0
+  transmitter_collision: full
+  transmitter_contents:
+    enabled: true
+    refresh_interval: 10
+    brightness_steps: 8
+    min_brightness: 0.35
+    energy_color: 3EF090
+    heat_color: FFFFFF
+    fluid_fallback_color: 7FB7E8
+    fluid_colors:
+      minecraft:water: 3F76E4
+      minecraft:lava: D45A12
+      mekanism:steam: FFFFFF
+radiation:
+  enabled: true
+  interval_ticks: 20
+  effect_interval_ticks: 20
+  max_distance: 80
+  half_life_ticks: 27719
+  open_factor: 0.001
+  damage: 1.0
+  lethal_damage: 10.0
+  hunger: 6
+  shielding:
+    mek:hazmat_mask: 0.25
+    mek:hazmat_gown: 0.4
+    mek:hazmat_pants: 0.2
+    mek:hazmat_boots: 0.15
+demo:
+  machine_a: mek:enrichment_chamber
+  machine_b: mek:energized_smelter
+  item_pipe: mek:basic_logistical_transporter
+  cable: mek:basic_universal_cable
+  fluid_pipe: mek:basic_mechanical_pipe
+  multiblock: mek:dynamic_tank
+  starter_item: minecraft:iron_ore
+  starter_amount: 4
+  tank_fluid: minecraft:water
+  tank_amount: 5000
+  charge_j: -1

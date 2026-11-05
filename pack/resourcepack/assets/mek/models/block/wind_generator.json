@@ -1,0 +1,872 @@
+{
+  "parent": "block/block",
+  "gui_light": "front",
+  "textures": {
+    "wind_generator": "mek:block/model/wind_generator",
+    "ports": "mek:block/models/ports",
+    "ports_led": "mek:block/models/ports_led",
+    "particle": "mek:block/model/wind_generator"
+  },
+  "elements": [
+    {
+      "from": [
+        5.457,
+        0.4238,
+        5.4569
+      ],
+      "to": [
+        10.543,
+        1.2715,
+        10.543
+      ],
+      "name": "base_rim",
+      "rotation": {
+        "x": -180,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          0.8477,
+          8.0
+        ]
+      },
+      "faces": {
+        "north": {
+          "texture": "#wind_generator",
+          "uv": [
+            4.75,
+            7.75,
+            6.25,
+            8.0
+          ]
+        },
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            3.25,
+            7.75,
+            4.75,
+            8.0
+          ]
+        },
+        "south": {
+          "texture": "#wind_generator",
+          "uv": [
+            7.75,
+            7.75,
+            9.25,
+            8.0
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            6.25,
+            7.75,
+            7.75,
+            8.0
+          ]
+        },
+        "down": {
+          "texture": "#wind_generator",
+          "uv": [
+            7.75,
+            6.25,
+            6.25,
+            7.75
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5166,
+        29.0331,
+        6.3046
+      ],
+      "to": [
+        9.4834,
+        32.0,
+        10.1192
+      ],
+      "name": "head",
+      "rotation": {
+        "x": -180,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          30.5166,
+          8.2119
+        ]
+      },
+      "faces": {
+        "north": {
+          "texture": "#wind_generator",
+          "uv": [
+            3.625,
+            1.125,
+            4.5,
+            2.0
+          ],
+          "rotation": 180
+        },
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            2.5,
+            2.0,
+            3.625,
+            1.125
+          ]
+        },
+        "south": {
+          "texture": "#wind_generator",
+          "uv": [
+            5.625,
+            1.125,
+            6.5,
+            2.0
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            4.5,
+            2.0,
+            5.625,
+            1.125
+          ]
+        },
+        "up": {
+          "texture": "#wind_generator",
+          "uv": [
+            3.625,
+            1.125,
+            4.5,
+            0.0
+          ]
+        },
+        "down": {
+          "texture": "#wind_generator",
+          "uv": [
+            4.5,
+            0.0,
+            5.375,
+            1.125
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.1523,
+        1.2715,
+        5.6689
+      ],
+      "to": [
+        8.8477,
+        2.1192,
+        6.5165
+      ],
+      "name": "plate_connector1",
+      "rotation": {
+        "x": -180,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          1.6954,
+          6.0927
+        ]
+      },
+      "faces": {
+        "north": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.25,
+            9.625,
+            0.75,
+            9.875
+          ]
+        },
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.0,
+            9.625,
+            0.25,
+            9.875
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.75,
+            9.625,
+            1.0,
+            9.875
+          ]
+        },
+        "up": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.75,
+            9.625,
+            0.25,
+            9.375
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.7285,
+        2.1192,
+        5.0331
+      ],
+      "to": [
+        9.2715,
+        4.6623,
+        6.3046
+      ],
+      "name": "plate_connector2",
+      "rotation": {
+        "x": -180,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          3.3907,
+          5.6689
+        ]
+      },
+      "faces": {
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            5.25,
+            5.5,
+            6.5,
+            6.25
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            7.25,
+            5.5,
+            8.5,
+            6.25
+          ]
+        },
+        "up": {
+          "texture": "#wind_generator",
+          "uv": [
+            8.0,
+            5.5,
+            7.25,
+            5.125
+          ]
+        },
+        "down": {
+          "texture": "#wind_generator",
+          "uv": [
+            7.25,
+            5.125,
+            6.5,
+            5.5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5762,
+        2.1294,
+        6.4173
+      ],
+      "to": [
+        8.4238,
+        29.679,
+        7.265
+      ],
+      "name": "wire",
+      "rotation": {
+        "x": 178,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          15.9042,
+          6.8411
+        ]
+      },
+      "faces": {
+        "north": {
+          "texture": "#wind_generator",
+          "uv": [
+            9.5,
+            0.25,
+            9.75,
+            8.375
+          ],
+          "rotation": 180
+        },
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            9.25,
+            0.25,
+            9.5,
+            8.375
+          ],
+          "rotation": 180
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            9.75,
+            0.25,
+            10.0,
+            8.375
+          ],
+          "rotation": 180
+        },
+        "up": {
+          "texture": "#wind_generator",
+          "uv": [
+            9.75,
+            0.25,
+            9.5,
+            0.0
+          ],
+          "rotation": 180
+        },
+        "down": {
+          "texture": "#wind_generator",
+          "uv": [
+            10.0,
+            0.0,
+            9.75,
+            0.25
+          ],
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "from": [
+        6.9404,
+        29.1001,
+        9.5357
+      ],
+      "to": [
+        9.0596,
+        31.6431,
+        10.8072
+      ],
+      "name": "rear_plate_1",
+      "rotation": {
+        "x": -173,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          30.3716,
+          10.1715
+        ]
+      },
+      "faces": {
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            2.5,
+            2.375,
+            2.875,
+            3.125
+          ]
+        },
+        "south": {
+          "texture": "#wind_generator",
+          "uv": [
+            3.875,
+            2.375,
+            4.5,
+            3.125
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            3.5,
+            2.375,
+            3.875,
+            3.125
+          ]
+        },
+        "up": {
+          "texture": "#wind_generator",
+          "uv": [
+            3.5,
+            2.375,
+            4.125,
+            2.0
+          ]
+        },
+        "down": {
+          "texture": "#wind_generator",
+          "uv": [
+            2.875,
+            2.0,
+            3.5,
+            2.375
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.3642,
+        29.2201,
+        10.3229
+      ],
+      "to": [
+        8.6358,
+        31.3393,
+        11.1706
+      ],
+      "name": "rear_plate_2",
+      "rotation": {
+        "x": -168,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          30.2797,
+          10.7468
+        ]
+      },
+      "faces": {
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.0,
+            2.25,
+            0.25,
+            2.875
+          ]
+        },
+        "south": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.875,
+            2.25,
+            1.25,
+            2.875
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.625,
+            2.25,
+            0.875,
+            2.875
+          ]
+        },
+        "up": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.625,
+            2.25,
+            0.25,
+            2.0
+          ]
+        },
+        "down": {
+          "texture": "#wind_generator",
+          "uv": [
+            1.0,
+            2.0,
+            0.625,
+            2.25
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.443,
+        0.8655,
+        6.4375
+      ],
+      "to": [
+        9.5622,
+        29.6867,
+        8.5567
+      ],
+      "name": "post1a",
+      "rotation": {
+        "x": 178,
+        "y": -180,
+        "z": 2,
+        "origin": [
+          8.5026,
+          15.2761,
+          7.4971
+        ]
+      },
+      "faces": {
+        "north": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.625,
+            0.625,
+            1.25,
+            9.125
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            1.25,
+            0.625,
+            1.875,
+            9.125
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.4378,
+        0.8649,
+        7.4433
+      ],
+      "to": [
+        8.557,
+        29.6861,
+        9.5625
+      ],
+      "name": "post1b",
+      "rotation": {
+        "x": -178,
+        "y": -180,
+        "z": -2,
+        "origin": [
+          7.4974,
+          15.2755,
+          8.5029
+        ]
+      },
+      "faces": {
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.0,
+            0.625,
+            0.625,
+            9.125
+          ]
+        },
+        "south": {
+          "texture": "#wind_generator",
+          "uv": [
+            1.875,
+            0.625,
+            2.5,
+            9.125
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.443,
+        0.8649,
+        7.4433
+      ],
+      "to": [
+        9.5622,
+        29.6861,
+        9.5625
+      ],
+      "name": "post1c",
+      "rotation": {
+        "x": -178,
+        "y": -180,
+        "z": 2,
+        "origin": [
+          8.5026,
+          15.2755,
+          8.5029
+        ]
+      },
+      "faces": {
+        "south": {
+          "texture": "#wind_generator",
+          "uv": [
+            1.875,
+            0.625,
+            2.5,
+            9.125
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            1.25,
+            0.625,
+            1.875,
+            9.125
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.4378,
+        0.8655,
+        6.4375
+      ],
+      "to": [
+        8.557,
+        29.6867,
+        8.5567
+      ],
+      "name": "post1d",
+      "rotation": {
+        "x": 178,
+        "y": -180,
+        "z": -2,
+        "origin": [
+          7.4974,
+          15.2761,
+          7.4971
+        ]
+      },
+      "faces": {
+        "north": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.625,
+            0.625,
+            1.25,
+            9.125
+          ]
+        },
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            0.0,
+            0.625,
+            0.625,
+            9.125
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.3046,
+        1.6954,
+        4.6009
+      ],
+      "to": [
+        9.6954,
+        5.0861,
+        4.6009
+      ],
+      "name": "port_side_led",
+      "light_emission": 15,
+      "faces": {
+        "north": {
+          "texture": "#ports_led",
+          "uv": [
+            8.0,
+            8.0,
+            16.0,
+            16.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.3046,
+        1.6954,
+        4.6009
+      ],
+      "to": [
+        9.6954,
+        5.0861,
+        5.0247
+      ],
+      "name": "port_side",
+      "faces": {
+        "north": {
+          "texture": "#ports",
+          "uv": [
+            0.0,
+            0.0,
+            8.0,
+            8.0
+          ]
+        },
+        "east": {
+          "texture": "#ports",
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            8.0
+          ]
+        },
+        "south": {
+          "texture": "#ports",
+          "uv": [
+            8.0,
+            0.0,
+            16.0,
+            8.0
+          ],
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#ports",
+          "uv": [
+            7.0,
+            0.0,
+            8.0,
+            8.0
+          ]
+        },
+        "up": {
+          "texture": "#ports",
+          "uv": [
+            0.0,
+            0.0,
+            8.0,
+            1.0
+          ]
+        },
+        "down": {
+          "texture": "#ports",
+          "uv": [
+            0.0,
+            7.0,
+            8.0,
+            8.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.3046,
+        0.0,
+        6.3046
+      ],
+      "to": [
+        9.6954,
+        0.0,
+        9.6954
+      ],
+      "name": "port_bottom_led",
+      "light_emission": 15,
+      "faces": {
+        "down": {
+          "texture": "#ports_led",
+          "uv": [
+            16.0,
+            8.0,
+            8.0,
+            16.0
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        4.6093,
+        0.0,
+        4.6093
+      ],
+      "to": [
+        11.3907,
+        0.8477,
+        11.3907
+      ],
+      "name": "base",
+      "rotation": {
+        "x": -180,
+        "y": -180,
+        "z": 0,
+        "origin": [
+          8.0,
+          0.4238,
+          8.0
+        ]
+      },
+      "faces": {
+        "north": {
+          "texture": "#wind_generator",
+          "uv": [
+            3.25,
+            10.0,
+            5.25,
+            10.25
+          ]
+        },
+        "east": {
+          "texture": "#wind_generator",
+          "uv": [
+            1.25,
+            10.0,
+            3.25,
+            10.25
+          ]
+        },
+        "south": {
+          "texture": "#wind_generator",
+          "uv": [
+            7.25,
+            10.0,
+            9.25,
+            10.25
+          ]
+        },
+        "west": {
+          "texture": "#wind_generator",
+          "uv": [
+            5.25,
+            10.0,
+            7.25,
+            10.25
+          ]
+        },
+        "up": {
+          "texture": "#wind_generator",
+          "uv": [
+            7.25,
+            10.0,
+            5.25,
+            8.0
+          ],
+          "cullface": "down"
+        },
+        "down": {
+          "texture": "#wind_generator",
+          "uv": [
+            5.25,
+            8.0,
+            3.25,
+            10.0
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "mek:block/sps_port",
+  "textures": {
+    "all": "mek:block/port_function/sps_port_all_heat",
+    "led": "mek:block/port_function/sps_port_led_heat"
+  }
+}

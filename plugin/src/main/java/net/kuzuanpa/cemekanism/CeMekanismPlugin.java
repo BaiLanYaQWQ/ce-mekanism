@@ -1,0 +1,246 @@
+package net.kuzuanpa.cemekanism;
+
+import mekcore.api.MekCore;
+import mekcore.sim.SchedulerConfig;
+import mekcore.sim.TickScheduler;
+import net.kuzuanpa.cemekanism.generated.GeneratedContent;
+import net.kuzuanpa.cemekanism.gui.GuiSessions;
+import net.kuzuanpa.cemekanism.machine.MachineBlockBehavior;
+import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.machine.MachineContainerListener;
+import net.kuzuanpa.cemekanism.machine.RecipeBrowserListener;
+import net.kuzuanpa.cemekanism.machine.ConfiguratorListener;
+import net.kuzuanpa.cemekanism.machine.MachineSecurityListener;
+import net.kuzuanpa.cemekanism.machine.UpgradeInstallerListener;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockBlockBehavior;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockBlockEntityController;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockListener;
+import net.kuzuanpa.cemekanism.platform.MekSystems;
+import net.kuzuanpa.cemekanism.radiation.RadiationConfig;
+import net.kuzuanpa.cemekanism.radiation.RadiationListener;
+import net.kuzuanpa.cemekanism.radiation.RadiationStore;
+import net.kuzuanpa.cemekanism.radiation.RadiationWorld;
+import net.kuzuanpa.cemekanism.radiation.RadiationWorlds;
+import net.kuzuanpa.cemekanism.transmitter.Logistics;
+import net.kuzuanpa.cemekanism.transmitter.LogisticsConfig;
+import net.kuzuanpa.cemekanism.transmitter.LogisticsWorlds;
+import net.kuzuanpa.cemekanism.transmitter.TransmitterBlockBehavior;
+import net.kuzuanpa.cemekanism.transmitter.TransmitterBlockEntityController;
+import net.kuzuanpa.cemekanism.transmitter.TransmitterListener;
+import net.momirealms.craftengine.bukkit.api.BukkitAdaptor;
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
+import net.momirealms.craftengine.core.block.EmptyBlockDefinition;
+import net.momirealms.craftengine.core.block.ImmutableBlockState;
+import net.momirealms.craftengine.core.block.behavior.BlockBehaviors;
+import net.momirealms.craftengine.core.block.entity.BlockEntity;
+import net.momirealms.craftengine.core.world.BlockPos;
+import net.momirealms.craftengine.core.world.CEWorld;
+import net.momirealms.craftengine.core.world.chunk.CEChunk;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.plugin.java.JavaPlugin;
+
+/**
+ * 平台侧接线（文档 03）：核心实例 + 刻调度器 + 三个适配器（存档/物品/刻）。
+ * 内容（物品/方块/配方/机器数值）全在资源包里，机器行为挂在 {@link MachineBlockBehavior} 上。
+ */
+public final class CeMekanismPlugin extends JavaPlugin {
+
+    // 内容表登记进核心（GeneratedContent 由 tools/mek.py 生成）：物品名 / 化学品 / 机器蓝图
+    private final MekCore core = MekCore.create(GeneratedContent::register);
+    private final TickScheduler scheduler = this.core.factories().scheduler(SchedulerConfig.defaults());
+    private final MultiblockHosts multiblocks = new MultiblockHosts(this);
+    private final LogisticsWorlds logistics = new LogisticsWorlds(this);
+    private final RadiationWorlds radiation = new RadiationWorlds(this);
+    private final GuiSessions guiSessions = new GuiSessions(this);
+    private final java.util.Set<net.kuzuanpa.cemekanism.machine.RecipeBrowserGui> recipeBrowsers =
+            java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+
+    public void trackRecipeBrowser(net.kuzuanpa.cemekanism.machine.RecipeBrowserGui gui) { this.recipeBrowsers.add(gui); }
+    public void forgetRecipeBrowser(net.kuzuanpa.cemekanism.machine.RecipeBrowserGui gui) { this.recipeBrowsers.remove(gui); }
+    private final net.kuzuanpa.cemekanism.machine.ConfiguratorOverlay configuratorOverlay =
+            new net.kuzuanpa.cemekanism.machine.ConfiguratorOverlay(this);
+
+    private final net.kuzuanpa.cemekanism.storage.QioService qio = new net.kuzuanpa.cemekanism.storage.QioService(this);
+    public net.kuzuanpa.cemekanism.storage.QioService qio() { return qio; }
+
+    @Override
+    public void onEnable() {
+        // 系统参数（管道/储罐/储能/蒸汽/热量）先装：机器读的就是这份表
+        MekSystems.install(this);
+        this.qio.install();
+        net.kuzuanpa.cemekanism.platform.GeneratorConfig.install(this);
+        RadiationConfig.install(this);
+        RadiationStore.install(this);
+        MultiblockConfig.install(this);
+        LogisticsConfig.install(this);
+        // 机器方块的行为：必须在 CE 载包之前注册（delay-configuration-load 默认为 true，所以来得及）
+        BlockBehaviors.register(MachineBlockBehavior.KEY, MachineBlockBehavior.factory(this));
+        BlockBehaviors.register(MultiblockBlockBehavior.KEY, MultiblockBlockBehavior.factory(this));
+        BlockBehaviors.register(TransmitterBlockBehavior.KEY, TransmitterBlockBehavior.factory(this));
+        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.storage.StorageListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.storage.CardboardBox(this), this);
+        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.storage.StorageCrafting(), this);
+        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.nuclear.WasteBarrelListener(this), this);
+        this.scheduler.start();
+        Bukkit.getScheduler().runTaskTimer(this, this.guiSessions::tick, 1L, 1L);
+        // 主线程泵：每个服务端刻一次，MAIN 车道的任务由它推
+        Bukkit.getScheduler().runTaskTimer(this, this.scheduler::pumpMainThread, 1L, 1L);
+        Bukkit.getScheduler().runTaskTimer(this, this.multiblocks::tickEffects, 1L, 2L);
+        Bukkit.getPluginManager().registerEvents(new RegistrationCheck(this), this);
+        // 机器容器、独立升级安装器与配置器的交互接管
+        Bukkit.getPluginManager().registerEvents(new MachineContainerListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.gui.TankDumpGui.Controls(), this);
+        Bukkit.getPluginManager().registerEvents(new RecipeBrowserListener(), this);
+        Bukkit.getPluginManager().registerEvents(new UpgradeInstallerListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new ConfiguratorListener(this), this);
+        Bukkit.getPluginManager().registerEvents(this.configuratorOverlay, this);
+        Bukkit.getScheduler().runTaskTimer(this, this.configuratorOverlay::tick, 1L, 2L);
+        Bukkit.getPluginManager().registerEvents(new MachineSecurityListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new MultiblockListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.multiblock.TeleporterFrequencyGui.Events(), this);
+        Bukkit.getPluginManager().registerEvents(new TransmitterListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new RadiationListener(this), this);
+        PluginCommand command = getCommand("mek");
+        if (command != null) {
+            command.setExecutor(new MekCommand(this));
+        }
+        PluginCommand recipeCommand = getCommand("mekrecipes");
+        if (recipeCommand != null) recipeCommand.setExecutor(new MekCommand(this));
+        getLogger().info("已启用：调度线程 " + this.scheduler.config().threads()
+                + "，主线程泵每刻一次；内容由资源包 mek 提供");
+        getLogger().info(this.core.summary());
+    }
+
+    @Override
+    public void onDisable() {
+        net.kuzuanpa.cemekanism.multiblock.MultiblockDiagnosticParticles.close();
+        Bukkit.getScheduler().cancelTasks(this);
+        for (var browser : java.util.List.copyOf(this.recipeBrowsers)) browser.closeViewers();
+        this.recipeBrowsers.clear();
+        this.guiSessions.closeAll();
+        this.configuratorOverlay.close();
+        this.multiblocks.closeEffects();
+        // 先停线程再摘任务：反过来的话，主线程在改注册表，CORE 线程可能正遍历它（见 10 的 P24）
+        this.scheduler.stop();
+        this.logistics.stopAll();
+        this.radiation.stopAll();
+        RadiationStore.flush();
+    }
+
+    public MekCore core() {
+        return this.core;
+    }
+
+    public GuiSessions guiSessions() {
+        return this.guiSessions;
+    }
+
+    public TickScheduler scheduler() {
+        return this.scheduler;
+    }
+
+    public MultiblockHosts multiblocks() {
+        return this.multiblocks;
+    }
+
+    /** 一个世界一份物流（文档 06）：管道、端点、热网、电网都挂在它上面。 */
+    public Logistics logistics(World world) {
+        return this.logistics.of(world);
+    }
+
+    /** 一个世界一份辐射账（源登记、玩家剂量、四档效果）。 */
+    public RadiationWorld radiation(World world) {
+        return this.radiation.of(world);
+    }
+
+    public RadiationWorlds radiationAll() {
+        return this.radiation;
+    }
+
+    /** 按坐标找回多方块的锚点控制器（命令与自检用）。 */
+    public MultiblockBlockEntityController multiblockAt(World world, int x, int y, int z) {
+        CEWorld ceWorld = BukkitAdaptor.adapt(world).storageWorld();
+        // 先把世界真值同步进 CE 的区块缓存：CraftEngineBlocks.place 只写世界，
+        // 不刷新的话 createBlockEntity 会按旧状态（hasBlockEntity=false）建实体（台账 P29）。
+        syncCeState(ceWorld, world, x, y, z);
+        BlockEntity entity = ceWorld.getBlockEntityAtIfLoaded(new BlockPos(x, y, z));
+        return entity == null ? null : entity.controller.get(MultiblockBlockEntityController.class, 0);
+    }
+
+    private static void syncCeState(CEWorld ceWorld, World world, int x, int y, int z) {
+        ImmutableBlockState state = CraftEngineBlocks.getCustomBlockState(world.getBlockAt(x, y, z));
+        ceWorld.setBlockStateAtIfLoaded(new BlockPos(x, y, z),
+                state == null ? EmptyBlockDefinition.STATE : state);
+    }
+
+    /**
+     * 世界侧记账 2：按坐标找回机器控制器（命令、事件都用它）。
+     * 方块带 facing 这类属性时 CE 会再挂一个硬编码属性行为，控制器因此有两个（我们在第 2 位），
+     * 所以这里按类型搜，不写死 index 0。
+     */
+    public MachineBlockEntityController machineAt(World world, int x, int y, int z) {
+        return machineAt(world, x, y, z, false);
+    }
+
+    /** 邻居扫描用的安静版本：不是机器、方块实体还没建起来都只回 null，不刷日志。 */
+    public MachineBlockEntityController machineAtQuiet(World world, int x, int y, int z) {
+        return machineAt(world, x, y, z, true);
+    }
+
+    private MachineBlockEntityController machineAt(World world, int x, int y, int z, boolean quiet) {
+        // 先摸一下这个方块：CE 的区块数据是按需装载的，直接查 loadedChunkMap 会扑空（方块实体还没建起来）
+        CraftEngineBlocks.getCustomBlockState(world.getBlockAt(x, y, z));
+        CEWorld ceWorld = BukkitAdaptor.adapt(world).storageWorld();
+        BlockPos pos = new BlockPos(x, y, z);
+        BlockEntity entity = ceWorld.getBlockEntityAtIfLoaded(pos);
+        if (entity == null) {
+            if (quiet) {
+                return null;
+            }
+            CEChunk chunk = ceWorld.getChunkAtIfLoaded(x >> 4, z >> 4);
+            getLogger().info("查 " + x + "," + y + "," + z + "：方块实体还没建起来（区块 "
+                    + (chunk == null ? "不在 CE 的已加载表里" : "激活=" + chunk.isActivated()
+                            + "，实体数=" + chunk.blockEntities().size()) + "）");
+            return null;
+        }
+        MachineBlockEntityController controller =
+                entity.controller.get(MachineBlockEntityController.class, 0);
+        if (controller == null && !quiet) {
+            getLogger().warning("坐标 " + x + "," + y + "," + z + " 的控制器不是机器："
+                    + entity.controller.getClass().getName());
+        }
+        return controller;
+    }
+
+    /** 按坐标找回元件控制器（管道、线缆、物流管道；命令与邻居扫描都用它）。 */
+    public TransmitterBlockEntityController transmitterAt(World world, int x, int y, int z) {
+        CraftEngineBlocks.getCustomBlockState(world.getBlockAt(x, y, z));
+        CEWorld ceWorld = BukkitAdaptor.adapt(world).storageWorld();
+        BlockEntity entity = ceWorld.getBlockEntityAtIfLoaded(new BlockPos(x, y, z));
+        return entity == null ? null : entity.controller.get(TransmitterBlockEntityController.class, 0);
+    }
+
+    /** 排错一张纸：这个坐标上 Bukkit 看到什么、CE 看到什么、方块实体在不在、调度器认不认识。 */
+    public String describePos(World world, int x, int y, int z) {
+        org.bukkit.block.Block bukkit = world.getBlockAt(x, y, z);
+        ImmutableBlockState state = CraftEngineBlocks.getCustomBlockState(bukkit);
+        CEWorld ceWorld = BukkitAdaptor.adapt(world).storageWorld();
+        syncCeState(ceWorld, world, x, y, z);
+        CEChunk chunk = ceWorld.getChunkAtIfLoaded(x >> 4, z >> 4);
+        BlockEntity entity = ceWorld.getBlockEntityAtIfLoaded(new BlockPos(x, y, z));
+        MachineBlockEntityController controller = machineAt(world, x, y, z);
+        return "Bukkit " + bukkit.getType()
+                + "；CE " + (state == null ? "不是自定义方块"
+                        : state.owner().value().id() + "(有方块实体=" + state.hasBlockEntity() + ")")
+                + "；区块 " + (chunk == null ? "未加载"
+                        : "已加载(激活=" + chunk.isActivated() + ", 实体 " + chunk.blockEntities().size() + " 个)")
+                + "；实体 " + (entity == null ? "无"
+                        : "有(valid=" + entity.isValid() + ", " + entity.controller.getClass().getSimpleName() + ")")
+                + "；机器控制器 " + (controller == null ? "没拿到"
+                        : controller.taskId() + (controller.registered() ? "（已挂调度器）" : "（没挂调度器）"));
+    }
+}

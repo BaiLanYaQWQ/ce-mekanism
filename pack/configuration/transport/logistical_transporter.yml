@@ -1,0 +1,159 @@
+# 物流管道（mekanism:logistical_transporter）—— mek.py generate 生成，勿手改。
+# 方块 id ↔ 族 ↔ 级 的映射在 GeneratedContent.TRANSMITTERS；
+# 单态方块（06 第九节的形状选型：不做六向连接属性）。
+items:
+  mek:basic_logistical_transporter:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.basic_logistical_transporter>'
+    model: mek:item/transmitter/logistical_transporter/basic
+    item_model: mek:render/logistical_transporter_basic_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:basic_logistical_transporter
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true
+
+  mek:advanced_logistical_transporter:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.advanced_logistical_transporter>'
+    model: mek:item/transmitter/logistical_transporter/advanced
+    item_model: mek:render/logistical_transporter_advanced_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:advanced_logistical_transporter
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true
+
+  mek:elite_logistical_transporter:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.elite_logistical_transporter>'
+    model: mek:item/transmitter/logistical_transporter/elite
+    item_model: mek:render/logistical_transporter_elite_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:elite_logistical_transporter
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true
+
+  mek:ultimate_logistical_transporter:
+    data:
+      item_name: '<!i><white><lang:mek.transmitter.ultimate_logistical_transporter>'
+    model: mek:item/transmitter/logistical_transporter/ultimate
+    item_model: mek:render/logistical_transporter_ultimate_item
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:ultimate_logistical_transporter
+        settings:
+          hardness: 1.0
+          resistance: 6.0
+          push_reaction: IMMOVEABLE
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+          fluid_state: false
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        behavior:
+          type: cemekanism:transmitter
+        state:
+          auto_state:
+            type: non_tintable_leaves
+            id: transparent
+          transparent: true

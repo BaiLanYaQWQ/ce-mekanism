@@ -1,0 +1,370 @@
+# 聚变反应堆（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 generators/java/mekanism/generators/common/content/fusion/FusionReactorValidator.java。
+blocks:
+  mek:fusion_reactor_frame:
+    state:
+      auto_state: note_block
+      model: mek:block/fusion_reactor_frame
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fusion_reactor_frame
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:fusion_reactor_frame:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fusion_reactor_frame>'
+    model: mek:block/fusion_reactor_frame
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/fusion_reactor_frame
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fusion_reactor_frame
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:fusion_reactor_port:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fusion_reactor_port
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/fusion_reactor_port_input
+        output:
+          auto_state: note_block
+          model: mek:block/fusion_reactor_port_active
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/fusion_reactor_port_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/fusion_reactor_port_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/fusion_reactor_port_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/fusion_reactor_port_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+items:
+  mek:fusion_reactor_port:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fusion_reactor_port>'
+    model: mek:block/fusion_reactor_port
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fusion_reactor_port
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/fusion_reactor_port_input
+            output:
+              auto_state: note_block
+              model: mek:block/fusion_reactor_port_active
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/fusion_reactor_port_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/fusion_reactor_port_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/fusion_reactor_port_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/fusion_reactor_port_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+
+blocks:
+  mek:fusion_reactor_controller:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fusion_reactor_controller
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        off:
+          auto_state: note_block
+          model: mek:block/fusion_reactor_controller_inactive
+        on:
+          auto_state: note_block
+          model: mek:block/fusion_reactor_controller_active
+      variants:
+        'active=false':
+          appearance: off
+        'active=true':
+          appearance: on
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:fusion_reactor_controller:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fusion_reactor_controller>'
+    model: mek:block/fusion_reactor_controller
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fusion_reactor_controller
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            active:
+              type: boolean
+              default: false
+          appearances:
+            off:
+              auto_state: note_block
+              model: mek:block/fusion_reactor_controller_inactive
+            on:
+              auto_state: note_block
+              model: mek:block/fusion_reactor_controller_active
+          variants:
+            'active=false':
+              appearance: off
+            'active=true':
+              appearance: on
+        behavior:
+          type: cemekanism:multiblock
+
+blocks:
+  mek:fusion_reactor_logic_adapter:
+    state:
+      auto_state: note_block
+      model: mek:block/fusion_reactor_logic_adapter
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fusion_reactor_logic_adapter
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:fusion_reactor_logic_adapter:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fusion_reactor_logic_adapter>'
+    model: mek:block/fusion_reactor_logic_adapter
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/fusion_reactor_logic_adapter
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fusion_reactor_logic_adapter
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:laser_focus_matrix:
+    state:
+      auto_state: note_block
+      model: mek:block/laser_focus_matrix
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:laser_focus_matrix
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:laser_focus_matrix:
+    data:
+      item_name: '<!i><white><lang:mek.structure.laser_focus_matrix>'
+    model: mek:block/laser_focus_matrix
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/laser_focus_matrix
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:laser_focus_matrix
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe

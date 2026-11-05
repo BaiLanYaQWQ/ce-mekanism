@@ -1,0 +1,342 @@
+# 裂变反应堆（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 generators/java/mekanism/generators/common/content/fission/FissionReactorValidator.java。
+blocks:
+  mek:fission_reactor_casing:
+    state:
+      auto_state: note_block
+      model: mek:block/fission_reactor_casing
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fission_reactor_casing
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:fission_reactor_casing:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fission_reactor_casing>'
+    model: mek:block/fission_reactor_casing
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/fission_reactor_casing
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fission_reactor_casing
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:fission_reactor_port:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fission_reactor_port
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/fission_reactor_port_input
+        output:
+          auto_state: note_block
+          model: mek:block/port_function/fission_reactor_port_output
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/fission_reactor_port_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/fission_reactor_port_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/fission_reactor_port_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/fission_reactor_port_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:fission_reactor_port:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fission_reactor_port>'
+    model: mek:block/fission_reactor_port
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fission_reactor_port
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/fission_reactor_port_input
+            output:
+              auto_state: note_block
+              model: mek:block/port_function/fission_reactor_port_output
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/fission_reactor_port_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/fission_reactor_port_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/fission_reactor_port_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/fission_reactor_port_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+        behavior:
+          type: cemekanism:multiblock
+
+blocks:
+  mek:fission_reactor_logic_adapter:
+    state:
+      auto_state: note_block
+      model: mek:block/fission_reactor_logic_adapter
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fission_reactor_logic_adapter
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:fission_reactor_logic_adapter:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fission_reactor_logic_adapter>'
+    model: mek:block/fission_reactor_logic_adapter
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/fission_reactor_logic_adapter
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fission_reactor_logic_adapter
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:fission_fuel_assembly:
+    state:
+      auto_state: note_block
+      model: mek:block/fission_fuel_assembly
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:fission_fuel_assembly
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:fission_fuel_assembly:
+    data:
+      item_name: '<!i><white><lang:mek.structure.fission_fuel_assembly>'
+    model: mek:block/fission_fuel_assembly
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/fission_fuel_assembly
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:fission_fuel_assembly
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:control_rod_assembly:
+    state:
+      auto_state: note_block
+      model: mek:block/control_rod_assembly
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:control_rod_assembly
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:control_rod_assembly:
+    data:
+      item_name: '<!i><white><lang:mek.structure.control_rod_assembly>'
+    model: mek:block/control_rod_assembly
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/control_rod_assembly
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:control_rod_assembly
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe

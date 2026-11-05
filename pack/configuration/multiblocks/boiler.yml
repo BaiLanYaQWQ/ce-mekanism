@@ -1,0 +1,437 @@
+# 热力锅炉（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 main/java/mekanism/common/content/boiler/BoilerValidator.java。
+blocks:
+  mek:boiler_casing:
+    state:
+      auto_state: note_block
+      model: mek:block/boiler_casing
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:boiler_casing
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:boiler_casing:
+    data:
+      item_name: '<!i><white><lang:mek.structure.boiler_casing>'
+    model: mek:block/boiler_casing
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/boiler_casing
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:boiler_casing
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:boiler_valve:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:boiler_valve
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/boiler_valve_input
+        output:
+          auto_state: note_block
+          model: mek:block/port_function/boiler_valve_output
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/boiler_valve_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/boiler_valve_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/boiler_valve_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/boiler_valve_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:boiler_valve:
+    data:
+      item_name: '<!i><white><lang:mek.structure.boiler_valve>'
+    model: mek:block/boiler_valve
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:boiler_valve
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/boiler_valve_input
+            output:
+              auto_state: note_block
+              model: mek:block/port_function/boiler_valve_output
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/boiler_valve_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/boiler_valve_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/boiler_valve_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/boiler_valve_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+        behavior:
+          type: cemekanism:multiblock
+
+blocks:
+  mek:pressure_disperser:
+    state:
+      auto_state: note_block
+      model: mek:block/pressure_disperser
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:pressure_disperser
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:pressure_disperser:
+    data:
+      item_name: '<!i><white><lang:mek.structure.pressure_disperser>'
+    model: mek:block/pressure_disperser
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/pressure_disperser
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:pressure_disperser
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:superheating_element:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:superheating_element
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        off:
+          auto_state: note_block
+          model: mek:block/superheating_element_inactive
+        on:
+          auto_state: note_block
+          model: mek:block/superheating_element_active
+      variants:
+        'active=false':
+          appearance: off
+        'active=true':
+          appearance: on
+items:
+  mek:superheating_element:
+    data:
+      item_name: '<!i><white><lang:mek.structure.superheating_element>'
+    model: mek:block/superheating_element
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:superheating_element
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            active:
+              type: boolean
+              default: false
+          appearances:
+            off:
+              auto_state: note_block
+              model: mek:block/superheating_element_inactive
+            on:
+              auto_state: note_block
+              model: mek:block/superheating_element_active
+          variants:
+            'active=false':
+              appearance: off
+            'active=true':
+              appearance: on
+
+blocks:
+  mek:structural_glass:
+    state:
+      auto_state: non_tintable_leaves
+      model: mek:block/structural_glass
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:structural_glass
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.glass.break
+        step: minecraft:block.glass.step
+        place: minecraft:block.glass.place
+        hit: minecraft:block.glass.hit
+        fall: minecraft:block.glass.fall
+      tags:
+        - minecraft:mineable/pickaxe
+      can_occlude: false
+      is_suffocating: false
+      is_view_blocking: false
+      is_redstone_conductor: false
+items:
+  mek:structural_glass:
+    data:
+      item_name: '<!i><white><lang:mek.structure.structural_glass>'
+    model: mek:block/structural_glass
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: non_tintable_leaves
+          model: mek:block/structural_glass
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:structural_glass
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.glass.break
+            step: minecraft:block.glass.step
+            place: minecraft:block.glass.place
+            hit: minecraft:block.glass.hit
+            fall: minecraft:block.glass.fall
+          tags:
+            - minecraft:mineable/pickaxe
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false
+
+blocks:
+  mek:reactor_glass:
+    state:
+      auto_state: non_tintable_leaves
+      model: mek:block/reactor_glass
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:reactor_glass
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.glass.break
+        step: minecraft:block.glass.step
+        place: minecraft:block.glass.place
+        hit: minecraft:block.glass.hit
+        fall: minecraft:block.glass.fall
+      tags:
+        - minecraft:mineable/pickaxe
+      can_occlude: false
+      is_suffocating: false
+      is_view_blocking: false
+      is_redstone_conductor: false
+items:
+  mek:reactor_glass:
+    data:
+      item_name: '<!i><white><lang:mek.structure.reactor_glass>'
+    model: mek:block/reactor_glass
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: non_tintable_leaves
+          model: mek:block/reactor_glass
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:reactor_glass
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.glass.break
+            step: minecraft:block.glass.step
+            place: minecraft:block.glass.place
+            hit: minecraft:block.glass.hit
+            fall: minecraft:block.glass.fall
+          tags:
+            - minecraft:mineable/pickaxe
+          can_occlude: false
+          is_suffocating: false
+          is_view_blocking: false
+          is_redstone_conductor: false

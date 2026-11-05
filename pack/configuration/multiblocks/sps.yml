@@ -1,0 +1,240 @@
+# 超临界移相器（结构件，文档 05）—— mek.py generate 生成，勿手改。
+# 角色与锚点见 GeneratedContent.MULTIBLOCKS；结构规则来自 main/java/mekanism/common/content/sps/SPSValidator.java。
+blocks:
+  mek:sps_casing:
+    state:
+      auto_state: note_block
+      model: mek:block/sps_casing
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:sps_casing
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:sps_casing:
+    data:
+      item_name: '<!i><white><lang:mek.structure.sps_casing>'
+    model: mek:block/sps_casing
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/sps_casing
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:sps_casing
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+
+blocks:
+  mek:sps_port:
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:sps_port
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+    states:
+      properties:
+        port_visual:
+          type: string
+          default: input
+          values:
+            - input
+            - output
+            - both
+            - heat
+            - waste
+            - coolant
+      appearances:
+        input:
+          auto_state: note_block
+          model: mek:block/port_function/sps_port_input
+        output:
+          auto_state: note_block
+          model: mek:block/sps_port_active
+        both:
+          auto_state: note_block
+          model: mek:block/port_function/sps_port_both
+        heat:
+          auto_state: note_block
+          model: mek:block/port_function/sps_port_heat
+        waste:
+          auto_state: note_block
+          model: mek:block/port_function/sps_port_waste
+        coolant:
+          auto_state: note_block
+          model: mek:block/port_function/sps_port_coolant
+      variants:
+        'port_visual=input':
+          appearance: input
+        'port_visual=output':
+          appearance: output
+        'port_visual=both':
+          appearance: both
+        'port_visual=heat':
+          appearance: heat
+        'port_visual=waste':
+          appearance: waste
+        'port_visual=coolant':
+          appearance: coolant
+    behavior:
+      type: cemekanism:multiblock
+items:
+  mek:sps_port:
+    data:
+      item_name: '<!i><white><lang:mek.structure.sps_port>'
+    model: mek:block/sps_port
+    behavior:
+      type: block_item
+      block:
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:sps_port
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
+        states:
+          properties:
+            port_visual:
+              type: string
+              default: input
+              values:
+                - input
+                - output
+                - both
+                - heat
+                - waste
+                - coolant
+          appearances:
+            input:
+              auto_state: note_block
+              model: mek:block/port_function/sps_port_input
+            output:
+              auto_state: note_block
+              model: mek:block/sps_port_active
+            both:
+              auto_state: note_block
+              model: mek:block/port_function/sps_port_both
+            heat:
+              auto_state: note_block
+              model: mek:block/port_function/sps_port_heat
+            waste:
+              auto_state: note_block
+              model: mek:block/port_function/sps_port_waste
+            coolant:
+              auto_state: note_block
+              model: mek:block/port_function/sps_port_coolant
+          variants:
+            'port_visual=input':
+              appearance: input
+            'port_visual=output':
+              appearance: output
+            'port_visual=both':
+              appearance: both
+            'port_visual=heat':
+              appearance: heat
+            'port_visual=waste':
+              appearance: waste
+            'port_visual=coolant':
+              appearance: coolant
+        behavior:
+          type: cemekanism:multiblock
+
+blocks:
+  mek:supercharged_coil:
+    state:
+      auto_state: note_block
+      model: mek:block/supercharged_coil
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: mek:supercharged_coil
+    settings:
+      hardness: 3.5
+      resistance: 6.0
+      sounds:
+        break: minecraft:block.metal.break
+        step: minecraft:block.metal.step
+        place: minecraft:block.metal.place
+        hit: minecraft:block.metal.hit
+        fall: minecraft:block.metal.fall
+      tags:
+        - minecraft:mineable/pickaxe
+items:
+  mek:supercharged_coil:
+    data:
+      item_name: '<!i><white><lang:mek.structure.supercharged_coil>'
+    model: mek:block/supercharged_coil
+    behavior:
+      type: block_item
+      block:
+        state:
+          auto_state: note_block
+          model: mek:block/supercharged_coil
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: item
+                  item: mek:supercharged_coil
+        settings:
+          hardness: 3.5
+          resistance: 6.0
+          sounds:
+            break: minecraft:block.metal.break
+            step: minecraft:block.metal.step
+            place: minecraft:block.metal.place
+            hit: minecraft:block.metal.hit
+            fall: minecraft:block.metal.fall
+          tags:
+            - minecraft:mineable/pickaxe
