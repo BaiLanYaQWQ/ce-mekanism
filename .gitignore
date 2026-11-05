@@ -1,0 +1,12 @@
+# Build outputs and local Gradle state
+**/build/
+**/.gradle/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+
+# Local IDE configuration
+.idea/
+*.iml
