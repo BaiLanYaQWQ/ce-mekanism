@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "net.kuzuanpa"
-version = "0.1.0"
+version = "1.1.0"
 
 // 编译期依赖全部 compileOnly：运行时由 CraftEngine 插件与 Paper 提供。
 // paper-api 用 1.21.11（Java 21 字节码），本机 JDK 21 即可编译；服务端是 26.3（class 69）。
