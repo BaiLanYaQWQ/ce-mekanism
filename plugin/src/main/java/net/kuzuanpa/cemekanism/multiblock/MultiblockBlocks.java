@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.multiblock.BlockRole;
 import mekcore.multiblock.BlockRoles;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
@@ -32,7 +33,7 @@ public final class MultiblockBlocks {
     public static MultiblockDef require(String id) {
         MultiblockDef def = BY_ID.get(id);
         if (def == null) {
-            throw new IllegalArgumentException("没有登记结构 " + id);
+            throw new IllegalArgumentException(I18n.tr("multiblock.unknown_structure", id));
         }
         return def;
     }

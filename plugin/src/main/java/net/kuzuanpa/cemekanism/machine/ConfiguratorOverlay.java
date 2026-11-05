@@ -54,7 +54,7 @@ public final class ConfiguratorOverlay implements Listener {
         Direction face = hit.face();
         Direction selected = hit.selected();
         String status = machine != null ? mode.status(machine, selected) : mode.status(pipe, selected);
-        player.sendActionBar(mode.actionBar(selected, status));
+        player.sendActionBar(mode.actionBar(player, selected, status));
         this.showing.add(player.getUniqueId());
         this.renderer.show(player, block, face, selected);
         return true;
@@ -62,7 +62,7 @@ public final class ConfiguratorOverlay implements Listener {
 
     private boolean functionOnly(Player player, ConfiguratorMode mode) {
         this.renderer.remove(player.getUniqueId());
-        player.sendActionBar(mode.actionBar(null, null));
+        player.sendActionBar(mode.actionBar(player, null, null));
         this.showing.add(player.getUniqueId());
         return true;
     }

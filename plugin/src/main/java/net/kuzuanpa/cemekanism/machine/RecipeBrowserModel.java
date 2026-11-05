@@ -10,6 +10,7 @@ import mekcore.recipe.RecipeOutput;
 import mekcore.resource.ResourceNames;
 import mekcore.resource.ResourceStack;
 import mekcore.resource.ResourceType;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -26,7 +27,7 @@ final class RecipeBrowserModel {
     /** A null resource type denotes an item, never a fluid/chemical with the same id. */
     record Focus(ResourceType type, String id) {
         String name() {
-            return type == null ? ItemNames.nameOf(id) : ResourceNames.nameOf(type, id);
+            return type == null ? I18n.itemName(id) : I18n.resourceName(type, id);
         }
 
         boolean accepts(RecipeInput input) {
@@ -87,7 +88,7 @@ final class RecipeBrowserModel {
     }
 
     private Screen categoryScreen() {
-        return new Screen("全部配方 · 选择分类", List.of(), List.of(), false,
+        return new Screen(I18n.tr("recipe.all_categories"), List.of(), List.of(), false,
                 this.allRecipes.stream().map(Recipe::usage).distinct().toList(), true, false);
     }
 
@@ -174,7 +175,8 @@ final class RecipeBrowserModel {
         Recipe recipe = this.screen.recipes().get(index);
         int column = slot % 9;
         if (column == 0) {
-            show(new Screen("配方详情 · " + this.categoryNames.getOrDefault(recipe.usage(), recipe.usage()),
+            show(new Screen(I18n.tr("recipe.detail_title",
+                            this.categoryNames.getOrDefault(recipe.usage(), recipe.usage())),
                     List.of(recipe), List.of(), false, List.of(), false, true));
             return true;
         }
@@ -190,7 +192,7 @@ final class RecipeBrowserModel {
     private boolean selectInput(RecipeInput input, boolean usages) {
         List<Focus> members = members(input);
         if (expandable(input)) {
-            show(new Screen("可用成员 · " + input.display(), List.of(), members, true));
+            show(new Screen(I18n.tr("recipe.members_title", input.display()), List.of(), members, true));
             return true;
         }
         if (members.isEmpty()) return false;
@@ -210,7 +212,8 @@ final class RecipeBrowserModel {
         List<Recipe> matches = this.allRecipes.stream().filter(recipe -> usages
                 ? recipe.inputs().stream().anyMatch(focus::accepts)
                 : recipe.outputs().stream().anyMatch(focus::producedBy)).toList();
-        show(new Screen((usages ? "用途配方 · " : "来源配方 · ") + focus.name(), matches, List.of(), false));
+        show(new Screen(I18n.tr(usages ? "recipe.usages_title" : "recipe.sources_title", focus.name()),
+                matches, List.of(), false));
     }
 
     static List<Focus> members(RecipeInput input) {

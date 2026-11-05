@@ -4,6 +4,7 @@ import mekcore.chemical.DoseTracker;
 import mekcore.sim.TickAffinity;
 import mekcore.sim.Tickable;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -48,8 +49,8 @@ public final class RadiationWorld {
 
             @Override
             public String describe() {
-                return "辐射源 " + RadiationWorld.this.sources.size()
-                        + "，玩家 " + RadiationWorld.this.doses.size();
+                return I18n.tr("radiation.world.summary",
+                        RadiationWorld.this.sources.size(), RadiationWorld.this.doses.size());
             }
         };
         plugin.scheduler().register("radiation:" + world.getName(), task, TickAffinity.MAIN,

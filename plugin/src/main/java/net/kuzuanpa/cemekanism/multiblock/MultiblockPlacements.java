@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.machine.Direction;
 import mekcore.multiblock.MultiblockInstance;
 import mekcore.multiblock.Placement;
@@ -172,7 +173,7 @@ public final class MultiblockPlacements {
             }
         }
         if (cleared > 0) {
-            plugin.getLogger().info("一键搭建清空内部 " + cleared + " 格");
+            plugin.getLogger().info(I18n.tr("multiblock.build.cleared_log", cleared));
         }
         return new Result(placed, kept, cleared);
     }

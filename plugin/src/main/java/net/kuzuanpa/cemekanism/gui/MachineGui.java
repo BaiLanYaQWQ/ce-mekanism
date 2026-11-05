@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.gui;
 import mekcore.machine.MachineSnapshot;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.storage.DigitalMinerLogic;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.inventory.ItemStack;
@@ -85,7 +86,7 @@ public final class MachineGui {
             if (energy != null && !layout.hasProgress()
                     && snapshot.state() != mekcore.machine.WorkState.RUNNING
                     && snapshot.state() != mekcore.machine.WorkState.IDLE) {
-                GuiText.appendLore(energy, snapshot.state().zhName());
+                GuiText.appendLore(energy, I18n.enumName(snapshot.state(), snapshot.state().zhName()));
             }
             for (GuiLayout.Cell cell : layout.energyAnchors()) {
                 setIfChanged(controller, cell.index(), energy);
@@ -96,7 +97,7 @@ public final class MachineGui {
                 if (tank == null) continue;
                 ItemStack anchor = GuiText.tankAnchor(tank);
                 if (controller.machine().dumpablePorts().contains(gauge.port())) {
-                    GuiText.appendLore(anchor, "点击设置化学品输出罐排出模式");
+                    GuiText.appendLore(anchor, I18n.tr("gui.tank.configure_dump"));
                 }
                 for (GuiLayout.Cell cell : gauge.anchors()) setIfChanged(controller, cell.index(), anchor);
             }

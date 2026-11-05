@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.machine;
 
 import mekcore.upgrade.UpgradeDefinition;
 import net.kuzuanpa.cemekanism.gui.GuiText;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -62,7 +63,7 @@ public final class UpgradeInstallerGui {
         this.controller = controller;
         this.holder = new Holder(controller);
         this.inventory = Bukkit.createInventory(this.holder, INVENTORY_SIZE,
-                Component.text("升级安装器 · " + controller.machine().blueprint().zhName()));
+                Component.text(I18n.tr("upgrade.title", I18n.machineName(controller.machine().blueprint()))));
         this.holder.inventory = this.inventory;
         this.holder.gui = this;
 
@@ -132,12 +133,13 @@ public final class UpgradeInstallerGui {
             return 0;
         }
         if (!definition.id().equals(BukkitItems.idOf(cursor))) {
-            player.sendActionBar(Component.text("这个格子只能放入 " + definition.zhName()));
+            player.sendActionBar(I18n.component(player, "upgrade.wrong_item",
+                    upgradeName(definition, player)));
             return 0;
         }
         int installed = this.controller.installUpgrade(definition.id(), cursor.getAmount());
         if (installed <= 0) {
-            player.sendActionBar(Component.text(definition.zhName() + " 已装满"));
+            player.sendActionBar(I18n.component(player, "upgrade.full", upgradeName(definition, player)));
             return 0;
         }
         int left = cursor.getAmount() - installed;
@@ -159,7 +161,7 @@ public final class UpgradeInstallerGui {
         }
         int installed = this.controller.installUpgrade(definition.id(), source.getAmount());
         if (installed <= 0) {
-            player.sendActionBar(Component.text(definition.zhName() + " 已装满"));
+            player.sendActionBar(I18n.component(player, "upgrade.full", upgradeName(definition, player)));
             return 0;
         }
         int left = source.getAmount() - installed;
@@ -176,12 +178,12 @@ public final class UpgradeInstallerGui {
     public void withdrawToCursor(Player player, UpgradeDefinition definition, int requested) {
         int installed = this.controller.machine().upgrades().count(definition.id());
         if (installed <= 0) {
-            player.sendActionBar(Component.text("没有可卸下的" + definition.zhName()));
+            player.sendActionBar(I18n.component(player, "upgrade.none_installed", upgradeName(definition, player)));
             return;
         }
         ItemStack template = BukkitItems.create(definition.id());
         if (template == null) {
-            player.sendActionBar(Component.text("找不到物品 " + definition.id()));
+            player.sendActionBar(I18n.component(player, "upgrade.missing_item", definition.id()));
             return;
         }
         ItemStack cursor = player.getItemOnCursor();
@@ -191,12 +193,12 @@ public final class UpgradeInstallerGui {
         } else if (cursor.isSimilar(template)) {
             room = template.getMaxStackSize() - cursor.getAmount();
         } else {
-            player.sendActionBar(Component.text("光标里已有其他物品"));
+            player.sendActionBar(I18n.component(player, "upgrade.cursor_occupied"));
             return;
         }
         int amount = Math.min(Math.min(requested, installed), room);
         if (amount <= 0) {
-            player.sendActionBar(Component.text("光标放不下更多升级"));
+            player.sendActionBar(I18n.component(player, "upgrade.cursor_full"));
             return;
         }
         int removed = this.controller.removeUpgrade(definition.id(), amount);
@@ -216,12 +218,12 @@ public final class UpgradeInstallerGui {
     public void withdrawAllToInventory(Player player, UpgradeDefinition definition) {
         int installed = this.controller.machine().upgrades().count(definition.id());
         if (installed <= 0) {
-            player.sendActionBar(Component.text("没有可卸下的" + definition.zhName()));
+            player.sendActionBar(I18n.component(player, "upgrade.none_installed", upgradeName(definition, player)));
             return;
         }
         ItemStack refund = BukkitItems.create(definition.id());
         if (refund == null) {
-            player.sendActionBar(Component.text("找不到物品 " + definition.id()));
+            player.sendActionBar(I18n.component(player, "upgrade.missing_item", definition.id()));
             return;
         }
         int removed = this.controller.removeUpgrade(definition.id(), installed);
@@ -252,10 +254,14 @@ public final class UpgradeInstallerGui {
         stack.setAmount(Math.max(1, installed));
         ItemMeta meta = stack.getItemMeta();
         meta.setLore(List.of(
-                GuiText.lore("已安装 " + installed + " / " + definition.maxInstalled()),
-                GuiText.lore(installed > 0 ? "左键取出全部，右键取出一枚" : "手持该升级点击此格安装")
+                GuiText.lore(I18n.tr("upgrade.installed", installed, definition.maxInstalled())),
+                GuiText.lore(I18n.tr(installed > 0 ? "upgrade.withdraw_hint" : "upgrade.install_hint"))
         ));
         stack.setItemMeta(meta);
         return stack;
+    }
+
+    private static String upgradeName(UpgradeDefinition definition, Player player) {
+        return I18n.upgradeName(I18n.locale(player), definition.id(), definition.zhName());
     }
 }

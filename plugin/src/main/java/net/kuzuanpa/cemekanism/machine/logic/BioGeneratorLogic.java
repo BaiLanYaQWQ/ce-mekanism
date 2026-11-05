@@ -10,6 +10,7 @@ import mekcore.resource.ResourceStack;
 import mekcore.resource.ResourceTank;
 import mekcore.resource.ResourceTypes;
 import mekcore.resource.Transaction;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.GeneratorConfig;
 
 /**
@@ -49,7 +50,7 @@ public final class BioGeneratorLogic extends GeneratorLogic {
 
     @Override
     public String name() {
-        return "生物能发电机";
+        return I18n.machineName("mek:bio_generator");
     }
 
     private static void fillFromFuel(Machine machine, ResourceTank bio) {

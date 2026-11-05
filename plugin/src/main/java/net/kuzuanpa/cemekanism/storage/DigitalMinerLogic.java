@@ -4,6 +4,7 @@ import mekcore.machine.*;
 import mekcore.persist.DataTag;
 import mekcore.persist.MapDataTag;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import org.bukkit.*;
@@ -42,7 +43,7 @@ public final class DigitalMinerLogic implements MachineLogic {
         public boolean inverseRequiresReplacement;
         public boolean visuals;
         public String replace = "";
-        public String status = "已停止";
+        public String status = "stopped";
         public final ItemSelection filter = new ItemSelection();
         public final CountedStore buffer = new CountedStore(1728, 27);
 
@@ -70,7 +71,7 @@ public final class DigitalMinerLogic implements MachineLogic {
         }
         new MiningCursor(radius, minY, maxY, 0);
         if (minY < controller.world().getMinHeight() || maxY >= controller.world().getMaxHeight()) {
-            throw new IllegalArgumentException("高度超出世界范围");
+            throw new IllegalArgumentException(I18n.tr("miner.height_out_of_range"));
         }
         State state = state(machine);
         state.radius = radius;
@@ -81,7 +82,7 @@ public final class DigitalMinerLogic implements MachineLogic {
 
     public void setRadius(Machine machine, int radius) {
         if (radius < 0 || radius > MAX_RADIUS) {
-            throw new IllegalArgumentException("半径必须在 0..32");
+            throw new IllegalArgumentException(I18n.tr("miner.radius_out_of_range"));
         }
         State state = state(machine);
         configure(machine, radius, state.minY, state.maxY);
@@ -104,14 +105,14 @@ public final class DigitalMinerLogic implements MachineLogic {
             state.progress = 0;
         }
         state.running = true;
-        state.status = "扫描中";
+        state.status = "scanning";
         machine.setState(WorkState.IDLE);
     }
 
     public void stop(Machine machine) {
         State state = state(machine);
         state.running = false;
-        state.status = "已停止";
+        state.status = "stopped";
         machine.setState(WorkState.IDLE);
     }
 
@@ -120,7 +121,7 @@ public final class DigitalMinerLogic implements MachineLogic {
         state.cursor = 0;
         state.progress = 0;
         state.running = false;
-        state.status = "等待扫描";
+        state.status = "waiting";
         machine.setState(WorkState.IDLE);
     }
 
@@ -366,7 +367,7 @@ public final class DigitalMinerLogic implements MachineLogic {
         for (int inspected = 0; inspected < budget && !state.scan().done(); inspected++) {
             Block block = candidate(machine);
             if (block == null) {
-                state.status = "等待区块加载";
+                state.status = "chunk";
                 machine.setState(WorkState.IDLE);
                 controller.markChanged();
                 return 0;
@@ -380,13 +381,13 @@ public final class DigitalMinerLogic implements MachineLogic {
             Replacement replacement = replacement(machine, matched);
             List<ItemStack> drops = drops(machine, block);
             if (!fits(state, drops)) {
-                state.status = "缓冲已满";
+                state.status = "buffer_full";
                 machine.setState(WorkState.OUTPUT_BLOCKED);
                 controller.markChanged();
                 return 0;
             }
             if (!hasReplacement(machine, replacement)) {
-                state.status = "缺少回填材料";
+                state.status = "missing_material";
                 machine.setState(WorkState.NO_INPUT);
                 controller.markChanged();
                 return 0;
@@ -394,12 +395,12 @@ public final class DigitalMinerLogic implements MachineLogic {
             // The first target of a scan has already been quoted by energyPerTick().
             // Finding a later target returns so the next server tick can charge for it.
             if (inspected > 0) {
-                state.status = "找到目标";
+                state.status = "target";
                 machine.setState(WorkState.IDLE);
                 controller.markChanged();
                 return 0;
             }
-            state.status = "采集中";
+            state.status = "mining";
             machine.setState(WorkState.RUNNING);
             int requiredTicks = Math.max(1,
                     (int) Math.ceil(DEFAULT_TICKS_PER_MINE / machine.progressRate()));
@@ -413,7 +414,7 @@ public final class DigitalMinerLogic implements MachineLogic {
                 return 0;
             }
             if (!consumeReplacement(machine, replacement)) {
-                state.status = "缺少回填材料";
+                state.status = "missing_material";
                 state.progress = 0;
                 machine.setState(WorkState.NO_INPUT);
                 controller.markChanged();
@@ -437,7 +438,7 @@ public final class DigitalMinerLogic implements MachineLogic {
         }
         if (state.scan().done()) {
             state.running = false;
-            state.status = "扫描完成";
+            state.status = "complete";
             machine.setState(WorkState.IDLE);
         }
         controller.markChanged();
@@ -466,7 +467,7 @@ public final class DigitalMinerLogic implements MachineLogic {
         BlockBreakEvent event = new BlockBreakEvent(block, owner);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
-            state.status = "区域禁止采集";
+            state.status = "protected";
             state.progress = 0;
             return false;
         }
@@ -564,7 +565,8 @@ public final class DigitalMinerLogic implements MachineLogic {
         state.inverseRequiresReplacement = tag.getBoolean("inverse_requires_replacement", false);
         state.visuals = tag.getBoolean("visuals", false);
         state.replace = tag.getString("replace", "");
-        state.status = tag.getString("status", state.running ? "扫描中" : "已停止");
+        state.status = I18n.normalizeMinerStatus(tag.getString("status",
+                state.running ? "scanning" : "stopped"));
         state.filter.load(tag.child("filter"));
         state.buffer.load(tag.child("buffer"));
     }

@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.transmitter;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.bukkit.util.BlockStateUtils;
@@ -56,8 +57,9 @@ public final class TransmitterShapes {
                 full++;
             }
         }
-        plugin.getLogger().info("传输元件碰撞：" + (sixPx ? "6px " + small + " 项" : "完整方块 " + full + " 项")
-                + "（客户端选中框按 leaves 载体）");
+        plugin.getLogger().info(sixPx
+                ? I18n.tr("transmitter.shape.applied_six", small)
+                : I18n.tr("transmitter.shape.applied_full", full));
     }
 
     private static Object sixPxShape() {
@@ -77,7 +79,7 @@ public final class TransmitterShapes {
             if (!warned) {
                 warned = true;
                 org.bukkit.Bukkit.getLogger().warning(
-                        "[CeMekanism] 自定义 6px 碰撞不可用，元件继续用载体满方块碰撞：" + e);
+                        I18n.tr("transmitter.shape.unavailable", e));
             }
             return null;
         }

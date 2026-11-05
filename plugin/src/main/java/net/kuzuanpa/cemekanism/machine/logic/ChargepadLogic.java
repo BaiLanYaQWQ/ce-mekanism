@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.machine.logic;
 import mekcore.machine.Machine;
 import mekcore.machine.MachineLogic;
 import mekcore.machine.WorkState;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineContexts;
 import net.kuzuanpa.cemekanism.platform.EnergyItems;
 import org.bukkit.World;
@@ -47,7 +48,7 @@ public final class ChargepadLogic implements MachineLogic {
 
     @Override
     public String name() {
-        return "充电台";
+        return I18n.machineName("mek:chargepad");
     }
 
     /** 每人每刻只充一件（上游就是这么写的：一件充满再换下一件）。 */

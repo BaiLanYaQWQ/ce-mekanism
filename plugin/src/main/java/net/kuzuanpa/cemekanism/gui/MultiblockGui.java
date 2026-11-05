@@ -1,7 +1,6 @@
 package net.kuzuanpa.cemekanism.gui;
 
 import mekcore.resource.ResourceHandler;
-import mekcore.resource.ResourceNames;
 import mekcore.resource.ResourceTypes;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
@@ -12,6 +11,7 @@ import net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic;
 import net.kuzuanpa.cemekanism.multiblock.logic.HohlraumItems;
 import net.kuzuanpa.cemekanism.multiblock.logic.SpsLogic;
 import net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.ResourceContainerItems;
 import net.kyori.adventure.text.Component;
@@ -52,7 +52,7 @@ public final class MultiblockGui {
                         gauge.x(), gauge.w(), color(port));
             }
         }
-        builder.text(host.def().zh(), TextColor.color(GuiConfig.titleColor()));
+        builder.text(I18n.structureName(host.def().id()), TextColor.color(GuiConfig.titleColor()));
         return builder.build();
     }
 
@@ -77,8 +77,9 @@ public final class MultiblockGui {
         for (int i = 0; i < pages.size(); i++) {
             GuiLayout.MultiblockPage tab = pages.get(i);
             List<String> hint = List.of();
-            contents[i * 2] = button("mek:gui_mb_" + tab.key(), tab.label(), hint);
-            contents[i * 2 + 1] = button("mek:gui_tooltip_anchor", tab.label(), hint);
+            String tabLabel = I18n.tabName(tab.key(), tab.label());
+            contents[i * 2] = button("mek:gui_mb_" + tab.key(), tabLabel, hint);
+            contents[i * 2 + 1] = button("mek:gui_tooltip_anchor", tabLabel, hint);
         }
         for (int i = 0; i < page.ports().size(); i++) {
             String name = page.ports().get(i);
@@ -90,14 +91,16 @@ public final class MultiblockGui {
                     GuiText.format(port.amount()) + " / " + GuiText.format(port.capacity())
                             + " " + port.type().unit()) : List.of());
             if (port.type().equals(ResourceTypes.CHEMICAL)) {
-                lore.add("排出状态：" + host.instance().tank(name).dumpMode().label());
-                lore.add("空光标点击罐条：不排出 / 排出过量 / 排出");
+                lore.add(I18n.tr("multiblock.tank.dump_state",
+                        I18n.enumName(host.instance().tank(name).dumpMode(), host.instance().tank(name).dumpMode().label())));
+                lore.add(I18n.tr("multiblock.tank.dump_hint"));
             }
             if (port.type().equals(ResourceTypes.FLUID) || port.type().equals(ResourceTypes.CHEMICAL)) {
-                lore.add("持有一个容器：左键提取，右键放入");
+                lore.add(I18n.tr("gui.tank.container_hint"));
             }
             // row1 是资源图标；row2/3 的空模型锚点覆盖整根柱形。
-            String resourceName = port.resourceId() == null ? label(name) : ResourceNames.nameOf(port.type(), port.resourceId());
+            String resourceName = port.resourceId() == null ? label(name)
+                    : I18n.resourceName(port.type(), port.resourceId());
             contents[9 + page.columns().get(i)] = button(portIcon(name), resourceName, lore);
             if (!GuiConfig.anchorTooltips()) {
                 continue;
@@ -108,18 +111,18 @@ public final class MultiblockGui {
                 contents[cell.index()] = stack.clone();
             }
         }
-        contents[36] = button("mek:gui_mb_structure", "结构状态", structureInfo(host));
-        contents[38] = button("mek:gui_mb_operation", "运行状态", operationInfo(host, page.key()));
+        contents[36] = button("mek:gui_mb_structure", I18n.tr("multiblock.structure"), structureInfo(host));
+        contents[38] = button("mek:gui_mb_operation", I18n.tr("multiblock.operation"), operationInfo(host, page.key()));
         ItemStack recipes = new ItemStack(Material.KNOWLEDGE_BOOK);
         var recipesMeta = recipes.getItemMeta();
-        GuiText.applyTooltip(recipesMeta, "查看配方", List.of());
+        GuiText.applyTooltip(recipesMeta, I18n.tr("multiblock.recipes"), List.of());
         recipes.setItemMeta(recipesMeta);
         contents[RECIPES_SLOT] = recipes;
         if ("stats".equals(page.key())) {
             contents[36] = empty.clone();
             contents[38] = empty.clone();
-            contents[20] = button("mek:gui_mb_structure", "结构参数", structureInfo(host));
-            contents[24] = button("mek:gui_mb_stats", "运行数据", operationInfo(host, page.key()));
+            contents[20] = button("mek:gui_mb_structure", I18n.tr("multiblock.structure_parameters"), structureInfo(host));
+            contents[24] = button("mek:gui_mb_stats", I18n.tr("multiblock.operation_data"), operationInfo(host, page.key()));
         }
         controls(host, page.key(), contents);
         for (int i = 0; i < contents.length; i++) {
@@ -133,28 +136,35 @@ public final class MultiblockGui {
         var instance = host.instance();
         if (instance.blueprint().logic() instanceof TeleporterLogic teleporter) {
             String frequency = teleporter.state(instance).frequency;
-            contents[40] = button("mek:gui_mb_operation", "传送频率：" + (frequency.isEmpty() ? "未绑定" : frequency),
-                    List.of("左键选择频率，右键解除绑定"));
+            contents[40] = button("mek:gui_mb_operation",
+                    I18n.tr("multiblock.teleporter.frequency",
+                            frequency.isEmpty() ? I18n.tr("multiblock.teleporter.unbound") : frequency),
+                    List.of(I18n.tr("multiblock.teleporter.frequency_hint")));
         } else if (instance.blueprint().logic() instanceof FusionReactorLogic fusion) {
             var state = fusion.state(instance);
             if ("fuel".equals(page) || "stats".equals(page)) {
-                contents[42] = button("mek:gui_mb_rate", "注入率：" + state.injectionRate + " mB/t",
-                        List.of("左键 +2，右键 -2", "Shift 点击：步长 10", "上限：" + MultiblockConfig.fusionMaxInjection()));
+                contents[42] = button("mek:gui_mb_rate",
+                        I18n.tr("multiblock.fusion.injection_rate", state.injectionRate),
+                        List.of(I18n.tr("multiblock.fusion.injection_adjust"),
+                                I18n.tr("multiblock.fusion.injection_shift"),
+                                I18n.tr("multiblock.fusion.injection_limit", MultiblockConfig.fusionMaxInjection())));
             }
             if ("main".equals(page) || "fuel".equals(page)) {
                 contents[40] = state.hohlraum == null
-                        ? button("mek:gui_mb_hohlraum", "黑体辐射腔（未装入）", List.of("光标持有辐射腔时左键装入", "空光标左键取出"))
+                        ? button("mek:gui_mb_hohlraum", I18n.tr("multiblock.fusion.hohlraum_missing"),
+                        List.of(I18n.tr("multiblock.fusion.hohlraum_insert"), I18n.tr("multiblock.fusion.hohlraum_remove")))
                         : namedHohlraum(state.hohlraum);
             }
         } else if (instance.blueprint().logic() instanceof FissionReactorLogic fission) {
             var state = fission.state(instance);
             if ("main".equals(page)) {
                 contents[40] = button(state.active ? "mek:gui_mb_on" : "mek:gui_mb_off",
-                        state.active ? "反应堆已启用" : "反应堆已停用",
-                        state.forceDisabled ? List.of("过热保护锁定，无法启动") : List.of());
+                        I18n.tr(state.active ? "multiblock.fission.enabled" : "multiblock.fission.disabled"),
+                        state.forceDisabled ? List.of(I18n.tr("multiblock.fission.overheat_lock")) : List.of());
             } else if ("stats".equals(page)) {
-                contents[42] = button("mek:gui_mb_rate", "燃烧率上限：" + decimal(state.rateLimit) + " mB/t",
-                        List.of("左键 +0.1，右键 -0.1", "Shift 点击：步长 1"));
+                contents[42] = button("mek:gui_mb_rate",
+                        I18n.tr("multiblock.fission.rate_limit", decimal(state.rateLimit)),
+                        List.of(I18n.tr("multiblock.fission.rate_adjust"), I18n.tr("multiblock.fission.rate_shift")));
             }
         }
     }
@@ -238,9 +248,9 @@ public final class MultiblockGui {
     private static ItemStack namedHohlraum(ItemStack stored) {
         ItemStack view = stored.clone();
         var meta = view.getItemMeta();
-        GuiText.applyTooltip(meta, "黑体辐射腔", List.of(
-                "载荷：" + GuiText.format(HohlraumItems.amount(stored)) + " mB",
-                "空光标左键取出"));
+        GuiText.applyTooltip(meta, I18n.tr("multiblock.fusion.hohlraum"), List.of(
+                I18n.tr("multiblock.fusion.hohlraum_payload", GuiText.format(HohlraumItems.amount(stored))),
+                I18n.tr("multiblock.fusion.hohlraum_remove")));
         view.setItemMeta(meta);
         return view;
     }
@@ -248,17 +258,17 @@ public final class MultiblockGui {
     private static List<String> structureInfo(MultiblockHosts.Host host) {
         List<String> lines = new ArrayList<>();
         var instance = host.instance();
-        lines.add("尺寸：" + instance.sizeX() + " × " + instance.sizeY() + " × " + instance.sizeZ());
+        lines.add(I18n.tr("multiblock.size", instance.sizeX(), instance.sizeY(), instance.sizeZ()));
         for (String role : host.def().roleBlocks().keySet()) {
             if (Set.of("frame", "glass", "valve", "heated_valve", "cooled_valve", "port",
                     "controller", "logic_adapter", "laser_focus").contains(role)) continue;
             int count = instance.shape().roleCount(MultiblockBlocks.role(role));
             if (count > 0) {
-                lines.add(roleLabel(role) + "：" + count);
+                lines.add(I18n.tr("multiblock.role_count", roleLabel(role), count));
             }
         }
         if ("turbine".equals(host.def().family())) {
-            lines.add("涡轮叶片：" + host.blades());
+            lines.add(I18n.tr("multiblock.turbine_blades", host.blades()));
         }
         return lines;
     }
@@ -270,27 +280,30 @@ public final class MultiblockGui {
             lines.add(teleporter.status(host));
         }
         if (instance.heatNode() != null) {
-            lines.add("外壳温度：" + decimal(instance.heatNode().temperatureK()) + " K");
+            lines.add(I18n.tr("multiblock.casing_temperature", decimal(instance.heatNode().temperatureK())));
         }
         if (instance.blueprint().logic() instanceof FusionReactorLogic fusion) {
             var state = fusion.state(instance);
-            lines.add(state.burning ? "等离子体正在燃烧" : "等离子体未点燃");
-            lines.add("等离子体温度：" + decimal(state.plasmaTemperatureK) + " K");
-            lines.add("点火温度：" + decimal(MultiblockConfig.fusionBurnTemperatureK()) + " K");
-            if (!"fuel".equals(page) && !"stats".equals(page)) lines.add("注入率：" + state.injectionRate + " mB/t");
+            lines.add(I18n.tr(state.burning ? "multiblock.fusion.burning" : "multiblock.fusion.unlit"));
+            lines.add(I18n.tr("multiblock.fusion.plasma_temperature", decimal(state.plasmaTemperatureK)));
+            lines.add(I18n.tr("multiblock.fusion.ignition_temperature", decimal(MultiblockConfig.fusionBurnTemperatureK())));
+            if (!"fuel".equals(page) && !"stats".equals(page)) {
+                lines.add(I18n.tr("multiblock.fusion.injection_rate", state.injectionRate));
+            }
         } else if (instance.blueprint().logic() instanceof FissionReactorLogic fission) {
             var state = fission.state(instance);
-            if (!"main".equals(page)) lines.add(state.active ? "反应堆已启用" : "反应堆已停用");
-            if (!"stats".equals(page)) lines.add("燃烧率上限：" + decimal(state.rateLimit) + " mB/t");
-            lines.add("结构损伤：" + decimal(state.damage) + "%");
-            if (state.forceDisabled) lines.add("过热保护锁定");
+            if (!"main".equals(page)) lines.add(I18n.tr(state.active ? "multiblock.fission.enabled" : "multiblock.fission.disabled"));
+            if (!"stats".equals(page)) lines.add(I18n.tr("multiblock.fission.rate_limit", decimal(state.rateLimit)));
+            lines.add(I18n.tr("multiblock.fission.damage", decimal(state.damage)));
+            if (state.forceDisabled) lines.add(I18n.tr("multiblock.fission.overheat_lock"));
         } else if (instance.blueprint().logic() instanceof SpsLogic sps) {
             var state = sps.state(instance);
-            lines.add("已处理钋：" + GuiText.format(state.inputProcessed) + " mB");
-            lines.add("反物质进度：" + decimal(state.progress) + " / " + MultiblockConfig.spsInputPerAntimatter());
-            lines.add("本刻耗能：" + GuiText.format(state.lastEnergy) + " J/t");
+            lines.add(I18n.tr("multiblock.sps.polonium_processed", GuiText.format(state.inputProcessed)));
+            lines.add(I18n.tr("multiblock.sps.antimatter_progress",
+                    decimal(state.progress), MultiblockConfig.spsInputPerAntimatter()));
+            lines.add(I18n.tr("multiblock.sps.energy", GuiText.format(state.lastEnergy)));
         }
-        return lines.isEmpty() ? List.of("结构已就绪") : lines;
+        return lines.isEmpty() ? List.of(I18n.tr("multiblock.ready")) : lines;
     }
 
     private static ItemStack button(String id, String name, List<String> lore) {
@@ -338,49 +351,10 @@ public final class MultiblockGui {
     }
 
     private static String roleLabel(String role) {
-        return switch (role) {
-            case "frame" -> "外壳";
-            case "glass" -> "结构玻璃";
-            case "valve" -> "阀门";
-            case "heated_valve" -> "热冷却液阀门";
-            case "cooled_valve" -> "冷冷却液阀门";
-            case "complex" -> "复杂旋转结构";
-            case "port" -> "端口";
-            case "controller" -> "控制器";
-            case "element" -> "过热元件";
-            case "disperser" -> "压力分散器";
-            case "rotor" -> "涡轮转子";
-            case "coil" -> "线圈";
-            case "vent" -> "排气口";
-            case "condenser" -> "饱和冷凝器";
-            case "cell" -> "感应元件";
-            case "provider" -> "感应供应器";
-            case "fuel" -> "燃料组件";
-            case "control_rod" -> "控制棒组件";
-            case "logic_adapter" -> "逻辑适配器";
-            case "laser_focus" -> "激光聚焦矩阵";
-            default -> role;
-        };
+        return I18n.roleName(role, role);
     }
 
     private static String label(String port) {
-        return switch (port) {
-            case "deuterium" -> "氘";
-            case "tritium" -> "氚";
-            case "water" -> "水";
-            case "steam" -> "蒸汽";
-            case "energy" -> "能量";
-            case "heated_coolant" -> "热冷却液";
-            case "cooled_coolant" -> "冷冷却液";
-            case "fuel" -> "燃料";
-            case "waste" -> "废料";
-            case "laser_energy" -> "激光能量";
-            case "polonium" -> "钋";
-            case "antimatter" -> "反物质";
-            case "fluid" -> "流体";
-            case "chemical" -> "化学品";
-            case "output" -> "产出";
-            default -> port;
-        };
+        return I18n.trOrDefault("multiblock.port." + port, port);
     }
 }

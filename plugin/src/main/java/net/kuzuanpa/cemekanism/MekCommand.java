@@ -19,6 +19,7 @@ import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.gui.GuiConfig;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
 import net.kuzuanpa.cemekanism.gui.MultiblockGui;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.RecipeBrowserGui;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
 import net.kuzuanpa.cemekanism.nuclear.B6Acceptance;
@@ -83,9 +84,9 @@ final class MekCommand implements CommandExecutor {
         switch (sub) {
             case "recipes", "recipe" -> {
                 if (!(sender instanceof Player player)) {
-                    sender.sendMessage("请在游戏内执行以打开配方浏览页");
+                    I18n.send(sender, "recipe.player_only");
                 } else if (!player.hasPermission("mek.recipes")) {
-                    sender.sendMessage("你没有 mek.recipes 权限");
+                    I18n.send(sender, "command.missing_permission", "mek.recipes");
                 } else {
                     RecipeBrowserGui.openCatalog(this.plugin, player);
                 }
@@ -107,16 +108,7 @@ final class MekCommand implements CommandExecutor {
             case "showcase" -> ShowcaseCommand.run(this.plugin, sender, args);
             case "radiation" -> radiation(sender, args);
             case "reactor" -> reactor(sender, args);
-            default -> sender.sendMessage("用法：/" + label
-                    + " selfcheck | reload | machine <x> <y> <z> | security <x> <y> <z> [...]"
-                    + " | pipe <x> <y> <z> | net [世界]"
-                    + " | structure <x> <y> <z> | build <x> <y> <z> <结构 id>"
-                    + " | demo [x y z]"
-                    + " | heater <x y z> [J/t]"
-                    + " | showcase <x> <y> <z> [confirm|status]"
-                    + " | radiation <status|get|add|heal|removeAll|sources>"
-                    + " | reactor <x> <y> <z> <info|on|off|rate|injection|plasma|hohlraum|mode> [...]"
-                    + " | debug put|take|power|save|gui|gen|defaults <x> <y> <z> [...]");
+            default -> I18n.send(sender, "command.mek.usage", label);
         }
         return true;
     }
@@ -133,13 +125,14 @@ final class MekCommand implements CommandExecutor {
                 mekcore.chemical.DoseTracker dose = this.plugin.radiation(target.getWorld()).dose(target);
                 double exposure = this.plugin.radiation(target.getWorld())
                         .exposureAt(target.getLocation());
-                sender.sendMessage(target.getName() + " 剂量 " + String.format("%.2f μSv（%s）",
-                        dose.microSv(), dose.effect().zhName())
-                        + "，环境 " + RadiationWorld.format(exposure));
+                I18n.send(sender, "radiation.status",
+                        target.getName(), String.format("%.2f", dose.microSv()),
+                        I18n.enumName(dose.effect(), dose.effect().zhName()),
+                        RadiationWorld.format(exposure));
             }
             case "add" -> {
                 if (args.length < 3) {
-                    sender.sendMessage("用法：/mek radiation add <μSv> [玩家]");
+                    I18n.send(sender, "radiation.add_usage");
                     return;
                 }
                 Player target = target(sender, args, 3);
@@ -148,7 +141,7 @@ final class MekCommand implements CommandExecutor {
                 }
                 double amount = Double.parseDouble(args[2]);
                 this.plugin.radiation(target.getWorld()).dose(target).add(amount);
-                sender.sendMessage(target.getName() + " 剂量 +" + amount + " μSv");
+                I18n.send(sender, "radiation.added", target.getName(), amount);
             }
             case "heal" -> {
                 Player target = target(sender, args, 2);
@@ -160,11 +153,11 @@ final class MekCommand implements CommandExecutor {
                 target.removePotionEffect(org.bukkit.potion.PotionEffectType.DARKNESS);
                 target.removePotionEffect(org.bukkit.potion.PotionEffectType.NAUSEA);
                 target.removePotionEffect(org.bukkit.potion.PotionEffectType.HUNGER);
-                sender.sendMessage(target.getName() + " 的辐射剂量已清零");
+                I18n.send(sender, "radiation.cleared", target.getName());
             }
             case "removeall" -> {
                 int cleared = this.plugin.radiationAll().removeAll();
-                sender.sendMessage("已清空在线与离线玩家的辐射剂量（" + cleared + " 条记录）");
+                I18n.send(sender, "radiation.cleared_all", cleared);
             }
             case "sources" -> {
                 World world = world(sender);
@@ -183,20 +176,20 @@ final class MekCommand implements CommandExecutor {
                     radius = args.length > 5 ? Integer.parseInt(args[5])
                             : RadiationConfig.maxDistance();
                 } else {
-                    sender.sendMessage("sources 需要玩家执行，或写坐标：/mek radiation sources <x> <y> <z> [半径]");
+                    I18n.send(sender, "radiation.sources_usage");
                     return;
                 }
-                sender.sendMessage("环境剂量率：" + RadiationWorld.format(
+                I18n.send(sender, "radiation.environment", RadiationWorld.format(
                         this.plugin.radiation(world).exposureAt(location)));
                 List<String> lines = this.plugin.radiation(world)
                         .sourceLines(location, radius);
                 if (lines.isEmpty()) {
-                    sender.sendMessage("半径 " + radius + " 内没有已登记的放射源");
+                    I18n.send(sender, "radiation.no_sources", radius);
                     return;
                 }
                 lines.forEach(sender::sendMessage);
             }
-            default -> sender.sendMessage("用法：/mek radiation status|get|add|heal|removeAll|sources");
+            default -> I18n.send(sender, "radiation.usage");
         }
     }
 
@@ -204,14 +197,14 @@ final class MekCommand implements CommandExecutor {
         if (args.length > index) {
             Player named = Bukkit.getPlayerExact(args[index]);
             if (named == null) {
-                sender.sendMessage("没有在线玩家：" + args[index]);
+                I18n.send(sender, "command.player_missing", args[index]);
             }
             return named;
         }
         if (sender instanceof Player player) {
             return player;
         }
-        sender.sendMessage("控制台执行要写玩家名");
+        I18n.send(sender, "command.console_player_required");
         return null;
     }
 
@@ -221,7 +214,7 @@ final class MekCommand implements CommandExecutor {
      */
     private void pipe(CommandSender sender, String[] args) {
         if (args.length < 4) {
-            sender.sendMessage("用法：/mek pipe <x> <y> <z>");
+            I18n.send(sender, "command.pipe.usage");
             return;
         }
         World world = world(sender);
@@ -233,7 +226,7 @@ final class MekCommand implements CommandExecutor {
         int z = Integer.parseInt(args[3]);
         TransmitterBlockEntityController controller = this.plugin.transmitterAt(world, x, y, z);
         if (controller == null) {
-            sender.sendMessage("这个坐标上不是（已加载的）传输元件");
+            I18n.send(sender, "command.transmitter_missing");
             return;
         }
         for (String line : this.plugin.logistics(world).describe(controller).split("\n")) {
@@ -253,7 +246,7 @@ final class MekCommand implements CommandExecutor {
         }
         World world = Bukkit.getWorld(name);
         if (world == null) {
-            sender.sendMessage("没有这个世界：" + name);
+            I18n.send(sender, "command.world_missing_named", name);
             return;
         }
         for (String line : this.plugin.logistics(world).summary().split("\n")) {
@@ -267,8 +260,7 @@ final class MekCommand implements CommandExecutor {
      */
     private void cableDebug(CommandSender sender, String[] args) {
         if (args.length < 6) {
-            sender.sendMessage("用法：/mek debug cable <x> <y> <z> info | charge <J> | fill <资源 id> <数量>"
-                    + " | item <物品 id> <数量> | port <面> | channel <色> | redstone | visual");
+            I18n.send(sender, "command.cable.usage");
             return;
         }
         World world = world(sender);
@@ -280,7 +272,7 @@ final class MekCommand implements CommandExecutor {
         int z = Integer.parseInt(args[4]);
         TransmitterBlockEntityController controller = this.plugin.transmitterAt(world, x, y, z);
         if (controller == null) {
-            sender.sendMessage("这个坐标上不是（已加载的）传输元件");
+            I18n.send(sender, "command.transmitter_missing");
             return;
         }
         switch (args[5].toLowerCase(Locale.ROOT)) {
@@ -291,7 +283,7 @@ final class MekCommand implements CommandExecutor {
             }
             case "port" -> {
                 if (args.length < 7) {
-                    sender.sendMessage("要一个面：/mek debug cable <x y z> port <面>");
+                    I18n.send(sender, "command.cable.port_usage");
                     return;
                 }
                 mekcore.machine.Direction direction = null;
@@ -301,14 +293,16 @@ final class MekCommand implements CommandExecutor {
                     }
                 }
                 if (direction == null) {
-                    sender.sendMessage("面要写 north/south/east/west/up/down");
+                    I18n.send(sender, "command.side_usage");
                     return;
                 }
-                sender.sendMessage(direction.name() + " 面 → " + controller.cyclePort(direction).zhName());
+                var mode = controller.cyclePort(direction);
+                I18n.send(sender, "command.cable.port_changed", direction.name(),
+                        I18n.enumName(mode, mode.zhName()));
             }
             case "channel" -> {
                 if (args.length < 7) {
-                    sender.sendMessage("要一个频道号（-1 = 未设色，0~11 = 第 1~12 色）");
+                    I18n.send(sender, "command.cable.channel_usage");
                     return;
                 }
                 int channel = Integer.parseInt(args[6]);
@@ -318,15 +312,15 @@ final class MekCommand implements CommandExecutor {
                     controller.node().setChannel(channel);
                 }
                 controller.syncSelf();
-                sender.sendMessage("颜色 → " + controller.nodeSummary());
+                I18n.send(sender, "command.cable.channel_changed", controller.nodeSummary());
             }
             case "charge" -> {
                 if (controller.node() == null) {
-                    sender.sendMessage("这不是资源族元件（物品管道要放 item）");
+                    I18n.send(sender, "command.cable.not_resource");
                     return;
                 }
                 if (!controller.node().tier().family().resource().equals(mekcore.resource.ResourceTypes.ENERGY)) {
-                    sender.sendMessage("这不是能量线缆（流体/化学品用 fill <资源 id> <数量>）");
+                    I18n.send(sender, "command.cable.not_energy");
                     return;
                 }
                 long joules = Long.parseLong(args[6]);
@@ -334,15 +328,15 @@ final class MekCommand implements CommandExecutor {
                         mekcore.resource.ResourceStack.energy(joules),
                         mekcore.resource.Transaction.EXECUTE);
                 this.plugin.logistics(world).wake();
-                sender.sendMessage("线缆缓存放进 " + done + "/" + joules + " J → " + controller.nodeSummary());
+                I18n.send(sender, "command.cable.charged", done, joules, controller.nodeSummary());
             }
             case "fill" -> {
                 if (controller.node() == null) {
-                    sender.sendMessage("这不是资源族元件（物品管道要放 item）");
+                    I18n.send(sender, "command.cable.not_resource");
                     return;
                 }
                 if (args.length < 8) {
-                    sender.sendMessage("用法：/mek debug cable <x y z> fill <资源 id> <数量>");
+                    I18n.send(sender, "command.cable.fill_usage");
                     return;
                 }
                 long amount = Long.parseLong(args[7]);
@@ -352,41 +346,41 @@ final class MekCommand implements CommandExecutor {
                         : mekcore.resource.ResourceStack.chemical(args[6], amount);
                 long done = controller.node().buffer().insert(stack, mekcore.resource.Transaction.EXECUTE);
                 this.plugin.logistics(world).wake();
-                sender.sendMessage("管道缓存放进 " + done + "/" + amount + ' ' + args[6]
-                        + " → " + controller.nodeSummary());
+                I18n.send(sender, "command.cable.filled", done, amount, args[6], controller.nodeSummary());
             }
             case "item" -> {
                 if (args.length < 8) {
-                    sender.sendMessage("用法：/mek debug cable <x y z> item <物品 id> <数量>");
+                    I18n.send(sender, "command.cable.item_usage");
                     return;
                 }
                 if (controller.itemNode() == null) {
-                    sender.sendMessage("这不是物流管道（物品要放箱柜/机器里）");
+                    I18n.send(sender, "command.cable.not_logistics");
                     return;
                 }
                 long done = controller.itemNode().insert(
                         mekcore.item.ItemRef.of(args[6], Long.parseLong(args[7])));
                 this.plugin.logistics(world).wake();
-                sender.sendMessage("管道缓存放进 " + done + " 个 " + args[6]
-                        + " → " + controller.nodeSummary());
+                I18n.send(sender, "command.cable.items_filled", done, args[6], controller.nodeSummary());
             }
             case "redstone" -> {
                 boolean enabled = controller.toggleRedstone();
-                sender.sendMessage("红石响应 → " + (enabled ? "开（通着电就不搬运）" : "关"));
+                I18n.send(sender, "command.cable.redstone",
+                        I18n.tr(sender, enabled ? "state.redstone_enabled" : "state.off"));
             }
             case "visual" -> {
                 sender.sendMessage(controller.visual().describe());
-                sender.sendMessage("刷新间隔：" + LogisticsConfig.transmitterVisualInterval()
-                        + " 刻，内容层" + (LogisticsConfig.transmitterContentsEnabled() ? "开" : "关"));
+                I18n.send(sender, "command.cable.visual",
+                        LogisticsConfig.transmitterVisualInterval(),
+                        I18n.tr(sender, LogisticsConfig.transmitterContentsEnabled() ? "state.on" : "state.off"));
             }
-            default -> sender.sendMessage("不知道 cable " + args[6]);
+            default -> I18n.send(sender, "command.cable.unknown", args[6]);
         }
     }
 
     /** /mek debug heat &lt;x y z&gt; info|set &lt;K&gt;：给热导线缆定一个温度（没有热源时的替身）。 */
     private void heatDebug(CommandSender sender, String[] args) {
         if (args.length < 6) {
-            sender.sendMessage("用法：/mek debug heat <x> <y> <z> info | set <K>");
+            I18n.send(sender, "command.heat.usage");
             return;
         }
         World world = world(sender);
@@ -398,7 +392,7 @@ final class MekCommand implements CommandExecutor {
         int z = Integer.parseInt(args[4]);
         TransmitterBlockEntityController controller = this.plugin.transmitterAt(world, x, y, z);
         if (controller == null || controller.heatNode() == null) {
-            sender.sendMessage("这个坐标上不是热导线缆");
+            I18n.send(sender, "command.heat.not_conductor");
             return;
         }
         if ("set".equalsIgnoreCase(args[5]) && args.length > 6) {
@@ -419,13 +413,15 @@ final class MekCommand implements CommandExecutor {
         World world = controller.world();
         sender.sendMessage(machine.describe());
         if (machine.heatNode() != null) {
-            sender.sendMessage("  温度 " + String.format("%.2f", machine.heatNode().temperatureK())
-                    + " K，热容 " + String.format("%.3f", machine.heatNode().heatCapacity())
-                    + "（J/K 换算 " + String.format("%.0f", machine.heatNode().config().joulesPerKelvin()) + "）");
+            I18n.send(sender, "debug.generator.heat",
+                    String.format("%.2f", machine.heatNode().temperatureK()),
+                    String.format("%.3f", machine.heatNode().heatCapacity()),
+                    String.format("%.0f", machine.heatNode().config().joulesPerKelvin()));
         }
-        sender.sendMessage("  累计耗电 " + machine.energyConsumedTotal() + " J，累计操作 " + machine.operations());
+        I18n.send(sender, "debug.generator.totals", machine.energyConsumedTotal(), machine.operations());
         for (String port : machine.portNames()) {
-            machine.tank(port).ifPresent(tank -> sender.sendMessage("  " + port + "：" + tank.describe()));
+            machine.tank(port).ifPresent(tank ->
+                    I18n.send(sender, "debug.generator.port", port, tank.describe()));
         }
         if (world != null) {
             int x = controller.x();
@@ -439,18 +435,18 @@ final class MekCommand implements CommandExecutor {
                     }
                 }
             }
-            sender.sendMessage("  见太阳（上方）=" + GeneratorEnvironment.canSeeSunAbove(world, x, y, z)
-                    + "，九个采光点=" + sunPoints + "/9"
-                    + "，风力顶部通=" + GeneratorEnvironment.windTopOpen(world, x, y, z)
-                    + "，禁风维度=" + GeneratorEnvironment.noWindDimension(world)
-                    + "，熔岩邻面=" + GeneratorEnvironment.lavaSides(world, x, y, z));
+            I18n.send(sender, "debug.generator.environment",
+                    GeneratorEnvironment.canSeeSunAbove(world, x, y, z),
+                    sunPoints, GeneratorEnvironment.windTopOpen(world, x, y, z),
+                    GeneratorEnvironment.noWindDimension(world),
+                    GeneratorEnvironment.lavaSides(world, x, y, z));
         }
     }
 
     /** /mek structure <x y z>：成型 + 逐位置报"期望什么、实际什么" + 端口位置（文档 05 第四节）。 */
     private void structure(CommandSender sender, String[] args) {
         if (args.length < 4) {
-            sender.sendMessage("用法：/mek structure <x> <y> <z>");
+            I18n.send(sender, "command.structure.usage");
             return;
         }
         World world = world(sender);
@@ -463,7 +459,7 @@ final class MekCommand implements CommandExecutor {
         MultiblockBlockEntityController anchor = this.plugin.multiblockAt(world, x, y, z);
         MultiblockHosts.Host host = anchor != null ? anchor.form() : this.plugin.multiblocks().at(world, x, y, z);
         if (host == null) {
-            sender.sendMessage("这个坐标上不是结构锚点，也不在任何已登记的结构里");
+            I18n.send(sender, "command.structure.missing");
             return;
         }
         sender.sendMessage(host.describe());
@@ -472,17 +468,17 @@ final class MekCommand implements CommandExecutor {
             sender.sendMessage("  " + note);
         }
         for (String port : host.def().ports()) {
-            sender.sendMessage("  端口 " + port + "：" + host.instance().tank(port).describe()
-                    + " 容量规则 " + host.def().capacityRule(port)
-                    + "，位置 " + host.instance().portPositions(port));
+            I18n.send(sender, "command.structure.port", port,
+                    host.instance().tank(port).describe(), host.def().capacityRule(port),
+                    host.instance().portPositions(port));
         }
     }
 
     /** /mek build <x y z> <结构 id>：一键搭建（锚点在最小角，清单来自核心的 buildPlan）。 */
     private void build(CommandSender sender, String[] args) {
         if (args.length < 5) {
-            sender.sendMessage("用法：/mek build <x> <y> <z> <结构 id>；已知结构："
-                    + MultiblockBlocks.all().stream().map(MultiblockDef::id).toList());
+            I18n.send(sender, "command.build.usage",
+                    MultiblockBlocks.all().stream().map(MultiblockDef::id).toList());
             return;
         }
         World world = world(sender);
@@ -506,20 +502,19 @@ final class MekCommand implements CommandExecutor {
             sizeZ = args.length > 7 ? sizeZ : 1;
         }
         if (!def.accepts(sizeX, sizeY, sizeZ)) {
-            sender.sendMessage("尺寸不满足：" + def.zh() + " 要 " + def.wMin() + "~" + def.wMax() + "×"
-                    + def.hMin() + "~" + def.hMax());
+            I18n.send(sender, "command.build.bad_size", I18n.structureName(I18n.locale(sender), def.id()),
+                    def.wMin(), def.wMax(), def.hMin(), def.hMax());
             return;
         }
         MultiblockPlacements.Result result = MultiblockPlacements.build(
                 this.plugin, world, x, y, z, def, sizeX, sizeY, sizeZ);
-        sender.sendMessage("按清单摆了 " + result.placed() + " 格（已就位 " + result.kept()
-                + "，清空内部 " + result.cleared() + "）");
+        I18n.send(sender, "command.build.placed", result.placed(), result.kept(), result.cleared());
         int[] offset = def.buildAnchor(sizeX, sizeY, sizeZ);
         MultiblockBlockEntityController anchor = this.plugin.multiblockAt(world,
                 x + offset[0], y + offset[1], z + offset[2]);
         MultiblockHosts.Host host = anchor == null ? null : anchor.form();
         if (host == null) {
-            sender.sendMessage("锚点方块实体还没建起来（区块是否加载？）");
+            I18n.send(sender, "command.build.entity_missing");
             return;
         }
         sender.sendMessage(host.describe());
@@ -556,11 +551,11 @@ final class MekCommand implements CommandExecutor {
         MekSystems.DemoSettings cfg = MekSystems.demo();
         MultiblockDef def = MultiblockBlocks.require(cfg.multiblock());
         if (def.wMin() > 3 || def.hMin() > 3) {
-            sender.sendMessage("demo 的储罐需要 3×3×3 的最小结构；" + def.id() + " 放不下");
+            I18n.send(sender, "command.demo.tank_too_small", def.id());
             return;
         }
         if (!def.ports().contains("fluid")) {
-            sender.sendMessage("demo 的储罐需要一个叫 fluid 的端口；" + def.id() + " 的端口是 " + def.ports());
+            I18n.send(sender, "command.demo.missing_fluid_port", def.id(), def.ports());
             return;
         }
 
@@ -577,8 +572,7 @@ final class MekCommand implements CommandExecutor {
         MachineBlockEntityController a = this.plugin.machineAt(world, x, y, z);
         MachineBlockEntityController b = this.plugin.machineAt(world, x + 2, y, z);
         if (a == null || b == null) {
-            sender.sendMessage("机器方块实体没建起来（先 /forceload add " + (x >> 4) + ' ' + (z >> 4)
-                    + "，再重跑一次 demo）");
+            I18n.send(sender, "command.demo.entity_missing", x >> 4, z >> 4);
             return;
         }
         a.machine().setItemSide(Direction.UP, SideMode.INPUT);
@@ -621,27 +615,22 @@ final class MekCommand implements CommandExecutor {
         int starter = fillHopper(world, x, y + 1, z, cfg.starterItem(), cfg.starterAmount());
         this.plugin.logistics(world).wake();
 
-        sender.sendMessage("demo → (" + x + ',' + y + ',' + z + ")");
-        sender.sendMessage("  A " + cfg.machineA() + " @(" + x + ',' + y + ',' + z + ")");
-        sender.sendMessage("  B " + cfg.machineB() + " @(" + (x + 2) + ',' + y + ',' + z + ")");
-        sender.sendMessage("  物品管道 @(" + (x + 1) + ',' + y + ',' + z + ")；"
-                + "漏斗 → A → 管道 → B → 漏斗 → 箱子");
-        sender.sendMessage("  双储罐 @(" + (x + 4) + ',' + y + ',' + z + ") / ("
-                + (x + 4) + ',' + y + ',' + tankZ + ")，摆了 "
-                + (tankA.placed() + tankB.placed()) + " 格；机械管道 x=" + (x + 5) + " y=" + (y - 1));
-        sender.sendMessage("  线缆充电 " + chargedA + " / " + chargedB + " J；起始料 "
-                + starter + "×" + cfg.starterItem());
+        I18n.send(sender, "command.demo.created", x, y, z);
+        I18n.send(sender, "command.demo.machine_a", cfg.machineA(), x, y, z);
+        I18n.send(sender, "command.demo.machine_b", cfg.machineB(), x + 2, y, z);
+        I18n.send(sender, "command.demo.item_pipe", x + 1, y, z);
+        I18n.send(sender, "command.demo.tanks", x + 4, y, z, x + 4, y, tankZ,
+                tankA.placed() + tankB.placed(), x + 5, y - 1);
+        I18n.send(sender, "command.demo.power_and_feed", chargedA, chargedB, starter, cfg.starterItem());
         if (hostA == null || hostB == null) {
-            sender.sendMessage("  储罐没有成型：看 /mek structure 或 /mek build 的报错");
+            I18n.send(sender, "command.demo.tanks_unformed");
         } else {
-            sender.sendMessage("  储罐端口 " + hostA.instance().tank("fluid").describe() + " / "
-                    + hostB.instance().tank("fluid").describe()
-                    + "（等十几秒应变成 2500/2500）");
+            I18n.send(sender, "command.demo.tank_ports",
+                    hostA.instance().tank("fluid").describe(),
+                    hostB.instance().tank("fluid").describe());
         }
-        sender.sendMessage("  观察：/mek machine " + x + ' ' + y + ' ' + z
-                + "；/mek pipe " + (x + 1) + ' ' + y + ' ' + z
-                + "；/mek debug mb " + (x + 4) + ' ' + y + ' ' + z + " info");
-        sender.sendMessage("  注意：demo 会占用从锚点起 9×5×8 的格子；坐标、id 与起始料在 mek-systems.yml 的 demo 段");
+        I18n.send(sender, "command.demo.inspect", x, y, z, x + 1, y, z, x + 4, y, z);
+        I18n.send(sender, "command.demo.notice");
     }
 
     private MultiblockHosts.Host formAt(World world, int x, int y, int z) {
@@ -703,7 +692,7 @@ final class MekCommand implements CommandExecutor {
      */
     private void multiblockDebug(CommandSender sender, String[] args) {
         if (args.length < 6) {
-            sender.sendMessage("用法：/mek debug mb <x> <y> <z> info | blades <n> | put <端口> <数量> [资源 id]");
+            I18n.send(sender, "command.multiblock_debug.usage");
             return;
         }
         World world = world(sender);
@@ -719,39 +708,45 @@ final class MekCommand implements CommandExecutor {
             host = anchor == null ? null : anchor.form();
         }
         if (host == null) {
-            sender.sendMessage("这个坐标不在任何已登记的结构里");
+            I18n.send(sender, "command.structure.missing");
             return;
         }
         switch (args[5].toLowerCase(Locale.ROOT)) {
             case "info" -> {
                 sender.sendMessage(host.describe());
                 for (String port : host.def().ports()) {
-                    sender.sendMessage("  " + port + "=" + host.instance().tank(port).describe()
-                            + "（容量 " + host.instance().tank(port).capacity()
-                            + "，规则 " + host.def().capacityRule(port) + "）");
+                    I18n.send(sender, "command.multiblock_debug.port", port,
+                            host.instance().tank(port).describe(), host.instance().tank(port).capacity(),
+                            host.def().capacityRule(port));
                 }
                 if (host.instance().heatNode() != null) {
-                    sender.sendMessage("  温度 " + String.format("%.2f", host.instance().heatNode().temperatureK())
-                            + "K，热容 " + host.instance().heatNode().heatCapacity());
+                    I18n.send(sender, "command.multiblock_debug.heat",
+                            String.format("%.2f", host.instance().heatNode().temperatureK()),
+                            host.instance().heatNode().heatCapacity());
                 }
-                sender.sendMessage("  叶片 " + host.blades() + "，角色计数 " + host.instance().shape().describe());
+                I18n.send(sender, "command.multiblock_debug.blades_and_shape",
+                        host.blades(), host.instance().shape().describe());
             }
             case "dump" -> {
-                if (args.length < 8) { sender.sendMessage("/mek debug mb <x y z> dump <端口> <idle|excess|dumping>"); return; }
+                if (args.length < 8) { I18n.send(sender, "command.multiblock_debug.dump_usage"); return; }
                 var tank = host.instance().tank(args[6]);
-                if (!tank.type().equals(mekcore.resource.ResourceTypes.CHEMICAL)) { sender.sendMessage("只支持化学品罐"); return; }
+                if (!tank.type().equals(mekcore.resource.ResourceTypes.CHEMICAL)) {
+                    I18n.send(sender, "tank_dump.chemical_only");
+                    return;
+                }
                 if (!"info".equalsIgnoreCase(args[7])) {
                     tank.setDumpMode(mekcore.resource.DumpMode.parse(args[7])); host.markChanged();
                 }
-                sender.sendMessage(args[6] + " 排出状态=" + tank.dumpMode().label());
+                I18n.send(sender, "tank_dump.state", args[6],
+                        I18n.enumName(tank.dumpMode(), tank.dumpMode().label()));
             }
             case "blades" -> {
                 host.setBlades(Long.parseLong(args[6]));
-                sender.sendMessage("叶片数设为 " + host.blades());
+                I18n.send(sender, "command.multiblock_debug.blade_count", host.blades());
             }
             case "put" -> {
                 if (args.length < 8) {
-                    sender.sendMessage("用法：/mek debug mb <x> <y> <z> put <端口> <数量> [资源 id]");
+                    I18n.send(sender, "command.multiblock_debug.put_usage");
                     return;
                 }
                 String port = args[6];
@@ -766,17 +761,17 @@ final class MekCommand implements CommandExecutor {
                             id == null ? MultiblockConfig.WATER : id, amount);
                 };
                 long done = tank.insert(stack, mekcore.resource.Transaction.EXECUTE);
-                sender.sendMessage("端口 " + port + " 放入 " + done + "/" + amount + " " + stack.id()
-                        + " → " + tank.describe());
+                I18n.send(sender, "command.multiblock_debug.inserted",
+                        port, done, amount, stack.id(), tank.describe());
             }
-            default -> sender.sendMessage("用法：/mek debug mb <x> <y> <z> info | blades <n> | put <端口> <数量> [资源 id]");
+            default -> I18n.send(sender, "command.multiblock_debug.usage");
         }
     }
 
     /** /mek reactor：裂变/聚变/SPS 的状态与无客户端调试入口。 */
     private void reactor(CommandSender sender, String[] args) {
         if (args.length < 5) {
-            sender.sendMessage("用法：/mek reactor <x> <y> <z> info|on|off|rate <值>|injection <值>|plasma <K>|hohlraum|mode <px> <py> <pz>");
+            I18n.send(sender, "command.reactor.usage");
             return;
         }
         World world = world(sender);
@@ -792,48 +787,47 @@ final class MekCommand implements CommandExecutor {
             host = anchor == null ? null : anchor.form();
         }
         if (host == null) {
-            sender.sendMessage("这个坐标不在任何已登记的结构里");
+            I18n.send(sender, "command.structure.missing");
             return;
         }
         String action = args[4].toLowerCase(Locale.ROOT);
         if ("mode".equals(action)) {
             if (args.length < 8) {
-                sender.sendMessage("用法：/mek reactor <x> <y> <z> mode <端口方块 x> <y> <z>");
+                I18n.send(sender, "command.reactor.mode_usage");
                 return;
             }
             String next = host.cyclePortMode(Integer.parseInt(args[5]), Integer.parseInt(args[6]),
                     Integer.parseInt(args[7]));
-            sender.sendMessage(next.isEmpty() ? "这个方块没有可切换的端口模式"
-                    : host.def().zh() + " 端口模式 → " + next);
+            I18n.send(sender, next.isEmpty() ? "command.reactor.no_port_mode"
+                    : "command.reactor.port_mode", I18n.structureName(I18n.locale(sender), host.def().id()), next);
             host.markChanged();
             return;
         }
         if ("info".equals(action)) {
             sender.sendMessage(host.describe());
             for (String port : host.def().ports()) {
-                sender.sendMessage("  " + port + "=" + host.instance().tank(port).describe());
+                I18n.send(sender, "debug.port_value", port, host.instance().tank(port).describe());
             }
             if (host.instance().heatNode() != null) {
-                sender.sendMessage("  壳体温度 " + String.format("%.2f K", host.instance().heatNode().temperatureK())
-                        + "，热容 " + String.format("%.4f", host.instance().heatNode().heatCapacity()));
+                I18n.send(sender, "command.reactor.shell_heat",
+                        String.format("%.2f", host.instance().heatNode().temperatureK()),
+                        String.format("%.4f", host.instance().heatNode().heatCapacity()));
             }
             if (host.instance().blueprint().logic() instanceof FissionReactorLogic fission) {
                 FissionReactorLogic.State state = fission.state(host.instance());
-                sender.sendMessage("  裂变 运行=" + state.active + " 强制停=" + state.forceDisabled
-                        + " 燃耗=" + String.format("%.3f", state.rateLimit)
-                        + " 余量=" + String.format("%.3f", state.burnRemaining)
-                        + " 损伤=" + String.format("%.2f%%", state.damage)
-                        + " 废料余数=" + String.format("%.3f", state.partialWaste));
+                I18n.send(sender, "command.reactor.fission_status", state.active, state.forceDisabled,
+                        String.format("%.3f", state.rateLimit), String.format("%.3f", state.burnRemaining),
+                        String.format("%.2f", state.damage), String.format("%.3f", state.partialWaste));
             } else if (host.instance().blueprint().logic() instanceof FusionReactorLogic fusion) {
                 FusionReactorLogic.State state = fusion.state(host.instance());
-                sender.sendMessage("  聚变 燃烧=" + state.burning
-                        + " 等离子体=" + String.format("%.2f MK", state.plasmaTemperatureK / 1_000_000)
-                        + " 注入=" + state.injectionRate
-                        + " 黑体辐射腔=" + (state.hohlraum == null ? "无" : state.hohlraum.getAmount()));
+                I18n.send(sender, "command.reactor.fusion_status", state.burning,
+                        String.format("%.2f", state.plasmaTemperatureK / 1_000_000),
+                        state.injectionRate,
+                        state.hohlraum == null ? I18n.tr(sender, "state.none") : state.hohlraum.getAmount());
             } else if (host.instance().blueprint().logic() instanceof SpsLogic sps) {
                 SpsLogic.State state = sps.state(host.instance());
-                sender.sendMessage("  SPS 进度=" + String.format("%.1f/1000 mB", state.progress)
-                        + " 上刻能量=" + state.lastEnergy + " J");
+                I18n.send(sender, "command.reactor.sps_status",
+                        String.format("%.1f", state.progress), state.lastEnergy);
             }
             return;
         }
@@ -843,29 +837,30 @@ final class MekCommand implements CommandExecutor {
                 case "off" -> fission.setActive(host.instance(), false);
                 case "rate" -> {
                     if (args.length < 6) {
-                        sender.sendMessage("用法：/mek reactor <x> <y> <z> rate <mB/t>");
+                        I18n.send(sender, "command.reactor.rate_usage");
                         return;
                     }
                     fission.setRate(host.instance(), Double.parseDouble(args[5]));
                 }
-                default -> sender.sendMessage("裂变堆支持 info|on|off|rate|mode");
+                default -> I18n.send(sender, "command.reactor.fission_actions");
             }
             host.markChanged();
-            sender.sendMessage("裂变反应堆配置已更新");
+            I18n.send(sender, "command.reactor.updated",
+                    I18n.structureName(I18n.locale(sender), "mek:fission_reactor"));
             return;
         }
         if (host.instance().blueprint().logic() instanceof FusionReactorLogic fusion) {
             switch (action) {
                 case "injection" -> {
                     if (args.length < 6) {
-                        sender.sendMessage("用法：/mek reactor <x> <y> <z> injection <偶数>");
+                        I18n.send(sender, "command.reactor.injection_usage");
                         return;
                     }
                     fusion.setInjectionRate(host.instance(), Integer.parseInt(args[5]));
                 }
                 case "plasma" -> {
                     if (args.length < 6) {
-                        sender.sendMessage("用法：/mek reactor <x> <y> <z> plasma <K>");
+                        I18n.send(sender, "command.reactor.plasma_usage");
                         return;
                     }
                     fusion.setPlasmaTemperature(host.instance(), Double.parseDouble(args[5]));
@@ -873,20 +868,21 @@ final class MekCommand implements CommandExecutor {
                 case "hohlraum" -> {
                     ItemStack hohlraum = BukkitItems.create("mek:hohlraum");
                     if (hohlraum == null) {
-                        sender.sendMessage("mek:hohlraum 没有注册");
+                        I18n.send(sender, "command.reactor.hohlraum_missing");
                         return;
                     }
                     HohlraumItems.fill(hohlraum, FusionReactorLogic.FUSION_FUEL,
                             MultiblockConfig.hohlraumCapacity());
                     fusion.insertHohlraum(host.instance(), hohlraum);
                 }
-                default -> sender.sendMessage("聚变堆支持 info|injection|plasma|hohlraum|mode");
+                default -> I18n.send(sender, "command.reactor.fusion_actions");
             }
             host.markChanged();
-            sender.sendMessage("聚变反应堆配置已更新");
+            I18n.send(sender, "command.reactor.updated",
+                    I18n.structureName(I18n.locale(sender), "mek:fusion_reactor"));
             return;
         }
-        sender.sendMessage("这台结构没有 B6 核工业逻辑");
+        I18n.send(sender, "command.reactor.no_nuclear_logic");
     }
 
     private void selfcheck(CommandSender sender) {
@@ -900,11 +896,12 @@ final class MekCommand implements CommandExecutor {
 
     private void reload(CommandSender sender) {
         this.plugin.reloadConfig();
+        I18n.install(this.plugin);
         MekSystems.install(this.plugin);
         GeneratorConfig.install(this.plugin);
         RadiationConfig.install(this.plugin);
         TransmitterShapes.apply(this.plugin, MekSystems.transmitterCollision6px());
-        sender.sendMessage("系统参数已重读：" + mekcore.spec.V10Tables.summary());
+        I18n.send(sender, "command.reload.done", mekcore.spec.V10Tables.summary());
     }
 
     private void machine(CommandSender sender, String[] args) {
@@ -915,12 +912,16 @@ final class MekCommand implements CommandExecutor {
         if (denied(sender, controller.machine())) {
             return;
         }
-        sender.sendMessage(controller.taskId() + (controller.registered() ? "（已挂调度器）" : "（不在调度器里）"));
-        sender.sendMessage("  " + state(controller));
+        I18n.send(sender, controller.registered() ? "machine.registered" : "machine.unregistered",
+                controller.taskId());
+        I18n.send(sender, "machine.state_line", state(sender, controller));
         TickScheduler.Entry entry = this.plugin.scheduler().task(controller.taskId());
-        sender.sendMessage(entry == null ? "  调度器里没有这个任务"
-                : "  调度器：跑 " + entry.runs() + " 跳 " + entry.skips()
-                + (entry.sleeping() ? "（睡着）" : "（醒着）"));
+        if (entry == null) {
+            I18n.send(sender, "machine.scheduler_missing");
+        } else {
+            I18n.send(sender, "machine.scheduler_state", entry.runs(), entry.skips(),
+                    I18n.tr(sender, entry.sleeping() ? "state.sleeping" : "state.awake"));
+        }
     }
 
     /**
@@ -934,41 +935,43 @@ final class MekCommand implements CommandExecutor {
         }
         Machine machine = controller.machine();
         if (args.length < 5) {
-            sender.sendMessage(machine.blueprint().zhName() + " 安全=" + machine.security().zhName()
-                    + " owner=" + ownerText(machine) + " trusted=" + machine.trusted());
+            I18n.send(sender, "machine.security_summary",
+                    I18n.machineName(I18n.locale(sender), machine.blueprint()),
+                    I18n.enumName(machine.security(), machine.security().zhName()),
+                    ownerText(sender, machine), machine.trusted());
             return;
         }
         String action = args[4].toLowerCase(Locale.ROOT);
         if ("claim".equals(action)) {
             String uuid = args.length > 5 ? args[5] : senderUuid(sender);
             if (uuid == null) {
-                sender.sendMessage("控制台认领要给 uuid：/mek security <x> <y> <z> claim <uuid>");
+                I18n.send(sender, "command.security.claim_uuid");
                 return;
             }
             if (!validUuid(uuid)) {
-                sender.sendMessage("owner 要写玩家 UUID：" + uuid);
+                I18n.send(sender, "command.security.invalid_uuid", uuid);
                 return;
             }
             if (!controller.claim(uuid)) {
-                sender.sendMessage("已有主人 " + machine.owner() + "，先由主人或控制台改");
+                I18n.send(sender, "command.security.already_owned", machine.owner());
                 return;
             }
-            sender.sendMessage("owner → " + uuid);
+            I18n.send(sender, "command.security.owner_changed", uuid);
             return;
         }
         if (!canAdmin(sender, machine)) {
-            sender.sendMessage("只有主人或 cemekanism.admin 能改这台机器的安全");
+            I18n.send(sender, "command.security.admin_only");
             return;
         }
         if ("trust".equals(action)) {
             if (args.length < 7) {
-                sender.sendMessage("用法：/mek security <x> <y> <z> trust add|remove <uuid>");
+                I18n.send(sender, "command.security.trust_usage");
                 return;
             }
             String verb = args[5].toLowerCase(Locale.ROOT);
             String uuid = args[6];
             if (!validUuid(uuid)) {
-                sender.sendMessage("信任名单要写玩家 UUID：" + uuid);
+                I18n.send(sender, "command.security.invalid_trust_uuid", uuid);
                 return;
             }
             if ("add".equals(verb)) {
@@ -976,26 +979,27 @@ final class MekCommand implements CommandExecutor {
             } else if ("remove".equals(verb)) {
                 machine.removeTrusted(uuid);
             } else {
-                sender.sendMessage("trust 后面写 add 或 remove");
+                I18n.send(sender, "command.security.trust_action");
                 return;
             }
             controller.markChanged();
-            sender.sendMessage("trusted → " + machine.trusted());
+            I18n.send(sender, "command.security.trusted_changed", machine.trusted());
             return;
         }
         SecurityLevel level = securityOf(action);
         if (level == null) {
-            sender.sendMessage("等级写 public / trusted / private");
+            I18n.send(sender, "command.security.level_usage");
             return;
         }
         machine.setSecurity(level);
         controller.markChanged();
-        sender.sendMessage("安全等级 → " + level.zhName());
+        I18n.send(sender, "command.security.level_changed",
+                I18n.enumName(level, level.zhName()));
     }
 
     private void debug(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage("用法：/mek debug put|take|power|save|gui|defaults|block <x> <y> <z> [...]");
+            I18n.send(sender, "command.debug.usage");
             return;
         }
         String action = args[1].toLowerCase(Locale.ROOT);
@@ -1017,7 +1021,7 @@ final class MekCommand implements CommandExecutor {
         }
         if ("block".equals(action)) {
             if (args.length < 5) {
-                sender.sendMessage("要坐标：/mek debug block <x> <y> <z>");
+                I18n.send(sender, "command.coordinates_required");
                 return;
             }
             block(sender, args);
@@ -1047,7 +1051,7 @@ final class MekCommand implements CommandExecutor {
             case "side" -> side(sender, controller, args);
             case "defaults" -> defaults(sender, controller);
             case "block" -> block(sender, args);
-            default -> sender.sendMessage("不知道 debug " + action);
+            default -> I18n.send(sender, "command.debug.unknown", action);
         }
     }
 
@@ -1056,7 +1060,7 @@ final class MekCommand implements CommandExecutor {
         String blueprint = controller.machine().blueprint().id();
         String family = blueprint.contains(":") ? blueprint.split(":", 2)[1] : blueprint;
         if (GeneratorConfig.defaultSides(family).isEmpty()) {
-            sender.sendMessage(blueprint + " 在 generator.defaults 里没有默认面，未改动。");
+            I18n.send(sender, "debug.defaults.no_sides", blueprint);
             return;
         }
         controller.resetGeneratorDefaults();
@@ -1064,14 +1068,16 @@ final class MekCommand implements CommandExecutor {
         if (world != null) {
             this.plugin.logistics(world).refreshAround(controller.x(), controller.y(), controller.z());
         }
-        sender.sendMessage(controller.taskId() + " 已按 generator.defaults." + family + " 与当前 facing 重落默认面");
+        I18n.send(sender, "debug.defaults.reset", controller.taskId(), family);
         for (Direction direction : Direction.values()) {
-            StringBuilder line = new StringBuilder("  " + direction.name() + "：");
+            StringBuilder line = new StringBuilder("  ").append(direction.name()).append(": ");
             for (String port : controller.machine().portNames()) {
-                line.append(port).append('=').append(controller.machine().side(port, direction).zhName())
+                var side = controller.machine().side(port, direction);
+                line.append(port).append('=').append(I18n.enumName(side, side.zhName()))
                         .append(' ');
             }
-            line.append("items=").append(controller.machine().itemSide(direction).zhName());
+            var itemSide = controller.machine().itemSide(direction);
+            line.append("items=").append(I18n.enumName(itemSide, itemSide.zhName()));
             sender.sendMessage(line.toString());
         }
     }
@@ -1086,79 +1092,75 @@ final class MekCommand implements CommandExecutor {
             int z = parseInt(args[4], 0);
             MultiblockHosts.Host host = this.plugin.multiblocks().at(world, x, y, z);
             if (host == null) {
-                sender.sendMessage("这里不是机器，也不在任何已登记的多方块结构里。");
+                I18n.send(sender, "debug.gui.not_machine_or_structure");
                 return;
             }
             String panel = GuiLayout.multiblockPanelId(host.def().id());
-            sender.sendMessage("GUI 面板 " + panel + " = "
-                    + (GuiSprites.present(panel) ? "字形就绪" : "缺失"));
-            sender.sendMessage("  多方块 " + host.def().zh() + " " + host.box().sizeX() + "×"
-                    + host.box().sizeY() + "×" + host.box().sizeZ() + "，"
-                    + (host.formed() ? "已成型" : "未成型") + "，端口字形 "
-                    + GuiSprites.columns("mek:gui/bar_v_mb") + " 档");
+            I18n.send(sender, "debug.gui.panel", panel,
+                    I18n.tr(sender, GuiSprites.present(panel) ? "debug.gui.ready" : "debug.gui.missing"));
+            I18n.send(sender, "debug.gui.multiblock",
+                    I18n.structureName(I18n.locale(sender), host.def().id()),
+                    host.box().sizeX(), host.box().sizeY(),
+                    host.box().sizeZ(), I18n.tr(sender, host.formed() ? "multiblock.formed" : "multiblock.unformed"),
+                    GuiSprites.columns("mek:gui/bar_v_mb"));
             host.instance().ports().forEach((name, port) ->
-                    sender.sendMessage("  端口 " + name + "：" + port.amount() + "/" + port.capacity()
-                            + " " + port.type().unit()));
-            sender.sendMessage("  容器 " + GuiLayout.multiblock().rows() * 9 + " 格，面板 "
-                    + GuiLayout.multiblock().width() + "×" + GuiLayout.multiblock().height());
+                    I18n.send(sender, "debug.gui.port", name, port.amount(), port.capacity(),
+                            port.type().unit()));
+            I18n.send(sender, "debug.gui.container", GuiLayout.multiblock().rows() * 9,
+                    GuiLayout.multiblock().width(), GuiLayout.multiblock().height());
             for (GuiLayout.MultiblockPage page : GuiLayout.multiblockPages(host.def().id())) {
-                sender.sendMessage("  标签 " + page.label() + "：" + page.panelId() + " "
-                        + (GuiSprites.present(page.panelId()) ? "字形就绪" : "缺失")
-                        + "，端口 " + page.ports());
+                I18n.send(sender, "debug.gui.tab", I18n.tabName(page.key(), page.label()),
+                        page.panelId(), I18n.tr(sender,
+                                GuiSprites.present(page.panelId()) ? "debug.gui.ready" : "debug.gui.missing"),
+                        page.ports());
                 for (int i = 0; i < page.ports().size(); i++) {
-                    sender.sendMessage("    " + page.ports().get(i) + " → "
-                            + GuiLayout.multiblockGauge(page, i) + "，悬停格 " + GuiLayout.multiblockGaugeCells(page, i));
+                    I18n.send(sender, "debug.gui.tab_port", page.ports().get(i),
+                            GuiLayout.multiblockGauge(page, i), GuiLayout.multiblockGaugeCells(page, i));
                 }
                 int selected = GuiLayout.multiblockPages(host.def().id()).indexOf(page);
                 Inventory preview = Bukkit.createInventory(null, GuiLayout.multiblock().rows() * 9);
                 MultiblockGui.updateAnchors(host, preview, selected);
                 multiblockViewDebug(sender, host, selected, preview);
             }
-            sender.sendMessage("  标题文字：" + host.def().zh());
+            I18n.send(sender, "debug.gui.title_text",
+                    I18n.structureName(I18n.locale(sender), host.def().id()));
             return;
         }
         var snapshot = controller.machine().snapshot();
         GuiLayout.MachineLayout layout = GuiLayout.forMachine(controller.machine(),
                 controller.machine().factoryTier(), controller.blockId());
-        sender.sendMessage("GUI 面板 " + layout.panelId() + " = "
-                + (GuiSprites.present(layout.panelId()) ? "字形就绪" : "缺失"));
-        sender.sendMessage("  档位 " + (layout.factory() ? "工厂" : "单机")
-                + "，容器 " + controller.inventory().getSize() + " 格，面板 "
-                + layout.profile().width() + "×" + layout.profile().height()
-                + "（" + layout.profile().rows() + " 行）"
-                + "，进度 " + (layout.hasProgress() ? "有" : "无"));
+        I18n.send(sender, "debug.gui.panel", layout.panelId(),
+                I18n.tr(sender, GuiSprites.present(layout.panelId()) ? "debug.gui.ready" : "debug.gui.missing"));
+        I18n.send(sender, "debug.gui.machine",
+                I18n.tr(sender, layout.factory() ? "debug.gui.factory" : "debug.gui.single"),
+                controller.inventory().getSize(), layout.profile().width(), layout.profile().height(),
+                layout.profile().rows(),
+                I18n.tr(sender, layout.hasProgress() ? "debug.gui.present" : "debug.gui.absent"));
         GuiLayout.BlockPlan plan = GuiLayout.plan(controller.blockId());
         if (plan != null && plan.factory()) {
-            sender.sendMessage("  行序：输入 0.." + (plan.maxInputs() - 1)
-                    + "，进度 " + plan.progressRow()
-                    + "，输出 " + (plan.progressRow() + 1) + ".."
-                    + (plan.progressRow() + plan.maxOutputs())
-                    + "，能源 " + plan.upgradeRow()
-                    + "，额外 " + (plan.extraRow() < 0 ? "无" : plan.extraRow()));
+            I18n.send(sender, "debug.gui.rows", plan.maxInputs() - 1, plan.progressRow(),
+                    plan.progressRow() + 1, plan.progressRow() + plan.maxOutputs(), plan.upgradeRow(),
+                    plan.extraRow() < 0 ? I18n.tr(sender, "state.none") : plan.extraRow());
         }
         StringBuilder slots = new StringBuilder();
         layout.slots().forEach((name, cell) -> slots.append(name).append('→')
                 .append('(').append(cell.col()).append(',').append(cell.row()).append(") "));
-        sender.sendMessage("  槽位：" + slots.toString().trim());
+        I18n.send(sender, "debug.gui.slots", slots.toString().trim());
         String titleText = GuiText.title(snapshot);
-        sender.sendMessage("  标题：" + titleText + "（" + GuiText.textWidth(titleText)
-                + "px，起点 x=" + GuiLayout.textX() + "/" + layout.profile().width()
-                + "，步进=字形宽+1，文字色 #"
-                + String.format("%06X", GuiConfig.titleColor()) + "）");
-        sender.sendMessage("  能量锚点 " + layout.energyAnchors() + "，罐锚点 "
-                + (layout.hasTank() ? layout.tankAnchors() : "无罐")
-                + "；能量条 " + layout.energySprite() + "=" + GuiSprites.columns(layout.energySprite())
-                + "，罐条 " + layout.tankSprite() + "=" + GuiSprites.columns(layout.tankSprite())
-                + " 档，进度字形 " + layout.progressSprite() + "="
-                + GuiSprites.columns(layout.progressSprite()) + " 档");
-        sender.sendMessage("  进度锚点 " + layout.progressAnchors());
-        sender.sendMessage("  配方浏览：" + controller.supportedRecipes().size()
-                + " 条，每页 5 条，点击进度锚点打开");
+        I18n.send(sender, "debug.gui.title", titleText, GuiText.textWidth(titleText),
+                GuiLayout.textX(), layout.profile().width(),
+                String.format("%06X", GuiConfig.titleColor()));
+        I18n.send(sender, "debug.gui.anchors", layout.energyAnchors(),
+                layout.hasTank() ? layout.tankAnchors() : I18n.tr(sender, "debug.gui.no_tank"),
+                layout.energySprite(), GuiSprites.columns(layout.energySprite()),
+                layout.tankSprite(), GuiSprites.columns(layout.tankSprite()),
+                layout.progressSprite(), GuiSprites.columns(layout.progressSprite()));
+        I18n.send(sender, "debug.gui.progress_anchors", layout.progressAnchors());
+        I18n.send(sender, "debug.gui.recipes", controller.supportedRecipes().size());
         if (layout.hasProgress() && !controller.supportedRecipes().isEmpty()) {
             var browser = RecipeBrowserGui.create(controller);
-            sender.sendMessage("  配方页：" + browser.inventory().getSize() + " 格，"
-                    + browser.pageCount() + " 页；首页配方 "
-                    + controller.supportedRecipes().getFirst().id());
+            I18n.send(sender, "debug.gui.recipe_page", browser.inventory().getSize(),
+                    browser.pageCount(), controller.supportedRecipes().getFirst().id());
             browser.closeViewers();
         }
         if (layout.hasProgress()) {
@@ -1169,26 +1171,25 @@ final class MekCommand implements CommandExecutor {
                 bars.append(parallel.group()).append('=').append(level)
                         .append('/').append(GuiLayout.LEVELS - 1).append(' ');
             }
-            sender.sendMessage("  进度档：" + bars.toString().trim());
+            I18n.send(sender, "debug.gui.progress_levels", bars.toString().trim());
         }
         long energyPercent = snapshot.energyCapacityJ() <= 0 ? 0
                 : Math.round(100.0 * snapshot.energyJoules() / snapshot.energyCapacityJ());
-        sender.sendMessage("  能量 " + snapshot.energyJoules() + "/" + snapshot.energyCapacityJ()
-                + " J（" + energyPercent + "%）");
+        I18n.send(sender, "debug.gui.energy", snapshot.energyJoules(),
+                snapshot.energyCapacityJ(), energyPercent);
         if (GuiText.firstTank(snapshot) != null) {
             var tank = GuiText.firstTank(snapshot);
-            sender.sendMessage("  罐 " + GuiText.tankName(tank) + " "
-                    + tank.amount() + "/" + tank.capacity() + " " + tank.type().unit()
-                    + "（" + Math.round(tank.fillRatio() * 100) + "%）");
+            I18n.send(sender, "debug.gui.tank", GuiText.tankName(tank), tank.amount(),
+                    tank.capacity(), tank.type().unit(), Math.round(tank.fillRatio() * 100));
         }
         ItemStack anchor = GuiText.energyAnchor(snapshot);
-        sender.sendMessage("  能量锚点物品：" + (anchor == null ? "关闭/无"
+        I18n.send(sender, "debug.gui.energy_anchor", anchor == null ? I18n.tr(sender, "debug.gui.disabled")
                 : BukkitItems.idOf(anchor) + " / " + anchor.getItemMeta().displayName()
-                + " / lore " + (anchor.getItemMeta().lore() == null ? 0 : anchor.getItemMeta().lore().size())));
+                + " / lore " + (anchor.getItemMeta().lore() == null ? 0 : anchor.getItemMeta().lore().size()));
         ItemStack tankAnchor = layout.hasTank() ? GuiText.tankAnchor(snapshot) : null;
-        sender.sendMessage("  罐锚点物品：" + (tankAnchor == null ? "关闭/无"
+        I18n.send(sender, "debug.gui.tank_anchor", tankAnchor == null ? I18n.tr(sender, "debug.gui.disabled")
                 : BukkitItems.idOf(tankAnchor) + " / " + tankAnchor.getItemMeta().displayName()
-                + " / lore " + (tankAnchor.getItemMeta().lore() == null ? 0 : tankAnchor.getItemMeta().lore().size())));
+                + " / lore " + (tankAnchor.getItemMeta().lore() == null ? 0 : tankAnchor.getItemMeta().lore().size()));
         // 无玩家时也能验证占位/锚点的落格；这些 item 会被存档与掉落跳过。
         MachineGui.updateAnchors(controller);
         int placeholders = 0;
@@ -1209,21 +1210,22 @@ final class MekCommand implements CommandExecutor {
                 empty = false;
             }
         }
-        sender.sendMessage("  占位 " + placeholders + " 格（底色 " + visiblePlaceholders
-                + " / 空模型 " + (placeholders - visiblePlaceholders) + "），锚点/占位合计 "
-                + overlays + " 格；忽略占位后容器" + (empty ? "为空" : "有真实物品"));
-        sender.sendMessage("  标题文字：" + GuiText.title(snapshot));
+        I18n.send(sender, "debug.gui.placeholders", placeholders, visiblePlaceholders,
+                placeholders - visiblePlaceholders, overlays,
+                I18n.tr(sender, empty ? "debug.gui.empty_container" : "debug.gui.real_items"));
+        I18n.send(sender, "debug.gui.title_text", GuiText.title(snapshot));
         String mini = MiniMessage.miniMessage().serialize(MachineGui.title(controller));
-        sender.sendMessage("  MiniMessage 长度 " + mini.length() + "，字形标签 "
-                + (mini.split("<font:", -1).length - 1) + " 个");
-        sender.sendMessage("  MiniMessage 预览：" + mini.substring(0, Math.min(160, mini.length())));
+        I18n.send(sender, "debug.gui.minimessage_length", mini.length(),
+                mini.split("<font:", -1).length - 1);
+        I18n.send(sender, "debug.gui.minimessage_preview",
+                mini.substring(0, Math.min(160, mini.length())));
     }
 
     private static void multiblockViewDebug(CommandSender sender, MultiblockHosts.Host host,
                                             int selected, Inventory preview) {
         long anchors = Arrays.stream(preview.getContents()).filter(GuiText::isAnchor).count();
-        sender.sendMessage("    视图构建就绪，数值锚点 " + anchors + "，标题组件 "
-                + Integer.toHexString(MultiblockGui.title(host, selected).hashCode()));
+        I18n.send(sender, "debug.gui.multiblock_view", anchors,
+                Integer.toHexString(MultiblockGui.title(host, selected).hashCode()));
     }
 
     /**
@@ -1233,7 +1235,7 @@ final class MekCommand implements CommandExecutor {
      */
     private void side(CommandSender sender, MachineBlockEntityController controller, String[] args) {
         if (args.length < 8) {
-            sender.sendMessage("用法：/mek debug side <x> <y> <z> <端口|items|all> <面> <模式>");
+            I18n.send(sender, "command.side.usage");
             return;
         }
         Direction direction = null;
@@ -1244,7 +1246,7 @@ final class MekCommand implements CommandExecutor {
         }
         SideMode mode = modeOf(args[7]);
         if (direction == null || mode == null) {
-            sender.sendMessage("面写 north/south/east/west/up/down；模式写 关/输入/输出/输入输出（或 0~3）");
+            I18n.send(sender, "command.side.mode_usage");
             return;
         }
         Machine machine = controller.machine();
@@ -1256,7 +1258,7 @@ final class MekCommand implements CommandExecutor {
         } else if (machine.portNames().contains(port)) {
             machine.setSide(port, direction, mode);
         } else {
-            sender.sendMessage("这台机器没有端口 " + port + "；它有 " + machine.portNames());
+            I18n.send(sender, "machine.port_missing", port, machine.portNames());
             return;
         }
         controller.markChanged();
@@ -1264,11 +1266,16 @@ final class MekCommand implements CommandExecutor {
         if (world != null) {
             this.plugin.logistics(world).refreshAround(controller.x(), controller.y(), controller.z());
         }
-        sender.sendMessage(direction.name() + " 面的 " + port + " → " + mode.zhName());
+        I18n.send(sender, "command.side.changed", direction.name(), port,
+                I18n.enumName(mode, mode.zhName()));
         for (String name : machine.portNames()) {
-            sender.sendMessage("  " + name + " = " + machine.side(name, direction).zhName());
+            var side = machine.side(name, direction);
+            I18n.send(sender, "command.side.port_value", name,
+                    I18n.enumName(side, side.zhName()));
         }
-        sender.sendMessage("  物品面 = " + machine.itemSide(direction).zhName());
+        var itemSide = machine.itemSide(direction);
+        I18n.send(sender, "command.side.item_value",
+                I18n.enumName(itemSide, itemSide.zhName()));
     }
 
     private static SideMode modeOf(String text) {
@@ -1301,37 +1308,38 @@ final class MekCommand implements CommandExecutor {
         Machine machine = controller.machine();
         if ("put".equals(action)) {
             if (args.length < 7) {
-                sender.sendMessage("用法：/mek debug upgrade <x> <y> <z> put <升级 id> [数量]");
+                I18n.send(sender, "command.upgrade.put_usage");
                 return;
             }
             int amount = args.length > 7 ? parseInt(args[7], 1) : 1;
             ItemStack stack = BukkitItems.create(args[6]);
             if (stack == null) {
-                sender.sendMessage("资源包与 Paper 都不认识 " + args[6]);
+                I18n.send(sender, "command.item_unknown", args[6]);
                 return;
             }
             if (!machine.upgrades().allows(args[6])) {
-                sender.sendMessage(machine.blueprint().zhName() + " 不接受 " + args[6]);
+                I18n.send(sender, "machine.upgrade_rejected",
+                        I18n.machineName(I18n.locale(sender), machine.blueprint()), args[6]);
                 return;
             }
             int installed = controller.installUpgrade(args[6], amount);
-            sender.sendMessage("装入 " + installed + " / " + amount + " 个 " + args[6] + " → 已装 "
-                    + machine.upgrades().installed());
-            sender.sendMessage("  速度 ×" + String.format("%.3f", machine.progressRate())
-                    + "，耗能 " + machine.energyPerTick() + " J/t，缓存 " + machine.energyCapacity() + " J");
+            I18n.send(sender, "command.upgrade.installed", installed, amount, args[6],
+                    machine.upgrades().installed());
+            I18n.send(sender, "machine.performance", String.format("%.3f", machine.progressRate()),
+                    machine.energyPerTick(), machine.energyCapacity());
             return;
         }
         if ("take".equals(action)) {
             if (args.length < 7) {
-                sender.sendMessage("用法：/mek debug upgrade <x> <y> <z> take <升级 id> [数量]");
+                I18n.send(sender, "command.upgrade.take_usage");
                 return;
             }
             int amount = args.length > 7 ? parseInt(args[7], 1) : 1;
             int removed = controller.uninstallUpgrade(args[6], amount);
-            sender.sendMessage("卸下 " + removed + " 个 " + args[6] + "；物品已落到机器上方");
+            I18n.send(sender, "command.upgrade.removed", removed, args[6]);
             return;
         }
-        sender.sendMessage("用法：/mek debug upgrade <x> <y> <z> put|take|list [...]");
+        I18n.send(sender, "command.upgrade.usage");
     }
 
     /**
@@ -1349,27 +1357,26 @@ final class MekCommand implements CommandExecutor {
             machine.energyTank().ifPresent(tank -> tank.insert(ResourceStack.energy(joules), Transaction.EXECUTE));
             machine.tick();
         }
-        sender.sendMessage("跑了 " + ticks + " 刻（每刻先灌 " + joules + " J）：" + machine.describe());
-        sender.sendMessage("  操作 +" + (machine.operations() - operationsBefore)
-                + "，耗电 " + (machine.energyConsumedTotal() - consumedBefore) + " J"
-                + "，进度 " + progressBefore + "% → " + Math.round(machine.progressFraction() * 100) + "%"
-                + "；" + controller.machine().items().describe());
+        I18n.send(sender, "command.run.done", ticks, joules, machine.describe());
+        I18n.send(sender, "command.run.summary", machine.operations() - operationsBefore,
+                machine.energyConsumedTotal() - consumedBefore, progressBefore,
+                Math.round(machine.progressFraction() * 100), controller.machine().items().describe());
     }
 
     private static String describe(ItemStack stack) {
         return stack == null || stack.getType().isAir()
-                ? "空" : stack.getType() + "×" + stack.getAmount();
+                ? I18n.tr("state.empty") : stack.getType() + "×" + stack.getAmount();
     }
 
     /** 每个并行位各放一个（headless 下验工厂并行：/mek debug put 只会把一堆料塞进第一格）。 */
     private void spread(CommandSender sender, MachineBlockEntityController controller, String[] args) {
         if (args.length < 6) {
-            sender.sendMessage("用法：/mek debug spread <x> <y> <z> <物品 id>");
+            I18n.send(sender, "command.spread.usage");
             return;
         }
         ItemStack template = BukkitItems.create(args[5]);
         if (template == null) {
-            sender.sendMessage("资源包与 Paper 都不认识 " + args[5]);
+            I18n.send(sender, "command.item_unknown", args[5]);
             return;
         }
         int placed = 0;
@@ -1380,19 +1387,20 @@ final class MekCommand implements CommandExecutor {
                 placed++;
             }
         }
-        sender.sendMessage("往 " + placed + " 个并行位的输入槽各放了 1 个 " + args[5] + "；"
-                + controller.machine().items().describe());
+        I18n.send(sender, "command.spread.done", placed, args[5],
+                controller.machine().items().describe());
     }
 
     private void listUpgrades(CommandSender sender, MachineBlockEntityController controller) {
         Machine machine = controller.machine();
-        sender.sendMessage(machine.blueprint().zhName() + " 允许的升级："
-                + machine.blueprint().upgrades().stream()
+        I18n.send(sender, "machine.allowed_upgrades",
+                I18n.machineName(I18n.locale(sender), machine.blueprint()),
+                machine.blueprint().upgrades().stream()
                         .map(definition -> definition.id() + "×" + definition.maxInstalled())
                         .toList());
-        sender.sendMessage("  已装 " + machine.upgrades().installed() + " 个"
-                + "；速度 ×" + String.format("%.3f", machine.progressRate())
-                + "，耗能 " + machine.energyPerTick() + " J/t，缓存 " + machine.energyCapacity() + " J");
+        I18n.send(sender, "machine.upgrade_performance", machine.upgrades().installed(),
+                String.format("%.3f", machine.progressRate()),
+                machine.energyPerTick(), machine.energyCapacity());
     }
 
     /** 排错用：这个坐标上 Bukkit 看到什么、CE 看到什么、方块实体在不在。 */
@@ -1407,27 +1415,27 @@ final class MekCommand implements CommandExecutor {
     /** 走的就是机器自己的 ItemHandler（只进输入槽），跟以后管道走的是同一条路。 */
     private void put(CommandSender sender, MachineBlockEntityController controller, String[] args) {
         if (args.length < 6) {
-            sender.sendMessage("用法：/mek debug put <x> <y> <z> <物品 id> [数量]");
+            I18n.send(sender, "command.put.usage");
             return;
         }
         String id = args[5];
         long amount = args.length > 6 ? parseLong(args[6], 1L) : 1L;
         ItemStack stack = BukkitItems.create(id);
         if (stack == null) {
-            sender.sendMessage("资源包与 Paper 都不认识 " + id);
+            I18n.send(sender, "command.item_unknown", id);
             return;
         }
         ItemRef ref = ItemRef.withPayload(BukkitItems.idOf(stack), amount, stack);
         long inserted = controller.machine().items().insert(ref, Transaction.EXECUTE);
-        sender.sendMessage("放入 " + inserted + "/" + amount + " 个 " + id
-                + "；现在能塞 " + controller.machine().items().roomFor(ref) + " 个");
+        I18n.send(sender, "command.put.done", inserted, amount, id,
+                controller.machine().items().roomFor(ref));
         sender.sendMessage("  " + controller.machine().items().describe());
     }
 
     /** /mek debug putslot &lt;x y z&gt; &lt;槽位&gt; &lt;物品&gt; [数量]：往指定槽位放（辅料槽这类 EXTRA 槽用）。 */
     private void putslot(CommandSender sender, MachineBlockEntityController controller, String[] args) {
         if (args.length < 7) {
-            sender.sendMessage("用法：/mek debug putslot <x> <y> <z> <槽位> <物品 id> [数量]");
+            I18n.send(sender, "command.putslot.usage");
             return;
         }
         String slot = args[5];
@@ -1435,15 +1443,15 @@ final class MekCommand implements CommandExecutor {
         int amount = args.length > 7 ? (int) parseLong(args[7], 1L) : 1;
         ItemStack stack = BukkitItems.create(id);
         if (stack == null) {
-            sender.sendMessage("资源包与 Paper 都不认识 " + id);
+            I18n.send(sender, "command.item_unknown", id);
             return;
         }
         stack.setAmount(Math.max(1, amount));
         if (!controller.putInSlot(slot, stack)) {
-            sender.sendMessage("这台机器没有槽位 " + slot + "；它有 " + controller.handler().slots());
+            I18n.send(sender, "machine.slot_missing", slot, controller.handler().slots());
             return;
         }
-        sender.sendMessage("已放入 " + slot + "：" + id + " ×" + amount);
+        I18n.send(sender, "command.putslot.done", slot, id, amount);
         sender.sendMessage("  " + controller.machine().items().describe());
     }
 
@@ -1452,17 +1460,18 @@ final class MekCommand implements CommandExecutor {
         if (args.length >= 7 && "dump".equalsIgnoreCase(args[6])) {
             String port = args[5];
             if (!controller.machine().dumpablePorts().contains(port)) {
-                sender.sendMessage("该端口不是可设置排出的化学品输出罐"); return;
+                I18n.send(sender, "tank_dump.not_dumpable"); return;
             }
             var tank = controller.machine().tank(port).orElseThrow();
             if (args.length <= 7 || !"info".equalsIgnoreCase(args[7]))
                 tank.setDumpMode(args.length > 7 ? mekcore.resource.DumpMode.parse(args[7]) : tank.dumpMode().next());
             controller.markChanged();
-            sender.sendMessage(port + " 排出状态=" + tank.dumpMode().label() + " 存量=" + tank.amount());
+            I18n.send(sender, "tank_dump.state_with_amount", port,
+                    I18n.enumName(tank.dumpMode(), tank.dumpMode().label()), tank.amount());
             return;
         }
         if (args.length < 8) {
-            sender.sendMessage("用法：/mek debug tank <x> <y> <z> <端口> <资源 id> <数量>");
+            I18n.send(sender, "command.tank.usage");
             return;
         }
         String port = args[5];
@@ -1470,11 +1479,11 @@ final class MekCommand implements CommandExecutor {
         long amount = parseLong(args[7], 1L);
         mekcore.resource.ResourceTank tank = controller.machine().tank(port).orElse(null);
         if (tank == null) {
-            sender.sendMessage("这台机器没有端口 " + port + "；它有 " + controller.machine().portNames());
+            I18n.send(sender, "machine.port_missing", port, controller.machine().portNames());
             return;
         }
         long accepted = tank.insert(new ResourceStack(tank.type(), id, amount), Transaction.EXECUTE);
-        sender.sendMessage(port + " 灌入 " + accepted + "/" + amount + "：" + tank.describe());
+        I18n.send(sender, "command.tank.filled", port, accepted, amount, tank.describe());
     }
 
     /** 抽取只出输出槽，与核心的规则一致；执行者是玩家就塞进背包。 */
@@ -1499,8 +1508,8 @@ final class MekCommand implements CommandExecutor {
             }
             total += extracted;
         }
-        sender.sendMessage("从输出槽取走 " + total + " 个；剩余输出 "
-                + controller.machine().items().count(-1, ItemSlotKind.OUTPUT, ItemMatcher.any()));
+        I18n.send(sender, "command.take.done", total,
+                controller.machine().items().count(-1, ItemSlotKind.OUTPUT, ItemMatcher.any()));
     }
 
     /** 没管道之前，这一条就是"电到货"：直接往机器的能量端口灌。 */
@@ -1509,7 +1518,7 @@ final class MekCommand implements CommandExecutor {
         long accepted = controller.machine().energyTank()
                 .map(tank -> tank.insert(ResourceStack.energy(joules), Transaction.EXECUTE))
                 .orElse(0L);
-        sender.sendMessage("灌入 " + accepted + "/" + joules + " J；" + state(controller));
+        I18n.send(sender, "command.power.done", accepted, joules, state(sender, controller));
     }
 
     /** 存档往返：存 → 故意改现场 → 读回来，两遍状态必须一样（DataTag 适配器的自检）。 */
@@ -1523,27 +1532,28 @@ final class MekCommand implements CommandExecutor {
         String changed = comparable(controller);
         controller.loadCustomData(tag);
         String after = comparable(controller);
-        sender.sendMessage("存档往返：存前" + (before.equals(changed) ? " == " : " != ") + "改动后"
-                + "，改动后" + (changed.equals(after) ? " == " : " != ") + "读档后"
-                + " → " + (before.equals(after) ? "一致" : "不一致！"));
-        sender.sendMessage("  存前：" + before);
-        sender.sendMessage("  读后：" + after);
+        I18n.send(sender, "command.roundtrip.result",
+                before.equals(changed) ? "==" : "!=",
+                changed.equals(after) ? "==" : "!=",
+                I18n.tr(sender, before.equals(after) ? "command.roundtrip.match" : "command.roundtrip.mismatch"));
+        I18n.send(sender, "command.roundtrip.before", before);
+        I18n.send(sender, "command.roundtrip.after", after);
     }
 
     private static String comparable(MachineBlockEntityController controller) {
-        return state(controller).replaceAll(" 状态=\\S+", "");
+        return state(null, controller, false);
     }
 
     private MachineBlockEntityController controller(CommandSender sender, String[] args, int from) {
         if (args.length < from + 3) {
-            sender.sendMessage("要坐标：<x> <y> <z>");
+            I18n.send(sender, "command.coordinates_required");
             return null;
         }
         World world = world(sender);
         MachineBlockEntityController controller = this.plugin.machineAt(world, parseInt(args[from], 0),
                 parseInt(args[from + 1], 0), parseInt(args[from + 2], 0));
         if (controller == null) {
-            sender.sendMessage("那里没有机器方块实体（世界 " + world.getName() + "）");
+            I18n.send(sender, "machine.entity_missing_in_world", world.getName());
             sender.sendMessage("  " + this.plugin.describePos(world, parseInt(args[from], 0),
                     parseInt(args[from + 1], 0), parseInt(args[from + 2], 0)));
         }
@@ -1555,26 +1565,47 @@ final class MekCommand implements CommandExecutor {
         return sender instanceof Player player ? player.getWorld() : Bukkit.getWorlds().get(0);
     }
 
-    private static String state(MachineBlockEntityController controller) {
-        StringBuilder sb = new StringBuilder(controller.machine().describe());
+    private static String state(CommandSender sender, MachineBlockEntityController controller) {
+        return state(sender, controller, true);
+    }
+
+    private static String state(CommandSender sender, MachineBlockEntityController controller,
+                                boolean includeWorkState) {
         Machine machine = controller.machine();
-        sb.append(" 安全=").append(machine.security().zhName())
-                .append(" owner=").append(ownerText(machine))
-                .append(" trusted=").append(machine.trusted());
-        sb.append(" 容器");
+        StringBuilder sb = new StringBuilder(I18n.machineName(machine.blueprint()));
+        if (includeWorkState) {
+            sb.append(' ').append(I18n.tr(sender, "machine.working_state",
+                            I18n.enumName(machine.state(), machine.state().zhName())))
+                    .append(' ').append(I18n.tr(sender, "machine.progress_value",
+                            Math.round(machine.progressFraction() * 100)));
+        }
+        sb.append(' ').append(I18n.tr(sender, "machine.security_line",
+                        I18n.enumName(machine.security(), machine.security().zhName()),
+                        ownerText(sender, machine), machine.trusted()));
+        sb.append(' ').append(I18n.tr(sender, "machine.container"));
         for (int index = 0; index < controller.inventory().getSize(); index++) {
             ItemStack stack = controller.inventory().getItem(index);
             if (GuiText.isOverlay(stack)) {
                 continue;
             }
             sb.append(' ').append(index).append('=')
-                    .append(stack == null ? "空" : BukkitItems.idOf(stack) + "×" + stack.getAmount());
+                    .append(stack == null ? I18n.tr(sender, "state.empty")
+                            : BukkitItems.idOf(stack) + "×" + stack.getAmount());
         }
         return sb.toString();
     }
 
+    private static String state(MachineBlockEntityController controller) {
+        return state(null, controller);
+    }
+
+    private static String ownerText(CommandSender sender, Machine machine) {
+        return machine.owner() == null || machine.owner().isEmpty()
+                ? I18n.tr(sender, "state.none") : machine.owner();
+    }
+
     private static String ownerText(Machine machine) {
-        return machine.owner() == null || machine.owner().isEmpty() ? "无" : machine.owner();
+        return ownerText(null, machine);
     }
 
     private static String senderUuid(CommandSender sender) {
@@ -1602,7 +1633,8 @@ final class MekCommand implements CommandExecutor {
         if (machine.canAccess(player.getUniqueId().toString())) {
             return false;
         }
-        player.sendMessage("这台机器不是你的（安全等级 " + machine.security().zhName() + "）");
+        I18n.send(player, "machine.not_owner",
+                I18n.enumName(machine.security(), machine.security().zhName()));
         return true;
     }
 

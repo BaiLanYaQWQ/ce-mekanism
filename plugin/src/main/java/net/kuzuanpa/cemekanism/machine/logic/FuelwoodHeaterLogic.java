@@ -8,6 +8,7 @@ import mekcore.machine.Machine;
 import mekcore.machine.MachineLogic;
 import mekcore.machine.WorkState;
 import mekcore.persist.DataTag;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.GeneratorConfig;
 import org.bukkit.inventory.ItemStack;
@@ -78,7 +79,7 @@ public final class FuelwoodHeaterLogic implements MachineLogic {
 
     @Override
     public String name() {
-        return "固体燃料加热器";
+        return I18n.machineName("mek:fuelwood_heater");
     }
 
     public int burnTime(Machine machine) {

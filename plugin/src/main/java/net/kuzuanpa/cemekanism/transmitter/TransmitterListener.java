@@ -97,7 +97,7 @@ public final class TransmitterListener implements Listener {
             } else if (mode.supports(controller)) {
                 controller.cyclePort(hit.selected());
             }
-            player.sendActionBar(mode.actionBar(hit.selected(), mode.status(controller, hit.selected())));
+            player.sendActionBar(mode.actionBar(player, hit.selected(), mode.status(controller, hit.selected())));
             return;
         }
         if (NETWORK_READER.equals(item)) {

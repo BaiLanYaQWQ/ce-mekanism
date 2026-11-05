@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.machine;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.bukkit.util.BlockStateUtils;
@@ -31,7 +32,7 @@ public final class MachineShapes {
     public static void apply(CeMekanismPlugin plugin) {
         int applied = apply(GeneratedContent.MACHINE_SHAPES);
         applied += apply(GeneratedContent.GENERATOR_SHAPES);
-        plugin.getLogger().info("非满方块碰撞：" + applied + " 项按上游 BlockShapes 收窄");
+        plugin.getLogger().info(I18n.tr("machine.shape.applied", applied));
     }
 
     private static int apply(Map<String, List<GeneratedContent.ShapeBox>> shapes) {
@@ -66,7 +67,7 @@ public final class MachineShapes {
         }
         if (skipped > 0) {
             org.bukkit.Bukkit.getLogger().warning(
-                    "[CeMekanism] 非满方块碰撞跳过 " + skipped + " 项");
+                    I18n.tr("machine.shape.skipped", skipped));
         }
         return applied;
     }
@@ -97,7 +98,7 @@ public final class MachineShapes {
             if (!warned) {
                 warned = true;
                 org.bukkit.Bukkit.getLogger().warning(
-                        "[CeMekanism] 非满方块自定义碰撞不可用，继续用载体碰撞：" + error);
+                        I18n.tr("machine.shape.unavailable", error));
             }
             return null;
         }

@@ -5,6 +5,7 @@ import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.gui.DigitalMinerGui;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.momirealms.craftengine.bukkit.api.BukkitAdaptor;
@@ -116,37 +117,40 @@ public final class DigitalMinerFilterGui implements InventoryHolder {
             visibleRules.add(selector);
             inventory.setItem(i - page * RULE_SLOTS, icon(filter.rule(selector)));
         }
-        button(36, DigitalMinerGui.icon("stats"), "过滤规则 · " + filter.rules.size() + " 条",
+        button(36, DigitalMinerGui.icon("stats"), I18n.tr("filter.rules_title", filter.rules.size()),
                 List.of(pageLabel(maxPage)));
-        button(45, DigitalMinerGui.icon("back"), "返回采矿机", List.of());
-        button(46, DigitalMinerGui.icon("add"), "用光标物品添加规则",
-                List.of("不消耗光标中的方块"));
-        button(47, DigitalMinerGui.toggle("inverse", filter.inverse), "模式：" + (filter.inverse ? "黑名单" : "白名单"),
-                List.of("白名单：只采匹配项", "黑名单：采除匹配项以外的方块"));
-        button(48, DigitalMinerGui.icon("delete"), "清空全部过滤规则",
-                List.of("点击清空；不会移除已采物品"));
-        button(49, DigitalMinerGui.icon("namespace"), "用光标物品添加命名空间规则",
-                List.of("例如 minecraft:*"));
-        button(50, state().replace.isBlank() ? DigitalMinerGui.icon("replace") : state().replace, "反选模式替换目标",
-                List.of("当前：" + displayId(state().replace),
-                        "手持方块点击设置", "空光标右键清除"));
+        button(45, DigitalMinerGui.icon("back"), I18n.tr("filter.back"), List.of());
+        button(46, DigitalMinerGui.icon("add"), I18n.tr("filter.add_item"),
+                List.of(I18n.tr("filter.add_item_hint")));
+        button(47, DigitalMinerGui.toggle("inverse", filter.inverse),
+                I18n.tr("qio.filter_mode",
+                        I18n.tr(filter.inverse ? "filter.blacklist" : "filter.whitelist")),
+                List.of(I18n.tr("filter.whitelist_hint"), I18n.tr("filter.blacklist_hint")));
+        button(48, DigitalMinerGui.icon("delete"), I18n.tr("filter.clear"),
+                List.of(I18n.tr("filter.clear_hint")));
+        button(49, DigitalMinerGui.icon("namespace"), I18n.tr("filter.add_namespace"),
+                List.of(I18n.tr("filter.namespace_example")));
+        button(50, state().replace.isBlank() ? DigitalMinerGui.icon("replace") : state().replace,
+                I18n.tr("filter.inverse_target"),
+                List.of(I18n.tr("filter.current_target", displayId(state().replace)),
+                        I18n.tr("filter.set_target"), I18n.tr("filter.clear_target")));
         button(51, DigitalMinerGui.toggle("required", state().inverseRequiresReplacement),
-                "反选模式要求替换",
-                List.of("开启后缺回填料会暂停扫描"));
-        button(52, DigitalMinerGui.icon("previous"), "上一页", List.of(pageLabel(maxPage)));
-        button(53, DigitalMinerGui.icon("next"), "下一页", List.of(pageLabel(maxPage)));
+                I18n.tr("filter.require_replacement"),
+                List.of(I18n.tr("filter.require_replacement_hint")));
+        button(52, DigitalMinerGui.icon("previous"), I18n.tr("navigation.previous"), List.of(pageLabel(maxPage)));
+        button(53, DigitalMinerGui.icon("next"), I18n.tr("navigation.next"), List.of(pageLabel(maxPage)));
     }
 
     private String pageLabel(int maxPage) {
-        return "第 " + (page + 1) + '/' + (maxPage + 1) + " 页";
+        return I18n.tr("navigation.page", page + 1, maxPage + 1);
     }
 
     private static String yesNo(boolean value) {
-        return value ? "开" : "关";
+        return I18n.tr(value ? "state.on" : "state.off");
     }
 
     private static String displayId(String id) {
-        return id == null || id.isBlank() ? "无（直接采空）" : mekcore.item.ItemNames.nameOf(id);
+        return id == null || id.isBlank() ? I18n.tr("filter.no_replacement") : I18n.itemName(id);
     }
 
     private static ItemStack icon(ItemSelection.Rule rule) {
@@ -159,14 +163,14 @@ public final class DigitalMinerFilterGui implements InventoryHolder {
         if (stack == null) stack = GuiText.invisiblePlaceholder();
         ItemMeta meta = stack.getItemMeta();
         List<String> lore = new ArrayList<>();
-        lore.add("替换为：" + displayId(rule.replacementTarget()));
-        lore.add("要求替换：" + yesNo(rule.requiresReplacement()));
-        lore.add("左键启用/停用，Shift+左键删除");
-        lore.add("右键：手持方块设为替换目标");
-        lore.add("Shift+右键：切换是否要求替换");
+        lore.add(I18n.tr("filter.replace_with", displayId(rule.replacementTarget())));
+        lore.add(I18n.tr("filter.requires_replacement", yesNo(rule.requiresReplacement())));
+        lore.add(I18n.tr("filter.rule_click"));
+        lore.add(I18n.tr("filter.rule_set_target"));
+        lore.add(I18n.tr("filter.rule_toggle_requirement"));
         GuiText.applyTooltip(meta,
                 (rule.enabled() ? "§a" : "§8") + (rule.selector().startsWith("#") || rule.selector().startsWith("@")
-                        ? rule.selector() : mekcore.item.ItemNames.nameOf(rule.selector())), lore);
+                        ? rule.selector() : I18n.itemName(rule.selector())), lore);
         stack.setItemMeta(meta);
         return stack;
     }
@@ -259,7 +263,7 @@ public final class DigitalMinerFilterGui implements InventoryHolder {
         if (target != null) {
             state().replace = target;
         } else {
-            player.sendMessage("光标里的物品不是可放置方块");
+            I18n.send(player, "filter.not_placeable");
         }
     }
 

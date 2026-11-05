@@ -4,6 +4,7 @@ import mekcore.machine.MachineTier;
 import mekcore.resource.*;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.gui.GuiText;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
 import net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic;
 import net.kuzuanpa.cemekanism.multiblock.logic.HohlraumItems;
@@ -57,7 +58,9 @@ public final class ResourceContainerItems {
             write(result, container, tank.type(), id, put ? container.amount - moved : container.amount + moved);
             long actual = put ? tank.insert(resource.withAmount(moved), Transaction.EXECUTE)
                     : tank.extract(moved, Transaction.EXECUTE);
-            if (actual != moved) throw new IllegalStateException("槽位转移的模拟结果与执行结果不一致");
+            if (actual != moved) {
+                throw new IllegalStateException(I18n.tr("platform.container.transfer_mismatch"));
+            }
             return result;
         }
     }
@@ -130,7 +133,7 @@ public final class ResourceContainerItems {
             }
         }
         meta.setMaxStackSize(1);
-        meta.setLore(List.of(GuiText.lore(amount == 0 ? "空容器" : ResourceNames.nameOf(type, id)),
+        meta.setLore(List.of(GuiText.lore(amount == 0 ? I18n.tr("container.empty") : I18n.resourceName(type, id)),
                 GuiText.lore(GuiText.format(amount) + " / " + GuiText.format(container.capacity) + " mB")));
         item.setItemMeta(meta);
     }

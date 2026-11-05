@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.machine.logic;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.machine.Machine;
 import mekcore.machine.MachineLogic;
 import mekcore.machine.WorkState;
@@ -28,7 +29,7 @@ public final class ResistiveHeaterLogic implements MachineLogic {
 
     public void setUsage(Machine machine, long joulesPerTick) {
         if (joulesPerTick < 0 || joulesPerTick > Long.MAX_VALUE / bufferMultiplier(machine)) {
-            throw new IllegalArgumentException("功率超出允许范围");
+            throw new IllegalArgumentException(I18n.tr("heater.power_out_of_range"));
         }
         usages.put(machine, joulesPerTick);
         machine.resizeEnergyBuffer(joulesPerTick * bufferMultiplier(machine));
@@ -70,5 +71,5 @@ public final class ResistiveHeaterLogic implements MachineLogic {
     }
 
     @Override
-    public String name() { return "电阻型加热器"; }
+    public String name() { return I18n.machineName("mek:resistive_heater"); }
 }

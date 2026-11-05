@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.gui;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kyori.adventure.text.Component;
 import net.momirealms.craftengine.bukkit.api.BukkitAdaptor;
 import net.momirealms.craftengine.core.entity.player.Player;
@@ -115,7 +116,7 @@ public final class GuiSessions {
                 player.updateInventory();
                 this.sessions.put(id, new Session(id, session.view(), titleHash, hash));
             } catch (RuntimeException e) {
-                this.plugin.getLogger().warning("刷新 GUI 标题失败（" + id + "）：" + e.getMessage());
+                this.plugin.getLogger().warning(I18n.tr("gui.title_refresh_failed", id, e.getMessage()));
                 this.sessions.remove(id);
                 session.view().close().run();
             }

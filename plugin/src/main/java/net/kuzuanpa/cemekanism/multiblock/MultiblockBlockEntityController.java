@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.multiblock;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiComponents;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.GuiLayout;
 import net.kuzuanpa.cemekanism.gui.MultiblockGui;
@@ -85,7 +86,7 @@ public final class MultiblockBlockEntityController extends BlockEntityController
             return;
         }
         if (current == null) {
-            bukkit.sendActionBar(net.kyori.adventure.text.Component.text("请点击多方块控制器或阀门"));
+            bukkit.sendActionBar(I18n.component(bukkit, "multiblock.click_controller"));
             return;
         }
         if (current.formed()) {
@@ -140,7 +141,7 @@ public final class MultiblockBlockEntityController extends BlockEntityController
         if (!setThisToTrueIfPremiumAndPleaseSupportMe) {
             switch (current.def().family()) {
                 case "boiler", "fusion_reactor", "fission_reactor", "sps" ->
-                        player.sendMessage("请购买付费版以消除此信息");
+                        I18n.send(player, "multiblock.premium_notice");
             }
         }
     }
@@ -229,7 +230,7 @@ public final class MultiblockBlockEntityController extends BlockEntityController
     }
 
     public String describe() {
-        return this.host == null ? this.blockId + "（还没成型过）" : this.host.describe();
+        return this.host == null ? I18n.tr("multiblock.never_formed", this.blockId) : this.host.describe();
     }
 
     private static String ports(MultiblockHosts.Host host) {
@@ -382,8 +383,8 @@ public final class MultiblockBlockEntityController extends BlockEntityController
 
     @Override
     public String toString() {
-        return "锚点 " + this.blockId + " @ " + this.blockEntity.pos.x() + ',' + this.blockEntity.pos.y()
-                + ',' + this.blockEntity.pos.z();
+        return I18n.tr("multiblock.anchor", this.blockId, this.blockEntity.pos.x(),
+                this.blockEntity.pos.y(), this.blockEntity.pos.z());
     }
 
     /** 结构族候选（自检用）。 */

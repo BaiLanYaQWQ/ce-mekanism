@@ -7,6 +7,7 @@ import mekcore.heat.HeatTopology;
 import mekcore.item.ItemEndpoint;
 import mekcore.item.ItemHandler;
 import mekcore.logistics.NetworkEndpoint;
+import mekcore.logistics.NetworkReport;
 import mekcore.logistics.PortMode;
 import mekcore.logistics.TransmitterNetwork;
 import mekcore.logistics.topology.ItemTopology;
@@ -23,6 +24,7 @@ import mekcore.resource.ResourceTypes;
 import mekcore.sim.TickAffinity;
 import mekcore.sim.Tickable;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
@@ -171,7 +173,7 @@ public final class Logistics {
 
             @Override
             public String describe() {
-                return "红石响应中的元件 " + Logistics.this.redstone.size() + " 根";
+                return I18n.tr("transmitter.log.redstone", Logistics.this.redstone.size());
             }
         }, TickAffinity.MAIN, LogisticsConfig.redstoneInterval());
         this.plugin.scheduler().register(taskId("visual"), new Tickable() {
@@ -192,7 +194,7 @@ public final class Logistics {
 
             @Override
             public String describe() {
-                return "内容层刷新中的元件 " + Logistics.this.visuals.size() + " 根";
+                return I18n.tr("transmitter.log.visual", Logistics.this.visuals.size());
             }
         }, TickAffinity.MAIN, LogisticsConfig.transmitterVisualInterval());
     }
@@ -265,7 +267,7 @@ public final class Logistics {
 
             @Override
             public String describe() {
-                return "电网 " + Logistics.this.grids.size() + " 张";
+                return I18n.tr("transmitter.log.grids", Logistics.this.grids.size());
             }
         };
     }
@@ -938,7 +940,7 @@ public final class Logistics {
     }
 
     private static String endpointId(String owner, String port, PortMode mode) {
-        return owner + ':' + port + (mode == PortMode.PULL ? ":拉" : ":推");
+        return owner + ':' + port + (mode == PortMode.PULL ? ":pull" : ":push");
     }
 
     static String machineHeatKey(int x, int y, int z) {
@@ -964,44 +966,50 @@ public final class Logistics {
 
     /** 玩家主动读取时只显示网络规模和实际传输情况。 */
     public synchronized String playerSummary(TransmitterBlockEntityController controller) {
-        String title = controller.def().zh();
+        String title = I18n.transmitterName(controller.def().blockId());
         if (controller.heat()) {
-            return title + " · " + String.format(Locale.ROOT, "%.1f K", controller.heatNode().temperatureK())
-                    + " · 相邻连接 " + this.heatPartners.getOrDefault(controller.key(), Set.of()).size();
+            return I18n.tr("transmitter.player.heat", title,
+                    String.format(Locale.ROOT, "%.1f", controller.heatNode().temperatureK()),
+                    this.heatPartners.getOrDefault(controller.key(), Set.of()).size());
         }
         if (controller.itemPipe()) {
             var network = this.items.networkOf(controller.key());
-            if (network == null) return title + " · 未连接网络";
+            if (network == null) return I18n.tr("transmitter.player.no_network", title);
             var report = network.report();
-            return title + " · " + report.nodeCount() + " 节 · " + (report.active() ? "已连接" : "已断开")
-                    + "\n缓存 " + report.stored() + " 个 · 本刻传输 " + report.movedPerTick() + " 个";
+            return I18n.tr("transmitter.player.item", title, report.nodeCount(),
+                    I18n.tr(report.active() ? "transmitter.connected" : "transmitter.disconnected"),
+                    report.stored(), report.movedPerTick());
         }
         var network = controller.topology().networkOf(controller.key());
-        if (network == null) return title + " · 未连接网络";
+        if (network == null) return I18n.tr("transmitter.player.no_network", title);
         var report = network.report();
         if (controller.isEnergy()) {
             Grid grid = this.grids.get(this.energy.graph().componentOf(controller.key()).orElse(""));
             var power = grid == null ? null : grid.grid().lastReport();
-            String supply = power == null ? "尚未供电" : "供能 " + power.delivered() + " / 需求 " + power.demanded() + " J/t";
-            return title + " · " + report.nodeCount() + " 节 · " + (report.active() ? "已连接" : "红石断开")
-                    + "\n缓存 " + report.stored() + " / " + report.capacity() + " J · " + supply;
+            String supply = power == null ? I18n.tr("transmitter.player.no_power")
+                    : I18n.tr("transmitter.player.supply", power.delivered(), power.demanded());
+            return I18n.tr("transmitter.player.energy", title, report.nodeCount(),
+                    I18n.tr(report.active() ? "transmitter.connected" : "transmitter.redstone_off"),
+                    report.stored(), report.capacity(), supply);
         }
         String unit = controller.family().resource().unit();
-        return title + " · " + report.nodeCount() + " 节 · " + (report.active() ? "已连接" : "红石断开")
-                + "\n缓存 " + report.stored() + " / " + report.capacity() + " " + unit
-                + " · 本刻传输 " + report.movedPerTick() + " " + unit;
+        return I18n.tr("transmitter.player.resource", title, report.nodeCount(),
+                I18n.tr(report.active() ? "transmitter.connected" : "transmitter.redstone_off"),
+                report.stored(), report.capacity(), unit, report.movedPerTick());
     }
 
     /** 一根元件的现状：节点、六个面的模式、它这一侧的端点、所在网络（网络读取器与 `/mek pipe` 读它）。 */
     public synchronized String describe(TransmitterBlockEntityController controller) {
-        StringBuilder sb = new StringBuilder(controller.def().blockId() + "（" + controller.def().zh() + "）@"
-                + controller.x() + ',' + controller.y() + ',' + controller.z());
-        sb.append("\n  面：");
+        StringBuilder sb = new StringBuilder(I18n.tr("transmitter.describe.header",
+                controller.def().blockId(), I18n.transmitterName(controller.def().blockId()),
+                controller.x(), controller.y(), controller.z()));
+        sb.append('\n').append(I18n.tr("transmitter.describe.sides"));
         for (Direction direction : Direction.values()) {
-            sb.append(direction.name()).append('=').append(controller.port(direction).zhName()).append(' ');
+            var mode = controller.port(direction);
+            sb.append(direction.name()).append('=').append(I18n.enumName(mode, mode.zhName())).append(' ');
         }
         // 手臂是纯外观，但仍要能 headless 对账：半边是端点方向、半边是手臂时会在这里露出来。
-        sb.append("\n  手臂：");
+        sb.append('\n').append(I18n.tr("transmitter.describe.arms"));
         for (Direction direction : Direction.values()) {
             String part = controller.armPart(direction);
             sb.append(direction.name()).append('=').append(part == null ? "-" : part).append(' ');
@@ -1010,33 +1018,40 @@ public final class Logistics {
         sb.append("\n  ").append(controller.visual().describe());
         if (controller.itemPipe()) {
             Map<String, ItemEndpoint> bindings = this.itemEndpoints.getOrDefault(controller.key(), Map.of());
-            sb.append("\n  端点 ").append(bindings.size()).append(" 个");
+            sb.append('\n').append(I18n.tr("transmitter.describe.endpoints", bindings.size()));
             for (ItemEndpoint endpoint : bindings.values()) {
-                sb.append("\n    - ").append(endpoint.id()).append('[').append(endpoint.mode().zhName())
+                sb.append("\n    - ").append(endpoint.id()).append('[')
+                        .append(I18n.enumName(endpoint.mode(), endpoint.mode().zhName()))
                         .append("] ").append(endpoint.handler().describe());
             }
             mekcore.item.ItemNetwork network = this.items.networkOf(controller.key());
-            sb.append("\n  ").append(network == null ? "没连进任何网络" : network.report().describe());
+            sb.append('\n').append("  ")
+                    .append(network == null ? I18n.tr("transmitter.describe.no_network")
+                            : itemReport(network.report()));
             return sb.toString();
         }
         if (controller.heat()) {
-            sb.append("\n  热连接 ").append(this.heatPartners.getOrDefault(controller.key(), Set.of()));
+            sb.append('\n').append(I18n.tr("transmitter.describe.heat_links",
+                    this.heatPartners.getOrDefault(controller.key(), Set.of())));
             sb.append("\n  ").append(this.heat.describe());
             return sb.toString();
         }
         Map<String, NetworkEndpoint> bindings = this.resourceEndpoints.getOrDefault(controller.key(), Map.of());
-        sb.append("\n  端点 ").append(bindings.size()).append(" 个");
+        sb.append('\n').append(I18n.tr("transmitter.describe.endpoints", bindings.size()));
         for (NetworkEndpoint endpoint : bindings.values()) {
-            sb.append("\n    - ").append(endpoint.id()).append('[').append(endpoint.mode().zhName())
+            sb.append("\n    - ").append(endpoint.id()).append('[')
+                    .append(I18n.enumName(endpoint.mode(), endpoint.mode().zhName()))
                     .append("] ").append(endpoint.handler().describe());
         }
         TransmitterNetwork network = controller.topology().networkOf(controller.key());
-        sb.append("\n  ").append(network == null ? "没连进任何网络" : network.report().describe());
+        sb.append('\n').append("  ").append(network == null
+                ? I18n.tr("transmitter.describe.no_network")
+                : networkReport(network.report(), controller.family().resource()));
         if (controller.isEnergy() && network != null) {
             Grid grid = this.grids.get(this.energy.graph().componentOf(controller.key()).orElse(""));
             EnergyGrid energy = grid == null ? null : grid.grid();
             if (energy != null && energy.lastReport() != null) {
-                sb.append("\n  电网 ").append(energy.lastReport());
+                sb.append('\n').append(I18n.tr("transmitter.describe.grid", energy.lastReport()));
             }
         }
         return sb.toString();
@@ -1044,23 +1059,54 @@ public final class Logistics {
 
     /** 自检/汇总几行。 */
     public synchronized String summary() {
-        StringBuilder sb = new StringBuilder("物流 ").append(this.world.getName())
-                .append("：元件 ").append(this.placed.size())
-                .append("（带资源端点的 ").append((int) this.resourceEndpoints.values().stream()
-                        .filter(map -> !map.isEmpty()).count())
-                .append(" / 带物品端点的 ").append((int) this.itemEndpoints.values().stream()
-                        .filter(map -> !map.isEmpty()).count())
-                .append(" / 热连接 ").append(this.heatPartners.size()).append("）");
-        sb.append("\n  资源网 ").append(this.resources.networkIds().size())
-                .append("，能量网 ").append(this.energy.networkIds().size())
-                .append("，物品网 ").append(this.items.networkIds().size())
-                .append("，电网 ").append(this.grids.size())
-                .append("，红石响应 ").append(this.redstone.size());
+        StringBuilder sb = new StringBuilder(I18n.tr("transmitter.summary.head",
+                this.world.getName(), this.placed.size(), (int) this.resourceEndpoints.values().stream()
+                        .filter(map -> !map.isEmpty()).count()));
+        sb.append(I18n.tr("transmitter.summary.body",
+                (int) this.itemEndpoints.values().stream().filter(map -> !map.isEmpty()).count(),
+                this.heatPartners.size(), this.resources.networkIds().size(),
+                this.energy.networkIds().size(), this.items.networkIds().size(),
+                this.grids.size(), this.redstone.size()));
         for (Grid grid : this.grids.values()) {
             if (grid.grid().lastReport() != null) {
                 sb.append("\n  ").append(grid.grid().lastReport());
             }
         }
         return sb.toString();
+    }
+
+    private static String networkReport(NetworkReport report, ResourceType type) {
+        StringBuilder sb = new StringBuilder(I18n.tr("transmitter.report.head",
+                I18n.resourceType(type), report.nodeCount(), channelText(report.channel()),
+                I18n.tr(report.active() ? "transmitter.connected" : "transmitter.redstone_off"),
+                report.transferRatePerTick(), report.extractRatePerTick(),
+                report.stored(), report.capacity(), report.movedPerTick()));
+        for (NetworkReport.EndpointReport endpoint : report.endpoints()) {
+            sb.append('\n').append("  - ").append(endpoint.id()).append('[')
+                    .append(I18n.enumName(endpoint.mode(), endpoint.mode().zhName())).append("] ")
+                    .append(endpoint.resourceId() == null ? ""
+                            : endpoint.resourceId() + " ")
+                    .append(endpoint.amount()).append('/').append(endpoint.capacity());
+        }
+        return sb.toString();
+    }
+
+    private static String itemReport(mekcore.item.ItemNetworkReport report) {
+        StringBuilder sb = new StringBuilder(I18n.tr("transmitter.item_report.head",
+                report.nodeCount(), I18n.tr(report.active() ? "transmitter.connected" : "transmitter.disconnected"),
+                String.format(Locale.ROOT, "%.2f", report.itemsPerSecond()),
+                String.format(Locale.ROOT, "%.2f", report.extractPerSecond()),
+                report.stored(), report.movedPerTick()));
+        for (mekcore.item.ItemNetworkReport.EndpointReport endpoint : report.endpoints()) {
+            sb.append('\n').append("  - ").append(endpoint.id()).append('[')
+                    .append(I18n.enumName(endpoint.mode(), endpoint.mode().zhName())).append("] ")
+                    .append(endpoint.amount()).append('/').append(endpoint.capacity());
+        }
+        return sb.toString();
+    }
+
+    private static String channelText(int channel) {
+        return channel < 0 ? I18n.tr("transmitter.channel.unset")
+                : I18n.tr("transmitter.channel.number", channel + 1);
     }
 }

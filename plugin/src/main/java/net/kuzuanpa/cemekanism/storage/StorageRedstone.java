@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.storage;
 
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.bukkit.api.*;
 import net.momirealms.craftengine.bukkit.util.LocationUtils;
 import java.lang.reflect.Method;
@@ -23,6 +24,8 @@ final class StorageRedstone {
             if(state==null)return;
             Object source=getBlock.invoke(stateProxy,state.customBlockState().minecraftState());
             update.invoke(levelProxy,BukkitAdaptor.adapt(c.world()).minecraftWorld(),LocationUtils.toBlockPos(c.x(),c.y(),c.z()),source);
-        } catch (ReflectiveOperationException e) { throw new IllegalStateException("QIO 红石邻居更新失败",e); }
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(I18n.tr("storage.redstone.failed"), e);
+        }
     }
 }

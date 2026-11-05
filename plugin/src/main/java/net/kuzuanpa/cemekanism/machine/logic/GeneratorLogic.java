@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.machine.logic;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.machine.Machine;
 import mekcore.machine.MachineLogic;
 import mekcore.resource.ResourceStack;
@@ -19,7 +20,7 @@ public abstract class GeneratorLogic implements MachineLogic {
 
     protected static ResourceTank tank(Machine machine, String name) {
         return machine.tank(name).orElseThrow(
-                () -> new IllegalStateException(machine.blueprint().id() + " 缺少罐 " + name));
+                () -> new IllegalStateException(I18n.tr("machine.tank_missing", machine.blueprint().id(), name)));
     }
 
     protected static boolean hasEnergyRoom(Machine machine) {

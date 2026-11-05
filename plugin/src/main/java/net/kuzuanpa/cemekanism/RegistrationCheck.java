@@ -14,6 +14,7 @@ import net.momirealms.craftengine.core.util.Key;
 import net.kuzuanpa.cemekanism.machine.MachineBlockBehavior;
 import org.bukkit.Bukkit;
 import net.kuzuanpa.cemekanism.gui.GuiRegistry;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.transmitter.TransmitterBlockBehavior;
 import net.kuzuanpa.cemekanism.transmitter.TransmitterBlocks;
 import org.bukkit.event.EventHandler;
@@ -61,13 +62,13 @@ final class RegistrationCheck implements Listener {
     public void onCraftEngineReload(CraftEngineReloadEvent event) {
         List<String> missing = missingIds();
         if (!missing.isEmpty()) {
-            this.plugin.getLogger().severe("资源包 mek 校验失败：缺失 " + missing.size() + " 项必需资源，正在停止服务器。");
-            for (String id : missing) this.plugin.getLogger().severe("  缺失：" + id);
-            this.plugin.getLogger().severe("安装帮助：请安装与 CeMekanism 插件同一版本的服务端 mek 内容包。");
-            this.plugin.getLogger().severe("1. 将发布包中的 pack/ 内容（或解压后的 mek 内容包）放入 plugins/CraftEngine/resources/mek/。");
-            this.plugin.getLogger().severe("2. 确认该目录直接包含 pack.yml、configuration/ 和 resourcepack/，且 pack.yml 中 enable: true。");
-            this.plugin.getLogger().severe("3. 确认 CraftEngine 的 misc.delay-configuration-load: true；若文件已齐全，请检查上方 CraftEngine 载入错误并更新匹配版本的内容包。");
-            this.plugin.getLogger().severe("4. 修复后重新启动服务器，再执行 /ce reload all 生成并发送客户端资源包。");
+            this.plugin.getLogger().severe(I18n.tr("registration.failed", missing.size()));
+            for (String id : missing) this.plugin.getLogger().severe(I18n.tr("registration.missing_item", id));
+            this.plugin.getLogger().severe(I18n.tr("registration.help.title"));
+            this.plugin.getLogger().severe(I18n.tr("registration.help.1"));
+            this.plugin.getLogger().severe(I18n.tr("registration.help.2"));
+            this.plugin.getLogger().severe(I18n.tr("registration.help.3"));
+            this.plugin.getLogger().severe(I18n.tr("registration.help.4"));
             Bukkit.shutdown();
             return;
         }
@@ -82,21 +83,19 @@ final class RegistrationCheck implements Listener {
         List<String> missing = missingIds();
         long mapped = GeneratedContent.BLOCK_TO_BLUEPRINT.size();
         return missing.isEmpty()
-                ? "资源包 mek 自检：物品 " + ITEMS.size() + " 项 + 方块 " + BLOCKS.size()
-                + " 项就绪，方块→蓝图映射 " + mapped + " 条，"
-                + MachineBlockBehavior.KEY + " = " + behaviorState() + "，"
-                + TransmitterBlockBehavior.KEY + " = " + transmitterState()
-                + "，传输元件 " + TransmitterBlocks.size() + " 个（五族 × 四级），"
-                + "辐射源 " + plugin.radiationAll().all().values().stream()
-                        .mapToInt(RadiationWorld::sourceCount).sum() + "，"
-                + "机器蓝图 " + machineSummary(plugin) + "，" + GuiRegistry.status()
-                : "资源包 mek 自检：缺失 " + missing;
+                ? I18n.tr("registration.ready", ITEMS.size(), BLOCKS.size(), mapped,
+                MachineBlockBehavior.KEY, behaviorState(),
+                TransmitterBlockBehavior.KEY, transmitterState(), TransmitterBlocks.size(),
+                plugin.radiationAll().all().values().stream()
+                        .mapToInt(RadiationWorld::sourceCount).sum(),
+                machineSummary(plugin), GuiRegistry.status())
+                : I18n.tr("registration.missing", missing);
     }
 
     /** 元件行为的注册状态：管道方块全靠它挂方块实体。 */
     private static String transmitterState() {
         return BuiltInRegistries.BLOCK_BEHAVIOR_TYPE.getValue(TransmitterBlockBehavior.KEY) == null
-                ? "缺失" : "已注册";
+                ? I18n.tr("gui.registry.missing_value") : I18n.tr("gui.registry.registered");
     }
 
     /** 机器自检（文档 04 步 9）：蓝图有没有登记、配方机器有没有配方、槽位与能量端口齐不齐。 */
@@ -108,46 +107,48 @@ final class RegistrationCheck implements Listener {
             mekcore.machine.MachineBlueprint blueprint = plugin.core().registrars().machines()
                     .find(blueprintId).orElse(null);
             if (blueprint == null) {
-                problems.add(blueprintId + " 没登记");
+                problems.add(I18n.tr("registration.machine.unregistered", blueprintId));
                 continue;
             }
             machines++;
             // 没有物品槽是合法的（充电台通过玩家背包充能，太阳能/风力也只有升级槽）。
             if (blueprint.energyPerTickJ() > 0 && !blueprint.hasEnergyPort()) {
-                problems.add(blueprintId + " 有耗能却没有能量端口");
+                problems.add(I18n.tr("registration.machine.energy_without_port", blueprintId));
             }
             if ("source".equals(GeneratedContent.MACHINE_ROLES.get(blueprintId))) {
                 generators++;
                 if (blueprint.logic() == null) {
-                    problems.add(blueprintId + " 是发电机但没有逻辑");
+                    problems.add(I18n.tr("registration.machine.generator_without_logic", blueprintId));
                 }
                 if (!blueprint.hasEnergyPort()) {
-                    problems.add(blueprintId + " 是发电机但没有能量缓存");
+                    problems.add(I18n.tr("registration.machine.generator_without_buffer", blueprintId));
                 }
             }
             if (blueprint.logic() == null
                     && plugin.core().registrars().recipes().byUsage(blueprintId).isEmpty()) {
-                problems.add(blueprintId + " 是配方机器但没有配方");
+                problems.add(I18n.tr("registration.machine.recipe_without_recipe", blueprintId));
             }
         }
-        return machines + " 台（发电机 " + generators + "）"
-                + (problems.isEmpty() ? "，槽位/端口/配方齐全" : "，问题：" + problems);
+        return I18n.tr(problems.isEmpty() ? "registration.machine.ready" : "registration.machine.problems",
+                machines, generators, problems);
     }
 
     /** 行为注册得晚一步的话，资源包里的机器方块会解析不出 type，所以这一条要报出来。 */
     private static String behaviorState() {
         return BuiltInRegistries.BLOCK_BEHAVIOR_TYPE.getValue(MachineBlockBehavior.KEY) == null
-                ? "缺失" : "已注册";
+                ? I18n.tr("gui.registry.missing_value") : I18n.tr("gui.registry.registered");
     }
 
     /** 逐条状态，命令里展开看；名字与数量都来自清单，加内容时只改上面两个列表 */
     static List<String> lines() {
         List<String> lines = new ArrayList<>();
         for (Key id : ITEMS) {
-            lines.add("物品 " + id + " = " + built(id));
+            lines.add(I18n.tr("registration.line.item", id, built(id)));
         }
         for (Key id : BLOCKS) {
-            lines.add("方块 " + id + " = " + (CraftEngineBlocks.byId(id) == null ? "缺失" : "已注册"));
+            lines.add(I18n.tr("registration.line.block", id,
+                    I18n.tr(CraftEngineBlocks.byId(id) == null
+                            ? "gui.registry.missing_value" : "gui.registry.registered")));
         }
         lines.addAll(GuiRegistry.lines());
         return lines;
@@ -157,28 +158,32 @@ final class RegistrationCheck implements Listener {
         List<String> missing = new ArrayList<>();
         for (Key id : ITEMS) {
             if (CraftEngineItems.byId(id) == null) {
-                missing.add("物品 " + id);
+                missing.add(I18n.tr("registration.line.item_name", id));
             }
         }
         for (String id : ConfiguratorFaceRenderer.ITEMS) {
-            if (CraftEngineItems.byId(key(id)) == null) missing.add("配置器网格渲染物品 " + id);
+            if (CraftEngineItems.byId(key(id)) == null) {
+                missing.add(I18n.tr("registration.render.configurator", id));
+            }
         }
         for (String id : MultiblockEffectRenderer.ITEMS) {
-            if (CraftEngineItems.byId(key(id)) == null) missing.add("多方块特效渲染物品 " + id);
+            if (CraftEngineItems.byId(key(id)) == null) {
+                missing.add(I18n.tr("registration.render.multiblock", id));
+            }
         }
         for (String id : GeneratedContent.GENERATOR_RENDER_ITEMS) {
             if (CraftEngineItems.byId(key(id)) == null) {
-                missing.add("发电机渲染物品 " + id);
+                missing.add(I18n.tr("registration.render.generator", id));
             }
         }
         for (String id : GeneratedContent.MACHINE_RENDER_ITEMS) {
             if (CraftEngineItems.byId(key(id)) == null) {
-                missing.add("机器渲染物品 " + id);
+                missing.add(I18n.tr("registration.render.machine", id));
             }
         }
         for (Key id : BLOCKS) {
             if (CraftEngineBlocks.byId(id) == null) {
-                missing.add("方块 " + id);
+                missing.add(I18n.tr("registration.line.block_name", id));
             }
         }
         missing.addAll(GuiRegistry.missing());
@@ -188,10 +193,10 @@ final class RegistrationCheck implements Listener {
     /** 真构建一次物品堆：注册了但构建炸掉的情况也能看出来 */
     private static String built(Key id) {
         if (CraftEngineItems.byId(id) == null) {
-            return "缺失";
+            return I18n.tr("gui.registry.missing_value");
         }
         ItemStack stack = CraftEngineItems.byId(id).buildBukkitItem();
-        return "已注册，构建 = " + stack.getType() + " x" + stack.getAmount()
-                + (stack.hasItemMeta() ? " +组件" : "");
+        return I18n.tr("registration.built", stack.getType(), stack.getAmount(),
+                stack.hasItemMeta() ? I18n.tr("registration.components") : "");
     }
 }

@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.multiblock.BlockRole;
 import mekcore.multiblock.BlockRoles;
 import mekcore.multiblock.BlockSection;
@@ -234,5 +235,6 @@ public final class StructureBox implements StructureQuery {
         return block != null && !block.isEmpty() && this.def.roleOf(block) != null;
     }
 
-    public static final BlockRole OTHER = BlockRole.of("mek_other", "其它方块");
+    public static final BlockRole OTHER = BlockRole.of("mek_other",
+            I18n.tr("multiblock.check.other_block"));
 }

@@ -5,6 +5,7 @@ import mekcore.chemical.Chemicals;
 import mekcore.chemical.Radiation;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -83,7 +84,7 @@ public final class WasteBarrelListener implements Listener {
         event.setCancelled(true);
         logic.toggleOutput(controller.machine());
         controller.markChanged();
-        event.getPlayer().sendActionBar(net.kyori.adventure.text.Component.text("向下输出："
-                + (logic.state(controller.machine()).outputDown ? "开" : "关")));
+        event.getPlayer().sendActionBar(I18n.component(event.getPlayer(), "waste_barrel.output",
+                I18n.tr(event.getPlayer(), logic.state(controller.machine()).outputDown ? "state.on" : "state.off")));
     }
 }

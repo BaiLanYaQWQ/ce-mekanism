@@ -7,6 +7,7 @@ import mekcore.resource.Transaction;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockContexts;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
 import net.kuzuanpa.cemekanism.multiblock.StructureBox;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -45,7 +46,7 @@ public final class TeleporterLogic implements MultiblockLogic {
     public static String normalizeFrequency(String name) {
         String clean = name.strip();
         if (clean.length() > 32 || clean.codePoints().anyMatch(Character::isISOControl))
-            throw new IllegalArgumentException("频率名称限 1～32 个字符");
+            throw new IllegalArgumentException(I18n.tr("teleporter.name_length"));
         return clean;
     }
 
@@ -105,11 +106,15 @@ public final class TeleporterLogic implements MultiblockLogic {
     }
 
     public String status(MultiblockHosts.Host host) {
-        if (state(host.instance()).frequency.isEmpty()) return "未绑定频率";
+        if (state(host.instance()).frequency.isEmpty()) {
+            return I18n.tr("teleporter.status.unbound");
+        }
         var destination = destination(host);
-        if (destination == null) return "未找到已加载、已成型的同频目的地";
+        if (destination == null) return I18n.tr("teleporter.status.no_destination");
         long cost = cost(target(host.box()), target(destination.box()));
-        return host.instance().tank("energy").amount() < cost ? "能量不足（约需 " + cost + " J）" : "已就绪";
+        return host.instance().tank("energy").amount() < cost
+                ? I18n.tr("teleporter.status.no_energy", cost)
+                : I18n.tr("teleporter.status.ready");
     }
 
     @Override public boolean needsTick(MultiblockInstance instance) {

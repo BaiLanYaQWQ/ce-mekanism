@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.multiblock;
 import mekcore.multiblock.BlockRoles;
 import mekcore.multiblock.StructurePosition;
 import mekcore.multiblock.ValidationResult;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,8 +32,11 @@ public record MultiblockDiagnosticHint(String text, List<Marker> markers) {
         String reason;
         if (!validation.issues().isEmpty()) {
             var issue = validation.issues().getFirst();
-            reason = "需要" + issue.expected().stream().map(role -> role.zhName()).distinct().sorted()
-                    .limit(3).collect(Collectors.joining("／"));
+            reason = I18n.tr("multiblock.diagnostic.requires",
+                    issue.expected().stream()
+                            .map(role -> I18n.roleName(role.id(), role.zhName()))
+                            .distinct().sorted().limit(3)
+                            .collect(Collectors.joining(" / ")));
         } else if (!validation.unmet().isEmpty()) {
             reason = validation.unmet().getFirst();
         } else if (!extra.isEmpty()) {

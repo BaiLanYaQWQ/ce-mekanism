@@ -7,6 +7,7 @@ import mekcore.item.ItemSlotKind;
 import mekcore.item.ItemSlotSpec;
 import mekcore.item.ItemSlotView;
 import mekcore.resource.Transaction;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.storage.PersonalStorageLogic;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -69,8 +70,8 @@ public final class BukkitItemHandler implements ItemHandler {
             }
         }
         if (containerIndices != null && containerIndices.size() != index) {
-            throw new IllegalArgumentException("槽位映射长度 " + containerIndices.size()
-                    + " 与展开槽位 " + index + " 不一致");
+            throw new IllegalArgumentException(I18n.tr("machine.slot_mapping_mismatch",
+                    containerIndices.size(), index));
         }
     }
 
@@ -300,7 +301,7 @@ public final class BukkitItemHandler implements ItemHandler {
             }
             sb.append(slot.name).append('=').append(stack.getType()).append(" ×").append(stack.getAmount());
         }
-        return sb.isEmpty() ? "(空)" : sb.toString();
+        return sb.isEmpty() ? I18n.tr("state.empty_container") : sb.toString();
     }
 
     /** 真正落格子：一格里放不下就顺延到下一个合用的格子。 */

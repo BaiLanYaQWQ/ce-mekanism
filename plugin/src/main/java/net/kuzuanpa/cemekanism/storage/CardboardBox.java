@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.storage;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.block.parser.BlockStateParser;
 import net.momirealms.craftengine.libraries.nbt.*;
@@ -36,16 +37,22 @@ public final class CardboardBox implements Listener {
     public void pack(Player player, Block block, ItemStack held) {
         var c = plugin.machineAtQuiet(block.getWorld(), block.getX(), block.getY(), block.getZ());
         var custom = CraftEngineBlocks.getCustomBlockState(block);
-        if (custom != null && c == null) throw new IllegalArgumentException("此结构件或自定义方块暂不支持装箱");
+        if (custom != null && c == null) throw new IllegalArgumentException(I18n.tr(player, "box.custom_unsupported"));
         if (c != null && WasteBarrelLogic.ID.equals(c.blockId())) {
-            throw new IllegalArgumentException("放射性废料桶不能装箱");
+            throw new IllegalArgumentException(I18n.tr(player, "box.waste_barrel"));
         }
-        if (c != null && !c.machine().canAccess(player.getUniqueId().toString())) throw new IllegalArgumentException("无权装箱此机器");
-        if (block.getType().getHardness() < 0 || block.isLiquid() || block.getType().isAir()) throw new IllegalArgumentException("此方块不能装箱");
+        if (c != null && !c.machine().canAccess(player.getUniqueId().toString())) {
+            throw new IllegalArgumentException(I18n.tr(player, "box.no_permission"));
+        }
+        if (block.getType().getHardness() < 0 || block.isLiquid() || block.getType().isAir()) {
+            throw new IllegalArgumentException(I18n.tr(player, "box.not_packable"));
+        }
         BlockState state = block.getState();
-        if (state instanceof TileState && !(state instanceof Chest || state instanceof Barrel || state instanceof ShulkerBox)) throw new IllegalArgumentException("此原版方块实体暂不支持装箱");
+        if (state instanceof TileState && !(state instanceof Chest || state instanceof Barrel || state instanceof ShulkerBox)) {
+            throw new IllegalArgumentException(I18n.tr(player, "box.vanilla_entity_unsupported"));
+        }
         BlockBreakEvent permission = new BlockBreakEvent(block, player); Bukkit.getPluginManager().callEvent(permission);
-        if (permission.isCancelled()) throw new IllegalArgumentException("此处禁止装箱");
+        if (permission.isCancelled()) throw new IllegalArgumentException(I18n.tr(player, "box.pack_denied"));
         CompoundTag tag = new CompoundTag();
         if (c != null) {
             tag.putString("custom", custom.owner().value().id().asString() + '[' + custom.getPropertiesAsString() + ']');
@@ -65,9 +72,10 @@ public final class CardboardBox implements Listener {
         }
         ItemStack box = BukkitItems.create("mek:cardboard_box"); var meta = box.getItemMeta();
         meta.getPersistentDataContainer().set(PAYLOAD, PersistentDataType.BYTE_ARRAY, NBT.writeCompressed(tag, false)); meta.setMaxStackSize(1);
-        meta.lore(List.of(net.kyori.adventure.text.Component.text("已装箱 · ").append(c == null
+        meta.lore(List.of(net.kyori.adventure.text.Component.text(I18n.tr(player, "box.packed"))
+                .append(net.kyori.adventure.text.Component.text(" · ")).append(c == null
                 ? net.kyori.adventure.text.Component.translatable(block.getType().translationKey())
-                : net.kyori.adventure.text.Component.text(c.machine().blueprint().zhName())))); box.setItemMeta(meta);
+                : net.kyori.adventure.text.Component.text(I18n.machineName(c.machine().blueprint()))))); box.setItemMeta(meta);
         if (c != null) c.setSuppressStorageDrops(true);
         else if (state instanceof Container container) (state instanceof Chest chest ? chest.getBlockInventory() : container.getInventory()).clear();
         if (custom != null) CraftEngineBlocks.remove(block); else block.setType(Material.AIR, false);
@@ -75,20 +83,25 @@ public final class CardboardBox implements Listener {
         for (var leftover : player.getInventory().addItem(box).values()) player.getWorld().dropItemNaturally(player.getLocation(), leftover);
     }
     private void unpack(Player player, Block target, Block against, ItemStack held, CompoundTag tag) {
-        if (!target.getType().isAir()) throw new IllegalArgumentException("需要空位置拆箱");
+        if (!target.getType().isAir()) throw new IllegalArgumentException(I18n.tr(player, "box.need_empty"));
         BlockState replaced = target.getState();
         BlockPlaceEvent permission = new BlockPlaceEvent(target, replaced, against, held, player, true, EquipmentSlot.HAND);
         Bukkit.getPluginManager().callEvent(permission);
-        if (permission.isCancelled() || !permission.canBuild()) throw new IllegalArgumentException("此处禁止拆箱");
+        if (permission.isCancelled() || !permission.canBuild()) {
+            throw new IllegalArgumentException(I18n.tr(player, "box.unpack_denied"));
+        }
         String custom = tag.getString("custom");
         if (custom != null) {
-            var state = BlockStateParser.deserialize(custom); if (state == null) throw new IllegalArgumentException("箱内机器未注册");
-            if (!CraftEngineBlocks.place(target.getLocation(), state, true)) throw new IllegalArgumentException("机器放置失败");
+            var state = BlockStateParser.deserialize(custom);
+            if (state == null) throw new IllegalArgumentException(I18n.tr(player, "box.machine_not_registered"));
+            if (!CraftEngineBlocks.place(target.getLocation(), state, true)) {
+                throw new IllegalArgumentException(I18n.tr(player, "box.place_failed"));
+            }
             // Refresh the CE cache before resolving the new block entity.
             var ce = net.momirealms.craftengine.bukkit.api.BukkitAdaptor.adapt(target.getWorld()).storageWorld();
             ce.setBlockStateAtIfLoaded(new net.momirealms.craftengine.core.world.BlockPos(target.getX(), target.getY(), target.getZ()), state);
             var c = plugin.machineAtQuiet(target.getWorld(), target.getX(), target.getY(), target.getZ());
-            if (c == null) throw new IllegalStateException("装箱机器实体未创建");
+            if (c == null) throw new IllegalStateException(I18n.tr(player, "box.entity_missing"));
             c.loadCustomData(tag.getCompound("machine")); StorageRuntime.resize(c.machine());
             plugin.logistics(target.getWorld()).detachMachine(c); plugin.logistics(target.getWorld()).attachMachine(c); c.markChanged();
         } else {

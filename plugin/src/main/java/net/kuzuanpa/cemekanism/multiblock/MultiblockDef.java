@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -113,8 +114,8 @@ public record MultiblockDef(String id, String family, String zh, int wMin, int w
     }
 
     public String describe() {
-        return this.zh + '(' + this.id + ", " + this.mode + ", " + this.wMin + '~' + this.wMax + '×'
-                + this.hMin + '~' + this.hMax + ", 锚点 " + this.anchor + ", check "
-                + this.checks + ')';
+        return I18n.tr("multiblock.definition.describe", I18n.structureName(this.id),
+                this.id, this.mode, this.wMin, this.wMax, this.hMin, this.hMax,
+                this.anchor, this.checks);
     }
 }

@@ -1,3 +1,8 @@
+# Language used by shared machine inventories and console output.
+# Player-facing chat uses the player's CraftEngine locale automatically.
+# Supported values: zh_cn, en_us.
+language: zh_cn
+
 # Runtime tuning for the B5 digital miner.
 b5:
   # Candidate blocks inspected per server tick. Values are clamped to 1..4096.

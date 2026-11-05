@@ -4,6 +4,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kuzuanpa.cemekanism.gui.GuiConfig;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.GuiText;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -39,7 +40,7 @@ public final class TeleporterFrequencyGui implements InventoryHolder {
 
     private TeleporterFrequencyGui(MultiblockHosts.Host host) {
         this.host = host;
-        this.inventory = Bukkit.createInventory(this, 54, Component.text("传送器 · 绑定公共频率"));
+        this.inventory = Bukkit.createInventory(this, 54, Component.text(I18n.tr("teleporter.frequency_title")));
     }
 
     @Override public Inventory getInventory() { return inventory; }
@@ -51,7 +52,7 @@ public final class TeleporterFrequencyGui implements InventoryHolder {
         view.refresh();
         player.openInventory(view.inventory);
         host.plugin().guiSessions().open(player, new GuiSessions.View(view, view.inventory,
-                host.controllerLocation(), () -> Component.text("传送器 · 绑定公共频率"),
+                host.controllerLocation(), () -> Component.text(I18n.tr("teleporter.frequency_title")),
                 view::refresh, () -> Arrays.toString(view.inventory.getContents()),
                 () -> { }, () -> valid(host, player)));
     }
@@ -81,11 +82,12 @@ public final class TeleporterFrequencyGui implements InventoryHolder {
                 meta.setEnchantmentGlintOverride(true); selected.setItemMeta(meta);
             }
         }
-        button(45, Material.ARROW, "上一页", List.of());
-        button(48, Material.BARRIER, "解除绑定", List.of());
-        button(49, Material.NAME_TAG, "新建 / 输入频率", List.of("点击后在聊天中输入名称", "输入 cancel 取消，名称限 32 字符"));
-        button(50, Material.PAPER, "第 " + (page + 1) + "/" + (max + 1) + " 页", List.of());
-        button(53, Material.ARROW, "下一页", List.of());
+        button(45, Material.ARROW, I18n.tr("navigation.previous"), List.of());
+        button(48, Material.BARRIER, I18n.tr("teleporter.unbind"), List.of());
+        button(49, Material.NAME_TAG, I18n.tr("teleporter.new_frequency"),
+                List.of(I18n.tr("teleporter.input_hint"), I18n.tr("teleporter.cancel_hint")));
+        button(50, Material.PAPER, I18n.tr("navigation.page", page + 1, max + 1), List.of());
+        button(53, Material.ARROW, I18n.tr("navigation.next"), List.of());
     }
 
     private void button(int slot, Material material, String name, List<String> lore) {
@@ -108,11 +110,12 @@ public final class TeleporterFrequencyGui implements InventoryHolder {
                 if (raw == 49) {
                     INPUTS.put(player.getUniqueId(), new Input(view.host, System.currentTimeMillis() + 60_000));
                     player.closeInventory();
-                    player.sendMessage("请在 60 秒内输入公共频率名称（同名传送器互通），输入 cancel 取消。");
+                    I18n.send(player, "teleporter.input_prompt");
                 } else if (raw == 48 || frequency != null) {
                     TeleporterLogic.of(view.host).bind(view.host, raw == 48 ? "" : frequency);
                     player.closeInventory();
-                    player.sendActionBar(Component.text(raw == 48 ? "已解除绑定" : "频率：" + frequency));
+                    player.sendActionBar(I18n.component(player,
+                            raw == 48 ? "teleporter.unbound" : "teleporter.bound_frequency", frequency));
                 }
             });
         }
@@ -137,12 +140,12 @@ public final class TeleporterFrequencyGui implements InventoryHolder {
             String name = PlainTextComponentSerializer.plainText().serialize(event.message()).strip();
             Bukkit.getScheduler().runTask(input.host.plugin(), () -> {
                 Player player = event.getPlayer();
-                if (name.equalsIgnoreCase("cancel")) { player.sendMessage("已取消频率输入"); return; }
-                if (!valid(input.host, player)) { player.sendMessage("传送器已失效或距离太远，请重新打开绑定界面"); return; }
+                if (name.equalsIgnoreCase("cancel")) { I18n.send(player, "teleporter.input_cancelled"); return; }
+                if (!valid(input.host, player)) { I18n.send(player, "teleporter.invalid"); return; }
                 try {
-                    if (name.isEmpty()) throw new IllegalArgumentException("频率名称不能为空");
+                    if (name.isEmpty()) throw new IllegalArgumentException(I18n.tr(player, "teleporter.empty_name"));
                     TeleporterLogic.of(input.host).bind(input.host, name);
-                    player.sendMessage("已绑定传送频率：" + name);
+                    I18n.send(player, "teleporter.bound", name);
                 } catch (IllegalArgumentException ex) { player.sendMessage(ex.getMessage()); }
             });
         }

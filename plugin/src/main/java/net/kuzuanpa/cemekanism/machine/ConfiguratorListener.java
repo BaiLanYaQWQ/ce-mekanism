@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.machine;
 import mekcore.machine.Direction;
 import mekcore.machine.Machine;
 import mekcore.machine.SecurityLevel;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import org.bukkit.block.Block;
@@ -56,7 +57,7 @@ public final class ConfiguratorListener implements Listener {
             ConfiguratorMode next = mode.next();
             next.store(hand);
             player.getInventory().setItemInMainHand(hand);
-            player.sendActionBar(next.actionBar(null, null));
+            player.sendActionBar(next.actionBar(player, null, null));
             return;
         }
         if (hit == null) {
@@ -75,23 +76,25 @@ public final class ConfiguratorListener implements Listener {
             controller.markChanged();
         }
         if (!machine.canAccess(player.getUniqueId().toString())) {
-            player.sendMessage("这台机器不是你的（安全等级 " + machine.security().zhName() + "）");
+            I18n.send(player, "machine.not_owner", I18n.enumName(machine.security(), machine.security().zhName()));
             return;
         }
         if (leftClick) {
             if (!isOwnerOrAdmin(player, machine)) {
-                player.sendMessage("只有主人能改安全等级");
+                I18n.send(player, "machine.owner_only_security");
                 return;
             }
             SecurityLevel next = nextSecurity(machine.security());
             machine.setSecurity(next);
             controller.markChanged();
-            player.sendMessage(machine.blueprint().zhName() + " 安全等级 → " + next.zhName());
+            I18n.send(player, "machine.security_changed",
+                    I18n.machineName(I18n.locale(player), machine.blueprint()),
+                    I18n.enumName(next, next.zhName()));
             return;
         }
         Direction face = hit.selected();
         boolean changed = mode.cycle(controller, face);
-        player.sendActionBar(mode.actionBar(face, mode.status(controller, face)));
+            player.sendActionBar(mode.actionBar(player, face, mode.status(controller, face)));
         if (!changed) return;
         controller.markChanged();
         // 面配置变了：挨着的管道要重算端点方向（文档 06 第十节第 3 条）

@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.gui;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.item.ItemSlotKind;
 import mekcore.item.ItemSlotSpec;
 import mekcore.item.ItemSlotView;
@@ -163,13 +164,13 @@ public final class GuiLayout {
                 }
             }
         } catch (Exception e) {
-            throw new IllegalStateException("读不到 gui-layout.yml（跑 tools/gui_assets.py 重新生成）", e);
+            throw new IllegalStateException(I18n.tr("gui.layout.load_failed"), e);
         }
     }
 
     private static Profile profile(ConfigurationSection section) {
         if (section == null) {
-            throw new IllegalStateException("gui-layout.yml 缺少 profiles 段");
+            throw new IllegalStateException(I18n.tr("gui.layout.profiles_missing"));
         }
         return new Profile(
                 section.getInt("rows", 3),
@@ -270,7 +271,7 @@ public final class GuiLayout {
         load();
         List<MultiblockPage> pages = MULTIBLOCKS.get(defId);
         if (pages == null || pages.isEmpty()) {
-            throw new IllegalStateException(defId + " 缺少多方块 GUI 计划，请重跑 tools/gui_assets.py");
+            throw new IllegalStateException(I18n.tr("gui.layout.multiblock_plan_missing", defId));
         }
         return pages;
     }
@@ -392,20 +393,22 @@ public final class GuiLayout {
                 for (int group = 0; group < Math.max(1, tier.parallel()); group++) {
                     Cell cell = plan.slots().get(spec.slotName(group));
                     if (cell == null) {
-                        throw new IllegalStateException(blockId + " 的 GUI 表缺少槽位 " + spec.slotName(group));
+                        throw new IllegalStateException(I18n.tr("gui.layout.slot_missing_named",
+                                blockId, spec.slotName(group)));
                     }
                     indices.add(cell.index());
                 }
             } else {
                 Cell cell = plan.slots().get(spec.name());
                 if (cell == null) {
-                    throw new IllegalStateException(blockId + " 的 GUI 表缺少槽位 " + spec.name());
+                    throw new IllegalStateException(I18n.tr("gui.layout.slot_missing",
+                            blockId, spec.name()));
                 }
                 indices.add(cell.index());
             }
         }
         if (indices.size() != indices.stream().distinct().count()) {
-            throw new IllegalStateException(blockId + " 的 GUI 槽位有重叠：" + indices);
+            throw new IllegalStateException(I18n.tr("gui.layout.slot_overlap", blockId, indices));
         }
         return indices;
     }

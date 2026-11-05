@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.storage;
 
 import mekcore.persist.DataTag;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Material;
@@ -157,8 +158,10 @@ public final class ItemSelection {
 
     public String describe() {
         long disabled = rules.stream().filter(rule -> !enabled(rule)).count();
-        return (inverse ? "黑名单 " : "白名单 ") + rules
-                + (disabled == 0 ? "" : "（停用 " + disabled + "）");
+        String mode = I18n.tr(inverse ? "filter.blacklist" : "filter.whitelist");
+        return disabled == 0
+                ? I18n.tr("filter.description", mode, rules)
+                : I18n.tr("filter.description_disabled", mode, rules, disabled);
     }
 
     private final Map<String, Rule> ruleSettings = new LinkedHashMap<>();

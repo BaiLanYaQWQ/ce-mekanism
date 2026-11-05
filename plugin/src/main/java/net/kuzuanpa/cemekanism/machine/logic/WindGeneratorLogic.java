@@ -4,6 +4,7 @@ import mekcore.machine.Machine;
 import mekcore.machine.WorkState;
 import net.kuzuanpa.cemekanism.machine.GeneratorEnvironment;
 import net.kuzuanpa.cemekanism.machine.MachineContexts;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.GeneratorConfig;
 import org.bukkit.World;
 
@@ -52,6 +53,6 @@ public final class WindGeneratorLogic extends GeneratorLogic {
 
     @Override
     public String name() {
-        return "风力发电机";
+        return I18n.machineName("mek:wind_generator");
     }
 }

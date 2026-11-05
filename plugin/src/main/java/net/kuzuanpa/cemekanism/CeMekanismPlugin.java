@@ -6,6 +6,7 @@ import mekcore.sim.TickScheduler;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.TankDumpGui;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.ConfiguratorOverlay;
 import net.kuzuanpa.cemekanism.machine.MachineBlockBehavior;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
@@ -86,6 +87,7 @@ public final class CeMekanismPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        I18n.install(this);
         // 系统参数（管道/储罐/储能/蒸汽/热量）先装：机器读的就是这份表
         MekSystems.install(this);
         this.qio.install();
@@ -127,8 +129,7 @@ public final class CeMekanismPlugin extends JavaPlugin {
         }
         PluginCommand recipeCommand = getCommand("mekrecipes");
         if (recipeCommand != null) recipeCommand.setExecutor(new MekCommand(this));
-        getLogger().info("已启用：调度线程 " + this.scheduler.config().threads()
-                + "，主线程泵每刻一次；内容由资源包 mek 提供");
+        getLogger().info(I18n.tr("plugin.enabled", this.scheduler.config().threads()));
         getLogger().info(this.core.summary());
     }
 
@@ -219,16 +220,17 @@ public final class CeMekanismPlugin extends JavaPlugin {
                 return null;
             }
             CEChunk chunk = ceWorld.getChunkAtIfLoaded(x >> 4, z >> 4);
-            getLogger().info("查 " + x + "," + y + "," + z + "：方块实体还没建起来（区块 "
-                    + (chunk == null ? "不在 CE 的已加载表里" : "激活=" + chunk.isActivated()
-                            + "，实体数=" + chunk.blockEntities().size()) + "）");
+            getLogger().info(I18n.tr("plugin.entity.waiting", x, y, z,
+                    chunk == null ? I18n.tr("plugin.entity.chunk_absent")
+                            : I18n.tr("plugin.entity.chunk_state",
+                            chunk.isActivated(), chunk.blockEntities().size())));
             return null;
         }
         MachineBlockEntityController controller =
                 entity.controller.get(MachineBlockEntityController.class, 0);
         if (controller == null && !quiet) {
-            getLogger().warning("坐标 " + x + "," + y + "," + z + " 的控制器不是机器："
-                    + entity.controller.getClass().getName());
+            getLogger().warning(I18n.tr("plugin.controller.not_machine",
+                    x, y, z, entity.controller.getClass().getName()));
         }
         return controller;
     }
@@ -250,14 +252,19 @@ public final class CeMekanismPlugin extends JavaPlugin {
         CEChunk chunk = ceWorld.getChunkAtIfLoaded(x >> 4, z >> 4);
         BlockEntity entity = ceWorld.getBlockEntityAtIfLoaded(new BlockPos(x, y, z));
         MachineBlockEntityController controller = machineAt(world, x, y, z);
-        return "Bukkit " + bukkit.getType()
-                + "；CE " + (state == null ? "不是自定义方块"
-                        : state.owner().value().id() + "(有方块实体=" + state.hasBlockEntity() + ")")
-                + "；区块 " + (chunk == null ? "未加载"
-                        : "已加载(激活=" + chunk.isActivated() + ", 实体 " + chunk.blockEntities().size() + " 个)")
-                + "；实体 " + (entity == null ? "无"
-                        : "有(valid=" + entity.isValid() + ", " + entity.controller.getClass().getSimpleName() + ")")
-                + "；机器控制器 " + (controller == null ? "没拿到"
-                        : controller.taskId() + (controller.registered() ? "（已挂调度器）" : "（没挂调度器）"));
+        String chunkText = chunk == null ? I18n.tr("plugin.position.chunk_unloaded")
+                : I18n.tr("plugin.position.chunk_loaded", chunk.isActivated(),
+                chunk.blockEntities().size());
+        String entityText = entity == null ? I18n.tr("state.none")
+                : I18n.tr("plugin.position.entity", entity.isValid(),
+                entity.controller.getClass().getSimpleName());
+        String controllerText = controller == null ? I18n.tr("plugin.position.controller_absent")
+                : I18n.tr(controller.registered() ? "machine.registered" : "machine.unregistered",
+                controller.taskId());
+        return I18n.tr("plugin.position.describe", bukkit.getType(),
+                state == null ? I18n.tr("plugin.position.not_custom")
+                        : I18n.tr("plugin.position.custom",
+                        state.owner().value().id(), state.hasBlockEntity()),
+                chunkText, entityText, controllerText);
     }
 }

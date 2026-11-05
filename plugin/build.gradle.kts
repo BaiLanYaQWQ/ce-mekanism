@@ -47,6 +47,9 @@ tasks.jar {
 tasks.processResources {
     val version = project.version.toString()
     inputs.property("version", version)
+    from(file("../pack/configuration/langs")) {
+        into("lang/content")
+    }
     filesMatching("plugin.yml") {
         expand("version" to version)
     }
@@ -149,3 +152,11 @@ tasks.register<JavaExec>("teleporterSelfTest") {
     mainClass.set("net.kuzuanpa.cemekanism.multiblock.TeleporterSelfTest")
 }
 tasks.named("check") { dependsOn(tasks.named("teleporterSelfTest")) }
+
+tasks.register<JavaExec>("i18nSelfTest") {
+    group = "verification"
+    dependsOn(tasks.named("testClasses"))
+    classpath = sourceSets["test"].runtimeClasspath + configurations.compileClasspath.get()
+    mainClass.set("net.kuzuanpa.cemekanism.i18n.I18nSelfTest")
+}
+tasks.named("check") { dependsOn(tasks.named("i18nSelfTest")) }

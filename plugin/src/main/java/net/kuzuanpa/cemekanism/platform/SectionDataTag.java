@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.platform;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.persist.DataTag;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -115,6 +116,6 @@ public final class SectionDataTag implements DataTag {
     }
 
     private static UnsupportedOperationException readOnly() {
-        return new UnsupportedOperationException("系统参数配置是只读的，核心不会往它写东西");
+        return new UnsupportedOperationException(I18n.tr("platform.config.read_only"));
     }
 }

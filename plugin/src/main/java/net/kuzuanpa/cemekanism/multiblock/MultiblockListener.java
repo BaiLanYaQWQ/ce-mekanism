@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.multiblock;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.gui.MultiblockGui;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic;
 import net.kuzuanpa.cemekanism.multiblock.logic.HohlraumItems;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
@@ -148,13 +149,13 @@ public final class MultiblockListener implements Listener {
         }
         event.setCancelled(true);
         String label = switch (next) {
-            case "HEAT" -> "热量交换（双向）";
-            case "RESOURCE" -> "资源输入 / 输出";
-            case "INPUT" -> "输入";
-            case "OUTPUT" -> "输出";
+            case "HEAT" -> I18n.tr(event.getPlayer(), "multiblock.port_mode.heat");
+            case "RESOURCE" -> I18n.tr(event.getPlayer(), "multiblock.port_mode.resource");
+            case "INPUT" -> I18n.tr(event.getPlayer(), "multiblock.port_mode.input");
+            case "OUTPUT" -> I18n.tr(event.getPlayer(), "multiblock.port_mode.output");
             default -> next;
         };
-        event.getPlayer().sendActionBar(net.kyori.adventure.text.Component.text("端口：" + label));
+        event.getPlayer().sendActionBar(I18n.component(event.getPlayer(), "multiblock.port.label", label));
         host.markChanged();
     }
 
@@ -180,7 +181,7 @@ public final class MultiblockListener implements Listener {
         if ("laser_focus".equals(role) && player.getGameMode() == org.bukkit.GameMode.CREATIVE) {
             fusion.setPlasmaTemperature(host.instance(), 1_000_000_000.0);
             host.markChanged();
-            player.sendMessage("聚变等离子体温度 → 1 GK（创造模式调试）");
+            I18n.send(player, "multiblock.fusion.debug_temperature");
             event.setCancelled(true);
             return;
         }
@@ -192,9 +193,9 @@ public final class MultiblockListener implements Listener {
             if (fusion.insertHohlraum(host.instance(), held)) {
                 held.setAmount(held.getAmount() - 1);
                 host.markChanged();
-                player.sendMessage("已装入黑体辐射腔");
+                I18n.send(player, "multiblock.fusion.hohlraum_inserted");
             } else {
-                player.sendMessage("控制器里已经有一个黑体辐射腔");
+                I18n.send(player, "multiblock.fusion.hohlraum_present");
             }
             event.setCancelled(true);
         } else if (player.isSneaking() && (held == null || held.getType().isAir())) {
@@ -204,7 +205,7 @@ public final class MultiblockListener implements Listener {
                     player.getWorld().dropItemNaturally(player.getLocation(), leftover);
                 }
                 host.markChanged();
-                player.sendMessage("已取回黑体辐射腔");
+                I18n.send(player, "multiblock.fusion.hohlraum_removed");
             }
             event.setCancelled(true);
         }

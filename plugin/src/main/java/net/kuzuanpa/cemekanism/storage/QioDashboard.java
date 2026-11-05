@@ -4,6 +4,7 @@ import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiConfig;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.GuiText;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import org.bukkit.*;
@@ -26,7 +27,8 @@ public final class QioDashboard implements InventoryHolder {
     boolean sortByCount;
     QioDashboard(CeMekanismPlugin plugin, MachineBlockEntityController controller, String frequency, String query, int page) {
         this.plugin = plugin; this.controller = controller; this.frequency = frequency; this.query = query; this.page = page;
-        inventory = Bukkit.createInventory(this, 54, Component.text("QIO · " + frequency.substring(frequency.indexOf('/') + 1)));
+        inventory = Bukkit.createInventory(this, 54, Component.text(
+                I18n.tr("qio.dashboard_title", frequency.substring(frequency.indexOf('/') + 1))));
     }
     public Inventory getInventory() { return inventory; }
     public static void open(MachineBlockEntityController c, Player player, int page) {
@@ -38,7 +40,8 @@ public final class QioDashboard implements InventoryHolder {
             view.refresh(player); player.openInventory(view.inventory);
             plugin.guiSessions().open(player, new GuiSessions.View(view, view.inventory,
                     c == null ? null : new Location(c.world(), c.x() + .5, c.y() + .5, c.z() + .5),
-                    () -> Component.text("QIO · " + frequency.substring(frequency.indexOf('/') + 1)),
+                    () -> Component.text(I18n.tr("qio.dashboard_title",
+                            frequency.substring(frequency.indexOf('/') + 1))),
                     () -> view.refresh(player), () -> Integer.toHexString(Arrays.hashCode(view.inventory.getContents())),
                     () -> { }, () -> view.valid(player)));
         } catch (IllegalArgumentException e) { player.sendMessage(e.getMessage()); QioFrequencyGui.open(plugin, c, player, 0); }
@@ -49,7 +52,9 @@ public final class QioDashboard implements InventoryHolder {
     void authorize(Player player) {
         if (controller != null) {
             authorizeController(controller, player);
-            if (!frequency.equals(QioService.state(controller).frequency)) throw new IllegalArgumentException("QIO 频率已变更，请重新打开仪表板");
+            if (!frequency.equals(QioService.state(controller).frequency)) {
+                throw new IllegalArgumentException(I18n.tr(player, "qio.frequency_changed"));
+            }
         }
         plugin.qio().require(frequency, player.getUniqueId().toString());
     }
@@ -57,7 +62,7 @@ public final class QioDashboard implements InventoryHolder {
         double distance = GuiConfig.maxDistance();
         if (!c.registered() || !c.machine().canAccess(player.getUniqueId().toString()) || c.world() != player.getWorld()
                 || player.getLocation().distanceSquared(new Location(c.world(), c.x() + .5, c.y() + .5, c.z() + .5)) > distance * distance)
-            throw new IllegalArgumentException("无权访问、机器已卸载或距离过远");
+            throw new IllegalArgumentException(I18n.tr(player, "machine.access_unavailable"));
     }
     void refresh(Player player) {
         authorize(player); inventory.clear(); keys.clear();
@@ -78,12 +83,17 @@ public final class QioDashboard implements InventoryHolder {
         int maxPage = Math.max(0, (selected.size() - 1) / 45); page = Math.max(0, Math.min(page, maxPage));
         for (int i = page * 45; i < Math.min(selected.size(), (page + 1) * 45); i++) {
             String key = selected.get(i); keys.add(key); ItemStack icon = templates.get(key).clone();
-            var meta = icon.getItemMeta(); meta.setLore(List.of(GuiText.lore("库存 " + contents.get(key)),
-                    GuiText.lore("左键取一组，右键取一个；点击背包存入")));
+            var meta = icon.getItemMeta(); meta.setLore(List.of(
+                    GuiText.lore(I18n.tr("qio.stored", contents.get(key))),
+                    GuiText.lore(I18n.tr("qio.click_help"))));
             icon.setItemMeta(meta); inventory.setItem(i - page * 45, icon);
         }
-        button(45, Material.ARROW, "上一页"); button(49, Material.PAPER, "第 " + (page + 1) + '/' + (maxPage + 1) + " 页 · 刷新"); button(53, Material.ARROW, "下一页");
-        button(46, Material.ENDER_EYE, "选择频率"); button(50, Material.COMPARATOR, "排序：" + (sortByCount ? "数量" : "物品 ID"));
+        button(45, Material.ARROW, I18n.tr("navigation.previous"));
+        button(49, Material.PAPER, I18n.tr("qio.page_refresh", page + 1, maxPage + 1));
+        button(53, Material.ARROW, I18n.tr("navigation.next"));
+        button(46, Material.ENDER_EYE, I18n.tr("qio.select_frequency"));
+        button(50, Material.COMPARATOR, I18n.tr("qio.sort",
+                I18n.tr(sortByCount ? "qio.sort_count" : "qio.sort_id")));
     }
     private void button(int slot, Material material, String title) {
         ItemStack item = new ItemStack(material); var meta = item.getItemMeta();

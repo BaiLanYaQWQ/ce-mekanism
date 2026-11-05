@@ -4,6 +4,7 @@ import mekcore.multiblock.BlockRoles;
 import mekcore.multiblock.StructureIssue;
 import mekcore.multiblock.StructurePosition;
 import mekcore.multiblock.ValidationResult;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,10 @@ public final class MultiblockDiagnosticSelfTest {
         check(hint.markers().getFirst().position().equals(position), "validation cell keeps all three local axes");
         check(hint.markers().getFirst().missing(), "missing casing uses missing-block particles");
         check(!hint.markers().getLast().missing(), "obstructed interior uses invalid-block particles");
-        check(hint.text().equals("需要" + BlockRoles.FRAME.zhName()), "explanation identifies the required block");
+        String required = I18n.tr("multiblock.diagnostic.requires",
+                I18n.roleName(BlockRoles.FRAME.id(), BlockRoles.FRAME.zhName()));
+        check(hint.text().equals(required),
+                "explanation identifies the required block: actual=" + hint.text() + ", expected=" + required);
         check(!hint.text().contains("(2,"), "coordinates are conveyed by particles");
 
         var formed = ValidationResult.formed(5, 5, 5, Map.of(), Map.of());

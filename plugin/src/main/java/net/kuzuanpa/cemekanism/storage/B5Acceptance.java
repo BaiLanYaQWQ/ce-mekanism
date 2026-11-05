@@ -7,6 +7,7 @@ import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.machine.logic.ResistiveHeaterLogic;
 import net.kuzuanpa.cemekanism.multiblock.*;
@@ -35,23 +36,32 @@ public final class B5Acceptance {
         this.plugin=plugin; this.world=world; this.x=x; this.y=y; this.z=z;
     }
     private void check(boolean condition, String label) {
-        checks++; if (!condition) throw new IllegalStateException("验收失败 " + label);
+        checks++; if (!condition) throw new IllegalStateException(I18n.tr("acceptance.failed", label));
     }
     public static void run(CeMekanismPlugin plugin, CommandSender sender, String[] args) {
-        if (sender instanceof org.bukkit.entity.Player && !sender.hasPermission("cemekanism.admin")) { sender.sendMessage("需要管理员权限"); return; }
+        if (sender instanceof org.bukkit.entity.Player && !sender.hasPermission("cemekanism.admin")) {
+            I18n.send(sender, "acceptance.admin_required");
+            return;
+        }
         int x=args.length>1?Integer.parseInt(args[1]):5000, y=args.length>2?Integer.parseInt(args[2]):120, z=args.length>3?Integer.parseInt(args[3]):5000;
         World world=sender instanceof org.bukkit.entity.Player p?p.getWorld():Bukkit.getWorlds().get(0);
         B5Acceptance test=new B5Acceptance(plugin,world,x,y,z);
-        try { test.storage(); sender.sendMessage("B5 容量与物品身份："+test.checks+" 项通过");
-            test.matrix(); sender.sendMessage("B5 混级矩阵："+test.checks+" 项通过");
-            test.qio(); sender.sendMessage("B5 QIO："+test.checks+" 项通过");
-            test.miner(); sender.sendMessage("B5 采矿机："+test.checks+" 项通过");
-            test.pumpAndSorter(); test.heaterAndLaser(); sender.sendMessage("B5 与上游补全验收完成："+test.checks+" 项通过，位置 "+x+','+y+','+z);
-        } catch (RuntimeException e) { sender.sendMessage("B5 已通过 "+test.checks+" 项后中止："+e.getMessage()); plugin.getLogger().log(Level.SEVERE,"B5 acceptance",e); }
+        try {
+            test.storage(); I18n.send(sender, "acceptance.b5.storage", test.checks);
+            test.matrix(); I18n.send(sender, "acceptance.b5.matrix", test.checks);
+            test.qio(); I18n.send(sender, "acceptance.b5.qio", test.checks);
+            test.miner(); I18n.send(sender, "acceptance.b5.miner", test.checks);
+            test.pumpAndSorter(); test.heaterAndLaser();
+            I18n.send(sender, "acceptance.b5.complete", test.checks, x, y, z);
+        } catch (RuntimeException e) {
+            I18n.send(sender, "acceptance.b5.aborted", test.checks, e.getMessage());
+            plugin.getLogger().log(Level.SEVERE, "B5 acceptance", e);
+        }
     }
     private void place(World w, int a, int b, int c, String state) {
         w.getChunkAt(a>>4,c>>4).setForceLoaded(true);
-        var parsed=BlockStateParser.deserialize(state); if(parsed==null) throw new IllegalArgumentException("未知方块 "+state);
+        var parsed=BlockStateParser.deserialize(state);
+        if(parsed==null) throw new IllegalArgumentException(I18n.tr("acceptance.unknown_block", state));
         var existing=plugin.machineAtQuiet(w,a,b,c);
         if(existing!=null) existing.setSuppressStorageDrops(true);
         CraftEngineBlocks.remove(w.getBlockAt(a,b,c));
@@ -60,7 +70,7 @@ public final class B5Acceptance {
     }
     private MachineBlockEntityController machine(World w,int a,int b,int c,String id) {
         place(w,a,b,c,id+"[facing=north]"); var result=plugin.machineAtQuiet(w,a,b,c);
-        if(result==null) throw new IllegalStateException("机器实体未创建 "+id);
+        if(result==null) throw new IllegalStateException(I18n.tr("acceptance.machine_entity_missing", id));
         result.claim("console"); return result;
     }
     private void storage() {
@@ -264,7 +274,8 @@ public final class B5Acceptance {
         check(s.progress==progress && progress>0,"mining progress survives save/load");
         for(int i=0;i<400;i++){c.machine().energyTank().orElseThrow().set(null,50000);c.machine().tick();}
         check(s.mined==1 && world.getBlockAt(x-32,y-1,z-12).getType()==Material.COBBLESTONE,"65x65 min edge mined and backfilled");
-        check(world.getBlockAt(x+32,y-1,z+52).getType()==Material.DIAMOND_ORE && s.status.equals("缺少回填材料"),"missing replacement preserves max edge");
+        check(world.getBlockAt(x+32,y-1,z+52).getType()==Material.DIAMOND_ORE
+                && s.status.equals("missing_material"), "missing replacement preserves max edge");
         c.putInSlot("replace",new ItemStack(Material.COBBLESTONE,1));
         for(int i=0;i<100;i++){c.machine().energyTank().orElseThrow().set(null,50000);c.machine().tick();}
         check(s.mined==2 && world.getBlockAt(x+32,y-1,z+52).getType()==Material.COBBLESTONE,"65x65 max edge resumed");

@@ -4,6 +4,7 @@ import mekcore.machine.Machine;
 import mekcore.machine.WorkState;
 import net.kuzuanpa.cemekanism.machine.GeneratorEnvironment;
 import net.kuzuanpa.cemekanism.machine.MachineContexts;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.GeneratorConfig;
 import org.bukkit.World;
 
@@ -48,7 +49,7 @@ public final class SolarGeneratorLogic extends GeneratorLogic {
 
     @Override
     public String name() {
-        return advanced ? "高级太阳能发电机" : "太阳能发电机";
+        return I18n.machineName(advanced ? "mek:advanced_solar_generator" : "mek:solar_generator");
     }
 
     private boolean seesSun(Machine machine) {

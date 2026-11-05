@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.machine;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import mekcore.machine.FactoryTier;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 
@@ -19,7 +20,7 @@ public final class MachineBlocks {
     public static String blueprintId(String blockId) {
         String blueprint = GeneratedContent.BLOCK_TO_BLUEPRINT.get(blockId);
         if (blueprint == null) {
-            throw new IllegalArgumentException(blockId + " 不是机器方块（映射表里没有）");
+            throw new IllegalArgumentException(I18n.tr("machine.block_unknown", blockId));
         }
         return blueprint;
     }

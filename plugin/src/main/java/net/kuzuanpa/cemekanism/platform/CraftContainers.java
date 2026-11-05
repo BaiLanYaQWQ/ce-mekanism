@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.platform;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.core.plugin.CraftEngine;
 import net.momirealms.craftengine.core.world.Container;
 import org.bukkit.Bukkit;
@@ -44,7 +45,7 @@ public final class CraftContainers {
             Object instance = type.getField("INSTANCE").get(null);
             return (World) type.getMethod("getWorld", Object.class).invoke(instance, minecraftLevel);
         } catch (ReflectiveOperationException | LinkageError e) {
-            warn("拿不到 LevelProxy，原版漏斗看不到机器容器", e);
+            warn(I18n.tr("platform.container.level_proxy_failed"), e);
             return null;
         }
     }
@@ -78,7 +79,7 @@ public final class CraftContainers {
                 cause = e;
             }
         }
-        warn("拿不到 CraftInventoryProxy/CraftInventory，机器容器退回 Bukkit.createInventory（漏斗不可用）", cause);
+        warn(I18n.tr("platform.container.inventory_proxy_failed"), cause);
         return null;
     }
 

@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.gui;
 
 import mekcore.resource.DumpMode;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +21,8 @@ public final class TankDumpGui implements InventoryHolder {
     private TankDumpGui(MachineBlockEntityController controller) {
         this.controller = controller;
         this.ports = controller.machine().dumpablePorts();
-        this.inventory = Bukkit.createInventory(this, Math.max(27, Math.min(54, ports.size() * 9)), "化学品罐排出设置");
+        this.inventory = Bukkit.createInventory(this, Math.max(27, Math.min(54, ports.size() * 9)),
+                I18n.tr("tank_dump.title"));
         render();
     }
     public static void open(MachineBlockEntityController controller, Player player) {
@@ -31,14 +33,15 @@ public final class TankDumpGui implements InventoryHolder {
         for (int row = 0; row < ports.size() && row < inventory.getSize() / 9; row++) {
             String name = ports.get(row);
             var tank = controller.machine().tank(name).orElseThrow();
-            String resource = tank.resourceId() == null ? "空罐"
-                    : mekcore.resource.ResourceNames.nameOf(tank.type(), tank.resourceId());
+            String resource = tank.resourceId() == null ? I18n.tr("tank_dump.empty")
+                    : I18n.resourceName(tank.type(), tank.resourceId());
             for (DumpMode mode : DumpMode.values()) inventory.setItem(row * 9 + 2 + mode.ordinal() * 2,
                     GuiText.button(mode == tank.dumpMode() ? "minecraft:lime_dye" : "minecraft:gray_dye",
-                            resource + " · " + mode.label(), switch (mode) {
-                                case IDLE -> List.of("保留罐内资源");
-                                case DUMPING_EXCESS -> List.of("保留 85%，持续排出多余资源");
-                                case DUMPING -> List.of("持续排出罐内资源");
+                            I18n.tr("tank_dump.entry", resource,
+                                    I18n.enumName(mode, mode.label())), switch (mode) {
+                                case IDLE -> List.of(I18n.tr("tank_dump.idle"));
+                                case DUMPING_EXCESS -> List.of(I18n.tr("tank_dump.excess"));
+                                case DUMPING -> List.of(I18n.tr("tank_dump.dumping"));
                             }));
         }
     }

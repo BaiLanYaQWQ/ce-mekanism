@@ -5,6 +5,7 @@ import mekcore.machine.Machine;
 import mekcore.machine.SideMode;
 import mekcore.logistics.PortMode;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.logic.ResistiveHeaterLogic;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockDef;
@@ -68,10 +69,14 @@ final class ShowcasePlants {
 
     static List<String> report(CeMekanismPlugin plugin, World world, int x, int floor, int originZ) {
         List<String> lines = new ArrayList<>();
-        lines.add("完整产线状态（矿物箱柜/中间产物/成品，均为当前世界真实存量）");
+        lines.add(I18n.tr("showcase.plants.report_title"));
         for (int row = 0; row < 3; row++) {
             int baseZ = originZ + START_Z + row * ROW_DEPTH;
-            lines.add(switch (row) { case 0 -> "聚变机组"; case 1 -> "裂变机组"; default -> "矿石五倍线"; });
+            lines.add(I18n.tr(switch (row) {
+                case 0 -> "showcase.plants.fusion.title";
+                case 1 -> "showcase.plants.fission.title";
+                default -> "showcase.plants.five_times.title";
+            }));
             int[][] samples = switch (row) {
                 case 0 -> new int[][] {{4,4}, {10,4}, {26,13}, {80,15}};
                 case 1 -> new int[][] {{4,4}, {34,4}, {50,16}, {56,16}, {80,16}};
@@ -79,12 +84,17 @@ final class ShowcasePlants {
             };
             for (int[] point : samples) {
                 MachineBlockEntityController controller = plugin.machineAtQuiet(world, x + point[0], floor + 2, baseZ + point[1]);
-                if (controller == null) { lines.add("  缺少机器 " + (x + point[0]) + "," + (floor + 2) + "," + (baseZ + point[1])); continue; }
+                if (controller == null) {
+                    lines.add(I18n.tr("showcase.plants.missing_machine",
+                            x + point[0], floor + 2, baseZ + point[1]));
+                    continue;
+                }
                 Machine m = controller.machine();
-                StringBuilder line = new StringBuilder("  ").append(controller.blockId()).append(" ").append(m.state())
-                        .append(" 完成=").append(m.operations()).append(" 丢失=").append(m.lostOutputs());
+                StringBuilder line = new StringBuilder(I18n.tr("showcase.plants.machine",
+                        controller.blockId(), I18n.enumName(m.state(), m.state().zhName()),
+                        m.operations(), m.lostOutputs()));
                 if (m.blueprint().logic() instanceof BinLogic bin) {
-                    line.append(" 箱柜=").append(bin.store(m).total());
+                    line.append(I18n.tr("showcase.plants.bin", bin.store(m).total()));
                     for (String slot : List.of("in", "out")) {
                         var item = controller.slotContent(slot);
                         if (!StoredItems.empty(item)) line.append(" ").append(slot).append("=").append(BukkitItems.idOf(item)).append("×").append(item.getAmount());
@@ -98,24 +108,29 @@ final class ShowcasePlants {
             }
             if (row < 2) {
                 MultiblockHosts.Host host = plugin.multiblocks().at(world, x + (row == 0 ? 42 : 44), floor + (row == 0 ? 5 : 1), baseZ + (row == 0 ? 5 : 3));
-                if (host == null) { lines.add("  反应堆不存在"); continue; }
-                lines.add("  " + host.def().zh() + " 成型=" + host.formed() + " 温度=" + host.instance().heatNode().temperatureK());
+                if (host == null) { lines.add(I18n.tr("showcase.plants.reactor_missing")); continue; }
+                lines.add(I18n.tr("showcase.plants.reactor",
+                        I18n.structureName(host.def().id()), host.formed(),
+                        host.instance().heatNode().temperatureK()));
                 for (String port : host.def().ports()) {
                     var tank = host.instance().tank(port);
                     lines.add("    " + port + "=" + tank.storedId() + ":" + tank.amount() + "/" + tank.capacity());
                 }
                 if (host.instance().blueprint().logic() instanceof FusionReactorLogic logic)
-                    lines.add("    燃烧=" + logic.state(host.instance()).burning + " 等离子体=" + logic.state(host.instance()).plasmaTemperatureK
-                            + "；燃料按多方块固有过滤规则插入");
+                    lines.add(I18n.tr("showcase.plants.fusion_status",
+                            logic.state(host.instance()).burning,
+                            logic.state(host.instance()).plasmaTemperatureK));
                 if (host.instance().blueprint().logic() instanceof FissionReactorLogic logic)
-                    lines.add("    激活=" + logic.state(host.instance()).active + " 损伤=" + logic.state(host.instance()).damage);
+                    lines.add(I18n.tr("showcase.plants.fission_status",
+                            logic.state(host.instance()).active, logic.state(host.instance()).damage));
             }
         }
         return lines;
     }
 
     private void fusion() {
-        label(2, 0, "产线 05 · 聚变机组", "过滤泵 → 重水电解 → 氘/氚 → 聚变 → 锅炉 → 涡轮");
+        label(2, 0, I18n.tr("showcase.plants.line.fusion.title"),
+                I18n.tr("showcase.plants.line.fusion.subtitle"));
         Device pump = pump(4, 4, true);
         Device separator = machine(10, 4, "electrolytic_separator", 0);
         Device oxygen = byproduct(16, 4);
@@ -162,7 +177,8 @@ final class ShowcasePlants {
         logic.setInjectionRate(reactor.instance(), 2);
         var hohlraum = BukkitItems.create("mek:hohlraum");
         HohlraumItems.fill(hohlraum, FusionReactorLogic.FUSION_FUEL, 1_000);
-        require(logic.insertHohlraum(reactor.instance(), hohlraum), "聚变点火腔装入失败");
+        require(logic.insertHohlraum(reactor.instance(), hohlraum),
+                I18n.tr("showcase.plants.error.hohlraum_insert"));
         // One commissioning laser pulse, equivalent to /mek reactor ... plasma; never refilled on tick.
         new org.bukkit.scheduler.BukkitRunnable() {
             private int attempts;
@@ -178,12 +194,15 @@ final class ShowcasePlants {
             }
         }.runTaskTimer(plugin, 100L, 20L);
         reactor.markChanged();
-        label(40, 12, "聚变注入率2，自动点火", "多方块自动过滤；锅炉供汽；涡轮回水闭环");
-        label(4, 22, "原料与维护", "锂粉箱柜；氧副产物入罐；启动电池有限；夜间氚罐缓冲");
+        label(40, 12, I18n.tr("showcase.plants.fusion.ignition"),
+                I18n.tr("showcase.plants.fusion.ignition_sub"));
+        label(4, 22, I18n.tr("showcase.plants.fusion.maintenance"),
+                I18n.tr("showcase.plants.fusion.maintenance_sub"));
     }
 
     private void fission() {
-        label(2, 0, "产线 06 · 裂变机组", "终极铀箱柜 → 铀处理 → 裂变 → 废料离心 → 钚");
+        label(2, 0, I18n.tr("showcase.plants.line.fission.title"),
+                I18n.tr("showcase.plants.line.fission.subtitle"));
         Device uranium = bin(4, 4, "mek:raw_uranium", 65_536);
         Device enrichment = machine(8, 4, "enrichment_chamber", 4);
         Device smelter = machine(12, 4, "energized_smelter", 4);
@@ -226,11 +245,13 @@ final class ShowcasePlants {
         logic.setRate(reactor.instance(), 0.05);
         logic.setActive(reactor.instance(), true);
         reactor.markChanged();
-        label(44, 23, "燃耗 0.05 mB/t", "单泵补水 + 冷凝回水；无预填燃料/废料/钚");
+        label(44, 23, I18n.tr("showcase.plants.fission.burn"),
+                I18n.tr("showcase.plants.fission.burn_sub"));
     }
 
     private void fiveTimes() {
-        label(2, 0, "产线 07 · 矿石五倍线", "铁矿石 → 浆液 → 晶体 → 碎片 → 碎块 → 粉 → 铁锭");
+        label(2, 0, I18n.tr("showcase.plants.line.five_times.title"),
+                I18n.tr("showcase.plants.line.five_times.subtitle"));
         Device ore = bin(4, 4, "minecraft:iron_ore", 4_096);
         Device dissolution = machine(8, 4, "chemical_dissolution_chamber", 4);
         Device washer = machine(12, 4, "chemical_washer", 4);
@@ -271,7 +292,8 @@ final class ShowcasePlants {
         link("hydrogen-chloride", "chemical", hydrogenChloride, "center", injection, "gas");
         route("evap-heat", "heat", heater.pos.move(Direction.NORTH), evapHeat.pos.move(Direction.SOUTH));
         power(battery, null);
-        label(4, 24, "铁矿石 → 铁锭 1:5", "配方浆液精确扣量；副产罐设排出过量");
+        label(4, 24, I18n.tr("showcase.plants.five_times.ratio"),
+                I18n.tr("showcase.plants.five_times.ratio_sub"));
     }
 
     /** Sulfur bin -> SO2 -> SO3 -> acid, with water pump, electrolysis and water vaporization. */
@@ -297,9 +319,9 @@ final class ShowcasePlants {
 
     private Device machine(int dx, int dz, String id, int speed) {
         Pos pos = new Pos(x + dx, floor + 2, z + dz);
-        require(!devices.containsKey(pos), "重复机器位置 " + pos);
+        require(!devices.containsKey(pos), I18n.tr("showcase.plants.error.duplicate_machine", pos));
         MachineBlockEntityController controller = ShowcaseCommand.machine(plugin, world, pos.x, pos.y, pos.z, "mek:" + id);
-        require(controller != null, "缺少机器 " + id + " " + pos);
+        require(controller != null, I18n.tr("showcase.plants.error.missing_machine", id, pos));
         controller.claim("console");
         Machine m = controller.machine();
         for (Direction side : Direction.values()) {
@@ -319,13 +341,14 @@ final class ShowcasePlants {
         Device device = machine(dx, dz, "ultimate_bin", 0);
         if (id != null) {
             var item = BukkitItems.create(id);
-            require(item != null, "缺少箱柜原料 " + id);
+            require(item != null, I18n.tr("showcase.plants.error.missing_bin_input", id));
             BinLogic logic = (BinLogic) device.controller.machine().blueprint().logic();
             require(logic.store(device.controller.machine()).insert(StoredItems.key(item), amount, true) == amount,
-                    "箱柜容量不足 " + id);
+                    I18n.tr("showcase.plants.error.bin_capacity", id));
             device.controller.markChanged();
         }
-        label(dx, dz - 1, id == null ? "成品箱柜" : id.substring(id.indexOf(':') + 1), "终极箱柜 · " + amount);
+        label(dx, dz - 1, id == null ? I18n.tr("showcase.plants.finished_bin")
+                : id.substring(id.indexOf(':') + 1), I18n.tr("showcase.plants.bin_label", amount));
         return device;
     }
 
@@ -337,7 +360,8 @@ final class ShowcasePlants {
 
     private Device pump(int dx, int dz, boolean filtered) {
         Device pump = machine(dx, dz, "electric_pump", 8);
-        if (filtered) require(pump.controller.machine().installUpgrade("mek:filter_upgrade", 1) == 1, "泵缺少过滤升级");
+        if (filtered) require(pump.controller.machine().installUpgrade("mek:filter_upgrade", 1) == 1,
+                I18n.tr("showcase.plants.pump_filter_missing"));
         // A 3x3 source pool with a solid floor regenerates the source consumed beneath the pump.
         for (int px = -1; px <= 1; px++) for (int pz = -1; pz <= 1; pz++) {
             world.getBlockAt(pump.pos.x + px, floor, pump.pos.z + pz).setType(Material.SEA_LANTERN, false);
@@ -352,7 +376,8 @@ final class ShowcasePlants {
         var tank = battery.controller.machine().energyTank().orElseThrow();
         tank.set(null, tank.capacity());
         battery.controller.markChanged();
-        label(dx, dz - 1, "启动电池（有限）", "普通终极能量立方；矿物线由此供电");
+        label(dx, dz - 1, I18n.tr("showcase.plants.battery"),
+                I18n.tr("showcase.plants.battery_sub"));
         return battery;
     }
 
@@ -370,7 +395,7 @@ final class ShowcasePlants {
         ShowcaseCommand.MultiblockSpec spec = new ShowcaseCommand.MultiblockSpec(def.id(), w, h, d, x + dx, z + dz);
         ShowcaseCommand.patchMultiblock(world, spec, by);
         MultiblockHosts.Host host = ShowcaseCommand.acquire(plugin, world, spec, def, by);
-        require(host != null, "缺少多方块宿主 " + id);
+        require(host != null, I18n.tr("showcase.plants.error.missing_host", id));
         hosts.add(host);
         for (int xx = 0; xx < w; xx++) for (int yy = 0; yy < h; yy++) for (int zz = 0; zz < d; zz++)
             structures.add(new Pos(x + dx + xx, by + yy, z + dz + zz));
@@ -400,12 +425,14 @@ final class ShowcasePlants {
 
     private void formAll() {
         for (MultiblockHosts.Host host : hosts) {
-            require(host.refresh() && host.formed(), "结构未成型 " + host.def().id() + ": " + host.extraIssues());
+            require(host.refresh() && host.formed(),
+                    I18n.tr("showcase.plants.error.unformed", host.def().id(), host.extraIssues()));
         }
         for (Device device : devices.values()) if (device.host != null && !device.mode.isEmpty()) {
             for (int i = 0; i < 4 && !device.mode.equals(device.host.portMode(device.pos.x, device.pos.y, device.pos.z)); i++)
                 device.host.cyclePortMode(device.pos.x, device.pos.y, device.pos.z);
-            require(device.mode.equals(device.host.portMode(device.pos.x, device.pos.y, device.pos.z)), "端口模式设置失败");
+            require(device.mode.equals(device.host.portMode(device.pos.x, device.pos.y, device.pos.z)),
+                    I18n.tr("showcase.plants.error.port_mode"));
             device.host.markChanged();
         }
     }
@@ -443,14 +470,16 @@ final class ShowcasePlants {
 
     private void reserve(Pos pos, String network, String family) {
         require(!reserved.containsKey(pos) || (network.equals(reserved.get(pos))
-                && family.equals(reservedFamilies.get(pos))), "重复端口 " + pos);
+                && family.equals(reservedFamilies.get(pos))),
+                I18n.tr("showcase.plants.error.duplicate_port", pos));
         reserved.put(pos, network); reservedFamilies.put(pos, family);
     }
 
     private void layRoute(String network, String family, Pos start, Pos end) {
         Map<Pos, Pos> previous = new HashMap<>();
         ArrayDeque<Pos> queue = new ArrayDeque<>();
-        require(available(start, network, family) && available(end, network, family), "端口被占用 " + start + " / " + end);
+        require(available(start, network, family) && available(end, network, family),
+                I18n.tr("showcase.plants.error.port_occupied", start, end));
         previous.put(start, start); queue.add(start);
         while (!queue.isEmpty() && !previous.containsKey(end)) {
             Pos here = queue.removeFirst();
@@ -462,7 +491,8 @@ final class ShowcasePlants {
                 previous.put(next, here); queue.addLast(next);
             }
         }
-        require(previous.containsKey(end), "无法布线 " + network + " " + start + " -> " + end);
+        require(previous.containsKey(end),
+                I18n.tr("showcase.plants.error.route_failed", network, start, end));
         List<Pos> path = new ArrayList<>();
         for (Pos at = end; ; at = previous.get(at)) { path.add(at); if (at.equals(start)) break; }
         String block = switch (family) {
@@ -476,7 +506,8 @@ final class ShowcasePlants {
         for (Pos at : path) {
             if (!pipes.containsKey(at)) {
                 MultiblockPlacements.place(world, at.x, at.y, at.z, "mek:" + block);
-                require(plugin.transmitterAt(world, at.x, at.y, at.z) != null, "管道放置失败 " + at);
+                require(plugin.transmitterAt(world, at.x, at.y, at.z) != null,
+                        I18n.tr("showcase.plants.error.pipe_place_failed", at));
                 pipes.put(at, network); families.put(at, family);
             }
         }
@@ -511,7 +542,8 @@ final class ShowcasePlants {
                 PortMode mode = socket == null ? PortMode.NONE
                         : socket.endsWith(":true") ? PortMode.PUSH : PortMode.PULL;
                 for (int i = 0; i < 4 && pipe.port(face) != mode; i++) pipe.cyclePort(face);
-                require(pipe.port(face) == mode, "管道推拉设置失败 " + at);
+                require(pipe.port(face) == mode,
+                        I18n.tr("showcase.plants.error.pipe_mode_failed", at));
             }
         }
         for (Device device : devices.values()) if (device.controller != null) {
@@ -560,7 +592,8 @@ final class ShowcasePlants {
                 }
                 return socket;
             }
-            throw new IllegalStateException("无可用连接面 " + pos + " " + port + " " + network);
+            throw new IllegalStateException(I18n.tr("showcase.plants.error.no_socket",
+                    pos, port, network));
         }
     }
 

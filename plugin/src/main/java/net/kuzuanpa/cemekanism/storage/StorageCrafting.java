@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.storage;
 
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.libraries.nbt.NBT;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.*;
@@ -24,7 +25,9 @@ public final class StorageCrafting implements Listener {
     }
     public static ItemStack upgrade(ItemStack source, ItemStack target) {
         String from = family(BukkitItems.idOf(source)), to = family(BukkitItems.idOf(target));
-        if (from.isEmpty() || !from.equals(to)) throw new IllegalArgumentException("有内容的存储物品不能用于此配方");
+        if (from.isEmpty() || !from.equals(to)) {
+            throw new IllegalArgumentException(I18n.tr("storage.crafting.non_empty"));
+        }
         ItemStack result = target.clone(); var src = source.getItemMeta().getPersistentDataContainer(); var meta = result.getItemMeta(); var dst = meta.getPersistentDataContainer();
         byte[] machine = src.get(StorageListener.MACHINE, PersistentDataType.BYTE_ARRAY);
         if (machine != null) {

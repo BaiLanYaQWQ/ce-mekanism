@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.platform;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -26,10 +27,10 @@ public final class EnergyBalanceMigration {
                 File backup = new File(file.getPath() + ".before-energy-balance-v1.bak");
                 if (!backup.exists()) Files.copy(file.toPath(), backup.toPath());
                 user.save(file);
-                plugin.getLogger().info("发电平衡已升级至 Mekanism 1.21 基准，原配置备份：" + backup.getName());
+                plugin.getLogger().info(I18n.tr("platform.energy_migration.done", backup.getName()));
             }
         } catch (IOException exception) {
-            throw new IllegalStateException("无法迁移发电平衡配置 " + file, exception);
+            throw new IllegalStateException(I18n.tr("platform.energy_migration.failed", file), exception);
         }
     }
 

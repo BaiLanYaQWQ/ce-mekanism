@@ -15,6 +15,7 @@ import mekcore.machine.Direction;
 import mekcore.resource.ResourceTypes;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic;
 import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
 import net.kuzuanpa.cemekanism.storage.StoredItems;
@@ -126,7 +127,7 @@ public final class TransmitterBlockEntityController extends BlockEntityControlle
     public TransmitterTopology topology() {
         Logistics logistics = logistics();
         if (logistics == null) {
-            throw new IllegalStateException(this.key + " 还没有世界，拿不到拓扑");
+            throw new IllegalStateException(I18n.tr("transmitter.error.no_world", this.key));
         }
         return this.energy ? logistics.energyTopology() : logistics.resourceTopology();
     }
@@ -416,23 +417,28 @@ public final class TransmitterBlockEntityController extends BlockEntityControlle
     public String nodeSummary() {
         if (this.itemPipe) {
             int channel = this.itemNode.channel();
-            return "元件 " + this.itemNode.tier() + "，缓存 " + this.itemNode.bufferedAmount() + '/'
-                    + this.itemNode.bufferCapacity() + " 个，颜色 " + channelName(channel)
-                    + "，红石响应 " + (this.itemNode.redstoneResponsive() ? "开" : "关");
+            return I18n.tr("transmitter.node.item", this.itemNode.tier(),
+                    this.itemNode.bufferedAmount(), this.itemNode.bufferCapacity(),
+                    channelName(channel),
+                    I18n.tr(this.itemNode.redstoneResponsive() ? "state.on" : "state.off"));
         }
         if (this.heatConductor) {
-            return "热导线缆（" + heatTier().zhName() + "，四格热损 "
-                    + String.format("%.2f%%", heatTier().lossPerFourBlocks() * 100) + "），温度 "
-                    + String.format("%.2f", this.heatNode.temperatureK()) + "K，可用热量 "
-                    + this.heatNode.usableJoules() + " J";
+            return I18n.tr("transmitter.node.heat",
+                    I18n.enumName(heatTier(), heatTier().zhName()),
+                    String.format("%.2f", heatTier().lossPerFourBlocks() * 100),
+                    String.format("%.2f", this.heatNode.temperatureK()),
+                    this.heatNode.usableJoules());
         }
-        return "元件 " + this.node.tier() + "，缓存 " + this.node.buffer().amount() + '/'
-                + this.node.buffer().capacity() + "，颜色 " + channelName(this.node.channel())
-                + "，红石" + (this.node.redstoneControlEnabled() ? "断线开" : "断线关");
+        return I18n.tr("transmitter.node.resource", this.node.tier(),
+                this.node.buffer().amount(), this.node.buffer().capacity(),
+                channelName(this.node.channel()),
+                I18n.tr(this.node.redstoneControlEnabled()
+                        ? "transmitter.redstone_high" : "transmitter.redstone_low"));
     }
 
     private static String channelName(int channel) {
-        return channel < 0 ? "未设色" : "第 " + (channel + 1) + " 色";
+        return channel < 0 ? I18n.tr("transmitter.channel.unset")
+                : I18n.tr("transmitter.channel.number", channel + 1);
     }
 
     private Logistics logistics() {
@@ -564,7 +570,8 @@ public final class TransmitterBlockEntityController extends BlockEntityControlle
                     this.node = TransmitterNode.load(new CompoundDataTag(state));
                 }
             } catch (RuntimeException e) {
-                this.plugin.getLogger().warning(this.key + " 的元件读档失败，用新元件：" + e.getMessage());
+                this.plugin.getLogger().warning(I18n.tr("transmitter.log.load_failed",
+                        this.key, e.getMessage()));
             }
         }
         if (this.heatNode != null) {

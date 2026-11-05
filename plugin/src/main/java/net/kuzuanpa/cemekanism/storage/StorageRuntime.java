@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.storage;
 import mekcore.machine.*;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.List;
 import java.util.Map;
@@ -64,16 +65,25 @@ public final class StorageRuntime {
         org.bukkit.inventory.ItemStack held = player.getInventory().getItemInMainHand();
         org.bukkit.Material type = held.getType();
         if (type != org.bukkit.Material.BUCKET && type != org.bukkit.Material.WATER_BUCKET && type != org.bukkit.Material.LAVA_BUCKET) return false;
-        if (!c.machine().canAccess(player.getUniqueId().toString())) { player.sendMessage("无权操作此储罐"); return true; }
+        if (!c.machine().canAccess(player.getUniqueId().toString())) {
+            I18n.send(player, "storage.no_tank_permission");
+            return true;
+        }
         var tank = c.machine().tank("stored").orElseThrow(); org.bukkit.Material result;
         if (type == org.bukkit.Material.BUCKET) {
             result = "minecraft:water".equals(tank.resourceId()) ? org.bukkit.Material.WATER_BUCKET
                     : "minecraft:lava".equals(tank.resourceId()) ? org.bukkit.Material.LAVA_BUCKET : null;
-            if (result == null || tank.extract(1000, mekcore.resource.Transaction.SIMULATE) != 1000) { player.sendMessage("不足一桶或无对应桶物品"); return true; }
+            if (result == null || tank.extract(1000, mekcore.resource.Transaction.SIMULATE) != 1000) {
+                I18n.send(player, "storage.bucket_unavailable");
+                return true;
+            }
             tank.extract(1000, mekcore.resource.Transaction.EXECUTE);
         } else {
             var fluid = mekcore.resource.ResourceStack.fluid(type == org.bukkit.Material.WATER_BUCKET ? "minecraft:water" : "minecraft:lava", 1000);
-            if (tank.insert(fluid, mekcore.resource.Transaction.SIMULATE) != 1000) { player.sendMessage("储罐已满、资源不符或本刻速率已满"); return true; }
+            if (tank.insert(fluid, mekcore.resource.Transaction.SIMULATE) != 1000) {
+                I18n.send(player, "storage.tank_full");
+                return true;
+            }
             tank.insert(fluid, mekcore.resource.Transaction.EXECUTE); result = org.bukkit.Material.BUCKET;
         }
         held.setAmount(held.getAmount()-1);

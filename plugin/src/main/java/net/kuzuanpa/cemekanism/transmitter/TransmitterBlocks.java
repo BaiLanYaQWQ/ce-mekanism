@@ -5,6 +5,7 @@ import mekcore.logistics.TransmitterTier;
 import mekcore.logistics.Transmitters;
 import mekcore.machine.MachineTier;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,7 +39,7 @@ public final class TransmitterBlocks {
     public static TransmitterDef require(String blockId) {
         TransmitterDef def = BY_ID.get(blockId);
         if (def == null) {
-            throw new IllegalArgumentException(blockId + " 不是传输元件（映射表里没有）");
+            throw new IllegalArgumentException(I18n.tr("transmitter.error.unknown_block", blockId));
         }
         return def;
     }
@@ -58,9 +59,10 @@ public final class TransmitterBlocks {
      */
     public static TransmitterTier transmitterTier(TransmitterDef def) {
         TransmitterFamily family = family(def).orElseThrow(
-                () -> new IllegalArgumentException(def.blockId() + " 不是资源族元件"));
+                () -> new IllegalArgumentException(I18n.tr("transmitter.error.not_resource", def.blockId())));
         MachineTier wanted = def.heat() ? MachineTier.BASIC : tier(def);
         return Transmitters.tier(family, wanted).orElseThrow(
-                () -> new IllegalArgumentException("未注册 " + family.id() + " 的 " + wanted + " 级数值"));
+                () -> new IllegalArgumentException(I18n.tr("transmitter.error.tier_missing",
+                        family.id(), wanted.name())));
     }
 }

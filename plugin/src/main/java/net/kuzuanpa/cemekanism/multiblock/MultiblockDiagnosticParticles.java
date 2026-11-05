@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -60,10 +61,11 @@ public final class MultiblockDiagnosticParticles extends BukkitRunnable {
             cancel();
             return;
         }
-        String text = "未成型：" + hint.text();
+        String text = I18n.tr("multiblock.diagnostic.unformed", hint.text());
         if (!hint.markers().isEmpty()) {
-            text += hint.markers().size() <= 12 ? " · 已标出 " + hint.markers().size() + " 处问题"
-                    : " · 共 " + hint.markers().size() + " 处，标出附近 12 处";
+            text += hint.markers().size() <= 12
+                    ? I18n.tr("multiblock.diagnostic.marked", hint.markers().size())
+                    : I18n.tr("multiblock.diagnostic.truncated", hint.markers().size());
         }
         player.sendActionBar(Component.text(text));
         cuboid(box.originX(), box.originY(), box.originZ(), box.sizeX(), box.sizeY(), box.sizeZ(), OUTLINE, true);

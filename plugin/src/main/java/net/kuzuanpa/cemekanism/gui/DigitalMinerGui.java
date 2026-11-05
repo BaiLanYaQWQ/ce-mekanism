@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.gui;
 
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.storage.DigitalMinerLogic;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 
@@ -34,7 +35,7 @@ public final class DigitalMinerGui {
 
     public static Component filterTitle() {
         return new TitleBuilder().panel("mek:gui/panel_digital_miner_filters", 176)
-                .text("数字采矿机 · 过滤器", TextColor.color(GuiConfig.titleColor())).build();
+                .text(I18n.tr("miner.filter_title"), TextColor.color(GuiConfig.titleColor())).build();
     }
 
     public static Component title(MachineBlockEntityController controller) {

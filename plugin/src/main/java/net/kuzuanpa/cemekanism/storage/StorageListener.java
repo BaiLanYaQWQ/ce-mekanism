@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.storage;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.bukkit.api.event.CustomBlockBreakEvent;
 import net.momirealms.craftengine.bukkit.api.event.CustomBlockPlaceEvent;
 import net.momirealms.craftengine.libraries.nbt.*;
@@ -132,7 +133,9 @@ public final class StorageListener implements Listener {
             e.getInventory().setResult(null); e.getInventory().setMatrix(matrix);
             if (e.isShiftClick()) target.insert(upgraded, 1, true); else player.setItemOnCursor(upgraded);
             Bukkit.getScheduler().runTask(plugin, player::updateInventory);
-        } catch (IllegalArgumentException | IllegalStateException ex) { player.sendMessage("QIO 升级：" + ex.getMessage()); }
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            I18n.send(player, "qio.upgrade_error", ex.getMessage());
+        }
     }
     // Bukkit pre-cancels no-op air interactions, just as CE's onInteractAir expects.
     @EventHandler(priority = EventPriority.HIGH)

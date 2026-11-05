@@ -11,6 +11,7 @@ import mekcore.resource.ResourceStack;
 import mekcore.resource.ResourceTank;
 import mekcore.resource.Transaction;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlockEntityController;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks;
@@ -61,18 +62,18 @@ final class ShowcaseCommand {
 
     static void run(CeMekanismPlugin plugin, CommandSender sender, String[] args) {
         if (sender instanceof Player player && !sender.hasPermission("cemekanism.admin")) {
-            sender.sendMessage("需要 cemekanism.admin 权限");
+            I18n.send(sender, "command.missing_permission", "cemekanism.admin");
             return;
         }
         if (args.length < 4) {
-            sender.sendMessage("用法：/mek showcase <x> <y> <z> [confirm|status]");
-            sender.sendMessage("x/y/z 是平台地面坐标；默认建议 0 160 0，会占用约 96×182×14。");
+            I18n.send(sender, "showcase.usage");
+            I18n.send(sender, "showcase.usage_detail", PAD_WIDTH, PAD_DEPTH, CLEAR_HEIGHT);
             return;
         }
         World world = sender instanceof Player player ? player.getWorld()
                 : (Bukkit.getWorlds().isEmpty() ? null : Bukkit.getWorlds().getFirst());
         if (world == null) {
-            sender.sendMessage("没有可用世界");
+            I18n.send(sender, "showcase.no_world");
             return;
         }
         int x;
@@ -83,7 +84,7 @@ final class ShowcaseCommand {
             y = Integer.parseInt(args[2]);
             z = Integer.parseInt(args[3]);
         } catch (NumberFormatException error) {
-            sender.sendMessage("坐标必须是整数");
+            I18n.send(sender, "showcase.integer_coordinates");
             return;
         }
         if (args.length > 4 && "status".equalsIgnoreCase(args[4])) {
@@ -92,9 +93,9 @@ final class ShowcaseCommand {
         }
         boolean confirmed = args.length > 4 && "confirm".equalsIgnoreCase(args[4]);
         if (!confirmed) {
-            sender.sendMessage("准备在 " + world.getName() + " (" + x + ',' + y + ',' + z
-                    + ") 重建完整测试地图，范围约 " + PAD_WIDTH + "×" + PAD_DEPTH + "×" + CLEAR_HEIGHT + "。");
-            sender.sendMessage("该操作会清空此范围；确认请执行：/mek showcase " + x + ' ' + y + ' ' + z + " confirm");
+            I18n.send(sender, "showcase.confirm", world.getName(), x, y, z,
+                    PAD_WIDTH, PAD_DEPTH, CLEAR_HEIGHT);
+            I18n.send(sender, "showcase.confirm_command", x, y, z);
             return;
         }
 
@@ -102,8 +103,8 @@ final class ShowcaseCommand {
             BuildResult result = build(plugin, world, x, y, z);
             sender.sendMessage(result.summary());
         } catch (RuntimeException error) {
-            plugin.getLogger().log(Level.SEVERE, "完整测试地图生成失败", error);
-            sender.sendMessage("完整测试地图生成失败：" + error.getMessage());
+            plugin.getLogger().log(Level.SEVERE, I18n.tr("showcase.failed_log"), error);
+            I18n.send(sender, "showcase.failed", error.getMessage());
         }
     }
 
@@ -200,7 +201,7 @@ final class ShowcaseCommand {
             String blueprintId = GeneratedContent.BLOCK_TO_BLUEPRINT.get(blockId);
             String name;
             try {
-                name = plugin.core().registrars().machines().require(blueprintId).zhName();
+                name = I18n.machineName(plugin.core().registrars().machines().require(blueprintId).id());
             } catch (RuntimeException error) {
                 name = blueprintId;
             }
@@ -208,7 +209,8 @@ final class ShowcaseCommand {
             String suffix = tier.isEmpty() ? "" : " · " + tier.toLowerCase(Locale.ROOT);
             sign(world, mx, y, mz + 1, List.of(name + suffix, blockId));
         }
-        groupSign(world, x, y, z - 1, "全部机器方块", "注册方块 " + blocks.size() + " 个（含工厂四级）");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.machines.title"),
+                I18n.tr("showcase.machines.subtitle", blocks.size()));
         plugin.logistics(world).wake();
         return new Count(placed, missing);
     }
@@ -239,10 +241,12 @@ final class ShowcaseCommand {
                 inventory.setItem(slot, items.get(index));
             }
             chest.update(true, false);
-            sign(world, x, y, cz + 1, List.of("物品总览 " + (chestIndex + 1), "共 " + items.size() + " 项"));
+            sign(world, x, y, cz + 1, List.of(I18n.tr("showcase.items.chest", chestIndex + 1),
+                    I18n.tr("showcase.items.total", items.size())));
             chestIndex++;
         }
-        groupSign(world, x, y, z - 1, "全部注册物品", ids.size() + " 项，实体化 " + items.size() + " 项");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.items.title"),
+                I18n.tr("showcase.items.subtitle", ids.size(), items.size()));
         return new Count(items.size(), missing);
     }
 
@@ -265,7 +269,8 @@ final class ShowcaseCommand {
                 placed++;
             }
         }
-        groupSign(world, x, y, z - 1, "全部化学品", chemicals.size() + " 类，各注入 1000 mB");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.chemicals.title"),
+                I18n.tr("showcase.chemicals.subtitle", chemicals.size()));
         return new Count(placed, chemicals.size() - placed);
     }
 
@@ -287,10 +292,11 @@ final class ShowcaseCommand {
                     placed++;
                 }
             }
-            sign(world, x, y, z + row * 3 - 1, List.of(families[row], "基础 → 终极"));
+            sign(world, x, y, z + row * 3 - 1, List.of(families[row], I18n.tr("showcase.transmitters.range")));
         }
         plugin.logistics(world).wake();
-        groupSign(world, x, y, z - 2, "全部传输元件", "五族 × 四级 = 20");
+        groupSign(world, x, y, z - 2, I18n.tr("showcase.transmitters.title"),
+                I18n.tr("showcase.transmitters.subtitle"));
         return new Count(placed, 20 - placed);
     }
 
@@ -330,8 +336,8 @@ final class ShowcaseCommand {
         refresh(plugin, world, a);
         refresh(plugin, world, b);
         refresh(plugin, world, bin);
-        groupSign(world, x, y, z - 1, "产线 01 · 矿物",
-                "原铁 → 富集仓 → 物流管道 → 电力熔炼炉 → 箱柜");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.line.ore.title"),
+                I18n.tr("showcase.line.ore.subtitle"));
         return new Count(6, 0);
     }
 
@@ -372,8 +378,8 @@ final class ShowcaseCommand {
         refresh(plugin, world, tank);
         refresh(plugin, world, separator);
         refresh(plugin, world, gas);
-        groupSign(world, x, y, z - 1, "产线 02 · 电解",
-                "储水罐 → 机械管道 → 电解分离器 → 加压管道 → 燃气发电机");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.line.electrolysis.title"),
+                I18n.tr("showcase.line.electrolysis.subtitle"));
         return new Count(6, 0);
     }
 
@@ -428,8 +434,8 @@ final class ShowcaseCommand {
         refresh(plugin, world, washer);
         refresh(plugin, world, crystallizer);
         refresh(plugin, world, bin);
-        groupSign(world, x, y, z - 1, "产线 03 · 浆液样例",
-                "溶解室 → 清洗机 → 结晶器 → 物流管道 → 箱柜");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.line.slurry.title"),
+                I18n.tr("showcase.line.slurry.subtitle"));
         return new Count(8, 0);
     }
 
@@ -459,8 +465,8 @@ final class ShowcaseCommand {
             plugin.qio().insert(frequency, "console", new ItemStack(Material.IRON_INGOT), 10_000L, true);
             plugin.qio().insert(frequency, "console", new ItemStack(Material.GOLD_INGOT), 256L, true);
         }
-        groupSign(world, x, y, z - 1, "产线 04 · QIO",
-                "驱动阵列 + 仪表板 + 输入/输出端口 + 红石适配器");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.line.qio.title"),
+                I18n.tr("showcase.line.qio.subtitle"));
         return new Count(7, 0);
     }
 
@@ -498,7 +504,8 @@ final class ShowcaseCommand {
                 }
             }
             controller.markChanged();
-            sign(world, x, y, gz + 1, List.of(generators[i].substring(4), "底部向电网供电"));
+            sign(world, x, y, gz + 1, List.of(generators[i].substring(4),
+                    I18n.tr("showcase.generators.power")));
         }
         for (int i = 0; i <= generators.length * 4; i++) {
             MultiblockPlacements.place(world, x, floorY, z + i, "mek:ultimate_universal_cable");
@@ -509,9 +516,11 @@ final class ShowcaseCommand {
             cube.claim("console");
             cube.machine().setSide("energy", Direction.DOWN, SideMode.INPUT);
             cube.markChanged();
-            sign(world, x, y, z + generators.length * 4 + 1, List.of("终极能量立方", "接收整条母线"));
+        sign(world, x, y, z + generators.length * 4 + 1,
+                List.of(I18n.tr("showcase.generators.cube"), I18n.tr("showcase.generators.bus")));
         }
-        groupSign(world, x, y, z - 1, "发电机组", "热力 / 太阳能 / 高级太阳能 / 风力 / 生物 / 燃气");
+        groupSign(world, x, y, z - 1, I18n.tr("showcase.generators.title"),
+                I18n.tr("showcase.generators.subtitle"));
         plugin.logistics(world).wake();
         return new Count(placed + 1, 0);
     }
@@ -544,16 +553,18 @@ final class ShowcaseCommand {
                 missing++;
             }
             List<String> lines = new ArrayList<>();
-            lines.add(def.zh());
+            lines.add(I18n.structureName(def.id()));
             lines.add(layout.width() + "×" + layout.height() + "×" + layout.depth());
             if (host != null && !host.extraIssues().isEmpty()) {
                 lines.addAll(host.extraIssues().subList(0, Math.min(2, host.extraIssues().size())));
             } else {
-                lines.add(host != null && host.refresh() ? "已成型" : "未成型");
+                lines.add(I18n.tr(host != null && host.refresh()
+                        ? "multiblock.formed" : "multiblock.unformed"));
             }
             sign(world, layout.x(), y, layout.z() - 1, lines);
         }
-        sign(world, x, y, z - 2, List.of("全部多方块", "九类结构 + 端口样管"));
+        sign(world, x, y, z - 2, List.of(I18n.tr("showcase.multiblocks.title"),
+                I18n.tr("showcase.multiblocks.subtitle")));
         return new Count(formed, missing);
     }
 
@@ -740,11 +751,11 @@ final class ShowcaseCommand {
     }
 
     private static void placeHub(World world, int x, int y, int z) {
-        groupSign(world, x + 1, y, z, "Mekanism 全量测试场", "机器 / 物品 / 化学品 / 多方块 / 产线");
-        groupSign(world, x + 3, y, z, "机器与物品", "北侧展区；右为化学品索引");
-        groupSign(world, x + 5, y, z, "产线与发电机", "中段；右为多方块展区");
-        groupSign(world, x + 7, y, z, "测试提示", "管道可 /mek pipe，结构可 /mek structure");
-        groupSign(world, x + 9, y, z, "完整产线在南侧", "Z+96 聚变 / +124 裂变 / +152 五倍线");
+        groupSign(world, x + 1, y, z, I18n.tr("showcase.hub.title"), I18n.tr("showcase.hub.subtitle"));
+        groupSign(world, x + 3, y, z, I18n.tr("showcase.hub.machines"), I18n.tr("showcase.hub.machines_sub"));
+        groupSign(world, x + 5, y, z, I18n.tr("showcase.hub.lines"), I18n.tr("showcase.hub.lines_sub"));
+        groupSign(world, x + 7, y, z, I18n.tr("showcase.hub.tips"), I18n.tr("showcase.hub.tips_sub"));
+        groupSign(world, x + 9, y, z, I18n.tr("showcase.hub.south"), I18n.tr("showcase.hub.south_sub"));
         world.getBlockAt(x + 1, y + 1, z).setType(Material.SEA_LANTERN, false);
     }
 
@@ -846,15 +857,9 @@ final class ShowcaseCommand {
     private record BuildResult(int x, int y, int z, int machines, int multiblocks,
                                int transmitters, int items, int chemicals, int lines, int problems) {
         private String summary() {
-            return "完整测试地图 → (" + x + ',' + y + ',' + z + ")"
-                    + "；机器方块 " + machines + "/" + GeneratedContent.BLOCK_TO_BLUEPRINT.size()
-                    + "，多方块 " + multiblocks + "/15"
-                    + "，传输元件 " + transmitters + "/20"
-                    + "，物品 " + items
-                    + "，化学品 " + chemicals
-                    + "，测试产线 " + lines + "+发电机母线"
-                    + "，生成问题 " + problems
-                    + "。使用同坐标 status 查看真实产出；运行说明见 docs/showcase-plants.md。入口已设为世界出生点。";
+            return I18n.tr("showcase.summary", x, y, z, machines,
+                    GeneratedContent.BLOCK_TO_BLUEPRINT.size(), multiblocks, transmitters,
+                    items, chemicals, lines, problems);
         }
     }
 

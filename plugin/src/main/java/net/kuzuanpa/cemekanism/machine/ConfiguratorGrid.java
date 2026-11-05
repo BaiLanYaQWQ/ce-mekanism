@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.machine;
 
 import mekcore.machine.Direction;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.Locale;
 
@@ -64,9 +65,6 @@ public final class ConfiguratorGrid {
     }
 
     public static String name(Direction side) {
-        return switch (side) {
-            case DOWN -> "下"; case UP -> "上"; case NORTH -> "北";
-            case SOUTH -> "南"; case WEST -> "西"; case EAST -> "东";
-        };
+        return I18n.tr("direction." + side.name().toLowerCase(Locale.ROOT));
     }
 }

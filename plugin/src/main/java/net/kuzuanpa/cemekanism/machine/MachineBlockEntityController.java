@@ -18,6 +18,7 @@ import net.kuzuanpa.cemekanism.gui.GuiLayout;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
 import net.kuzuanpa.cemekanism.gui.GuiText;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.BukkitItemHandler;
 import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
@@ -354,7 +355,8 @@ public final class MachineBlockEntityController extends BlockEntityController {
             claim(bukkit.getUniqueId().toString());
         }
         if (!this.machine.canAccess(bukkit.getUniqueId().toString())) {
-            bukkit.sendMessage("这台机器不是你的（安全等级 " + this.machine.security().zhName() + "）");
+            I18n.send(bukkit, "machine.not_owner",
+                    I18n.enumName(this.machine.security(), this.machine.security().zhName()));
             return false;
         }
         World world = world();
@@ -380,12 +382,13 @@ public final class MachineBlockEntityController extends BlockEntityController {
 
     public void report(org.bukkit.entity.Player player) {
         if (!this.machine.canAccess(player.getUniqueId().toString())) {
-            player.sendActionBar(net.kyori.adventure.text.Component.text("无权查看此机器"));
+            player.sendActionBar(I18n.component(player, "machine.no_view_permission"));
             return;
         }
         switch (this.machine.state()) {
             case RUNNING, IDLE -> { }
-            default -> player.sendActionBar(net.kyori.adventure.text.Component.text(this.machine.state().zhName()));
+            default -> player.sendActionBar(I18n.component(player, "machine.state",
+                    I18n.enumName(this.machine.state(), this.machine.state().zhName())));
         }
     }
 
@@ -408,11 +411,13 @@ public final class MachineBlockEntityController extends BlockEntityController {
             claim(bukkit.getUniqueId().toString());
         }
         if (!this.machine.canAccess(bukkit.getUniqueId().toString())) {
-            bukkit.sendMessage("这台机器不是你的（安全等级 " + this.machine.security().zhName() + "）");
+            I18n.send(bukkit, "machine.not_owner",
+                    I18n.enumName(this.machine.security(), this.machine.security().zhName()));
             return false;
         }
         if (this.machine.upgrades().allowed().isEmpty()) {
-            bukkit.sendMessage(this.machine.blueprint().zhName() + " 不支持升级");
+            I18n.send(bukkit, "machine.upgrade_unsupported",
+                    I18n.machineName(I18n.locale(bukkit), this.machine.blueprint()));
             return false;
         }
         UpgradeInstallerGui gui = UpgradeInstallerGui.create(this);
@@ -428,11 +433,12 @@ public final class MachineBlockEntityController extends BlockEntityController {
     /** 进度锚点的只读配方页；与升级安装器一样，不进入机器世界容器。 */
     public boolean openRecipeBrowser(org.bukkit.entity.Player bukkit) {
         if (!this.machine.canAccess(bukkit.getUniqueId().toString())) {
-            bukkit.sendMessage("这台机器不是你的（安全等级 " + this.machine.security().zhName() + "）");
+            I18n.send(bukkit, "machine.not_owner",
+                    I18n.enumName(this.machine.security(), this.machine.security().zhName()));
             return false;
         }
         if (supportedRecipes().isEmpty()) {
-            bukkit.sendActionBar(net.kyori.adventure.text.Component.text("这台机器没有配方记录"));
+            bukkit.sendActionBar(I18n.component(bukkit, "machine.no_recipes"));
             return false;
         }
         RecipeBrowserGui gui = RecipeBrowserGui.create(this);
@@ -653,7 +659,8 @@ public final class MachineBlockEntityController extends BlockEntityController {
             try {
                 this.machine.load(new CompoundDataTag(state));
             } catch (RuntimeException e) {
-                this.plugin.getLogger().warning(this.taskId + " 读档失败，保留新机器状态：" + e.getMessage());
+                this.plugin.getLogger().warning(I18n.tr("machine.load_failed",
+                        this.taskId, e.getMessage()));
             }
         }
         this.inventory.clear();

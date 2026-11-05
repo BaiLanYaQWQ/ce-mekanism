@@ -4,6 +4,7 @@ import mekcore.chemical.DoseTracker;
 import mekcore.chemical.Radiation;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -73,19 +74,20 @@ public final class RadiationListener implements Listener {
         RadiationWorld radiation = plugin.radiation(player.getWorld());
         if ("mek:geiger_counter".equals(id)) {
             double exposure = radiation.exposureAt(player.getLocation());
-            player.sendMessage("环境剂量率：" + RadiationWorld.format(exposure));
+            I18n.send(player, "radiation.environment", RadiationWorld.format(exposure));
             return;
         }
         DoseTracker dose = radiation.dose(player);
-        player.sendMessage("自身剂量：" + String.format("%.2f μSv（%s）", dose.microSv(),
-                dose.effect().zhName()));
+        I18n.send(player, "radiation.personal",
+                String.format("%.2f", dose.microSv()),
+                I18n.enumName(dose.effect(), dose.effect().zhName()));
     }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         if (plugin.radiation(player.getWorld()).dose(player).effect() == Radiation.Effect.LETHAL) {
-            event.deathMessage(Component.text(player.getName() + " 死于辐射中毒"));
+            event.deathMessage(I18n.component(player, "radiation.death", player.getName()));
         }
     }
 }

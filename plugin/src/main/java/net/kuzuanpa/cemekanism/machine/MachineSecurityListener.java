@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.machine;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.block.ImmutableBlockState;
 import org.bukkit.Bukkit;
@@ -47,8 +48,8 @@ public final class MachineSecurityListener implements Listener {
         if (controller.claim(owner)) {
             return true;
         }
-        this.plugin.getLogger().info(controller.taskId() + " 已有主人 " + controller.machine().owner()
-                + "，放置者 " + owner + " 不覆盖");
+        this.plugin.getLogger().info(I18n.tr("machine.owner_exists",
+                controller.taskId(), controller.machine().owner(), owner));
         return true;
     }
 }

@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.storage;
 
 import mekcore.persist.DataTag;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -43,7 +44,7 @@ public final class CountedStore {
         CountedStore result = new CountedStore(capacity, types);
         for (CountedStore source : sources) for (var entry : source.entries().entrySet()) {
             if (result.insert(entry.getKey(), entry.getValue(), true) != entry.getValue())
-                throw new IllegalArgumentException("合并后超出驱动器容量或物品类型上限");
+                throw new IllegalArgumentException(I18n.tr("qio.error.merge_capacity"));
         }
         return result;
     }
@@ -59,7 +60,9 @@ public final class CountedStore {
         CountedStore restored = new CountedStore(capacity, typeLimit);
         for (DataTag row : tag.list("entries")) {
             String key = row.getString("item", ""); long n = row.getLong("count", 0);
-            if (n <= 0 || restored.insert(key, n, true) != n) throw new IllegalArgumentException("invalid drive contents");
+            if (n <= 0 || restored.insert(key, n, true) != n) {
+                throw new IllegalArgumentException(I18n.tr("qio.error.invalid_drive_contents"));
+            }
         }
         counts.clear(); counts.putAll(restored.counts); total = restored.total;
     }

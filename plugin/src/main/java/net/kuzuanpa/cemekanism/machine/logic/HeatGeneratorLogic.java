@@ -10,6 +10,7 @@ import mekcore.resource.ResourceStack;
 import mekcore.resource.ResourceTank;
 import mekcore.resource.ResourceTypes;
 import mekcore.resource.Transaction;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.GeneratorEnvironment;
 import net.kuzuanpa.cemekanism.machine.MachineContexts;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
@@ -98,7 +99,7 @@ public final class HeatGeneratorLogic extends GeneratorLogic {
 
     @Override
     public String name() {
-        return "热力发电机";
+        return I18n.machineName("mek:heat_generator");
     }
 
     private static void burnFuel(Machine machine, ResourceTank lava) {

@@ -5,6 +5,7 @@ import mekcore.machine.WorkState;
 import mekcore.persist.DataTag;
 import mekcore.resource.ResourceTank;
 import mekcore.resource.Transaction;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.GeneratorConfig;
 
 import java.util.Map;
@@ -93,7 +94,7 @@ public final class GasGeneratorLogic extends GeneratorLogic {
     }
 
     @Override
-    public String name() { return "燃气发电机"; }
+    public String name() { return I18n.machineName("mek:gas_burning_generator"); }
 
     private static GeneratorConfig.Fuel fuel(Machine machine) {
         ResourceTank tank = tank(machine, "fuel");

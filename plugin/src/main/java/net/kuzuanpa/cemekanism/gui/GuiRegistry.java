@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.gui;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import org.bukkit.configuration.file.YamlConfiguration;
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
 import net.momirealms.craftengine.core.util.Key;
@@ -18,22 +19,24 @@ public final class GuiRegistry {
     public static String status() {
         List<String> missing = missing();
         return missing.isEmpty()
-                ? "GUI 面板 " + panels().size() + " 张、条形图 " + bars().size() + " 张就绪（21 档/张）"
-                : "GUI 缺失：" + missing;
+                ? I18n.tr("gui.registry.ready", panels().size(), bars().size(), GuiLayout.LEVELS)
+                : I18n.tr("gui.registry.missing", missing);
     }
 
     public static List<String> lines() {
         List<String> lines = new ArrayList<>();
         for (String panel : panels()) {
-            lines.add("GUI 面板 " + panel + " = " + (GuiSprites.present(panel) ? "已注册" : "缺失"));
+            lines.add(I18n.tr("gui.registry.panel", panel,
+                    I18n.tr(GuiSprites.present(panel) ? "gui.registry.registered" : "gui.registry.missing_value")));
         }
         for (String bar : bars()) {
-            lines.add("GUI 条形图 " + bar + " = " + GuiSprites.columns(bar) + " 档"
-                    + (GuiSprites.present(bar) ? "" : "（缺失）"));
+            lines.add(I18n.tr("gui.registry.bar", bar, GuiSprites.columns(bar),
+                    GuiSprites.present(bar) ? "" : I18n.tr("gui.registry.missing_suffix")));
         }
         for (String item : overlayItems()) {
-            lines.add("GUI 物品 " + item + " = "
-                    + (CraftEngineItems.byId(Key.of(item)) == null ? "缺失" : "已注册"));
+            lines.add(I18n.tr("gui.registry.item", item,
+                    I18n.tr(CraftEngineItems.byId(Key.of(item)) == null
+                            ? "gui.registry.missing_value" : "gui.registry.registered")));
         }
         return lines;
     }
@@ -42,19 +45,19 @@ public final class GuiRegistry {
         List<String> missing = new ArrayList<>();
         for (String panel : panels()) {
             if (!GuiSprites.present(panel)) {
-                missing.add("面板 " + panel);
+                missing.add(I18n.tr("gui.registry.panel_name", panel));
             }
         }
         for (String bar : bars()) {
             if (!GuiSprites.present(bar)) {
-                missing.add("条形图 " + bar);
+                missing.add(I18n.tr("gui.registry.bar_name", bar));
             } else if (GuiSprites.columns(bar) != GuiLayout.LEVELS) {
-                missing.add("条形图 " + bar + " 档数=" + GuiSprites.columns(bar));
+                missing.add(I18n.tr("gui.registry.bar_levels", bar, GuiSprites.columns(bar)));
             }
         }
         for (String item : overlayItems()) {
             if (CraftEngineItems.byId(Key.of(item)) == null) {
-                missing.add("GUI 物品 " + item);
+                missing.add(I18n.tr("gui.registry.item_name", item));
             }
         }
         return missing;

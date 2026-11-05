@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.storage;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiText;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kyori.adventure.text.Component;
@@ -24,7 +25,7 @@ public final class QioFrequencyGui implements InventoryHolder {
     private int page;
     private QioFrequencyGui(CeMekanismPlugin plugin, MachineBlockEntityController c, int page) {
         this.plugin = plugin; this.controller = c; this.page = page;
-        inventory = Bukkit.createInventory(this, 54, Component.text("QIO · 选择频率"));
+        inventory = Bukkit.createInventory(this, 54, Component.text(I18n.tr("qio.frequency_title")));
     }
     @Override public Inventory getInventory() { return inventory; }
     public static void open(CeMekanismPlugin plugin, MachineBlockEntityController c, Player player, int page) {
@@ -34,7 +35,9 @@ public final class QioFrequencyGui implements InventoryHolder {
     }
     private void authorize(Player player) {
         if (controller != null) QioDashboard.authorizeController(controller, player);
-        else if (!portable(player.getInventory().getItemInMainHand())) throw new IllegalArgumentException("请手持便携式 QIO 仪表板");
+        else if (!portable(player.getInventory().getItemInMainHand())) {
+            throw new IllegalArgumentException(I18n.tr(player, "qio.hold_dashboard"));
+        }
     }
     private static boolean portable(ItemStack item) {
         return !StoredItems.empty(item) && BukkitItems.idOf(item).equals("mek:portable_qio_dashboard");
@@ -47,7 +50,8 @@ public final class QioFrequencyGui implements InventoryHolder {
         for (int i = page * 45; i < Math.min(available.size(), (page + 1) * 45); i++) {
             var frequency = available.get(i); keys.add(frequency.id());
             int slot = i - page * 45;
-            button(slot, Material.ENDER_EYE, frequency.id(), List.of("权限：" + frequency.security().zhName()));
+            button(slot, Material.ENDER_EYE, frequency.id(), List.of(I18n.tr(player, "qio.permission",
+                    I18n.enumName(frequency.security(), frequency.security().zhName()))));
             if (controller != null && frequency.id().equals(QioService.state(controller).frequency)
                     || controller == null && frequency.id().equals(player.getInventory().getItemInMainHand()
                             .getItemMeta().getPersistentDataContainer().get(StorageListener.PORTABLE, PersistentDataType.STRING))) {
@@ -55,11 +59,12 @@ public final class QioFrequencyGui implements InventoryHolder {
                 var meta = selected.getItemMeta(); meta.setEnchantmentGlintOverride(true); selected.setItemMeta(meta);
             }
         }
-        button(45, Material.ARROW, "上一页", List.of());
-        button(48, Material.BARRIER, "离开频率 / 解除绑定", List.of());
-        button(49, Material.NETHER_STAR, "创建 / 选择我的 main 频率", List.of("自定义名称可用 /mek b5 <x y z> qio create <名称>"));
-        button(50, Material.PAPER, "第 " + (page + 1) + '/' + (maxPage + 1) + " 页", List.of());
-        button(53, Material.ARROW, "下一页", List.of());
+        button(45, Material.ARROW, I18n.tr(player, "navigation.previous"), List.of());
+        button(48, Material.BARRIER, I18n.tr(player, "qio.leave"), List.of());
+        button(49, Material.NETHER_STAR, I18n.tr(player, "qio.create_main"),
+                List.of(I18n.tr(player, "qio.create_hint")));
+        button(50, Material.PAPER, I18n.tr(player, "navigation.page", page + 1, maxPage + 1), List.of());
+        button(53, Material.ARROW, I18n.tr(player, "navigation.next"), List.of());
     }
     private void button(int slot, Material material, String name, List<String> lore) {
         ItemStack item = new ItemStack(material); var meta = item.getItemMeta();

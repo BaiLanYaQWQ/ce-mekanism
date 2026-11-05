@@ -7,6 +7,7 @@ import mekcore.recipe.RecipeInput;
 import mekcore.recipe.RecipeOutput;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.core.item.recipe.*;
 import net.momirealms.craftengine.core.plugin.CraftEngine;
 
@@ -32,11 +33,11 @@ final class RecipeCatalog {
         }
         var registrars = plugin.core().registrars();
         for (var blueprint : registrars.machines().all()) {
-            catalog.categories.put(blueprint.id(), new Category(blueprint.zhName(), blueprint.id()));
+            catalog.categories.put(blueprint.id(), new Category(I18n.machineName(blueprint), blueprint.id()));
             catalog.recipes.addAll(registrars.recipes().byUsage(blueprint.id()));
         }
         for (var def : GeneratedContent.MULTIBLOCKS) {
-            catalog.categories.put(def.id(), new Category(def.zh(), def.anchor()));
+            catalog.categories.put(def.id(), new Category(I18n.structureName(def.id()), def.anchor()));
         }
         catalog.recipes.addAll(MultiblockRecipeDisplays.recipes());
         return catalog;
@@ -59,11 +60,13 @@ final class RecipeCatalog {
         }
         if (inputs.size() > 9) return;
         int ticks = source instanceof CustomCookingRecipe cooking ? cooking.cookingTime() : 0;
-        String note = source instanceof CustomShapedRecipe ? "有序合成：按详情页的摆位放置"
-                : source instanceof CustomShapelessRecipe ? "无序合成：原料摆位不限" : "";
-        if (source instanceof ConditionalRecipe conditional && conditional.hasCondition()) note += "；使用条件由配方配置决定";
+        String note = source instanceof CustomShapedRecipe ? I18n.tr("recipe.note.shaped")
+                : source instanceof CustomShapelessRecipe ? I18n.tr("recipe.note.shapeless") : "";
+        if (source instanceof ConditionalRecipe conditional && conditional.hasCondition()) {
+            note += I18n.tr("recipe.note.conditions");
+        }
         if (source.ingredientsInUse().stream().anyMatch(ingredient -> ingredient.predicate() != null)) {
-            note += "；原料还需满足物品组件条件";
+            note += I18n.tr("recipe.note.components");
         }
         this.recipes.add(new Recipe(id, usage(source.type()), inputs,
                 List.of(RecipeOutput.item(result.result().item().id().asString(), result.result().count())),
@@ -93,23 +96,14 @@ final class RecipeCatalog {
         ItemMatcher matcher = alternatives ? new ItemMatcher.Or(ids.stream().map(ItemMatcher::id).toList())
                 : ItemMatcher.id(ids.getFirst());
         String display = !tags.isEmpty() ? String.join(" / ", tags)
-                : ids.size() == 1 ? mekcore.item.ItemNames.nameOf(ids.getFirst()) : "可选原料";
+                : ids.size() == 1 ? I18n.itemName(ids.getFirst()) : I18n.tr("recipe.optional_ingredient");
         return ItemIngredient.of(ingredient.count(), matcher, display);
     }
 
     static String usage(RecipeType type) { return "minecraft:" + type.id(); }
 
     static String typeName(RecipeType type) {
-        return switch (type) {
-            case CRAFTING -> "工作台";
-            case SMELTING -> "熔炉";
-            case BLASTING -> "高炉";
-            case SMOKING -> "烟熏炉";
-            case CAMPFIRE_COOKING -> "营火";
-            case STONECUTTING -> "切石机";
-            case SMITHING -> "锻造台";
-            case BREWING -> "酿造台";
-        };
+        return I18n.tr("recipe.station." + type.id());
     }
 
     static String typeIcon(RecipeType type) {

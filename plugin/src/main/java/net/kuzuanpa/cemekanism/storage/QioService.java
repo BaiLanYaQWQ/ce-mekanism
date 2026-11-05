@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.storage;
 
 import mekcore.machine.*;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
@@ -34,7 +35,7 @@ public final class QioService {
     private final Map<String, CachedDrive> driveCache = new HashMap<>();
     private final Set<String> invalidDisks = new HashSet<>();
     private Path drivePath(String uuid) {
-        if (!uuid.matches("[a-f0-9-]{36}")) throw new IllegalArgumentException("无效驱动器身份");
+        if (!uuid.matches("[a-f0-9-]{36}")) throw new IllegalArgumentException(I18n.tr("qio.error.invalid_drive_id"));
         return plugin.getDataFolder().toPath().resolve("qio-drives").resolve(uuid + ".dat");
     }
     private void saveDrive(String uuid, DriveTier tier, CountedStore store) {
@@ -45,7 +46,7 @@ public final class QioService {
             Files.write(temporary, NBT.writeCompressed(tag, false));
             Files.move(temporary, target, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
             driveCache.put(uuid, new CachedDrive(tier, store));
-        } catch (IOException e) { throw new IllegalStateException("驱动器存档失败，操作中止", e); }
+        } catch (IOException e) { throw new IllegalStateException(I18n.tr("qio.error.drive_save_failed"), e); }
     }
 
     private CountedStore readDrive(ItemStack item, DriveTier tier) {
@@ -59,10 +60,10 @@ public final class QioService {
             byte[] bytes = data.get(CONTENT, PersistentDataType.BYTE_ARRAY);
             if (uuid != null && Files.isRegularFile(drivePath(uuid))) {
                 try { bytes = Files.readAllBytes(drivePath(uuid)); }
-                catch (IOException e) { throw new IllegalStateException("无法读取 QIO 驱动器", e); }
+                catch (IOException e) { throw new IllegalStateException(I18n.tr("qio.error.drive_read_failed"), e); }
             }
             if (bytes != null) store.load(new CompoundDataTag(NBT.readCompressed(bytes, false)));
-            else if (uuid != null) throw new IllegalArgumentException("驱动器数据文件缺失：" + uuid);
+            else if (uuid != null) throw new IllegalArgumentException(I18n.tr("qio.error.drive_file_missing", uuid));
         }
         return store;
     }
@@ -70,24 +71,24 @@ public final class QioService {
     /** Upstream QIORecipeData merges all four drives, rejecting combined type overflow. */
     public ItemStack mergeDrives(ItemStack result, ItemStack[] matrix, boolean execute) {
         DriveTier tier = TIERS.get(BukkitItems.idOf(result));
-        if (tier == null) throw new IllegalArgumentException("产物不是驱动器");
+        if (tier == null) throw new IllegalArgumentException(I18n.tr("qio.error.result_not_drive"));
         List<CountedStore> sources = new ArrayList<>(); Set<String> seen = new HashSet<>();
         for (ItemStack item : matrix) {
             if (StoredItems.empty(item)) continue;
             DriveTier sourceTier = TIERS.get(BukkitItems.idOf(item)); if (sourceTier == null) continue;
-            if (item.getAmount() != 1) throw new IllegalArgumentException("驱动器不能堆叠");
+            if (item.getAmount() != 1) throw new IllegalArgumentException(I18n.tr("qio.error.drive_stacked"));
             String uuid = item.getItemMeta().getPersistentDataContainer().get(ID, PersistentDataType.STRING);
             if (uuid != null) {
-                if (!seen.add(uuid)) throw new IllegalArgumentException("不能合并重复身份的驱动器");
+                if (!seen.add(uuid)) throw new IllegalArgumentException(I18n.tr("qio.error.duplicate_drive"));
                 for (var array : arrays) for (int i = 0; i < 12; i++) {
                     ItemStack online = array.slotContent("drive" + i);
                     if (!StoredItems.empty(online) && uuid.equals(online.getItemMeta().getPersistentDataContainer().get(ID, PersistentDataType.STRING)))
-                        throw new IllegalArgumentException("该驱动器身份仍在线，无法合并");
+                        throw new IllegalArgumentException(I18n.tr("qio.error.drive_online"));
                 }
             }
             sources.add(readDrive(item, sourceTier));
         }
-        if (sources.size() != 4) throw new IllegalArgumentException("升级需要四个驱动器");
+        if (sources.size() != 4) throw new IllegalArgumentException(I18n.tr("qio.error.four_drives"));
         CountedStore merged = CountedStore.merge(tier.count(), tier.types(), sources);
         ItemStack upgraded = BukkitItems.create(BukkitItems.idOf(result));
         var meta = upgraded.getItemMeta();
@@ -105,7 +106,7 @@ public final class QioService {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         for (Map<?, ?> row : yaml.getMapList("frequencies")) {
             String key = Objects.toString(row.get("id"), ""); String owner = Objects.toString(row.get("owner"), "");
-            if (key.isEmpty() || owner.isEmpty()) throw new IllegalStateException("损坏的 QIO 频率记录");
+            if (key.isEmpty() || owner.isEmpty()) throw new IllegalStateException(I18n.tr("qio.error.bad_frequency_record"));
             Set<String> trusted = new LinkedHashSet<>();
             if (row.get("trusted") instanceof List<?> list) for (Object value : list) trusted.add(value.toString());
             frequencies.put(key, new Frequency(key, owner, SecurityLevel.valueOf(row.get("security").toString()), 0, trusted));
@@ -118,17 +119,17 @@ public final class QioService {
         try {
             Files.createDirectories(file.toPath().getParent()); Path temporary = file.toPath().resolveSibling(file.getName() + ".tmp");
             yaml.save(temporary.toFile()); Files.move(temporary, file.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
-        } catch (Exception e) { throw new IllegalStateException("QIO 频率存档失败", e); }
+        } catch (Exception e) { throw new IllegalStateException(I18n.tr("qio.error.frequency_save_failed"), e); }
     }
     public String create(String name, String actor) {
-        if (!name.matches("[A-Za-z0-9_-]{1,48}")) throw new IllegalArgumentException("频率名只能含字母、数字、下划线或连字符");
+        if (!name.matches("[A-Za-z0-9_-]{1,48}")) throw new IllegalArgumentException(I18n.tr("qio.error.bad_frequency_name"));
         String id = actor + '/' + name;
         if (!frequencies.containsKey(id)) { frequencies.put(id, Frequency.of(id, actor)); persist(); }
         return id;
     }
     public Frequency require(String key, String actor) {
         Frequency f = frequencies.get(key);
-        if (f == null || !f.accessibleBy(actor)) throw new IllegalArgumentException("频率不存在或无权访问");
+        if (f == null || !f.accessibleBy(actor)) throw new IllegalArgumentException(I18n.tr("qio.error.frequency_unavailable"));
         return f;
     }
     public List<Frequency> available(String actor) {
@@ -137,7 +138,7 @@ public final class QioService {
     }
     public void security(String key, String actor, SecurityLevel level, String trust, boolean add) {
         Frequency old = require(key, actor);
-        if (!old.owner().equals(actor)) throw new IllegalArgumentException("仅频率所有者可修改权限");
+        if (!old.owner().equals(actor)) throw new IllegalArgumentException(I18n.tr("qio.error.owner_only"));
         Frequency next = old;
         if (level != null) next = next.withSecurity(level);
         if (trust != null) { Set<String> names = new LinkedHashSet<>(next.trusted()); if (add) names.add(trust); else names.remove(trust); next = next.withTrusted(names); }
@@ -193,7 +194,10 @@ public final class QioService {
                     Disk disk = new Disk(c, slot, item, tier); all.add(disk); invalidDisks.remove(location);
                     if (disk.uuid != null) ids.merge(disk.uuid, 1, Integer::sum);
                 } catch (RuntimeException e) {
-                    if (invalidDisks.add(location)) plugin.getLogger().warning("QIO 驱动器隔离 " + location + "：" + e.getMessage());
+                    if (invalidDisks.add(location)) {
+                        plugin.getLogger().warning(I18n.tr("qio.log.drive_quarantined",
+                                location, e.getMessage()));
+                    }
                 }
             }
         }
@@ -229,10 +233,10 @@ public final class QioService {
         return result;
     }
     public String describe(MachineBlockEntityController c, String actor) {
-        String key = state(c).frequency; if (key.isEmpty()) return "未选择频率";
+        String key = state(c).frequency; if (key.isEmpty()) return I18n.tr("qio.error.no_frequency");
         long count = 0, capacity = 0; int types = 0, disks = 0;
         for (Disk d : disks(key, actor)) { count += d.store.total(); capacity += d.store.capacity(); types += d.store.typeLimit(); disks++; }
-        return key + " · 在线盘 " + disks + " · " + count + '/' + capacity + " 个 · 类型槽合计 " + types;
+        return I18n.tr("qio.description", key, disks, count, capacity, types);
     }
     public void tick(MachineBlockEntityController c) {
         if (!accessible(c)) { setSignal(c, false); c.machine().setState(WorkState.DISABLED); return; }

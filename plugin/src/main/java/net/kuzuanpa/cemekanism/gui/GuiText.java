@@ -4,8 +4,8 @@ import mekcore.chemical.Chemical;
 import mekcore.chemical.Chemicals;
 import mekcore.machine.FactoryTier;
 import mekcore.machine.MachineSnapshot;
-import mekcore.resource.ResourceNames;
 import mekcore.resource.ResourceTypes;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.ResourceColors;
 import org.bukkit.Material;
@@ -33,14 +33,13 @@ public final class GuiText {
     }
 
     public static String machineName(MachineSnapshot snapshot) {
-        return snapshot.zhName()
-                + (snapshot.factoryTier() == FactoryTier.SINGLE ? "" : "·" + snapshot.factoryTier().zhName());
+        return I18n.machineName(snapshot);
     }
 
     public static String multiTitle(String name, boolean formed, String extra) {
         List<String> segments = new ArrayList<>();
         segments.add(name);
-        segments.add(formed ? "已成型" : "未成型");
+        segments.add(I18n.tr(formed ? "multiblock.formed" : "multiblock.unformed"));
         if (extra != null && !extra.isEmpty()) {
             segments.add(extra);
         }
@@ -59,9 +58,9 @@ public final class GuiText {
 
     public static String tankName(MachineSnapshot.TankSnapshot tank) {
         if (tank.resourceId() == null) {
-            return tank.type().zhName();
+            return I18n.resourceType(tank.type());
         }
-        return ResourceNames.nameOf(tank.type(), tank.resourceId());
+        return I18n.resourceName(tank.type(), tank.resourceId());
     }
 
     public static int tankColor(MachineSnapshot.TankSnapshot tank) {
@@ -100,11 +99,11 @@ public final class GuiText {
         List<String> lore = new ArrayList<>();
         lore.add(format(snapshot.energyJoules()) + " / " + format(snapshot.energyCapacityJ()) + " J");
         if (snapshot.energyGeneratedPerTickJ() != 0) {
-            lore.add("发电 " + format(snapshot.energyGeneratedPerTickJ()) + " J/t");
+            lore.add(I18n.tr("gui.energy.generating", format(snapshot.energyGeneratedPerTickJ())));
         } else if (snapshot.energyPerTickJ() > 0) {
-            lore.add("耗能 " + format(snapshot.energyPerTickJ()) + " J/t");
+            lore.add(I18n.tr("gui.energy.consuming", format(snapshot.energyPerTickJ())));
         }
-        return anchor("mek:gui_energy_slot", "能量", lore);
+        return anchor("mek:gui_energy_slot", I18n.tr("gui.energy.label"), lore);
     }
 
     public static ItemStack tankAnchor(MachineSnapshot snapshot) {
@@ -119,32 +118,32 @@ public final class GuiText {
         List<String> lore = new ArrayList<>();
         lore.add(format(tank.amount()) + " / " + format(tank.capacity()) + " " + tank.type().unit());
         if (tank.type().equals(ResourceTypes.FLUID) || tank.type().equals(ResourceTypes.CHEMICAL)) {
-            lore.add("持有一个容器：左键提取，右键放入");
+            lore.add(I18n.tr("gui.tank.container_hint"));
         }
         return anchor("mek:gui_tank_slot", tankName(tank), lore);
     }
 
     public static ItemStack progressAnchor(MachineSnapshot snapshot, int group) {
         List<String> lore = new ArrayList<>();
-        String name = "进度";
+        String name = I18n.tr("gui.progress.label");
         if (group >= 0) {
             MachineSnapshot.ParallelSnapshot parallel = snapshot.parallels().stream()
                     .filter(value -> value.group() == group)
                     .findFirst().orElse(null);
-            name = "进度 #" + group;
+            name = I18n.tr("gui.progress_group", group);
             if (parallel == null || !parallel.busy()) {
-                lore.add("空闲");
+                lore.add(I18n.tr("state.idle"));
             } else {
-                lore.add("剩余 " + format(Math.round(parallel.remainingTicks())) + " 刻");
+                lore.add(I18n.tr("gui.remaining_ticks", format(Math.round(parallel.remainingTicks()))));
             }
         } else {
             snapshot.parallels().stream().filter(MachineSnapshot.ParallelSnapshot::busy).findFirst()
-                    .ifPresent(parallel -> lore.add("剩余 " + format(Math.round(parallel.remainingTicks())) + " 刻"));
+                    .ifPresent(parallel -> lore.add(I18n.tr("gui.remaining_ticks", format(Math.round(parallel.remainingTicks())))));
         }
         if (snapshot.state() != mekcore.machine.WorkState.RUNNING && snapshot.state() != mekcore.machine.WorkState.IDLE) {
-            lore.add(snapshot.state().zhName());
+            lore.add(I18n.enumName(snapshot.state(), snapshot.state().zhName()));
         }
-        lore.add("点击查看本机器支持的配方");
+        lore.add(I18n.tr("gui.progress.open_recipes"));
         return item("mek:gui_progress_slot", name, lore, "anchor");
     }
 

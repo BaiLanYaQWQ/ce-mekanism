@@ -10,6 +10,7 @@ import mekcore.resource.ResourceTank;
 import mekcore.resource.ResourceTypes;
 import mekcore.sim.Tickable;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.block.ImmutableBlockState;
 import org.bukkit.World;
@@ -276,7 +277,7 @@ public final class MultiblockHosts {
     }
 
     public String describe() {
-        StringBuilder sb = new StringBuilder("多方块 " + this.hosts.size() + " 座");
+        StringBuilder sb = new StringBuilder(I18n.tr("multiblock.host_count", this.hosts.size()));
         for (Host host : this.hosts.values()) {
             sb.append("\n  ").append(host.describe());
         }
@@ -765,10 +766,12 @@ public final class MultiblockHosts {
 
         @Override
         public String describe() {
-            return this.def.zh() + ' ' + this.box.sizeX() + '×' + this.box.sizeY() + '×' + this.box.sizeZ()
-                    + "@(" + this.originX + ',' + this.originY + ',' + this.originZ + ") "
-                    + (formed() ? "已成型" : "未成型") + (this.registered ? " 已挂调度器" : "")
-                    + (this.dirty ? " 待校验" : "");
+            return I18n.tr("multiblock.host_description",
+                    I18n.structureName(this.def.id()), this.box.sizeX(), this.box.sizeY(), this.box.sizeZ(),
+                    this.originX, this.originY, this.originZ,
+                    I18n.tr(formed() ? "multiblock.formed" : "multiblock.unformed"),
+                    this.registered ? I18n.tr("multiblock.registered") : "",
+                    this.dirty ? I18n.tr("multiblock.needs_validation") : "");
         }
 
         public void save(DataTag tag) {

@@ -1,5 +1,7 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
+import net.kuzuanpa.cemekanism.i18n.I18n;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -45,7 +47,7 @@ public final class MultiblockChecks {
                 case "fusion_centers" -> fusionCenters(box, issues);
                 case "coil_at_port" -> coilAtPort(box, issues);
                 case "teleporter_frame" -> teleporterFrame(box, issues);
-                default -> issues.add("未知 check：" + check + "（表里写了但插件没实现）");
+                default -> issues.add(I18n.tr("multiblock.check.unknown", check));
             }
         }
         return List.copyOf(issues);
@@ -77,13 +79,14 @@ public final class MultiblockChecks {
     private static void disperserPlane(StructureBox box, Problems issues) {
         List<int[]> dispersers = positions(box, "disperser");
         if (dispersers.isEmpty()) {
-            issues.add("缺少分压元件：至少要有一层（上游 postcheck 的 no disperser）");
+            issues.add(I18n.tr("multiblock.check.disperser_missing"));
             return;
         }
         int level = dispersers.get(0)[1];
         for (int[] pos : dispersers) {
             if (pos[1] != level) {
-                issues.at(pos[0], pos[1], pos[2], "分压元件必须在同一层：(" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 不在第 " + level + " 层");
+                issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.disperser_same_level",
+                        pos[0], pos[1], pos[2], level));
                 return;
             }
         }
@@ -94,7 +97,8 @@ public final class MultiblockChecks {
                     continue;                       // 涡轮的中心那格是复杂旋钮装置
                 }
                 if (!"disperser".equals(here)) {
-                    issues.at(x, level, z, "第 " + level + " 层 (" + x + ',' + level + ',' + z + ") 缺分压元件");
+                    issues.at(x, level, z, I18n.tr("multiblock.check.disperser_cell_missing",
+                            level, x, z));
                     return;
                 }
             }
@@ -105,7 +109,7 @@ public final class MultiblockChecks {
         List<int[]> dispersers = positions(box, "disperser");
         List<int[]> elements = positions(box, "element");
         if (elements.isEmpty()) {
-            issues.add("缺少过热元件：分压层下方至少要有一柱（上游 postcheck 的 superheating）");
+            issues.add(I18n.tr("multiblock.check.element_missing"));
             return;
         }
         if (dispersers.isEmpty()) {
@@ -114,8 +118,8 @@ public final class MultiblockChecks {
         int level = dispersers.get(0)[1];
         for (int[] pos : elements) {
             if (pos[1] >= level) {
-                issues.at(pos[0], pos[1], pos[2], "过热元件必须在分压层下方：(" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 不在第 "
-                        + level + " 层之下");
+                issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.element_below",
+                        pos[0], pos[1], pos[2], level));
                 return;
             }
         }
@@ -134,13 +138,13 @@ public final class MultiblockChecks {
     private static int complexLevel(StructureBox box, Problems issues) {
         List<int[]> complex = positions(box, "complex");
         if (complex.size() != 1) {
-            issues.add("复杂旋钮装置必须恰好一个，现在 " + complex.size() + " 个");
+            issues.add(I18n.tr("multiblock.check.complex_count", complex.size()));
             return -1;
         }
         int[] pos = complex.get(0);
         if (pos[0] != centerX(box) || pos[2] != centerZ(box)) {
-            issues.at(pos[0], pos[1], pos[2], "复杂旋钮装置必须在正中（" + centerX(box) + ",?," + centerZ(box) + "），实际 ("
-                    + pos[0] + ',' + pos[1] + ',' + pos[2] + ")");
+            issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.complex_center",
+                    centerX(box), centerZ(box), pos[0], pos[1], pos[2]));
             return -1;
         }
         return pos[1];
@@ -150,14 +154,14 @@ public final class MultiblockChecks {
         int level = complexLevel(box, issues);
         List<int[]> rotors = positions(box, "rotor");
         if (rotors.isEmpty()) {
-            issues.add("缺少转子：中心列要从底座之上连到复杂旋钮之下");
+            issues.add(I18n.tr("multiblock.check.rotor_missing"));
             return;
         }
         Set<Integer> levels = new LinkedHashSet<>();
         for (int[] pos : rotors) {
             if (pos[0] != centerX(box) || pos[2] != centerZ(box)) {
-                issues.at(pos[0], pos[1], pos[2], "转子必须在正中一列：(" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 不在 "
-                        + centerX(box) + ",?," + centerZ(box));
+                issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.rotor_center",
+                        pos[0], pos[1], pos[2], centerX(box), centerZ(box)));
                 return;
             }
             levels.add(pos[1]);
@@ -165,7 +169,7 @@ public final class MultiblockChecks {
         int top = level < 0 ? box.sizeY() - 2 : level - 1;
         for (int y = 1; y <= top; y++) {
             if (!levels.contains(y)) {
-                issues.at(centerX(box), y, centerZ(box), "转子不连续：第 " + y + " 层缺一格（中心列要连成一根）");
+                issues.at(centerX(box), y, centerZ(box), I18n.tr("multiblock.check.rotor_gap", y));
                 return;
             }
         }
@@ -179,7 +183,7 @@ public final class MultiblockChecks {
         int level = complexLevel(box, issues);
         List<int[]> coils = positions(box, "coil");
         if (coils.isEmpty()) {
-            issues.add("缺少电磁线圈：复杂旋钮之上至少要连一段");
+            issues.add(I18n.tr("multiblock.check.coil_missing"));
             return;
         }
         if (level < 0) {
@@ -188,14 +192,15 @@ public final class MultiblockChecks {
         int top = level;
         for (int[] pos : coils) {
             if (pos[0] != centerX(box) || pos[2] != centerZ(box) || pos[1] <= level) {
-                issues.at(pos[0], pos[1], pos[2], "电磁线圈必须贴着复杂旋钮往上连：(" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 不合法");
+                issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.coil_above",
+                        pos[0], pos[1], pos[2]));
                 return;
             }
             top = Math.max(top, pos[1]);
         }
         for (int y = level + 1; y <= top; y++) {
             if (!"coil".equals(centerRole(box, y))) {
-                issues.at(centerX(box), y, centerZ(box), "电磁线圈不连续：第 " + y + " 层缺一格");
+                issues.at(centerX(box), y, centerZ(box), I18n.tr("multiblock.check.coil_gap", y));
                 return;
             }
         }
@@ -208,7 +213,8 @@ public final class MultiblockChecks {
         }
         for (int[] pos : positions(box, "condenser")) {
             if (pos[1] <= level) {
-                issues.at(pos[0], pos[1], pos[2], "饱和冷凝器必须在复杂旋钮之上：(" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 在它下面");
+                issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.condenser_above",
+                        pos[0], pos[1], pos[2]));
                 return;
             }
         }
@@ -218,7 +224,7 @@ public final class MultiblockChecks {
         int level = complexLevel(box, issues);
         List<int[]> vents = positions(box, "vent");
         if (vents.isEmpty()) {
-            issues.add("缺少排气口：涡轮墙上至少要有一个（上游 postcheck 的 missing vents）");
+            issues.add(I18n.tr("multiblock.check.vent_missing"));
             return;
         }
         if (level < 0) {
@@ -226,7 +232,8 @@ public final class MultiblockChecks {
         }
         for (int[] pos : vents) {
             if (pos[1] <= level) {
-                issues.at(pos[0], pos[1], pos[2], "排气口必须在复杂旋钮之上：(" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 在它下面");
+                issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.vent_above",
+                        pos[0], pos[1], pos[2]));
                 return;
             }
         }
@@ -246,11 +253,11 @@ public final class MultiblockChecks {
                 String here = role(box, x, y, z);
                 if (borderX || borderZ) {
                     if (here == null) {
-                        issues.at(x, y, z, "顶层棱上要外壳：(" + x + ',' + y + ',' + z + ") 是别的方块");
+                        issues.at(x, y, z, I18n.tr("multiblock.check.top_edge", x, y, z));
                         return;
                     }
                 } else if (here != null) {
-                    issues.at(x, y, z, "顶层内部必须留空：(" + x + ',' + y + ',' + z + ") 有方块");
+                    issues.at(x, y, z, I18n.tr("multiblock.check.top_interior", x, y, z));
                     return;
                 }
             }
@@ -261,10 +268,10 @@ public final class MultiblockChecks {
 
     private static void cellAndProvider(StructureBox box, Problems issues) {
         if (positions(box, "cell").isEmpty()) {
-            issues.add("缺少感应元件：矩阵至少要有一个（上游 MATRIX_NO_CELLS）");
+            issues.add(I18n.tr("multiblock.check.cell_missing"));
         }
         if (positions(box, "provider").isEmpty()) {
-            issues.add("缺少感应供应器：矩阵至少要有一个（上游 MATRIX_NO_PROVIDERS）");
+            issues.add(I18n.tr("multiblock.check.provider_missing"));
         }
     }
 
@@ -277,7 +284,7 @@ public final class MultiblockChecks {
             columns.add(pos[0] + "," + pos[2]);
         }
         if (columns.isEmpty()) {
-            issues.add("缺少燃料组件：裂变堆至少要有一根立柱（上游 missing fuel assembly）");
+            issues.add(I18n.tr("multiblock.check.assembly_missing"));
             return;
         }
         for (String column : columns) {
@@ -290,21 +297,22 @@ public final class MultiblockChecks {
                 String here = role(box, x, y, z);
                 if ("fuel".equals(here)) {
                     if (top >= 0 && y != top + 1) {
-                        issues.at(x, y - 1, z, "燃料组件不连续：(" + x + ',' + y + ',' + z + ") 与上一格断开了");
+                        issues.at(x, y - 1, z, I18n.tr("multiblock.check.assembly_gap", x, y, z));
                         return;
                     }
                     top = y;
                 } else if ("control_rod".equals(here)) {
                     rods++;
                     if (y != top + 1) {
-                        issues.at(x, y, z, "控制棒要压在燃料柱顶端：(" + x + ',' + y + ',' + z + ") 位置不对");
+                        issues.at(x, y, z, I18n.tr("multiblock.check.control_rod_position", x, y, z));
                         return;
                     }
                     top = y;
                 }
             }
             if (rods != 1) {
-                issues.at(x, Math.min(top + 1, box.sizeY() - 2), z, "立柱 (" + x + ',' + z + ") 的控制棒是 " + rods + " 根（每根立柱恰好 1 根）");
+                issues.at(x, Math.min(top + 1, box.sizeY() - 2), z,
+                        I18n.tr("multiblock.check.control_rod_count", x, z, rods));
                 return;
             }
         }
@@ -323,8 +331,10 @@ public final class MultiblockChecks {
         for (int[] pos : centers) {
             String here = role(box, pos[0], pos[1], pos[2]);
             if (here == null || !allowed.contains(here)) {
-                issues.at(pos[0], pos[1], pos[2], "面中心需要聚变外壳/反应堆玻璃/端口/控制器/逻辑适配器/激光聚焦矩阵：(" + pos[0] + ',' + pos[1] + ','
-                        + pos[2] + ") 是 " + (here == null ? "别的方块" : here));
+                issues.at(pos[0], pos[1], pos[2], I18n.tr("multiblock.check.fusion_center",
+                        pos[0], pos[1], pos[2],
+                        here == null ? I18n.tr("multiblock.check.other_block")
+                                : I18n.roleName(here, here)));
                 return;
             }
             if ("controller".equals(here)) {
@@ -333,14 +343,15 @@ public final class MultiblockChecks {
         }
         if (controllers != 1 || !"controller".equals(role(box, box.sizeX() / 2,
                 box.sizeY() - 1, box.sizeZ() / 2))) {
-            issues.at(box.sizeX() / 2, box.sizeY() - 1, box.sizeZ() / 2, "聚变堆控制器必须恰好一个，位于顶面中心");
+            issues.at(box.sizeX() / 2, box.sizeY() - 1, box.sizeZ() / 2,
+                    I18n.tr("multiblock.check.fusion_controller"));
         }
     }
 
     private static void coilAtPort(StructureBox box, Problems issues) {
         List<int[]> ports = positions(box, "port");
         if (ports.isEmpty()) {
-            issues.add("缺少端口：SPS 的增压线圈要贴着端口（上游 postcheck 的 disconnected coil）");
+            issues.add(I18n.tr("multiblock.check.port_missing"));
             return;
         }
         Set<String> fed = new LinkedHashSet<>();
@@ -352,14 +363,15 @@ public final class MultiblockChecks {
             int y = pos[1] + dy;
             int z = pos[2] + dz;
             if (!"coil".equals(role(box, x, y, z))) {
-                issues.at(x, y, z, "端口 (" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 里侧那一格必须是增压线圈");
+                issues.at(x, y, z, I18n.tr("multiblock.check.port_coil", pos[0], pos[1], pos[2]));
                 return;
             }
             fed.add(x + "," + y + "," + z);
         }
         for (int[] pos : positions(box, "coil")) {
             if (!fed.contains(pos[0] + "," + pos[1] + "," + pos[2])) {
-                issues.at(pos[0], pos[1], pos[2], "增压线圈必须贴着端口：(" + pos[0] + ',' + pos[1] + ',' + pos[2] + ") 没有端口");
+                issues.at(pos[0], pos[1], pos[2],
+                        I18n.tr("multiblock.check.coil_port", pos[0], pos[1], pos[2]));
                 return;
             }
         }
@@ -367,6 +379,6 @@ public final class MultiblockChecks {
 
     private static void teleporterFrame(StructureBox box, Problems issues) {
         if (!TeleporterFrame.accepts(box.sizeX(), box.sizeY(), box.sizeZ()))
-            issues.add("传送框架必须是厚度 1、两边各 3～23 格的矩形空框（支持三个平面）");
+            issues.add(I18n.tr("multiblock.check.teleporter_frame"));
     }
 }

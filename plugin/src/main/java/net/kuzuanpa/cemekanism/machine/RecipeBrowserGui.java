@@ -9,6 +9,7 @@ import mekcore.resource.ResourceStack;
 import mekcore.resource.ResourceType;
 import mekcore.resource.ResourceTypes;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlockEntityController;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
@@ -83,14 +84,14 @@ public final class RecipeBrowserGui {
                 this.catalog.recipes, this.catalog.layouts, names, catalogRoot);
         this.holder = new Holder();
         this.inventory = Bukkit.createInventory(this.holder, SIZE,
-                Component.text("配方 · " + this.model.screen().title()));
+                Component.text(I18n.tr("recipe.window_title", this.model.screen().title())));
         this.holder.inventory = this.inventory;
         this.holder.gui = this;
         render();
     }
 
     public static RecipeBrowserGui create(MachineBlockEntityController controller) {
-        return new RecipeBrowserGui(controller.plugin(), controller.machine().blueprint().zhName(),
+        return new RecipeBrowserGui(controller.plugin(), I18n.machineName(controller.machine().blueprint()),
                 controller.machine().blueprint().id(), false,
                 player -> controller.registered() && controller.machine().canAccess(player.getUniqueId().toString()),
                 controller::forgetRecipeBrowser);
@@ -98,12 +99,12 @@ public final class RecipeBrowserGui {
 
     public static RecipeBrowserGui create(MultiblockBlockEntityController controller) {
         var host = controller.host();
-        return new RecipeBrowserGui(controller.plugin(), host.def().zh(), host.def().id(), false,
+        return new RecipeBrowserGui(controller.plugin(), I18n.structureName(host.def().id()), host.def().id(), false,
                 player -> controller.host() == host && host.formed(), controller::forgetRecipeBrowser);
     }
 
     public static void openCatalog(CeMekanismPlugin plugin, Player player) {
-        new RecipeBrowserGui(plugin, "全部配方", null, true,
+        new RecipeBrowserGui(plugin, I18n.tr(player, "recipe.all"), null, true,
                 viewer -> viewer.hasPermission("mek.recipes"), gui -> {}).open(player);
     }
 
@@ -163,7 +164,7 @@ public final class RecipeBrowserGui {
     private void refresh(Player player, boolean changed) {
         if (!changed) return;
         render();
-        player.getOpenInventory().setTitle("配方 · " + this.model.screen().title());
+        player.getOpenInventory().setTitle(I18n.tr("recipe.window_title", this.model.screen().title()));
         player.updateInventory();
     }
 
@@ -191,7 +192,7 @@ public final class RecipeBrowserGui {
                 ItemStack icon = BukkitItems.create(category.icon());
                 if (icon == null) icon = new ItemStack(Material.BOOK);
                 this.inventory.setItem(index - start, describe(icon, category.name(),
-                        List.of("配方 " + this.model.byUsage(usage).size() + " 条"), 1));
+                        List.of(I18n.tr("recipe.count", this.model.byUsage(usage).size())), 1));
             } else if (screen.detailView()) {
                 renderDetail(screen.recipes().get(index));
             } else if (screen.membersView()) {
@@ -201,7 +202,8 @@ public final class RecipeBrowserGui {
             }
         }
         if (screen.count() == 0) {
-            this.inventory.setItem(22, named(Material.BARRIER, screen.membersView() ? "没有可用成员" : "没有匹配的配方",
+            this.inventory.setItem(22, named(Material.BARRIER,
+                    I18n.tr(screen.membersView() ? "recipe.no_members" : "recipe.no_matches"),
                     List.of(), 1));
         }
         renderNavigation();
@@ -215,7 +217,7 @@ public final class RecipeBrowserGui {
         if (station == null) station = new ItemStack(Material.KNOWLEDGE_BOOK);
         RecipeIcons.station(station, category.icon());
         this.inventory.setItem(base, describe(station, category.name(),
-                List.of("点击查看完整配方与原料摆位"), 1));
+                List.of(I18n.tr("recipe.open_detail")), 1));
 
         List<RecipeInput> inputs = recipe.inputs();
         for (int i = 0; i < inputs.size() && i < 3; i++) {
@@ -240,7 +242,8 @@ public final class RecipeBrowserGui {
     }
 
     private void renderDetail(Recipe recipe) {
-        this.inventory.setItem(4, named(Material.KNOWLEDGE_BOOK, "配方详情", recipe.note() == null || recipe.note().isBlank() ? List.of() : List.of(recipe.note()), 1));
+        this.inventory.setItem(4, named(Material.KNOWLEDGE_BOOK, I18n.tr("recipe.detail"),
+                recipe.note() == null || recipe.note().isBlank() ? List.of() : List.of(recipe.note()), 1));
         var slots = this.model.inputSlots(recipe);
         for (int index = 0; index < recipe.inputs().size(); index++) {
             this.inventory.setItem(slots.get(index), inputIcon(recipe.inputs().get(index)));
@@ -252,10 +255,12 @@ public final class RecipeBrowserGui {
     }
 
     private static ItemStack processingArrow(Recipe recipe) {
-        String duration = recipe.continuous() ? "连续加工"
-                : recipe.baseTicks() > 0 ? GuiText.format(recipe.baseTicks()) + " 刻" : "按加工条件确定";
-        return named(Material.ARROW, "→", List.of("耗时：" + duration,
-                "耗能：" + GuiText.format(recipe.energyJoules()) + (recipe.continuous() ? " J/t" : " J")), 1);
+        String duration = recipe.continuous() ? I18n.tr("recipe.continuous")
+                : recipe.baseTicks() > 0 ? I18n.tr("recipe.ticks", GuiText.format(recipe.baseTicks()))
+                : I18n.tr("recipe.duration_conditional");
+        return named(Material.ARROW, "→", List.of(I18n.tr("recipe.duration", duration),
+                I18n.tr("recipe.energy", GuiText.format(recipe.energyJoules()),
+                        recipe.continuous() ? "J/t" : "J")), 1);
     }
 
     private void renderNavigation() {
@@ -263,27 +268,29 @@ public final class RecipeBrowserGui {
         boolean last = page() >= pageCount() - 1;
         var screen = this.model.screen();
         this.inventory.setItem(FIRST_PAGE, formattedNamed(Material.SPECTRAL_ARROW,
-                GuiText.name("首页", first ? "§8" : "§f"),
+                GuiText.name(I18n.tr("navigation.first"), first ? "§8" : "§f"),
                 List.of(), 1));
         this.inventory.setItem(PREVIOUS_PAGE, formattedNamed(Material.ARROW,
-                GuiText.name("上一页", first ? "§8" : "§f"),
-                List.of(GuiText.lore("Shift + 点击跳 10 页")), 1));
+                GuiText.name(I18n.tr("navigation.previous"), first ? "§8" : "§f"),
+                List.of(GuiText.lore(I18n.tr("navigation.shift_pages"))), 1));
         this.inventory.setItem(PAGE_INFO, named(Material.BOOK,
-                "第 " + (page() + 1) + " / " + pageCount() + " 页",
+                I18n.tr("navigation.page", page() + 1, pageCount()),
                 List.of(
                         screen.title(),
-                        (screen.categoriesView() ? "分类 " : screen.membersView() ? "成员 " : "配方 ") + screen.count(),
-                        "左键具体物品查看来源 · 右键查看用途配方",
-                        "点击标签或多选原料展开可用成员"), 1));
-        this.inventory.setItem(BACK, named(Material.OAK_DOOR, "返回上一屏",
+                        I18n.tr(screen.categoriesView() ? "recipe.category_count"
+                                : screen.membersView() ? "recipe.member_count" : "recipe.count",
+                                screen.count()),
+                        I18n.tr("recipe.click_hint"),
+                        I18n.tr("recipe.expand_hint")), 1));
+        this.inventory.setItem(BACK, named(Material.OAK_DOOR, I18n.tr("navigation.back"),
                 List.of(), 1));
-        this.inventory.setItem(HOME, named(Material.COMPASS, "返回入口",
+        this.inventory.setItem(HOME, named(Material.COMPASS, I18n.tr("navigation.home"),
                 List.of(this.entryTitle), 1));
         this.inventory.setItem(NEXT_PAGE, formattedNamed(Material.ARROW,
-                GuiText.name("下一页", last ? "§8" : "§f"),
-                List.of(GuiText.lore("Shift + 点击跳 10 页")), 1));
+                GuiText.name(I18n.tr("navigation.next"), last ? "§8" : "§f"),
+                List.of(GuiText.lore(I18n.tr("navigation.shift_pages"))), 1));
         this.inventory.setItem(LAST_PAGE, formattedNamed(Material.SPECTRAL_ARROW,
-                GuiText.name("末页", last ? "§8" : "§f"),
+                GuiText.name(I18n.tr("navigation.last"), last ? "§8" : "§f"),
                 List.of(), 1));
     }
 
@@ -311,12 +318,12 @@ public final class RecipeBrowserGui {
             if (stack == null) {
                 stack = new ItemStack(Material.PAPER);
             }
-            String chance = item.guaranteed() ? "" : "（" + formatChance(item.chancePercent()) + "%）";
+            String chance = item.guaranteed() ? "" : I18n.tr("recipe.chance", formatChance(item.chancePercent()));
             return itemIcon(stack, item.stack().amount(), chance, List.of());
         }
         RecipeOutput.Resource resource = (RecipeOutput.Resource) output;
         String name = resourceName(resource.stack());
-        String chance = resource.guaranteed() ? "" : "（" + formatChance(resource.chancePercent()) + "%）";
+        String chance = resource.guaranteed() ? "" : I18n.tr("recipe.chance", formatChance(resource.chancePercent()));
         return resourceIcon(resource.stack().type(), resource.stack().id(),
                 name + chance,
                 resource.stack().amount(), List.of());
@@ -325,7 +332,7 @@ public final class RecipeBrowserGui {
     private static List<String> inputHints(RecipeInput input) {
         List<String> hints = new ArrayList<>();
         if (RecipeBrowserModel.expandable(input)) {
-            hints.add("点击展开可用成员（" + RecipeBrowserModel.members(input).size() + "）");
+            hints.add(I18n.tr("recipe.expand_members", RecipeBrowserModel.members(input).size()));
         }
         return hints;
     }
@@ -358,9 +365,9 @@ public final class RecipeBrowserGui {
 
     private static String resourceName(ResourceStack stack) {
         if (stack.id() == null) {
-            return stack.type().zhName();
+            return I18n.resourceType(stack.type());
         }
-        return mekcore.resource.ResourceNames.nameOf(stack.type(), stack.id());
+        return I18n.resourceName(stack.type(), stack.id());
     }
 
     private static String formatChance(double chance) {

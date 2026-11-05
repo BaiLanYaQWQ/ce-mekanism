@@ -5,10 +5,12 @@ import mekcore.machine.Machine;
 import mekcore.machine.SideMode;
 import mekcore.resource.ResourceType;
 import mekcore.resource.ResourceTypes;
+import net.kuzuanpa.cemekanism.i18n.I18n;
 import net.kuzuanpa.cemekanism.transmitter.TransmitterBlockEntityController;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -18,25 +20,25 @@ import java.util.stream.Collectors;
 
 /** The selected function belongs to the tool; each resource function only edits its own ports. */
 public enum ConfiguratorMode {
-    ITEMS("物品", null),
-    FLUID("流体", ResourceTypes.FLUID),
-    CHEMICAL("气体／化学品", ResourceTypes.CHEMICAL),
-    ENERGY("能源", ResourceTypes.ENERGY),
-    HEAT("热量", ResourceTypes.HEAT),
-    INFUSION("辅料", ResourceTypes.INFUSION),
-    REDSTONE("红石控制", null),
-    ROTATE("旋转", null);
+    ITEMS(null),
+    FLUID(ResourceTypes.FLUID),
+    CHEMICAL(ResourceTypes.CHEMICAL),
+    ENERGY(ResourceTypes.ENERGY),
+    HEAT(ResourceTypes.HEAT),
+    INFUSION(ResourceTypes.INFUSION),
+    REDSTONE(null),
+    ROTATE(null);
 
     private static final NamespacedKey KEY = new NamespacedKey("cemekanism", "configurator_mode");
-    private final String zhName;
     private final ResourceType resource;
 
-    ConfiguratorMode(String zhName, ResourceType resource) {
-        this.zhName = zhName;
+    ConfiguratorMode(ResourceType resource) {
         this.resource = resource;
     }
 
-    public String zhName() { return this.zhName; }
+    public String zhName() {
+        return I18n.tr("configurator.mode." + name().toLowerCase(Locale.ROOT));
+    }
 
     public ConfiguratorMode next() {
         return values()[(ordinal() + 1) % values().length];
@@ -78,14 +80,17 @@ public enum ConfiguratorMode {
     }
 
     public String status(Machine machine, Direction face) {
-        if (this == ROTATE) return "不支持";
-        if (this == ITEMS) return machine.itemSide(face).zhName();
-        if (this == REDSTONE) return machine.redstoneControl().zhName();
+        if (this == ROTATE) return I18n.tr("configurator.unsupported");
+        if (this == ITEMS) return I18n.enumName(machine.itemSide(face), machine.itemSide(face).zhName());
+        if (this == REDSTONE) {
+            return I18n.enumName(machine.redstoneControl(), machine.redstoneControl().zhName());
+        }
         List<String> ports = ports(machine);
-        if (ports.isEmpty()) return "不支持";
+        if (ports.isEmpty()) return I18n.tr("configurator.unsupported");
         List<SideMode> modes = ports.stream().map(port -> machine.side(port, face)).distinct().toList();
-        if (modes.size() == 1) return modes.getFirst().zhName();
-        return ports.stream().map(port -> port + " " + machine.side(port, face).zhName())
+        if (modes.size() == 1) return I18n.enumName(modes.getFirst(), modes.getFirst().zhName());
+        return ports.stream().map(port -> port + " "
+                        + I18n.enumName(machine.side(port, face), machine.side(port, face).zhName()))
                 .collect(Collectors.joining(" · "));
     }
 
@@ -95,8 +100,10 @@ public enum ConfiguratorMode {
 
     public String status(MachineBlockEntityController controller, Direction face) {
         if (this != ROTATE) return status(controller.machine(), face);
-        String current = "朝向" + ConfiguratorGrid.name(controller.facing());
-        return current + (controller.canFace(face) ? " → " + ConfiguratorGrid.name(face) : "（不支持该方向）");
+        String current = I18n.tr("configurator.facing", ConfiguratorGrid.name(controller.facing()));
+        return current + (controller.canFace(face)
+                ? I18n.tr("configurator.facing_target", ConfiguratorGrid.name(face))
+                : I18n.tr("configurator.unsupported_direction"));
     }
 
     public boolean supports(TransmitterBlockEntityController pipe) {
@@ -106,12 +113,19 @@ public enum ConfiguratorMode {
     }
 
     public String status(TransmitterBlockEntityController pipe, Direction face) {
-        if (this == REDSTONE) return pipe.redstoneWatched() ? "开" : "关";
-        return supports(pipe) ? pipe.port(face).zhName() : "不支持";
+        if (this == REDSTONE) return I18n.tr(pipe.redstoneWatched() ? "state.on" : "state.off");
+        return supports(pipe) ? I18n.enumName(pipe.port(face), pipe.port(face).zhName())
+                : I18n.tr("configurator.unsupported");
     }
 
     public Component actionBar(Direction face, String status) {
-        String text = face == null ? this.zhName : this.zhName + " · " + status;
+        String text = face == null ? zhName() : I18n.tr("configurator.mode_status", zhName(), status);
+        return Component.text(text, NamedTextColor.GREEN);
+    }
+
+    public Component actionBar(Player player, Direction face, String status) {
+        String mode = I18n.tr(player, "configurator.mode." + name().toLowerCase(Locale.ROOT));
+        String text = face == null ? mode : I18n.tr(player, "configurator.mode_status", mode, status);
         return Component.text(text, NamedTextColor.GREEN);
     }
 }
