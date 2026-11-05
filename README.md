@@ -11,6 +11,8 @@ A recreation of Mekanism's industrial gameplay built on **Paper + CraftEngine**.
 - **Automation networks**: Transfer items, fluids, chemicals, energy, and heat.
 - **Multiblock structures**: Dynamic Tanks, Thermoelectric Boilers, Industrial Turbines, Induction Matrices, and more.
 
+Note: some high-tier machines needs premium edition. and you can get more than just machines if you supported my work!
+
 This project is licensed under AGPLv3, based on mekanism with MIT license.
 
 ## Build and Installation
