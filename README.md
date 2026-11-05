@@ -1,49 +1,49 @@
 # CeMekanism
 
-基于 **Paper + CraftEngine** 的 Mekanism 工业玩法复刻。建造机器与工厂，用管道连接生产、供能和存储；客户端加载资源包即可游玩，无需安装 Mekanism 模组。
+A recreation of Mekanism's industrial gameplay built on **Paper + CraftEngine**. Build machines and factories, and connect production, power, and storage with pipes. Players only need to load the resource pack—no Mekanism mod installation is required.
 
-- **机器与工厂**：矿物加工、并行生产、升级与侧面配置；点击机器进度条浏览配方，点击 tag 展开成员，左键物品查来源、右键查用途配方，支持跨机器跳转与返回。
-- **统一配方浏览**：`/mekrecipes` 按分类浏览工作台、熔炉、高炉、烟熏炉、营火、切石机、锻造台、酿造台及机器／多方块配方；原版加工支持完整原料详情，多方块面板也可直接进入。
-- **自动化网络**：物品、流体、化学品、能量与热量传输。
-- **多方块设施**：动态储罐、热力锅炉、工业蒸汽涡轮与感应矩阵等。
+- **Machines and factories**: Ore processing, parallel production, upgrades, and side configuration. Click a machine's progress bar to browse recipes, click a tag to expand its members, left-click an item to see recipes that produce it, and right-click to see recipes that use it. Navigate between machines and return to previous views.
+- **Unified recipe browser**: Use `/mekrecipes` to browse recipes by category, including crafting tables, furnaces, blast furnaces, smokers, campfires, stonecutters, smithing tables, brewing stands, machines, and multiblocks. Vanilla processing recipes include full ingredient details, and the browser is also accessible directly from multiblock interfaces.
+- **Automation networks**: Transfer items, fluids, chemicals, energy, and heat.
+- **Multiblock structures**: Dynamic Tanks, Thermoelectric Boilers, Industrial Turbines, Induction Matrices, and more.
 
-项目仍在开发中。
+This project is still under development.
 
-## 构建与安装
+## Build and Installation
 
-运行环境为 Paper 26.3 + CraftEngine 26.9.2，编译使用 JDK 21。
-插件依赖同级 `craftMekanism/core`，在本仓库根目录执行：
+The runtime environment is Paper 26.3 + CraftEngine 26.9.2. Use JDK 21 to build the project.
+The plugin depends on `craftMekanism/core` in a sibling directory. Run the following commands from this repository's root:
 
 ```bash
 (cd ../craftMekanism/core && ./gradlew build)
 (cd plugin && ./gradlew build)
 ```
 
-将 `plugin/build/libs/ce-mekanism-plugin-0.1.0.jar` 放入服务端 `plugins/`，
-将 `pack/` 部署为 `plugins/CraftEngine/resources/mek/`，重启服务端后执行
-`/ce reload all`，让客户端加载资源包。
+Copy `plugin/build/libs/ce-mekanism-plugin-0.1.0.jar` into the server's `plugins/` directory,
+deploy `pack/` to `plugins/CraftEngine/resources/mek/`, then restart the server and run
+`/ce reload all`. Have clients load the resource pack.
 
-## 截图展示
+## Screenshots
 
-### 自动化产线
+### Automated Production Line
 
-![矿物加工产线](screenshots/1.png)
+![Ore processing line](screenshots/1.png)
 
-### 机器与工厂界面
+### Machine and Factory Interfaces
 
-![工厂界面](screenshots/4.png)
-
-
-### 五倍矿产线
-
-![五倍矿产线](screenshots/2.png)
+![Factory interface](screenshots/4.png)
 
 
-### 聚变与裂变
+### 5× Ore Processing Line
 
-![聚变与裂变](screenshots/3.png)
+![5× ore processing line](screenshots/2.png)
 
 
-### 配方查询器
+### Fusion and Fission
 
-![配方查询器](screenshots/5.png)
+![Fusion and fission](screenshots/3.png)
+
+
+### Recipe Browser
+
+![Recipe browser](screenshots/5.png)
