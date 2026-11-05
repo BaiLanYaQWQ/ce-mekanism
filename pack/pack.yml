@@ -1,5 +1,5 @@
 author: kuzuanpa
-description: Mekanism 复刻包（内容基准 V10，CraftEngine 侧）
+description: ce-mekanism pack
 version: '0.1.2'
 namespace: mek
 enable: true

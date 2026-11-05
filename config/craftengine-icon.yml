@@ -1,0 +1,14 @@
+# Configuration fragment for plugins/CraftEngine/config.yml; not a standalone pack config.
+# Replace only the existing pack.png entry in resource-pack.duplicated-files-handler
+# with the entry below. Keep all other entries in that list.
+# Assumes this pack is installed at plugins/CraftEngine/resources/mek/.
+resource-pack:
+  duplicated-files-handler:
+    - term:
+        type: exact
+        path: "pack.png"
+      resolution:
+        type: retain_matching
+        term:
+          type: contains
+          path: "resources/mek/resourcepack"

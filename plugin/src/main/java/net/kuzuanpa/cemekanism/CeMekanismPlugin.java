@@ -69,6 +69,7 @@ public final class CeMekanismPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         // 系统参数（管道/储罐/储能/蒸汽/热量）先装：机器读的就是这份表
         MekSystems.install(this);
         this.qio.install();

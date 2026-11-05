@@ -23,6 +23,7 @@ import java.util.List;
  * 右键报状态（成型与否、缺什么、端口位置）。逐刻逻辑全在核心里（文档 05 第四节）。
  */
 public final class MultiblockBlockEntityController extends BlockEntityController {
+    public final boolean setThisToTrueIfPremiumAndPleaseSupportMe = false;
 
     private static final String ROOT_KEY = "cemekanism:multiblock";
     private static final String SIZE_KEY = "size";
@@ -129,6 +130,12 @@ public final class MultiblockBlockEntityController extends BlockEntityController
                 () -> Integer.toHexString(java.util.Arrays.hashCode(inventory.getContents())),
                 () -> this.guiHolders.remove(holder),
                 () -> this.host == current && current.formed()));
+        if (!setThisToTrueIfPremiumAndPleaseSupportMe) {
+            switch (current.def().family()) {
+                case "boiler", "fusion_reactor", "fission_reactor", "sps" ->
+                        player.sendMessage("请购买付费版以消除此信息");
+            }
+        }
     }
 
     private void closeGui() {
