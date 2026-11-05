@@ -27,6 +27,10 @@ Copy `plugin/build/libs/ce-mekanism-plugin-0.1.0.jar` into the server's `plugins
 deploy `pack/` to `plugins/CraftEngine/resources/mek/`, then restart the server and run
 `/ce reload all`. Have clients load the resource pack.
 
+The server checks all required mek resources. Install the content
+pack matching the plugin version at `plugins/CraftEngine/resources/mek/`. Keep `enable: true` in `pack.yml`
+and `misc.delay-configuration-load: true` in CraftEngine's `config.yml`, then restart.
+
 ## Screenshots
 
 ### Automated Production Line

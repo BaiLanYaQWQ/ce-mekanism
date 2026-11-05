@@ -30,7 +30,7 @@ import java.util.Set;
  * 右键报状态（成型与否、缺什么、端口位置）。逐刻逻辑全在核心里（文档 05 第四节）。
  */
 public final class MultiblockBlockEntityController extends BlockEntityController {
-    public final boolean setThisToTrueIfPremiumAndPleaseSupportMe = false;
+    private final boolean setThisToTrueIfPremiumAndPleaseSupportMe = false;
 
     private static final String ROOT_KEY = "cemekanism:multiblock";
     private static final String SIZE_KEY = "size";

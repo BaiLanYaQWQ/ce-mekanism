@@ -12,6 +12,7 @@ import net.momirealms.craftengine.bukkit.api.event.CraftEngineReloadEvent;
 import net.momirealms.craftengine.core.registry.BuiltInRegistries;
 import net.momirealms.craftengine.core.util.Key;
 import net.kuzuanpa.cemekanism.machine.MachineBlockBehavior;
+import org.bukkit.Bukkit;
 import net.kuzuanpa.cemekanism.gui.GuiRegistry;
 import net.kuzuanpa.cemekanism.transmitter.TransmitterBlockBehavior;
 import net.kuzuanpa.cemekanism.transmitter.TransmitterBlocks;
@@ -27,7 +28,7 @@ import java.util.List;
 
 /**
  * 注册自检：清单来自 {@link GeneratedContent}（tools/mek.py 生成），
- * 载入资源包时打一行日志，/mek selfcheck 逐条列。
+ * 每次载入资源包后强制检查，缺少必需资源时输出安装帮助并停服；/mek selfcheck 逐条列。
  */
 final class RegistrationCheck implements Listener {
 
@@ -58,6 +59,18 @@ final class RegistrationCheck implements Listener {
 
     @EventHandler
     public void onCraftEngineReload(CraftEngineReloadEvent event) {
+        List<String> missing = missingIds();
+        if (!missing.isEmpty()) {
+            this.plugin.getLogger().severe("资源包 mek 校验失败：缺失 " + missing.size() + " 项必需资源，正在停止服务器。");
+            for (String id : missing) this.plugin.getLogger().severe("  缺失：" + id);
+            this.plugin.getLogger().severe("安装帮助：请安装与 CeMekanism 插件同一版本的服务端 mek 内容包。");
+            this.plugin.getLogger().severe("1. 将发布包中的 pack/ 内容（或解压后的 mek 内容包）放入 plugins/CraftEngine/resources/mek/。");
+            this.plugin.getLogger().severe("2. 确认该目录直接包含 pack.yml、configuration/ 和 resourcepack/，且 pack.yml 中 enable: true。");
+            this.plugin.getLogger().severe("3. 确认 CraftEngine 的 misc.delay-configuration-load: true；若文件已齐全，请检查上方 CraftEngine 载入错误并更新匹配版本的内容包。");
+            this.plugin.getLogger().severe("4. 修复后重新启动服务器，再执行 /ce reload all 生成并发送客户端资源包。");
+            Bukkit.shutdown();
+            return;
+        }
         TransmitterShapes.apply(this.plugin,
                 MekSystems.transmitterCollision6px());
         MachineShapes.apply(this.plugin);
@@ -168,6 +181,7 @@ final class RegistrationCheck implements Listener {
                 missing.add("方块 " + id);
             }
         }
+        missing.addAll(GuiRegistry.missing());
         return missing;
     }
 

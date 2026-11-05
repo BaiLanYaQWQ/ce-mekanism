@@ -38,7 +38,7 @@ public final class GuiRegistry {
         return lines;
     }
 
-    private static List<String> missing() {
+    public static List<String> missing() {
         List<String> missing = new ArrayList<>();
         for (String panel : panels()) {
             if (!GuiSprites.present(panel)) {
