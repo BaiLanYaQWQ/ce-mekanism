@@ -16,11 +16,13 @@ import org.bukkit.Material;
 import org.bukkit.World;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /** 一键搭建（文档 05 第四节）：核心给放置清单（带朝向与原点偏移），这里把角色换回方块再摆。 */
 public final class MultiblockPlacements {
@@ -82,7 +84,7 @@ public final class MultiblockPlacements {
             if ("vent".equals(role)) {
                 // 排气口必须高于涡轮的复杂旋钮；建造时优先放到最高一排的面格上。
                 candidates = new ArrayList<>(candidates);
-                java.util.Collections.reverse(candidates);
+                Collections.reverse(candidates);
             }
             for (int[] pos : candidates) {
                 if (need <= 0) {
@@ -253,7 +255,7 @@ public final class MultiblockPlacements {
     /** 角色 id → 该族用哪个方块（同一角色有多个方块时取表里的第一个）。 */
     private static Map<String, String> byRole(MultiblockDef def) {
         Map<String, String> map = new LinkedHashMap<>();
-        for (Map.Entry<String, String> entry : new java.util.TreeMap<>(def.roleBlocks()).entrySet()) {
+        for (Map.Entry<String, String> entry : new TreeMap<>(def.roleBlocks()).entrySet()) {
             map.putIfAbsent(entry.getKey(), entry.getValue());
         }
         map.putIfAbsent("controller", def.anchor());
@@ -281,7 +283,7 @@ public final class MultiblockPlacements {
         for (String port : def.ports()) {
             portRoles.add(def.portRole(port));
         }
-        for (String role : java.util.List.of("disperser", "element", "rotor", "complex", "coil",
+        for (String role : List.of("disperser", "element", "rotor", "complex", "coil",
                 "condenser", "cell", "provider", "fuel", "control_rod", "laser_focus", "hohlraum")) {
             if (portRoles.contains(role)) {
                 continue;                          // 端口补格要能放这个角色

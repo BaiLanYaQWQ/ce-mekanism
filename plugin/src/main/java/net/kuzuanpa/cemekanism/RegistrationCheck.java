@@ -1,5 +1,11 @@
 package net.kuzuanpa.cemekanism;
 
+import net.kuzuanpa.cemekanism.machine.ConfiguratorFaceRenderer;
+import net.kuzuanpa.cemekanism.machine.MachineShapes;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockEffectRenderer;
+import net.kuzuanpa.cemekanism.platform.MekSystems;
+import net.kuzuanpa.cemekanism.radiation.RadiationWorld;
+import net.kuzuanpa.cemekanism.transmitter.TransmitterShapes;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
 import net.momirealms.craftengine.bukkit.api.event.CraftEngineReloadEvent;
@@ -15,10 +21,12 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
+
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
- * 注册自检：清单来自 {@link net.kuzuanpa.cemekanism.generated.GeneratedContent}（tools/mek.py 生成），
+ * 注册自检：清单来自 {@link GeneratedContent}（tools/mek.py 生成），
  * 载入资源包时打一行日志，/mek selfcheck 逐条列。
  */
 final class RegistrationCheck implements Listener {
@@ -50,9 +58,9 @@ final class RegistrationCheck implements Listener {
 
     @EventHandler
     public void onCraftEngineReload(CraftEngineReloadEvent event) {
-        net.kuzuanpa.cemekanism.transmitter.TransmitterShapes.apply(this.plugin,
-                net.kuzuanpa.cemekanism.platform.MekSystems.transmitterCollision6px());
-        net.kuzuanpa.cemekanism.machine.MachineShapes.apply(this.plugin);
+        TransmitterShapes.apply(this.plugin,
+                MekSystems.transmitterCollision6px());
+        MachineShapes.apply(this.plugin);
         this.plugin.multiblocks().closeEffects();
         this.plugin.getLogger().info(describe(this.plugin));
     }
@@ -67,7 +75,7 @@ final class RegistrationCheck implements Listener {
                 + TransmitterBlockBehavior.KEY + " = " + transmitterState()
                 + "，传输元件 " + TransmitterBlocks.size() + " 个（五族 × 四级），"
                 + "辐射源 " + plugin.radiationAll().all().values().stream()
-                        .mapToInt(net.kuzuanpa.cemekanism.radiation.RadiationWorld::sourceCount).sum() + "，"
+                        .mapToInt(RadiationWorld::sourceCount).sum() + "，"
                 + "机器蓝图 " + machineSummary(plugin) + "，" + GuiRegistry.status()
                 : "资源包 mek 自检：缺失 " + missing;
     }
@@ -83,7 +91,7 @@ final class RegistrationCheck implements Listener {
         List<String> problems = new ArrayList<>();
         int machines = 0;
         int generators = 0;
-        for (String blueprintId : new java.util.LinkedHashSet<>(GeneratedContent.BLOCK_TO_BLUEPRINT.values())) {
+        for (String blueprintId : new LinkedHashSet<>(GeneratedContent.BLOCK_TO_BLUEPRINT.values())) {
             mekcore.machine.MachineBlueprint blueprint = plugin.core().registrars().machines()
                     .find(blueprintId).orElse(null);
             if (blueprint == null) {
@@ -139,10 +147,10 @@ final class RegistrationCheck implements Listener {
                 missing.add("物品 " + id);
             }
         }
-        for (String id : net.kuzuanpa.cemekanism.machine.ConfiguratorFaceRenderer.ITEMS) {
+        for (String id : ConfiguratorFaceRenderer.ITEMS) {
             if (CraftEngineItems.byId(key(id)) == null) missing.add("配置器网格渲染物品 " + id);
         }
-        for (String id : net.kuzuanpa.cemekanism.multiblock.MultiblockEffectRenderer.ITEMS) {
+        for (String id : MultiblockEffectRenderer.ITEMS) {
             if (CraftEngineItems.byId(key(id)) == null) missing.add("多方块特效渲染物品 " + id);
         }
         for (String id : GeneratedContent.GENERATOR_RENDER_ITEMS) {

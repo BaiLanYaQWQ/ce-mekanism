@@ -5,6 +5,7 @@ import net.kuzuanpa.cemekanism.platform.SectionDataTag;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.Set;
 
 /**
  * 多方块的系统参数（`mek-systems.yml` 的 `multiblock:` 段）：默认值 = 随库上游 10.8 的 config，
@@ -81,7 +82,7 @@ public final class MultiblockConfig {
     private static long wasteBarrelCapacity = 512_000L;
     private static int wasteBarrelProcessTicks = 20;
     private static int wasteBarrelDecayAmount = 1;
-    private static final java.util.Set<String> wasteBarrelNoDecay = java.util.Set.of(
+    private static final Set<String> wasteBarrelNoDecay = Set.of(
             "mek:plutonium", "mek:polonium");
 
     private MultiblockConfig() {

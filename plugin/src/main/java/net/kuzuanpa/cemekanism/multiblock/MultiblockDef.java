@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public record MultiblockDef(String id, String family, String zh, int wMin, int w
         if (primary == null) {
             return List.of();
         }
-        List<String> roles = new java.util.ArrayList<>();
+        List<String> roles = new ArrayList<>();
         for (Map.Entry<String, String> entry : this.roleBlocks.entrySet()) {
             if (blockId.equals(entry.getValue()) && !roles.contains(entry.getKey())) {
                 roles.add(entry.getKey());

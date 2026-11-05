@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.gui;
 
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.machine.logic.ResistiveHeaterLogic;
+import net.kuzuanpa.cemekanism.platform.GeneratorConfig;
 import net.kuzuanpa.cemekanism.storage.QioLogic;
 import net.kuzuanpa.cemekanism.storage.QioService;
 import net.kuzuanpa.cemekanism.storage.QioFrequencyGui;
@@ -11,6 +12,7 @@ import net.kuzuanpa.cemekanism.storage.StoredItems;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import org.bukkit.entity.Player;
 import java.util.List;
+import java.util.Locale;
 
 /** Explicit controls over virtual overlay slots; never stored as machine inventory. */
 public final class MachineControls {
@@ -42,7 +44,7 @@ public final class MachineControls {
             c.inventory().setItem(14, GuiText.button("minecraft:glowstone_dust", "提高功率", List.of("每次 +25 J/t，Shift +250 J/t")));
             c.inventory().setItem(19, GuiText.button("minecraft:lever", "停止加热", List.of("设为 0 J/t；缓存随功率缩小")));
             c.inventory().setItem(12, GuiText.button("minecraft:blaze_powder", "电阻加热器 · " + usage + " J/t", List.of(
-                    "实际消耗 " + machine.lastEnergyUsed() + " J/t", "温度 " + String.format(java.util.Locale.ROOT, "%.2f K", machine.heatNode().temperatureK()),
+                    "实际消耗 " + machine.lastEnergyUsed() + " J/t", "温度 " + String.format(Locale.ROOT, "%.2f K", machine.heatNode().temperatureK()),
                     "左键恢复默认功率",
                     "降低功率会缩小缓存并截断多余电量")));
         } else if (machine.blueprint().logic() instanceof QioLogic) {
@@ -75,7 +77,7 @@ public final class MachineControls {
                 case 10 -> Math.max(0, usage - step);
                 case 14 -> Math.addExact(usage, step);
                 case 19 -> 0;
-                default -> net.kuzuanpa.cemekanism.platform.GeneratorConfig.longValue("heater/resistive_usage_j", 250);
+                default -> GeneratorConfig.longValue("heater/resistive_usage_j", 250);
             };
             heater.setUsage(c.machine(), next);
         } else if (c.machine().blueprint().logic() instanceof DigitalMinerLogic miner) {
@@ -90,8 +92,8 @@ public final class MachineControls {
                 case 21 -> state.filter.inverse = !state.filter.inverse;
                 case 22 -> {
                     var item = player.getItemOnCursor();
-                    if (!net.kuzuanpa.cemekanism.storage.StoredItems.empty(item)) {
-                        String id = net.kuzuanpa.cemekanism.platform.BukkitItems.idOf(item);
+                    if (!StoredItems.empty(item)) {
+                        String id = BukkitItems.idOf(item);
                         if (!state.filter.rules.contains(id)) state.filter.rules.add(id);
                     }
                 }

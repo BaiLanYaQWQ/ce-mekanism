@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -72,7 +73,7 @@ final class RecipeIcons {
         if (source == null) throw new IllegalStateException("Missing generated " + manifest);
         try (var reader = new BufferedReader(new InputStreamReader(source, StandardCharsets.UTF_8))) {
             return reader.lines().filter(line -> !line.isBlank()).collect(Collectors.toUnmodifiableSet());
-        } catch (java.io.IOException exception) {
+        } catch (IOException exception) {
             throw new IllegalStateException("Cannot read recipe icon manifest: " + manifest, exception);
         }
     }

@@ -13,6 +13,7 @@ import mekcore.resource.Transaction;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockContexts;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockResources;
 import org.bukkit.Location;
 
 import java.util.Map;
@@ -22,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /** 裂变反应堆：燃料 -> 热、核废料与蒸汽；B6 第一版只实现水冷。 */
 public final class FissionReactorLogic implements MultiblockLogic {
     @Override public void configure(MultiblockInstance instance) {
-        net.kuzuanpa.cemekanism.multiblock.MultiblockResources.configure(instance);
+        MultiblockResources.configure(instance);
     }
 
 

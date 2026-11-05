@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * 世界侧的结构注册表（文档 05 第四节）：一个盒子一份 {@link Host}，多个锚点共用（引用计数）。
@@ -32,7 +33,7 @@ public final class MultiblockHosts {
 
     private final CeMekanismPlugin plugin;
     private final Map<String, Host> hosts = new LinkedHashMap<>();
-    private record ChunkKey(java.util.UUID world, int x, int z) { }
+    private record ChunkKey(UUID world, int x, int z) { }
     private final Map<ChunkKey, Set<Host>> hostsByChunk = new LinkedHashMap<>();
     private final Set<Host> pendingChecks = new LinkedHashSet<>();
     private boolean checkQueued;

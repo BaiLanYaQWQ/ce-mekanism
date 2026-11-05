@@ -5,6 +5,7 @@ import mekcore.multiblock.MultiblockLogic;
 import mekcore.resource.ResourceStack;
 import mekcore.resource.Transaction;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockResources;
 
 import java.util.Collections;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.WeakHashMap;
  */
 public final class EvaporationLogic implements MultiblockLogic {
     @Override public void configure(MultiblockInstance instance) {
-        net.kuzuanpa.cemekanism.multiblock.MultiblockResources.configure(instance);
+        MultiblockResources.configure(instance);
     }
 
 

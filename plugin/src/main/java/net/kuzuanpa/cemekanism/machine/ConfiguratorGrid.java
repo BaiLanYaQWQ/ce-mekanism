@@ -2,6 +2,8 @@ package net.kuzuanpa.cemekanism.machine;
 
 import mekcore.machine.Direction;
 
+import java.util.Locale;
+
 /** GT6 face grid: center = front, edge strips = adjacent sides, four corners = back. */
 public final class ConfiguratorGrid {
     public static final double[] EDGES = {0, 0.25, 0.75, 1};
@@ -45,7 +47,7 @@ public final class ConfiguratorGrid {
         CENTER, BACK, LOW_U, HIGH_U, LOW_V, HIGH_V;
 
         public String itemId() {
-            return "mek:render/configurator_" + name().toLowerCase(java.util.Locale.ROOT);
+            return "mek:render/configurator_" + name().toLowerCase(Locale.ROOT);
         }
     }
 

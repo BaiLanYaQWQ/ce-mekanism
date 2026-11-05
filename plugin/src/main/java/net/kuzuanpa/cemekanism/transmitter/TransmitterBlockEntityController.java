@@ -15,7 +15,9 @@ import mekcore.machine.Direction;
 import mekcore.resource.ResourceTypes;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic;
 import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
+import net.kuzuanpa.cemekanism.storage.StoredItems;
 import net.momirealms.craftengine.core.block.entity.BlockEntity;
 import net.momirealms.craftengine.core.block.entity.BlockEntityController;
 import net.momirealms.craftengine.libraries.nbt.CompoundTag;
@@ -270,7 +272,7 @@ public final class TransmitterBlockEntityController extends BlockEntityControlle
             // 端点绑定时用的也是这个反向（Logistics.bindMachine*），这里必须同一口径，
             // 否则手臂会画在端点对面（表现为"线缆连不上"或"方向相反"）。
             Direction machineSide = direction.opposite();
-            if (net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic.ID.equals(machine.blockId())
+            if (WasteBarrelLogic.ID.equals(machine.blockId())
                     && machineSide != Direction.UP && machineSide != Direction.DOWN) {
                 return false;
             }
@@ -525,7 +527,7 @@ public final class TransmitterBlockEntityController extends BlockEntityControlle
             var buffer = this.itemNode.buffer();
             for (int i = 0; i < buffer.size(); i++) {
                 if (buffer.get(i).payload() instanceof org.bukkit.inventory.ItemStack stack) {
-                    saved.getCompound(i).putString("payload", net.kuzuanpa.cemekanism.storage.StoredItems.key(stack));
+                    saved.getCompound(i).putString("payload", StoredItems.key(stack));
                 }
             }
         } else {
@@ -555,7 +557,7 @@ public final class TransmitterBlockEntityController extends BlockEntityControlle
                         for (int i = 0; i < saved.size(); i++) {
                             var row = saved.getCompound(i); String payload = row.getString("payload");
                             this.itemNode.insert(mekcore.item.ItemRef.withPayload(row.getString("id"), row.getLong("amount"),
-                                    payload == null ? null : net.kuzuanpa.cemekanism.storage.StoredItems.item(payload, 1)));
+                                    payload == null ? null : StoredItems.item(payload, 1)));
                         }
                     }
                 } else {

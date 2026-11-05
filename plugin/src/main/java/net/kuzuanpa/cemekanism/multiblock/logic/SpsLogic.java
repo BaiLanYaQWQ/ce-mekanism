@@ -8,6 +8,7 @@ import mekcore.resource.Transaction;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockContexts;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockResources;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -18,7 +19,7 @@ import java.util.WeakHashMap;
 /** 超临界移相器：钋 + 线圈能量 -> 反物质；内部每 20 刻按本刻输入能量伤害实体。 */
 public final class SpsLogic implements MultiblockLogic {
     @Override public void configure(MultiblockInstance instance) {
-        net.kuzuanpa.cemekanism.multiblock.MultiblockResources.configure(instance);
+        MultiblockResources.configure(instance);
     }
 
 

@@ -4,7 +4,9 @@ import mekcore.multiblock.MultiblockInstance;
 import mekcore.multiblock.MultiblockLogic;
 import mekcore.resource.ResourceStack;
 import mekcore.resource.Transaction;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockResources;
 
 /**
  * 热力锅炉：把水烧成蒸汽，热量由热网给（或外部热源通过阀门）。
@@ -13,7 +15,7 @@ import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
  */
 public final class BoilerLogic implements MultiblockLogic {
     @Override public void configure(MultiblockInstance instance) {
-        net.kuzuanpa.cemekanism.multiblock.MultiblockResources.configure(instance);
+        MultiblockResources.configure(instance);
     }
 
 
@@ -21,7 +23,7 @@ public final class BoilerLogic implements MultiblockLogic {
     public long tick(MultiblockInstance instance) {
         double temperature = instance.heatNode() == null
                 ? MultiblockConfig.ambientK() : instance.heatNode().temperatureK();
-        long elements = instance.shape().roleCount(net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks.role("element"));
+        long elements = instance.shape().roleCount(MultiblockBlocks.role("element"));
         double capacity = instance.heatNode() == null ? 1.0 : instance.heatNode().heatCapacity();
         double joulesPerKelvin = instance.heatNode() == null
                 ? 1.0 : instance.heatNode().config().joulesPerKelvin();

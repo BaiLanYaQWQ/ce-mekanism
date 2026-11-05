@@ -8,6 +8,8 @@ import mekcore.persist.MapDataTag;
 import mekcore.resource.*;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import net.kuzuanpa.cemekanism.multiblock.logic.*;
+
+import java.util.List;
 import java.util.Map;
 
 /** Headless plant regressions using the real generated recipes and device logics. */
@@ -23,7 +25,7 @@ public final class PlantSelfTest {
     private static void portModes(){
         var def=MultiblockBlocks.require("mek:thermoelectric_boiler");
         var roles=def.rolesOf("mek:boiler_valve");
-        check(MultiblockPortModes.choices(def,roles,true).equals(java.util.List.of("RESOURCE","INPUT","OUTPUT","HEAT")),
+        check(MultiblockPortModes.choices(def,roles,true).equals(List.of("RESOURCE","INPUT","OUTPUT","HEAT")),
                 "boiler exposes both, input, output and heat without losing legacy default");
         for(String assigned:roles)for(String mode:new String[]{"INPUT","OUTPUT","HEAT"})for(String port:def.ports()){
             boolean expected=!mode.equals("HEAT")&&(mode.equals("INPUT")?!def.flow(port).equals("out"):!def.flow(port).equals("in"));
@@ -36,10 +38,10 @@ public final class PlantSelfTest {
         check(MultiblockPortModes.flow("store","INPUT").equals("in"),"storage input creates only a consumer");
         check(MultiblockPortModes.flow("both","OUTPUT").equals("out"),"bidirectional tank output creates only a source");
         check(MultiblockPortModes.flow("both","RESOURCE").equals("both"),"legacy bidirectional flow unchanged");
-        check(MultiblockPortModes.choices(def,java.util.List.of("frame"),true).isEmpty(),"casing has no valve modes");
+        check(MultiblockPortModes.choices(def, List.of("frame"),true).isEmpty(),"casing has no valve modes");
         var fission=MultiblockBlocks.require("mek:fission_reactor");
         var reactorRoles=fission.rolesOf("mek:fission_reactor_port");
-        check(MultiblockPortModes.choices(fission,reactorRoles,true).equals(java.util.List.of("INPUT","OUTPUT_WASTE","OUTPUT_COOLANT","HEAT")),
+        check(MultiblockPortModes.choices(fission,reactorRoles,true).equals(List.of("INPUT","OUTPUT_WASTE","OUTPUT_COOLANT","HEAT")),
                 "upstream reactor mode cycle preserved");
         check(!MultiblockPortModes.allows(fission,"fuel","port",reactorRoles,"OUTPUT_WASTE"),"waste mode cannot receive fuel");
         check(MultiblockPortModes.allows(fission,"waste","port",reactorRoles,"OUTPUT_WASTE"),"waste mode still exports waste");

@@ -9,6 +9,7 @@ import net.momirealms.craftengine.core.block.ImmutableBlockState;
 import org.bukkit.World;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -220,7 +221,7 @@ public final class StructureBox implements StructureQuery {
             }
             this.countsValid = true;
         }
-        return java.util.Collections.unmodifiableMap(this.blockCounts);
+        return Collections.unmodifiableMap(this.blockCounts);
     }
 
     public int count(String blockId) {

@@ -1,6 +1,8 @@
 package net.kuzuanpa.cemekanism.storage;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.gui.GuiConfig;
+import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
@@ -9,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import net.kyori.adventure.text.Component;
 import java.util.*;
+import java.util.stream.IntStream;
 
 /** Virtual, paginated view. Display stacks are never real inventory contents and all clicks are intercepted. */
 public final class QioDashboard implements InventoryHolder {
@@ -33,7 +36,7 @@ public final class QioDashboard implements InventoryHolder {
         QioDashboard view = new QioDashboard(plugin, c, frequency, query, page);
         try {
             view.refresh(player); player.openInventory(view.inventory);
-            plugin.guiSessions().open(player, new net.kuzuanpa.cemekanism.gui.GuiSessions.View(view, view.inventory,
+            plugin.guiSessions().open(player, new GuiSessions.View(view, view.inventory,
                     c == null ? null : new Location(c.world(), c.x() + .5, c.y() + .5, c.z() + .5),
                     () -> Component.text("QIO · " + frequency.substring(frequency.indexOf('/') + 1)),
                     () -> view.refresh(player), () -> Integer.toHexString(Arrays.hashCode(view.inventory.getContents())),
@@ -51,7 +54,7 @@ public final class QioDashboard implements InventoryHolder {
         plugin.qio().require(frequency, player.getUniqueId().toString());
     }
     static void authorizeController(MachineBlockEntityController c, Player player) {
-        double distance = net.kuzuanpa.cemekanism.gui.GuiConfig.maxDistance();
+        double distance = GuiConfig.maxDistance();
         if (!c.registered() || !c.machine().canAccess(player.getUniqueId().toString()) || c.world() != player.getWorld()
                 || player.getLocation().distanceSquared(new Location(c.world(), c.x() + .5, c.y() + .5, c.z() + .5)) > distance * distance)
             throw new IllegalArgumentException("无权访问、机器已卸载或距离过远");
@@ -96,7 +99,7 @@ public final class QioDashboard implements InventoryHolder {
             // A live refresh may have reordered the view between the click and its deferred handler.
             if (!Objects.equals(expectedKey, keyAt(raw))) { refresh(player); return; }
             String key = keys.get(raw); ItemStack template = StoredItems.item(key, 1);
-            InventoryAccess target = new InventoryAccess(player.getInventory(), java.util.stream.IntStream.range(0, 36).boxed().toList(), () -> { });
+            InventoryAccess target = new InventoryAccess(player.getInventory(), IntStream.range(0, 36).boxed().toList(), () -> { });
             int room = target.insert(template, right ? 1 : template.getMaxStackSize(), false);
             int n = (int) plugin.qio().extract(frequency, actor, key, room, true);
             if (n > 0) target.insert(template, n, true);

@@ -3,6 +3,8 @@ package net.kuzuanpa.cemekanism.storage;
 import mekcore.machine.*;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -79,7 +81,7 @@ public final class StorageRuntime {
         c.markChanged(); return true;
     }
 
-    public static void reload() { for (Machine m : java.util.List.copyOf(CONTROLLERS.keySet())) resize(m); }
+    public static void reload() { for (Machine m : List.copyOf(CONTROLLERS.keySet())) resize(m); }
     public static void resize(Machine m) {
         String id = m.blueprint().id().substring(4);
         for (MachineTier tier : MachineTier.values()) {

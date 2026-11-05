@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.storage;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.block.parser.BlockStateParser;
@@ -13,6 +14,8 @@ import org.bukkit.event.block.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.List;
 
 /** A packed box is an item containing a block snapshot. Right-click another face to unpack it. */
 public final class CardboardBox implements Listener {
@@ -34,7 +37,7 @@ public final class CardboardBox implements Listener {
         var c = plugin.machineAtQuiet(block.getWorld(), block.getX(), block.getY(), block.getZ());
         var custom = CraftEngineBlocks.getCustomBlockState(block);
         if (custom != null && c == null) throw new IllegalArgumentException("此结构件或自定义方块暂不支持装箱");
-        if (c != null && net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic.ID.equals(c.blockId())) {
+        if (c != null && WasteBarrelLogic.ID.equals(c.blockId())) {
             throw new IllegalArgumentException("放射性废料桶不能装箱");
         }
         if (c != null && !c.machine().canAccess(player.getUniqueId().toString())) throw new IllegalArgumentException("无权装箱此机器");
@@ -62,7 +65,7 @@ public final class CardboardBox implements Listener {
         }
         ItemStack box = BukkitItems.create("mek:cardboard_box"); var meta = box.getItemMeta();
         meta.getPersistentDataContainer().set(PAYLOAD, PersistentDataType.BYTE_ARRAY, NBT.writeCompressed(tag, false)); meta.setMaxStackSize(1);
-        meta.lore(java.util.List.of(net.kyori.adventure.text.Component.text("已装箱 · ").append(c == null
+        meta.lore(List.of(net.kyori.adventure.text.Component.text("已装箱 · ").append(c == null
                 ? net.kyori.adventure.text.Component.translatable(block.getType().translationKey())
                 : net.kyori.adventure.text.Component.text(c.machine().blueprint().zhName())))); box.setItemMeta(meta);
         if (c != null) c.setSuppressStorageDrops(true);

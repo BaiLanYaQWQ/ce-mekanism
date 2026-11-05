@@ -22,7 +22,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -74,7 +76,7 @@ public final class RecipeBrowserGui {
         this.close = close;
         this.entryTitle = title;
         this.catalog = RecipeCatalog.load(plugin);
-        var names = new java.util.LinkedHashMap<String, String>();
+        var names = new LinkedHashMap<String, String>();
         this.catalog.categories.forEach((id, category) -> names.put(id, category.name()));
         this.model = new RecipeBrowserModel(title,
                 this.catalog.recipes.stream().filter(recipe -> recipe.usage().equals(usage)).toList(),
@@ -363,7 +365,7 @@ public final class RecipeBrowserGui {
 
     private static String formatChance(double chance) {
         return chance == Math.rint(chance) ? Long.toString(Math.round(chance))
-                : String.format(java.util.Locale.ROOT, "%.2f", chance);
+                : String.format(Locale.ROOT, "%.2f", chance);
     }
 
     private static ItemStack itemIcon(ItemStack source, long amount, String chance, List<String> hints) {

@@ -8,6 +8,7 @@ import mekcore.resource.Transaction;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockContexts;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockResources;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -19,7 +20,7 @@ import java.util.WeakHashMap;
 /** 聚变反应堆：激光预热、D/T 注入、等离子体换热、水冷蒸汽与热电偶发电。 */
 public final class FusionReactorLogic implements MultiblockLogic {
     @Override public void configure(MultiblockInstance instance) {
-        net.kuzuanpa.cemekanism.multiblock.MultiblockResources.configure(instance);
+        MultiblockResources.configure(instance);
     }
 
 

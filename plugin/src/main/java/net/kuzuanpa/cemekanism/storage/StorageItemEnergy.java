@@ -4,6 +4,7 @@ import mekcore.machine.MachineTier;
 import mekcore.spec.StorageProfile;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
 import net.momirealms.craftengine.libraries.nbt.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -33,7 +34,7 @@ public final class StorageItemEnergy {
         StorageProfile p = profile(item); if (p == null || request <= 0 || item.getAmount() != 1) return 0;
         long old = stored(item); long amount = Math.min(Math.min(request,p.ratePerTick()),Math.max(0,p.capacityJ()-old));
         if (amount == 0) return 0;
-        var root = root(item); var tag = new net.kuzuanpa.cemekanism.platform.CompoundDataTag(root).child("cemekanism:machine").child("state");
+        var root = root(item); var tag = new CompoundDataTag(root).child("cemekanism:machine").child("state");
         tag.putString("blueprint",BukkitItems.idOf(item)); tag.putString("factory_tier","SINGLE"); tag.child("tanks").child("energy").putLong("amount",old+amount);
         var meta=item.getItemMeta(); meta.getPersistentDataContainer().set(StorageListener.MACHINE,PersistentDataType.BYTE_ARRAY,NBT.writeCompressed(root,false));
         meta.setMaxStackSize(1); item.setItemMeta(meta); return amount;

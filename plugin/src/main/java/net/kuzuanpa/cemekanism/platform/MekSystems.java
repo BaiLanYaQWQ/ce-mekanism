@@ -3,9 +3,14 @@ package net.kuzuanpa.cemekanism.platform;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiConfig;
+import net.kuzuanpa.cemekanism.storage.StorageRuntime;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * 系统参数（文档 02 第五节）：插件目录下的 mek-systems.yml → DataTag → {@code V10Tables.load(...)}。
@@ -18,7 +23,7 @@ public final class MekSystems {
 
     private static long energyTabletMaxJ = 1_000_000L;
     private static long energyTabletChargeRateJ = 5_000L;
-    private static java.util.Set<String> energyItems = java.util.Set.of("mek:energy_tablet");
+    private static Set<String> energyItems = Set.of("mek:energy_tablet");
     private static long gaugeDropperCapacity = 16_000L;
     private static long gaugeDropperTransferRate = 250L;
     private static DemoSettings demo = DemoSettings.defaults();
@@ -47,23 +52,23 @@ public final class MekSystems {
         EnergyBalanceMigration.install(plugin, file);
         SectionDataTag tag = new SectionDataTag(YamlConfiguration.loadConfiguration(file));
         V10Tables.load(tag);
-        net.kuzuanpa.cemekanism.storage.StorageRuntime.reload();
+        StorageRuntime.reload();
         GuiConfig.install(tag);
         gaugeDropperCapacity = Math.max(1, tag.getLong("gear/gauge_dropper/capacity").orElse(16_000L));
         gaugeDropperTransferRate = Math.max(1, tag.getLong("gear/gauge_dropper/transfer_rate").orElse(250L));
         // gear 段：随身储电物品（充电台充的那些），默认值 = 上游 GearConfig.energy_tablet
         tag.getLong("gear/energy_tablet/max_energy").ifPresent(value -> energyTabletMaxJ = value);
         tag.getLong("gear/energy_tablet/charge_rate").ifPresent(value -> energyTabletChargeRateJ = value);
-        java.util.List<String> items = new java.util.ArrayList<>();
+        List<String> items = new ArrayList<>();
         for (int index = 0; index < 64; index++) {
-            java.util.Optional<String> item = tag.getString("gear/energy_items/" + index);
+            Optional<String> item = tag.getString("gear/energy_items/" + index);
             if (item.isEmpty()) {
                 break;
             }
             items.add(item.get());
         }
         if (!items.isEmpty()) {
-            energyItems = java.util.Set.copyOf(items);
+            energyItems = Set.copyOf(items);
         }
         transmitterCollision6px = tag.getString("logistics/transmitter_collision")
                 .map(value -> "6px".equalsIgnoreCase(value))
@@ -97,7 +102,7 @@ public final class MekSystems {
     }
 
     /** 能存电的物品 id（充电台只充这些；哪些东西存电是内容口径）。 */
-    public static java.util.Set<String> energyItemIds() {
+    public static Set<String> energyItemIds() {
         return energyItems;
     }
 

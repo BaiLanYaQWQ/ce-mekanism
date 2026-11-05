@@ -6,6 +6,7 @@ import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /** Checks the generated page plan through the runtime loader, without starting Paper. */
 public final class GuiLayoutSelfTest {
@@ -114,9 +115,9 @@ public final class GuiLayoutSelfTest {
             }
             var tanks = machine.snapshot().tanks().stream()
                     .filter(tank -> !tank.type().continuous() && tank.capacity() > 0)
-                    .map(mekcore.machine.MachineSnapshot.TankSnapshot::name).collect(java.util.stream.Collectors.toSet());
+                    .map(mekcore.machine.MachineSnapshot.TankSnapshot::name).collect(Collectors.toSet());
             check(layout.tankGauges().stream().map(GuiLayout.TankGauge::port)
-                    .collect(java.util.stream.Collectors.toSet()).equals(tanks), entry.getKey() + " all tanks visible");
+                    .collect(Collectors.toSet()).equals(tanks), entry.getKey() + " all tanks visible");
             Set<Integer> anchors = new HashSet<>();
             var itemCells = layout.slots().values().stream().map(GuiLayout.Cell::index).toList();
             for (var gauge : layout.tankGauges()) for (var cell : gauge.anchors()) {

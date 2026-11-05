@@ -1,5 +1,6 @@
 package net.kuzuanpa.cemekanism.platform;
 
+import net.kuzuanpa.cemekanism.storage.StorageItemEnergy;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -22,7 +23,7 @@ public final class EnergyItems {
         if (stack == null || stack.getType().isAir() || !stack.hasItemMeta()) {
             return 0L;
         }
-        if (net.kuzuanpa.cemekanism.storage.StorageItemEnergy.isCube(stack)) return net.kuzuanpa.cemekanism.storage.StorageItemEnergy.stored(stack);
+        if (StorageItemEnergy.isCube(stack)) return StorageItemEnergy.stored(stack);
         Long value = stack.getItemMeta().getPersistentDataContainer().get(ENERGY, PersistentDataType.LONG);
         return value == null ? 0L : value;
     }
@@ -32,7 +33,7 @@ public final class EnergyItems {
         if (stack == null || joules <= 0) {
             return 0L;
         }
-        if (net.kuzuanpa.cemekanism.storage.StorageItemEnergy.isCube(stack)) return net.kuzuanpa.cemekanism.storage.StorageItemEnergy.charge(stack, joules);
+        if (StorageItemEnergy.isCube(stack)) return StorageItemEnergy.charge(stack, joules);
         if (!MekSystems.energyItemIds().contains(BukkitItems.idOf(stack))) {
             return 0L;                            // 只会存电的那些物品
         }

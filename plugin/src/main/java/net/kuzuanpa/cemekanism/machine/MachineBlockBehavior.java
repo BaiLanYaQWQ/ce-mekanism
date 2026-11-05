@@ -2,6 +2,8 @@ package net.kuzuanpa.cemekanism.machine;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.platform.CraftContainers;
+import net.kuzuanpa.cemekanism.storage.QioService;
+import net.kuzuanpa.cemekanism.storage.StorageRuntime;
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior;
 import net.momirealms.craftengine.bukkit.util.LocationUtils;
 import net.momirealms.craftengine.core.block.BlockDefinition;
@@ -67,7 +69,7 @@ public final class MachineBlockBehavior extends BukkitBlockBehavior implements E
             return InteractionResult.PASS;
         }
         if (player.platformPlayer() instanceof org.bukkit.entity.Player bukkit
-                && net.kuzuanpa.cemekanism.storage.StorageRuntime.bucket(controller, bukkit)) return InteractionResult.SUCCESS_AND_CANCEL;
+                && StorageRuntime.bucket(controller, bukkit)) return InteractionResult.SUCCESS_AND_CANCEL;
         if (player.platformPlayer() instanceof org.bukkit.entity.Player bukkit && bukkit.isSneaking()) {
             // 潜行检查仅提示异常；数值与物品在机器界面中查看。
             controller.report(bukkit);
@@ -93,7 +95,7 @@ public final class MachineBlockBehavior extends BukkitBlockBehavior implements E
         if (world == null) return 0;
         BlockPos pos = LocationUtils.fromBlockPos(args[2]);
         MachineBlockEntityController c = this.plugin.machineAtQuiet(world, pos.x(), pos.y(), pos.z());
-        return c != null && net.kuzuanpa.cemekanism.storage.QioService.state(c).signal ? 15 : 0;
+        return c != null && QioService.state(c).signal ? 15 : 0;
     }
 
     /**

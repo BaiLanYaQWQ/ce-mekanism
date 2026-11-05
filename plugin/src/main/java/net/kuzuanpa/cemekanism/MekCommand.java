@@ -11,6 +11,7 @@ import mekcore.resource.ResourceStack;
 import mekcore.resource.Transaction;
 import mekcore.sim.TickScheduler;
 import net.kuzuanpa.cemekanism.machine.GeneratorEnvironment;
+import net.kuzuanpa.cemekanism.machine.HeaterCommand;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.gui.GuiLayout;
 import net.kuzuanpa.cemekanism.gui.GuiSprites;
@@ -18,6 +19,14 @@ import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.gui.GuiConfig;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
 import net.kuzuanpa.cemekanism.gui.MultiblockGui;
+import net.kuzuanpa.cemekanism.machine.RecipeBrowserGui;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
+import net.kuzuanpa.cemekanism.nuclear.B6Acceptance;
+import net.kuzuanpa.cemekanism.radiation.RadiationConfig;
+import net.kuzuanpa.cemekanism.radiation.RadiationStore;
+import net.kuzuanpa.cemekanism.radiation.RadiationWorld;
+import net.kuzuanpa.cemekanism.storage.B5Acceptance;
+import net.kuzuanpa.cemekanism.storage.StorageCommand;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlockEntityController;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks;
@@ -49,6 +58,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -76,14 +87,14 @@ final class MekCommand implements CommandExecutor {
                 } else if (!player.hasPermission("mek.recipes")) {
                     sender.sendMessage("你没有 mek.recipes 权限");
                 } else {
-                    net.kuzuanpa.cemekanism.machine.RecipeBrowserGui.openCatalog(this.plugin, player);
+                    RecipeBrowserGui.openCatalog(this.plugin, player);
                 }
             }
             case "selfcheck" -> selfcheck(sender);
-            case "b5check" -> net.kuzuanpa.cemekanism.storage.B5Acceptance.run(this.plugin, sender, args);
-            case "b5" -> net.kuzuanpa.cemekanism.storage.StorageCommand.run(this.plugin, sender, args);
-            case "heater" -> net.kuzuanpa.cemekanism.machine.HeaterCommand.run(this.plugin, sender, args);
-            case "b6check" -> net.kuzuanpa.cemekanism.nuclear.B6Acceptance.run(this.plugin, sender, args);
+            case "b5check" -> B5Acceptance.run(this.plugin, sender, args);
+            case "b5" -> StorageCommand.run(this.plugin, sender, args);
+            case "heater" -> HeaterCommand.run(this.plugin, sender, args);
+            case "b6check" -> B6Acceptance.run(this.plugin, sender, args);
             case "reload" -> reload(sender);
             case "machine" -> machine(sender, args);
             case "security" -> security(sender, args);
@@ -124,7 +135,7 @@ final class MekCommand implements CommandExecutor {
                         .exposureAt(target.getLocation());
                 sender.sendMessage(target.getName() + " 剂量 " + String.format("%.2f μSv（%s）",
                         dose.microSv(), dose.effect().zhName())
-                        + "，环境 " + net.kuzuanpa.cemekanism.radiation.RadiationWorld.format(exposure));
+                        + "，环境 " + RadiationWorld.format(exposure));
             }
             case "add" -> {
                 if (args.length < 3) {
@@ -145,7 +156,7 @@ final class MekCommand implements CommandExecutor {
                     return;
                 }
                 this.plugin.radiation(target.getWorld()).dose(target).clear();
-                net.kuzuanpa.cemekanism.radiation.RadiationStore.save(target.getUniqueId(), 0.0);
+                RadiationStore.save(target.getUniqueId(), 0.0);
                 target.removePotionEffect(org.bukkit.potion.PotionEffectType.DARKNESS);
                 target.removePotionEffect(org.bukkit.potion.PotionEffectType.NAUSEA);
                 target.removePotionEffect(org.bukkit.potion.PotionEffectType.HUNGER);
@@ -165,19 +176,19 @@ final class MekCommand implements CommandExecutor {
                 if (sender instanceof Player player && args.length <= 4) {
                     location = player.getLocation();
                     radius = args.length > 2 ? Integer.parseInt(args[2])
-                            : net.kuzuanpa.cemekanism.radiation.RadiationConfig.maxDistance();
+                            : RadiationConfig.maxDistance();
                 } else if (args.length >= 5) {
                     location = new org.bukkit.Location(world, Double.parseDouble(args[2]),
                             Double.parseDouble(args[3]), Double.parseDouble(args[4]));
                     radius = args.length > 5 ? Integer.parseInt(args[5])
-                            : net.kuzuanpa.cemekanism.radiation.RadiationConfig.maxDistance();
+                            : RadiationConfig.maxDistance();
                 } else {
                     sender.sendMessage("sources 需要玩家执行，或写坐标：/mek radiation sources <x> <y> <z> [半径]");
                     return;
                 }
-                sender.sendMessage("环境剂量率：" + net.kuzuanpa.cemekanism.radiation.RadiationWorld.format(
+                sender.sendMessage("环境剂量率：" + RadiationWorld.format(
                         this.plugin.radiation(world).exposureAt(location)));
-                java.util.List<String> lines = this.plugin.radiation(world)
+                List<String> lines = this.plugin.radiation(world)
                         .sourceLines(location, radius);
                 if (lines.isEmpty()) {
                     sender.sendMessage("半径 " + radius + " 内没有已登记的放射源");
@@ -750,9 +761,9 @@ final class MekCommand implements CommandExecutor {
                 mekcore.resource.ResourceStack stack = switch (tank.type().id()) {
                     case "mek:energy" -> mekcore.resource.ResourceStack.energy(amount);
                     case "mek:chemical" -> mekcore.resource.ResourceStack.chemical(
-                            id == null ? net.kuzuanpa.cemekanism.multiblock.MultiblockConfig.STEAM : id, amount);
+                            id == null ? MultiblockConfig.STEAM : id, amount);
                     default -> mekcore.resource.ResourceStack.fluid(
-                            id == null ? net.kuzuanpa.cemekanism.multiblock.MultiblockConfig.WATER : id, amount);
+                            id == null ? MultiblockConfig.WATER : id, amount);
                 };
                 long done = tank.insert(stack, mekcore.resource.Transaction.EXECUTE);
                 sender.sendMessage("端口 " + port + " 放入 " + done + "/" + amount + " " + stack.id()
@@ -866,7 +877,7 @@ final class MekCommand implements CommandExecutor {
                         return;
                     }
                     HohlraumItems.fill(hohlraum, FusionReactorLogic.FUSION_FUEL,
-                            net.kuzuanpa.cemekanism.multiblock.MultiblockConfig.hohlraumCapacity());
+                            MultiblockConfig.hohlraumCapacity());
                     fusion.insertHohlraum(host.instance(), hohlraum);
                 }
                 default -> sender.sendMessage("聚变堆支持 info|injection|plasma|hohlraum|mode");
@@ -891,7 +902,7 @@ final class MekCommand implements CommandExecutor {
         this.plugin.reloadConfig();
         MekSystems.install(this.plugin);
         GeneratorConfig.install(this.plugin);
-        net.kuzuanpa.cemekanism.radiation.RadiationConfig.install(this.plugin);
+        RadiationConfig.install(this.plugin);
         TransmitterShapes.apply(this.plugin, MekSystems.transmitterCollision6px());
         sender.sendMessage("系统参数已重读：" + mekcore.spec.V10Tables.summary());
     }
@@ -1144,7 +1155,7 @@ final class MekCommand implements CommandExecutor {
         sender.sendMessage("  配方浏览：" + controller.supportedRecipes().size()
                 + " 条，每页 5 条，点击进度锚点打开");
         if (layout.hasProgress() && !controller.supportedRecipes().isEmpty()) {
-            var browser = net.kuzuanpa.cemekanism.machine.RecipeBrowserGui.create(controller);
+            var browser = RecipeBrowserGui.create(controller);
             sender.sendMessage("  配方页：" + browser.inventory().getSize() + " 格，"
                     + browser.pageCount() + " 页；首页配方 "
                     + controller.supportedRecipes().getFirst().id());
@@ -1186,13 +1197,13 @@ final class MekCommand implements CommandExecutor {
         boolean empty = true;
         for (int index = 0; index < controller.inventory().getSize(); index++) {
             ItemStack stack = controller.inventory().getItem(index);
-            if (net.kuzuanpa.cemekanism.gui.GuiText.isPlaceholder(stack)) {
+            if (GuiText.isPlaceholder(stack)) {
                 placeholders++;
                 if ("mek:gui_empty_slot".equals(BukkitItems.idOf(stack))) {
                     visiblePlaceholders++;
                 }
             }
-            if (net.kuzuanpa.cemekanism.gui.GuiText.isOverlay(stack)) {
+            if (GuiText.isOverlay(stack)) {
                 overlays++;
             } else if (stack != null && !stack.getType().isAir()) {
                 empty = false;
@@ -1210,7 +1221,7 @@ final class MekCommand implements CommandExecutor {
 
     private static void multiblockViewDebug(CommandSender sender, MultiblockHosts.Host host,
                                             int selected, Inventory preview) {
-        long anchors = java.util.Arrays.stream(preview.getContents()).filter(GuiText::isAnchor).count();
+        long anchors = Arrays.stream(preview.getContents()).filter(GuiText::isAnchor).count();
         sender.sendMessage("    视图构建就绪，数值锚点 " + anchors + "，标题组件 "
                 + Integer.toHexString(MultiblockGui.title(host, selected).hashCode()));
     }
@@ -1553,7 +1564,7 @@ final class MekCommand implements CommandExecutor {
         sb.append(" 容器");
         for (int index = 0; index < controller.inventory().getSize(); index++) {
             ItemStack stack = controller.inventory().getItem(index);
-            if (net.kuzuanpa.cemekanism.gui.GuiText.isOverlay(stack)) {
+            if (GuiText.isOverlay(stack)) {
                 continue;
             }
             sb.append(' ').append(index).append('=')

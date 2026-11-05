@@ -8,8 +8,10 @@ import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /** Reusable id / block-or-item tag / namespace filters with whitelist and blacklist semantics. */
 public final class ItemSelection {
@@ -159,5 +161,5 @@ public final class ItemSelection {
                 + (disabled == 0 ? "" : "（停用 " + disabled + "）");
     }
 
-    private final java.util.Map<String, Rule> ruleSettings = new java.util.LinkedHashMap<>();
+    private final Map<String, Rule> ruleSettings = new LinkedHashMap<>();
 }

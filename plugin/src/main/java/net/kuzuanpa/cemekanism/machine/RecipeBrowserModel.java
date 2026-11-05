@@ -16,6 +16,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 /** Read-only browsing state, independent of Bukkit inventories and display item metadata. */
 final class RecipeBrowserModel {
@@ -101,7 +102,7 @@ final class RecipeBrowserModel {
     }
 
     List<Integer> inputSlots(Recipe recipe) {
-        return this.layouts.getOrDefault(recipe.id(), java.util.stream.IntStream.range(0, recipe.inputs().size())
+        return this.layouts.getOrDefault(recipe.id(), IntStream.range(0, recipe.inputs().size())
                 .map(index -> 10 + index / 3 * 9 + index % 3).boxed().toList());
     }
 

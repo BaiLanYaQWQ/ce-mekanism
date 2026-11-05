@@ -5,9 +5,12 @@ import mekcore.sim.SchedulerConfig;
 import mekcore.sim.TickScheduler;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
+import net.kuzuanpa.cemekanism.gui.TankDumpGui;
+import net.kuzuanpa.cemekanism.machine.ConfiguratorOverlay;
 import net.kuzuanpa.cemekanism.machine.MachineBlockBehavior;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.machine.MachineContainerListener;
+import net.kuzuanpa.cemekanism.machine.RecipeBrowserGui;
 import net.kuzuanpa.cemekanism.machine.RecipeBrowserListener;
 import net.kuzuanpa.cemekanism.machine.ConfiguratorListener;
 import net.kuzuanpa.cemekanism.machine.MachineSecurityListener;
@@ -15,14 +18,22 @@ import net.kuzuanpa.cemekanism.machine.UpgradeInstallerListener;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlockBehavior;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlockEntityController;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockDiagnosticParticles;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockListener;
+import net.kuzuanpa.cemekanism.multiblock.TeleporterFrequencyGui;
+import net.kuzuanpa.cemekanism.nuclear.WasteBarrelListener;
+import net.kuzuanpa.cemekanism.platform.GeneratorConfig;
 import net.kuzuanpa.cemekanism.platform.MekSystems;
 import net.kuzuanpa.cemekanism.radiation.RadiationConfig;
 import net.kuzuanpa.cemekanism.radiation.RadiationListener;
 import net.kuzuanpa.cemekanism.radiation.RadiationStore;
 import net.kuzuanpa.cemekanism.radiation.RadiationWorld;
 import net.kuzuanpa.cemekanism.radiation.RadiationWorlds;
+import net.kuzuanpa.cemekanism.storage.CardboardBox;
+import net.kuzuanpa.cemekanism.storage.QioService;
+import net.kuzuanpa.cemekanism.storage.StorageCrafting;
+import net.kuzuanpa.cemekanism.storage.StorageListener;
 import net.kuzuanpa.cemekanism.transmitter.Logistics;
 import net.kuzuanpa.cemekanism.transmitter.LogisticsConfig;
 import net.kuzuanpa.cemekanism.transmitter.LogisticsWorlds;
@@ -43,6 +54,11 @@ import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Set;
+
 /**
  * 平台侧接线（文档 03）：核心实例 + 刻调度器 + 三个适配器（存档/物品/刻）。
  * 内容（物品/方块/配方/机器数值）全在资源包里，机器行为挂在 {@link MachineBlockBehavior} 上。
@@ -56,16 +72,16 @@ public final class CeMekanismPlugin extends JavaPlugin {
     private final LogisticsWorlds logistics = new LogisticsWorlds(this);
     private final RadiationWorlds radiation = new RadiationWorlds(this);
     private final GuiSessions guiSessions = new GuiSessions(this);
-    private final java.util.Set<net.kuzuanpa.cemekanism.machine.RecipeBrowserGui> recipeBrowsers =
-            java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+    private final Set<RecipeBrowserGui> recipeBrowsers =
+            Collections.newSetFromMap(new IdentityHashMap<>());
 
-    public void trackRecipeBrowser(net.kuzuanpa.cemekanism.machine.RecipeBrowserGui gui) { this.recipeBrowsers.add(gui); }
-    public void forgetRecipeBrowser(net.kuzuanpa.cemekanism.machine.RecipeBrowserGui gui) { this.recipeBrowsers.remove(gui); }
-    private final net.kuzuanpa.cemekanism.machine.ConfiguratorOverlay configuratorOverlay =
-            new net.kuzuanpa.cemekanism.machine.ConfiguratorOverlay(this);
+    public void trackRecipeBrowser(RecipeBrowserGui gui) { this.recipeBrowsers.add(gui); }
+    public void forgetRecipeBrowser(RecipeBrowserGui gui) { this.recipeBrowsers.remove(gui); }
+    private final ConfiguratorOverlay configuratorOverlay =
+            new ConfiguratorOverlay(this);
 
-    private final net.kuzuanpa.cemekanism.storage.QioService qio = new net.kuzuanpa.cemekanism.storage.QioService(this);
-    public net.kuzuanpa.cemekanism.storage.QioService qio() { return qio; }
+    private final QioService qio = new QioService(this);
+    public QioService qio() { return qio; }
 
     @Override
     public void onEnable() {
@@ -73,7 +89,7 @@ public final class CeMekanismPlugin extends JavaPlugin {
         // 系统参数（管道/储罐/储能/蒸汽/热量）先装：机器读的就是这份表
         MekSystems.install(this);
         this.qio.install();
-        net.kuzuanpa.cemekanism.platform.GeneratorConfig.install(this);
+        GeneratorConfig.install(this);
         RadiationConfig.install(this);
         RadiationStore.install(this);
         MultiblockConfig.install(this);
@@ -82,10 +98,10 @@ public final class CeMekanismPlugin extends JavaPlugin {
         BlockBehaviors.register(MachineBlockBehavior.KEY, MachineBlockBehavior.factory(this));
         BlockBehaviors.register(MultiblockBlockBehavior.KEY, MultiblockBlockBehavior.factory(this));
         BlockBehaviors.register(TransmitterBlockBehavior.KEY, TransmitterBlockBehavior.factory(this));
-        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.storage.StorageListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.storage.CardboardBox(this), this);
-        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.storage.StorageCrafting(), this);
-        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.nuclear.WasteBarrelListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new StorageListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new CardboardBox(this), this);
+        Bukkit.getPluginManager().registerEvents(new StorageCrafting(), this);
+        Bukkit.getPluginManager().registerEvents(new WasteBarrelListener(this), this);
         this.scheduler.start();
         Bukkit.getScheduler().runTaskTimer(this, this.guiSessions::tick, 1L, 1L);
         // 主线程泵：每个服务端刻一次，MAIN 车道的任务由它推
@@ -94,7 +110,7 @@ public final class CeMekanismPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new RegistrationCheck(this), this);
         // 机器容器、独立升级安装器与配置器的交互接管
         Bukkit.getPluginManager().registerEvents(new MachineContainerListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.gui.TankDumpGui.Controls(), this);
+        Bukkit.getPluginManager().registerEvents(new TankDumpGui.Controls(), this);
         Bukkit.getPluginManager().registerEvents(new RecipeBrowserListener(), this);
         Bukkit.getPluginManager().registerEvents(new UpgradeInstallerListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ConfiguratorListener(this), this);
@@ -102,7 +118,7 @@ public final class CeMekanismPlugin extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimer(this, this.configuratorOverlay::tick, 1L, 2L);
         Bukkit.getPluginManager().registerEvents(new MachineSecurityListener(this), this);
         Bukkit.getPluginManager().registerEvents(new MultiblockListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new net.kuzuanpa.cemekanism.multiblock.TeleporterFrequencyGui.Events(), this);
+        Bukkit.getPluginManager().registerEvents(new TeleporterFrequencyGui.Events(), this);
         Bukkit.getPluginManager().registerEvents(new TransmitterListener(this), this);
         Bukkit.getPluginManager().registerEvents(new RadiationListener(this), this);
         PluginCommand command = getCommand("mek");
@@ -118,9 +134,9 @@ public final class CeMekanismPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        net.kuzuanpa.cemekanism.multiblock.MultiblockDiagnosticParticles.close();
+        MultiblockDiagnosticParticles.close();
         Bukkit.getScheduler().cancelTasks(this);
-        for (var browser : java.util.List.copyOf(this.recipeBrowsers)) browser.closeViewers();
+        for (var browser : List.copyOf(this.recipeBrowsers)) browser.closeViewers();
         this.recipeBrowsers.clear();
         this.guiSessions.closeAll();
         this.configuratorOverlay.close();

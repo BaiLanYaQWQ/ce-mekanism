@@ -1,6 +1,8 @@
 package net.kuzuanpa.cemekanism.storage;
 
 import mekcore.persist.DataTag;
+
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ public final class CountedStore {
     public int typeLimit() { return typeLimit; }
     public long total() { return total; }
     public long count(String key) { return counts.getOrDefault(key, 0L); }
-    public Map<String, Long> entries() { return java.util.Collections.unmodifiableMap(new LinkedHashMap<>(counts)); }
+    public Map<String, Long> entries() { return Collections.unmodifiableMap(new LinkedHashMap<>(counts)); }
     public long insert(String key, long amount, boolean execute) {
         if (key == null || key.isEmpty() || amount <= 0 || (!counts.containsKey(key) && counts.size() >= typeLimit)) return 0;
         long accepted = Math.min(amount, capacity - total);

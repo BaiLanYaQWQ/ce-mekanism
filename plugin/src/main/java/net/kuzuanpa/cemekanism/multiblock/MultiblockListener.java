@@ -233,7 +233,7 @@ public final class MultiblockListener implements Listener {
                     || holder.page() != expectedPage || !expectedCursor.equals(player.getItemOnCursor())) {
                 return;
             }
-            if (raw == net.kuzuanpa.cemekanism.gui.MultiblockGui.RECIPES_SLOT
+            if (raw == MultiblockGui.RECIPES_SLOT
                     && (click == org.bukkit.event.inventory.ClickType.LEFT || click == org.bukkit.event.inventory.ClickType.RIGHT)) {
                 holder.controller().openRecipeBrowser(player);
                 return;

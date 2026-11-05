@@ -22,6 +22,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -51,7 +52,7 @@ public final class TeleporterFrequencyGui implements InventoryHolder {
         player.openInventory(view.inventory);
         host.plugin().guiSessions().open(player, new GuiSessions.View(view, view.inventory,
                 host.controllerLocation(), () -> Component.text("传送器 · 绑定公共频率"),
-                view::refresh, () -> java.util.Arrays.toString(view.inventory.getContents()),
+                view::refresh, () -> Arrays.toString(view.inventory.getContents()),
                 () -> { }, () -> valid(host, player)));
     }
 

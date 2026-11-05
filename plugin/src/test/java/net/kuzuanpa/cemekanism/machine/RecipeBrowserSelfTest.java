@@ -13,7 +13,12 @@ import mekcore.registry.Tags;
 import mekcore.resource.ResourceTypes;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 
+import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 /** Player browsing scenarios without Paper: tag contents, both click directions and return paths. */
@@ -146,13 +151,13 @@ public final class RecipeBrowserSelfTest {
 
         var ingredient = externalIngredient();
         @SuppressWarnings("unchecked")
-        java.util.Optional<net.momirealms.craftengine.core.item.recipe.Ingredient>[] grid = new java.util.Optional[] {
-                java.util.Optional.of(ingredient), java.util.Optional.empty(), java.util.Optional.of(ingredient),
-                java.util.Optional.empty(), java.util.Optional.of(ingredient), java.util.Optional.empty(),
-                java.util.Optional.of(ingredient), java.util.Optional.empty(), java.util.Optional.of(ingredient)
+        Optional<net.momirealms.craftengine.core.item.recipe.Ingredient>[] grid = new Optional[] {
+                Optional.of(ingredient), Optional.empty(), Optional.of(ingredient),
+                Optional.empty(), Optional.of(ingredient), Optional.empty(),
+                Optional.of(ingredient), Optional.empty(), Optional.of(ingredient)
         };
-        var inputs = new java.util.ArrayList<mekcore.recipe.RecipeInput>();
-        var slots = new java.util.ArrayList<Integer>();
+        var inputs = new ArrayList<mekcore.recipe.RecipeInput>();
+        var slots = new ArrayList<Integer>();
         RecipeCatalog.shapedInputs(new net.momirealms.craftengine.core.item.recipe.CustomShapedRecipe.ParsedPattern(3, 3, grid), inputs, slots);
         check(slots.equals(List.of(10, 12, 20, 28, 30)), "shaped recipe holes and all three rows preserved");
         check(inputs.size() == 5, "repeated symbols count as separate grid ingredients");
@@ -160,11 +165,11 @@ public final class RecipeBrowserSelfTest {
                 List.of(RecipeOutput.item("test:shaped_result", 1)), 0, 0, false, "有序合成");
         var core = Recipe.builder("test:machine_source", "mek:crusher")
                 .output(RecipeOutput.item("minecraft:stone", 1)).build();
-        var all = new java.util.ArrayList<>(catalog.recipes);
+        var all = new ArrayList<>(catalog.recipes);
         all.add(shaped);
         all.add(core);
         all.addAll(MultiblockRecipeDisplays.recipes());
-        var model = new RecipeBrowserModel("全部配方", List.of(), all, java.util.Map.of(shaped.id(), slots), java.util.Map.of(), true);
+        var model = new RecipeBrowserModel("全部配方", List.of(), all, Map.of(shaped.id(), slots), Map.of(), true);
         check(model.screen().categoriesView() && model.screen().categories().contains("minecraft:stonecutting"), "global category entry includes stonecutter");
         int crafting = model.screen().categories().indexOf("minecraft:crafting");
         check(model.select(crafting, false) && model.screen().detailView() && model.screen().recipes().size() == 2,
@@ -201,7 +206,7 @@ public final class RecipeBrowserSelfTest {
 
     private static net.momirealms.craftengine.core.item.recipe.Ingredient externalIngredient() {
         var id = net.momirealms.craftengine.core.util.Key.of("minecraft:stone");
-        var keys = java.util.Set.of(net.momirealms.craftengine.core.util.UniqueKey.create(id));
+        var keys = Set.of(net.momirealms.craftengine.core.util.UniqueKey.create(id));
         return net.momirealms.craftengine.core.item.recipe.Ingredient.of(
                 List.of(net.momirealms.craftengine.core.item.recipe.IngredientElement.tag(
                         net.momirealms.craftengine.core.util.Key.of("minecraft:stone_crafting_materials"))), keys, keys, false, 3, null);
@@ -215,7 +220,7 @@ public final class RecipeBrowserSelfTest {
                 throw new AssertionError("catalog conversion must not build display items");
             }
         };
-        return (net.momirealms.craftengine.core.item.recipe.FixedResultRecipe) java.lang.reflect.Proxy.newProxyInstance(
+        return (net.momirealms.craftengine.core.item.recipe.FixedResultRecipe) Proxy.newProxyInstance(
                 RecipeBrowserSelfTest.class.getClassLoader(),
                 new Class<?>[] {net.momirealms.craftengine.core.item.recipe.FixedResultRecipe.class},
                 (proxy, method, args) -> switch (method.getName()) {

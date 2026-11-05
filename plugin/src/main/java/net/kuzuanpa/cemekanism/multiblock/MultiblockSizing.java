@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.multiblock;
 import mekcore.machine.MachineTier;
 import mekcore.spec.StorageProfile;
 import mekcore.spec.V10Tables;
+import net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic;
 
 /** 端口容量/速率的算法（文档 05 第七节第 4 条）：成型后按形状算，逻辑只读。 */
 public final class MultiblockSizing {
@@ -102,7 +103,7 @@ public final class MultiblockSizing {
 
     private static int fusionInjection(MultiblockHosts.Host host) {
         if (host.instance().blueprint().logic()
-                instanceof net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic fusion) {
+                instanceof FusionReactorLogic fusion) {
             return fusion.state(host.instance()).injectionRate;
         }
         return MultiblockConfig.fusionDefaultInjection();

@@ -37,10 +37,12 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.logging.Level;
 
 /**
  * Headless fixture for the complete currently registered content set.
@@ -100,7 +102,7 @@ final class ShowcaseCommand {
             BuildResult result = build(plugin, world, x, y, z);
             sender.sendMessage(result.summary());
         } catch (RuntimeException error) {
-            plugin.getLogger().log(java.util.logging.Level.SEVERE, "完整测试地图生成失败", error);
+            plugin.getLogger().log(Level.SEVERE, "完整测试地图生成失败", error);
             sender.sendMessage("完整测试地图生成失败：" + error.getMessage());
         }
     }
@@ -246,7 +248,7 @@ final class ShowcaseCommand {
 
     private static Count placeChemicalCatalog(CeMekanismPlugin plugin, World world, int x, int y, int z) {
         List<Chemical> chemicals = new ArrayList<>(Chemicals.registry().all());
-        Collections.sort(chemicals, java.util.Comparator.comparing(Chemical::id));
+        Collections.sort(chemicals, Comparator.comparing(Chemical::id));
         int placed = 0;
         for (int i = 0; i < chemicals.size(); i++) {
             Chemical chemical = chemicals.get(i);

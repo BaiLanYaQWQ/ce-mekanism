@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.inventory.ItemStack;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 
@@ -44,7 +45,7 @@ public final class QioService {
             Files.write(temporary, NBT.writeCompressed(tag, false));
             Files.move(temporary, target, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
             driveCache.put(uuid, new CachedDrive(tier, store));
-        } catch (java.io.IOException e) { throw new IllegalStateException("驱动器存档失败，操作中止", e); }
+        } catch (IOException e) { throw new IllegalStateException("驱动器存档失败，操作中止", e); }
     }
 
     private CountedStore readDrive(ItemStack item, DriveTier tier) {
@@ -58,7 +59,7 @@ public final class QioService {
             byte[] bytes = data.get(CONTENT, PersistentDataType.BYTE_ARRAY);
             if (uuid != null && Files.isRegularFile(drivePath(uuid))) {
                 try { bytes = Files.readAllBytes(drivePath(uuid)); }
-                catch (java.io.IOException e) { throw new IllegalStateException("无法读取 QIO 驱动器", e); }
+                catch (IOException e) { throw new IllegalStateException("无法读取 QIO 驱动器", e); }
             }
             if (bytes != null) store.load(new CompoundDataTag(NBT.readCompressed(bytes, false)));
             else if (uuid != null) throw new IllegalArgumentException("驱动器数据文件缺失：" + uuid);

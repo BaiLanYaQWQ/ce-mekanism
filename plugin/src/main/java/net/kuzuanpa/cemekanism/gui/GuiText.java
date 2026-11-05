@@ -7,6 +7,7 @@ import mekcore.machine.MachineSnapshot;
 import mekcore.resource.ResourceNames;
 import mekcore.resource.ResourceTypes;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.platform.ResourceColors;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -79,7 +80,7 @@ public final class GuiText {
             }
         }
         if (type.equals(ResourceTypes.FLUID)) {
-            Integer color = net.kuzuanpa.cemekanism.platform.ResourceColors.fluid(id);
+            Integer color = ResourceColors.fluid(id);
             if (color != null) {
                 return color;
             }

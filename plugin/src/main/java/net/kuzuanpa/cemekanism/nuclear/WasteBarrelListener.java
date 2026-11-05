@@ -15,6 +15,8 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import java.util.List;
+
 /** 废料桶被拆除时清空罐并把存量折算成一次辐射泄漏。 */
 public final class WasteBarrelListener implements Listener {
 
@@ -32,7 +34,7 @@ public final class WasteBarrelListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onExplode(EntityExplodeEvent event) {
-        for (org.bukkit.block.Block block : java.util.List.copyOf(event.blockList())) {
+        for (org.bukkit.block.Block block : List.copyOf(event.blockList())) {
             leak(block);
         }
     }

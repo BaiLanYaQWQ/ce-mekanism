@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.storage;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -36,7 +37,7 @@ public final class QioFrequencyGui implements InventoryHolder {
         else if (!portable(player.getInventory().getItemInMainHand())) throw new IllegalArgumentException("请手持便携式 QIO 仪表板");
     }
     private static boolean portable(ItemStack item) {
-        return !StoredItems.empty(item) && net.kuzuanpa.cemekanism.platform.BukkitItems.idOf(item).equals("mek:portable_qio_dashboard");
+        return !StoredItems.empty(item) && BukkitItems.idOf(item).equals("mek:portable_qio_dashboard");
     }
     private void refresh(Player player) {
         authorize(player); inventory.clear(); keys.clear();

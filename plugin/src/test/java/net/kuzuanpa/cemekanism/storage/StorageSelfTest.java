@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.storage;
 
 import mekcore.persist.MapDataTag;
 import java.util.HashSet;
+import java.util.List;
 
 public final class StorageSelfTest {
     private static int checks;
@@ -27,14 +28,14 @@ public final class StorageSelfTest {
         CountedStore a = new CountedStore(10, 1), b = new CountedStore(10, 1);
         a.insert("a", 1, true); b.insert("b", 1, true);
         check(a.insert("c", 1, false) + b.insert("c", 1, false) == 0, "aggregate drive types bypass per-drive type limit");
-        CountedStore merged = CountedStore.merge(20, 2, java.util.List.of(a, b));
+        CountedStore merged = CountedStore.merge(20, 2, List.of(a, b));
         check(merged.total() == 2 && merged.count("a") == 1 && merged.count("b") == 1, "drive upgrade lost one source");
-        try { CountedStore.merge(20, 1, java.util.List.of(a, b)); throw new AssertionError("combined type overflow accepted"); }
+        try { CountedStore.merge(20, 1, List.of(a, b)); throw new AssertionError("combined type overflow accepted"); }
         catch (IllegalArgumentException expected) { check(a.total() == 1 && b.total() == 1, "rejected upgrade mutated sources"); }
         CountedStore big = new CountedStore(8_000_000_000L, 1); big.insert("shared", 4_000_000_000L, true);
-        check(CountedStore.merge(16_000_000_000L, 1, java.util.List.of(big, big, big, big)).count("shared") == 16_000_000_000L,
+        check(CountedStore.merge(16_000_000_000L, 1, List.of(big, big, big, big)).count("shared") == 16_000_000_000L,
                 "four-drive same-type merge overflow");
-        try { CountedStore.merge(10, 1, java.util.List.of(big)); throw new AssertionError("combined capacity overflow accepted"); }
+        try { CountedStore.merge(10, 1, List.of(big)); throw new AssertionError("combined capacity overflow accepted"); }
         catch (IllegalArgumentException expected) { checks++; }
         var cursor = new MiningCursor(32, -64, -63, 0); var visited = new HashSet<MiningCursor.Offset>();
         while (!cursor.done()) { check(visited.add(cursor.current()), "scan revisited block"); cursor.advance(); }

@@ -8,9 +8,11 @@ import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.machine.logic.ResistiveHeaterLogic;
 import net.kuzuanpa.cemekanism.multiblock.*;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
+import net.kuzuanpa.cemekanism.platform.EnergyItems;
 import net.momirealms.craftengine.bukkit.api.*;
 import net.momirealms.craftengine.core.block.parser.BlockStateParser;
 import net.momirealms.craftengine.core.world.BlockPos;
@@ -21,6 +23,7 @@ import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
+import java.util.logging.Level;
 
 /** Explicit destructive acceptance fixture at dedicated coordinates. Exercises real CE entities and Paper item serialization. */
 public final class B5Acceptance {
@@ -44,7 +47,7 @@ public final class B5Acceptance {
             test.qio(); sender.sendMessage("B5 QIO："+test.checks+" 项通过");
             test.miner(); sender.sendMessage("B5 采矿机："+test.checks+" 项通过");
             test.pumpAndSorter(); test.heaterAndLaser(); sender.sendMessage("B5 与上游补全验收完成："+test.checks+" 项通过，位置 "+x+','+y+','+z);
-        } catch (RuntimeException e) { sender.sendMessage("B5 已通过 "+test.checks+" 项后中止："+e.getMessage()); plugin.getLogger().log(java.util.logging.Level.SEVERE,"B5 acceptance",e); }
+        } catch (RuntimeException e) { sender.sendMessage("B5 已通过 "+test.checks+" 项后中止："+e.getMessage()); plugin.getLogger().log(Level.SEVERE,"B5 acceptance",e); }
     }
     private void place(World w, int a, int b, int c, String state) {
         w.getChunkAt(a>>4,c>>4).setForceLoaded(true);
@@ -70,8 +73,8 @@ public final class B5Acceptance {
             check(energy.insert(ResourceStack.energy(Long.MAX_VALUE),Transaction.EXECUTE)==profile.ratePerTick(),"cube input rate");
             check(!cube.machine().needsTick(),"passive storage sleeps");
             ItemStack carried=BukkitItems.create(cube.blockId());
-            check(net.kuzuanpa.cemekanism.platform.EnergyItems.charge(carried,Long.MAX_VALUE)==profile.ratePerTick(),"carried cube shares tier rate");
-            check(net.kuzuanpa.cemekanism.platform.EnergyItems.stored(carried)==profile.ratePerTick(),"carried cube energy model");
+            check(EnergyItems.charge(carried,Long.MAX_VALUE)==profile.ratePerTick(),"carried cube shares tier rate");
+            check(EnergyItems.stored(carried)==profile.ratePerTick(),"carried cube energy model");
             CompoundTag root=new CompoundTag(); cube.saveCustomData(root); energy.drain(); cube.loadCustomData(root);
             check(energy.amount()==profile.ratePerTick(),"cube restart energy");
             for(String family:List.of("fluid_tank","chemical_tank")) {
@@ -226,7 +229,7 @@ public final class B5Acceptance {
     }
     private void heaterAndLaser() {
         var heater = machine(world, x + 40, y, z + 20, "mek:resistive_heater");
-        var logic = (net.kuzuanpa.cemekanism.machine.logic.ResistiveHeaterLogic) heater.machine().blueprint().logic();
+        var logic = (ResistiveHeaterLogic) heater.machine().blueprint().logic();
         logic.setUsage(heater.machine(), 10000); heater.machine().energyTank().orElseThrow().set(null, 150000);
         CompoundTag snapshot = new CompoundTag(); heater.saveCustomData(snapshot); logic.setUsage(heater.machine(), 250); heater.loadCustomData(snapshot);
         check(logic.usage(heater.machine()) == 10000 && heater.machine().energyTank().orElseThrow().amount() == 150000,

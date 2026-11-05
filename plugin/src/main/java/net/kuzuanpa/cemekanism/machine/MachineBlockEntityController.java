@@ -13,6 +13,7 @@ import mekcore.machine.WorkState;
 import mekcore.recipe.Recipe;
 import mekcore.sim.Tickable;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.gui.GuiComponents;
 import net.kuzuanpa.cemekanism.gui.GuiLayout;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
@@ -21,7 +22,13 @@ import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.BukkitItemHandler;
 import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
 import net.kuzuanpa.cemekanism.platform.CraftContainers;
+import net.kuzuanpa.cemekanism.storage.PersonalStorageLogic;
+import net.kuzuanpa.cemekanism.storage.QioDashboard;
+import net.kuzuanpa.cemekanism.storage.QioFrequencyGui;
+import net.kuzuanpa.cemekanism.storage.QioService;
 import net.kuzuanpa.cemekanism.storage.StorageContentRenderer;
+import net.kuzuanpa.cemekanism.storage.StorageListener;
+import net.kuzuanpa.cemekanism.storage.StorageRuntime;
 import net.momirealms.craftengine.bukkit.plugin.gui.BukkitInventory;
 import net.momirealms.craftengine.bukkit.world.inventory.BukkitWorldlyStorageContainer;
 import net.momirealms.craftengine.core.block.entity.BlockEntity;
@@ -38,6 +45,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -86,7 +94,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
         @Override
         public boolean needsTick() {
             refreshRedstone();
-            net.kuzuanpa.cemekanism.storage.StorageRuntime.sync(MachineBlockEntityController.this);
+            StorageRuntime.sync(MachineBlockEntityController.this);
             // 每趟调度都同步外观：休眠收尾、红石禁用及管道直接修改的储量也需要刷新。
             MachineBlockEntityController.this.activity.refresh();
             var m = MachineBlockEntityController.this.machine;
@@ -164,7 +172,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
                 this.handler);
         this.storageContents = new StorageContentRenderer(this);
         this.activity = new MachineActivityRenderer(this);
-        net.kuzuanpa.cemekanism.storage.StorageRuntime.resize(this.machine);
+        StorageRuntime.resize(this.machine);
         this.windRotor = blueprintId.equals("mek:wind_generator")
                 ? new WindRotorRenderer(this) : null;
         this.energyCore = this.blockId.endsWith("_energy_cube")
@@ -172,7 +180,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
         this.energyPorts = this.blockId.endsWith("_energy_cube")
                 ? new EnergyCubePortRenderer(this) : null;
         GeneratorDefaults.apply(this.machine, blueprintId, facing());
-        net.kuzuanpa.cemekanism.storage.StorageRuntime.defaults(this.machine, facing());
+        StorageRuntime.defaults(this.machine, facing());
         this.infuseSlot = this.handler.indexOf(InfusionFeeder.slotName());
         this.taskId = blueprintId + '@' + blockEntity.pos.x() + ',' + blockEntity.pos.y()
                 + ',' + blockEntity.pos.z();
@@ -353,19 +361,19 @@ public final class MachineBlockEntityController extends BlockEntityController {
         if (world != null) {
             this.plugin.radiation(world).containerOpened(bukkit, sourceMagnitude());
         }
-        if (net.kuzuanpa.cemekanism.storage.PersonalStorageLogic.isStorage(this.blockId)) {
+        if (PersonalStorageLogic.isStorage(this.blockId)) {
             bukkit.openInventory(this.inventory);
             return true;
         }
         if (this.blockId.equals("mek:qio_dashboard")) {
-            if (net.kuzuanpa.cemekanism.storage.QioService.state(this).frequency.isEmpty())
-                net.kuzuanpa.cemekanism.storage.QioFrequencyGui.open(this.plugin, this, bukkit, 0);
-            else net.kuzuanpa.cemekanism.storage.QioDashboard.open(this, bukkit, 0);
+            if (QioService.state(this).frequency.isEmpty())
+                QioFrequencyGui.open(this.plugin, this, bukkit, 0);
+            else QioDashboard.open(this, bukkit, 0);
             return true;
         }
         MachineGui.updateAnchors(this);
         new BukkitInventory(this.inventory).open(player,
-                net.kuzuanpa.cemekanism.gui.GuiComponents.toCe(MachineGui.title(this), player));
+                GuiComponents.toCe(MachineGui.title(this), player));
         this.plugin.guiSessions().open(bukkit, guiView());
         return true;
     }
@@ -387,7 +395,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
                 this.blockEntity.pos.z() + 0.5),
                 () -> MachineGui.title(this),
                 () -> MachineGui.updateAnchors(this),
-                () -> Integer.toHexString(java.util.Arrays.hashCode(this.inventory.getContents())),
+                () -> Integer.toHexString(Arrays.hashCode(this.inventory.getContents())),
                 () -> { });
     }
 
@@ -504,7 +512,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
             MachineContexts.attach(this.machine, new MachineContexts.Place(world,
                     this.blockEntity.pos.x(), this.blockEntity.pos.y(), this.blockEntity.pos.z()));
             // 机器挨着的管道要重绑端点、它的热量节点要进热网（文档 06 第十节）
-            net.kuzuanpa.cemekanism.storage.StorageRuntime.attach(this);
+            StorageRuntime.attach(this);
             this.plugin.logistics(world).attachMachine(this);
             this.plugin.radiation(world).register(this.taskId, x(), y(), z(), this::sourceMagnitude);
         }
@@ -548,7 +556,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
     public void onUnload() {
         World world = world();
         if (world != null) {
-            net.kuzuanpa.cemekanism.storage.StorageRuntime.detach(this);
+            StorageRuntime.detach(this);
             this.plugin.logistics(world).detachMachine(this);
             this.plugin.radiation(world).unregister(this.taskId);
         }
@@ -565,7 +573,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
         closeUpgradeInstallers();
         closeRecipeBrowsers();
         this.plugin.guiSessions().close(this.holder);
-        for (var viewer : java.util.List.copyOf(this.inventory.getViewers())) viewer.closeInventory();
+        for (var viewer : List.copyOf(this.inventory.getViewers())) viewer.closeInventory();
         unregister();
         MachineContexts.detach(this.machine);
     }
@@ -574,7 +582,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
     public void onRemove() {
         World world = world();
         if (world != null) {
-            net.kuzuanpa.cemekanism.storage.StorageRuntime.detach(this);
+            StorageRuntime.detach(this);
             this.plugin.logistics(world).detachMachine(this);
             this.plugin.radiation(world).unregister(this.taskId);
         }
@@ -590,9 +598,9 @@ public final class MachineBlockEntityController extends BlockEntityController {
         this.storageContents.remove();
         closeUpgradeInstallers();
         closeRecipeBrowsers();
-        net.kuzuanpa.cemekanism.storage.StorageListener.refundBuffer(this);
+        StorageListener.refundBuffer(this);
         this.plugin.guiSessions().close(this.holder);
-        for (var viewer : java.util.List.copyOf(this.inventory.getViewers())) viewer.closeInventory();
+        for (var viewer : List.copyOf(this.inventory.getViewers())) viewer.closeInventory();
         unregister();
         MachineContexts.detach(this.machine);
         if (world != null) {
@@ -763,11 +771,11 @@ public final class MachineBlockEntityController extends BlockEntityController {
         @Override
         public int[] getSlotsForFace(net.momirealms.craftengine.core.util.Direction direction) {
             SideMode mode = side(direction);
-            java.util.List<Integer> slots = new java.util.ArrayList<>();
+            List<Integer> slots = new ArrayList<>();
             for (int index = 0; index < this.controller.inventory.getSize(); index++) {
                 ItemSlotKind kind = this.controller.handler.kindAt(index);
                 if (kind == ItemSlotKind.INPUT && mode.allowsInsert()
-                        || (kind == ItemSlotKind.OUTPUT || net.kuzuanpa.cemekanism.storage.PersonalStorageLogic.isStorage(this.controller.blockId)) && mode.allowsExtract()) {
+                        || (kind == ItemSlotKind.OUTPUT || PersonalStorageLogic.isStorage(this.controller.blockId)) && mode.allowsExtract()) {
                     slots.add(index);
                 }
             }
@@ -785,7 +793,7 @@ public final class MachineBlockEntityController extends BlockEntityController {
         public boolean canTakeItemThroughFace(int slot, net.momirealms.craftengine.core.item.Item stack,
                                               net.momirealms.craftengine.core.util.Direction direction) {
             return (this.controller.handler.kindAt(slot) == ItemSlotKind.OUTPUT
-                    || net.kuzuanpa.cemekanism.storage.PersonalStorageLogic.isStorage(this.controller.blockId))
+                    || PersonalStorageLogic.isStorage(this.controller.blockId))
                     && side(direction).allowsExtract();
         }
 

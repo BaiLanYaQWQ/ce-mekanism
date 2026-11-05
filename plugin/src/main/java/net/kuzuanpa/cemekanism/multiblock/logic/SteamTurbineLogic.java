@@ -5,9 +5,11 @@ import mekcore.multiblock.MultiblockLogic;
 import mekcore.resource.ResourceStack;
 import mekcore.resource.Transaction;
 import mekcore.spec.SteamMath;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockContexts;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
+import net.kuzuanpa.cemekanism.multiblock.MultiblockResources;
 
 /**
  * 工业蒸汽涡轮：蒸汽 → 电。数值全在 {@link SteamMath}（可配），叶片数是"装在转子里的物品数"
@@ -15,7 +17,7 @@ import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
  */
 public final class SteamTurbineLogic implements MultiblockLogic {
     @Override public void configure(MultiblockInstance instance) {
-        net.kuzuanpa.cemekanism.multiblock.MultiblockResources.configure(instance);
+        MultiblockResources.configure(instance);
     }
 
 
@@ -24,15 +26,15 @@ public final class SteamTurbineLogic implements MultiblockLogic {
         MultiblockHosts.Host host = MultiblockContexts.hostOf(instance);
         // 上游 TurbineValidator 数的是"复杂旋钮下方连续的转子立柱"，不是整座结构的高度。
         int rotorHeight = Math.max(1, instance.shape().roleCount(
-                net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks.role("rotor")));
+                MultiblockBlocks.role("rotor")));
         int dispersers = instance.shape().roleCount(
-                net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks.role("disperser"));
+                MultiblockBlocks.role("disperser"));
         int vents = instance.shape().roleCount(
-                net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks.role("vent"));
+                MultiblockBlocks.role("vent"));
         long coils = instance.shape().roleCount(
-                net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks.role("coil"));
+                MultiblockBlocks.role("coil"));
         long condensers = instance.shape().roleCount(
-                net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks.role("condenser"));
+                MultiblockBlocks.role("condenser"));
         long blades = host == null ? 0 : host.blades();
         long usableBlades = Math.min(blades, coils * MultiblockConfig.turbineBladesPerCoil());
 

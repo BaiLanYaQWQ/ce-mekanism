@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.machine;
 import mekcore.item.ItemSlotKind;
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiLayout;
+import net.kuzuanpa.cemekanism.gui.MachineControls;
 import net.kuzuanpa.cemekanism.gui.MachineGui;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.platform.ResourceContainerItems;
@@ -67,7 +68,7 @@ public final class MachineContainerListener implements Listener {
                 });
                 return;
             }
-            if (net.kuzuanpa.cemekanism.gui.MachineControls.handles(controller, event.getRawSlot())) {
+            if (MachineControls.handles(controller, event.getRawSlot())) {
                 event.setCancelled(true);
                 if (event.getClick() != ClickType.LEFT && event.getClick() != ClickType.RIGHT
                         && event.getClick() != ClickType.SHIFT_LEFT && event.getClick() != ClickType.SHIFT_RIGHT) return;
@@ -76,7 +77,7 @@ public final class MachineContainerListener implements Listener {
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     if (player.getOpenInventory().getTopInventory() == controller.inventory()
                             && controller.registered() && controller.machine().canAccess(player.getUniqueId().toString())) {
-                        try { net.kuzuanpa.cemekanism.gui.MachineControls.click(controller, player, slot, shift, right); }
+                        try { MachineControls.click(controller, player, slot, shift, right); }
                         catch (IllegalArgumentException ex) { player.sendMessage(ex.getMessage()); }
                     }
                 });

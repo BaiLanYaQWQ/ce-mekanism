@@ -8,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /** Main-thread inventory transactions preserving Bukkit item metadata and machine side/security rules. */
 public record InventoryAccess(Inventory inventory, List<Integer> slots, Runnable changed) {
@@ -32,7 +33,7 @@ public record InventoryAccess(Inventory inventory, List<Integer> slots, Runnable
         // These containers expose every slot on every side. Other vanilla machines need their own sided policy.
         if (!(state instanceof Chest || state instanceof Barrel || state instanceof ShulkerBox || state instanceof Hopper)) return null;
         Inventory inventory = ((Container) state).getInventory();
-        return new InventoryAccess(inventory, java.util.stream.IntStream.range(0, inventory.getSize()).boxed().toList(), () -> { });
+        return new InventoryAccess(inventory, IntStream.range(0, inventory.getSize()).boxed().toList(), () -> { });
     }
     public int insert(ItemStack item, int request, boolean execute) {
         int remaining = request;

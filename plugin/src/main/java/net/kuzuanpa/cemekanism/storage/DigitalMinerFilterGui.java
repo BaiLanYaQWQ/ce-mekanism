@@ -4,6 +4,7 @@ import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.GuiText;
 import net.kuzuanpa.cemekanism.gui.DigitalMinerGui;
+import net.kuzuanpa.cemekanism.gui.MachineGui;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.momirealms.craftengine.bukkit.api.BukkitAdaptor;
@@ -247,7 +248,7 @@ public final class DigitalMinerFilterGui implements InventoryHolder {
         }
         controller.markChanged();
         refresh(player);
-        net.kuzuanpa.cemekanism.gui.MachineGui.updateAnchors(controller);
+        MachineGui.updateAnchors(controller);
     }
 
     public String ruleAt(int rawSlot) {

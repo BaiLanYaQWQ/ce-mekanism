@@ -27,6 +27,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.logging.Level;
 
 /** B6 实服验收：真实 CE 多方块、端口模式、反应堆状态往返与废料桶行为。 */
 public final class B6Acceptance {
@@ -69,7 +70,7 @@ public final class B6Acceptance {
                     + x + ',' + y + ',' + z);
         } catch (RuntimeException error) {
             sender.sendMessage("B6 已通过 " + test.checks + " 项后中止：" + error.getMessage());
-            plugin.getLogger().log(java.util.logging.Level.SEVERE, "B6 acceptance", error);
+            plugin.getLogger().log(Level.SEVERE, "B6 acceptance", error);
         }
     }
 

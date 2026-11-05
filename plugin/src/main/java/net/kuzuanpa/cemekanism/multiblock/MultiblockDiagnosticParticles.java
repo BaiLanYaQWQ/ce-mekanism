@@ -7,6 +7,7 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -68,7 +69,7 @@ public final class MultiblockDiagnosticParticles extends BukkitRunnable {
         cuboid(box.originX(), box.originY(), box.originZ(), box.sizeX(), box.sizeY(), box.sizeZ(), OUTLINE, true);
         // Limit dense failures to the nearest 12 cells; the full report remains available by command.
         Location eye = player.getEyeLocation();
-        hint.markers().stream().sorted(java.util.Comparator.comparingDouble(marker -> {
+        hint.markers().stream().sorted(Comparator.comparingDouble(marker -> {
             var p = marker.position();
             double dx = box.originX() + p.x() + .5 - eye.getX();
             double dy = box.originY() + p.y() + .5 - eye.getY();

@@ -71,7 +71,7 @@ public final class ChargepadLogic implements MachineLogic {
             return List.of();
         }
         World world = place.world();
-        return java.util.List.copyOf(world.getNearbyPlayers(new org.bukkit.Location(world,
+        return List.copyOf(world.getNearbyPlayers(new org.bukkit.Location(world,
                 place.x() + 0.5, place.y() + 0.2, place.z() + 0.5), 0.9));
     }
 }

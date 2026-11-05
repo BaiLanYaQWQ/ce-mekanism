@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
+import java.util.stream.IntStream;
 
 /** Player and headless entry points use the same storage engines and access checks. */
 public final class StorageCommand {
@@ -163,7 +164,7 @@ public final class StorageCommand {
                     } else if (args[5].equals("take")) {
                         if (!(sender instanceof Player p)) throw new IllegalArgumentException("取盘需要玩家接收");
                         ItemStack item = c.slotContent(name); if (StoredItems.empty(item)) return;
-                        InventoryAccess target = new InventoryAccess(p.getInventory(), java.util.stream.IntStream.range(0,36).boxed().toList(), () -> { });
+                        InventoryAccess target = new InventoryAccess(p.getInventory(), IntStream.range(0,36).boxed().toList(), () -> { });
                         if (target.insert(item, 1, false) == 0) throw new IllegalArgumentException("背包已满");
                         target.insert(item, 1, true); c.putInSlot(name, null);
                     } else throw new IllegalArgumentException("驱动器操作：put/take");

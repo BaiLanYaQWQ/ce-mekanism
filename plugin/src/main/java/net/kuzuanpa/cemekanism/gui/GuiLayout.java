@@ -509,7 +509,7 @@ public final class GuiLayout {
     private static FactoryCells factoryCells(MachineSnapshot snapshot, int parallel) {
         Map<String, Cell> cells = new LinkedHashMap<>();
         int extraCol = 2;
-        java.util.Map<Integer, Integer> inputCounts = new LinkedHashMap<>();
+        Map<Integer, Integer> inputCounts = new LinkedHashMap<>();
         for (ItemSlotView slot : snapshot.itemSlots()) {
             if (slot.group() >= 0) {
                 if (slot.kind() == ItemSlotKind.OUTPUT) {

@@ -1,6 +1,7 @@
 package net.kuzuanpa.cemekanism.transmitter;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.platform.ResourceColors;
 import net.kuzuanpa.cemekanism.platform.SectionDataTag;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -104,7 +105,7 @@ public final class LogisticsConfig {
         if (id == null) return fluidContentsFallbackColor;
         Integer configured = fluidContentsColors.get(id);
         if (configured != null) return configured;
-        Integer chemical = net.kuzuanpa.cemekanism.platform.ResourceColors.fluid(id);
+        Integer chemical = ResourceColors.fluid(id);
         return chemical == null ? fluidContentsFallbackColor : chemical;
     }
 

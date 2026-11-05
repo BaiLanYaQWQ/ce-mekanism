@@ -1,9 +1,11 @@
 package net.kuzuanpa.cemekanism.multiblock;
 
 import net.kuzuanpa.cemekanism.CeMekanismPlugin;
+import net.kuzuanpa.cemekanism.gui.GuiComponents;
 import net.kuzuanpa.cemekanism.gui.GuiSessions;
 import net.kuzuanpa.cemekanism.gui.GuiLayout;
 import net.kuzuanpa.cemekanism.gui.MultiblockGui;
+import net.kuzuanpa.cemekanism.machine.RecipeBrowserGui;
 import net.kuzuanpa.cemekanism.platform.CompoundDataTag;
 import net.momirealms.craftengine.bukkit.plugin.gui.BukkitInventory;
 import net.momirealms.craftengine.core.block.entity.BlockEntity;
@@ -16,7 +18,12 @@ import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 锚点方块实体：只做四件事——认领/释放自己那座结构的 host、存档"尺寸 + 原点"、把端口存量接回来、
@@ -37,9 +44,9 @@ public final class MultiblockBlockEntityController extends BlockEntityController
     private int[] recordedSize;
     private CompoundTag pendingState;
     private boolean loaded;
-    private final java.util.List<net.kuzuanpa.cemekanism.machine.RecipeBrowserGui> recipeBrowsers = new java.util.ArrayList<>();
-    private final java.util.Set<GuiHolder> guiHolders =
-            java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+    private final List<RecipeBrowserGui> recipeBrowsers = new ArrayList<>();
+    private final Set<GuiHolder> guiHolders =
+            Collections.newSetFromMap(new IdentityHashMap<>());
 
     public MultiblockBlockEntityController(BlockEntity blockEntity, CeMekanismPlugin plugin) {
         super(blockEntity);
@@ -55,12 +62,12 @@ public final class MultiblockBlockEntityController extends BlockEntityController
 
     public void openRecipeBrowser(org.bukkit.entity.Player player) {
         if (this.host == null || !this.host.formed()) return;
-        var gui = net.kuzuanpa.cemekanism.machine.RecipeBrowserGui.create(this);
+        var gui = RecipeBrowserGui.create(this);
         this.recipeBrowsers.add(gui);
         gui.open(player);
     }
 
-    public void forgetRecipeBrowser(net.kuzuanpa.cemekanism.machine.RecipeBrowserGui gui) {
+    public void forgetRecipeBrowser(RecipeBrowserGui gui) {
         this.recipeBrowsers.remove(gui);
     }
 
@@ -121,13 +128,13 @@ public final class MultiblockBlockEntityController extends BlockEntityController
         MultiblockDiagnosticParticles.clear(player);
         this.guiHolders.add(holder);
         new BukkitInventory(inventory).open(cePlayer,
-                net.kuzuanpa.cemekanism.gui.GuiComponents.toCe(MultiblockGui.title(current), cePlayer));
+                GuiComponents.toCe(MultiblockGui.title(current), cePlayer));
         Location at = new Location(world(), this.blockEntity.pos.x() + 0.5,
                 this.blockEntity.pos.y() + 0.5, this.blockEntity.pos.z() + 0.5);
         this.plugin.guiSessions().open(player, new GuiSessions.View(holder, inventory, at,
                 () -> MultiblockGui.title(current, holder.page()),
                 () -> MultiblockGui.updateAnchors(current, inventory, holder.page()),
-                () -> Integer.toHexString(java.util.Arrays.hashCode(inventory.getContents())),
+                () -> Integer.toHexString(Arrays.hashCode(inventory.getContents())),
                 () -> this.guiHolders.remove(holder),
                 () -> this.host == current && current.formed()));
         if (!setThisToTrueIfPremiumAndPleaseSupportMe) {
@@ -139,9 +146,9 @@ public final class MultiblockBlockEntityController extends BlockEntityController
     }
 
     private void closeGui() {
-        for (var browser : java.util.List.copyOf(this.recipeBrowsers)) browser.closeViewers();
+        for (var browser : List.copyOf(this.recipeBrowsers)) browser.closeViewers();
         this.recipeBrowsers.clear();
-        for (GuiHolder holder : new java.util.ArrayList<>(this.guiHolders)) {
+        for (GuiHolder holder : new ArrayList<>(this.guiHolders)) {
             this.plugin.guiSessions().close(holder);
         }
         this.guiHolders.clear();

@@ -15,6 +15,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.inventory.*;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.stream.IntStream;
+
 /** Storage block drops carry their complete state; removable QIO disks already carry their own data. */
 public final class StorageListener implements Listener {
     static final NamespacedKey MACHINE = new NamespacedKey("cemekanism", "stored_machine");
@@ -118,9 +120,9 @@ public final class StorageListener implements Listener {
         if (e.getClick() != ClickType.LEFT && e.getClick() != ClickType.RIGHT
                 && e.getClick() != ClickType.SHIFT_LEFT && e.getClick() != ClickType.SHIFT_RIGHT) return;
         try {
-            InventoryAccess target = new InventoryAccess(player.getInventory(), java.util.stream.IntStream.range(0, 36).boxed().toList(), () -> { });
+            InventoryAccess target = new InventoryAccess(player.getInventory(), IntStream.range(0, 36).boxed().toList(), () -> { });
             // Upgraded drives have unique data and need an empty slot, even if the preview looks stackable.
-            if (e.isShiftClick() && java.util.stream.IntStream.range(0, 36).noneMatch(i -> StoredItems.empty(player.getInventory().getItem(i)))) return;
+            if (e.isShiftClick() && IntStream.range(0, 36).noneMatch(i -> StoredItems.empty(player.getInventory().getItem(i)))) return;
             ItemStack[] matrix = e.getInventory().getMatrix();
             ItemStack upgraded = plugin.qio().mergeDrives(result, matrix, true);
             for (int i = 0; i < matrix.length; i++) if (!StoredItems.empty(matrix[i])) {

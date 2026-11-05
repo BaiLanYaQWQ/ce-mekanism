@@ -6,10 +6,13 @@ import mekcore.resource.ResourceTypes;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockBlocks;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockConfig;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
+import net.kuzuanpa.cemekanism.multiblock.TeleporterFrequencyGui;
 import net.kuzuanpa.cemekanism.multiblock.logic.FissionReactorLogic;
 import net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic;
 import net.kuzuanpa.cemekanism.multiblock.logic.HohlraumItems;
 import net.kuzuanpa.cemekanism.multiblock.logic.SpsLogic;
+import net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic;
+import net.kuzuanpa.cemekanism.platform.BukkitItems;
 import net.kuzuanpa.cemekanism.platform.ResourceContainerItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
 /** 多方块分页：面板、端口顺序、柱形和全部悬停格都来自生成的 GUI 计划。 */
 public final class MultiblockGui {
@@ -127,7 +131,7 @@ public final class MultiblockGui {
 
     private static void controls(MultiblockHosts.Host host, String page, ItemStack[] contents) {
         var instance = host.instance();
-        if (instance.blueprint().logic() instanceof net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic teleporter) {
+        if (instance.blueprint().logic() instanceof TeleporterLogic teleporter) {
             String frequency = teleporter.state(instance).frequency;
             contents[40] = button("mek:gui_mb_operation", "传送频率：" + (frequency.isEmpty() ? "未绑定" : frequency),
                     List.of("左键选择频率，右键解除绑定"));
@@ -190,10 +194,10 @@ public final class MultiblockGui {
             }
         }
         String page = currentPage.key();
-        if (instance.blueprint().logic() instanceof net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic teleporter) {
+        if (instance.blueprint().logic() instanceof TeleporterLogic teleporter) {
             if (raw == 40 && !shift) {
                 if (right) teleporter.bind(host, "");
-                else net.kuzuanpa.cemekanism.multiblock.TeleporterFrequencyGui.open(host, player);
+                else TeleporterFrequencyGui.open(host, player);
             }
         } else if (instance.blueprint().logic() instanceof FusionReactorLogic fusion) {
             if (raw == 42 && ("fuel".equals(page) || "stats".equals(page))) {
@@ -246,7 +250,7 @@ public final class MultiblockGui {
         var instance = host.instance();
         lines.add("尺寸：" + instance.sizeX() + " × " + instance.sizeY() + " × " + instance.sizeZ());
         for (String role : host.def().roleBlocks().keySet()) {
-            if (java.util.Set.of("frame", "glass", "valve", "heated_valve", "cooled_valve", "port",
+            if (Set.of("frame", "glass", "valve", "heated_valve", "cooled_valve", "port",
                     "controller", "logic_adapter", "laser_focus").contains(role)) continue;
             int count = instance.shape().roleCount(MultiblockBlocks.role(role));
             if (count > 0) {
@@ -262,7 +266,7 @@ public final class MultiblockGui {
     private static List<String> operationInfo(MultiblockHosts.Host host, String page) {
         List<String> lines = new ArrayList<>();
         var instance = host.instance();
-        if (instance.blueprint().logic() instanceof net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic teleporter) {
+        if (instance.blueprint().logic() instanceof TeleporterLogic teleporter) {
             lines.add(teleporter.status(host));
         }
         if (instance.heatNode() != null) {
@@ -291,7 +295,7 @@ public final class MultiblockGui {
 
     private static ItemStack button(String id, String name, List<String> lore) {
         // 导航不受 anchor_tooltips 开关控制；关闭数值提示仍必须能切换页面。
-        ItemStack stack = net.kuzuanpa.cemekanism.platform.BukkitItems.create(id);
+        ItemStack stack = BukkitItems.create(id);
         if (stack == null) {
             stack = new ItemStack(Material.PAPER);
         }

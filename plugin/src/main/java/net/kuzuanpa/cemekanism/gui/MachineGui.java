@@ -2,6 +2,7 @@ package net.kuzuanpa.cemekanism.gui;
 
 import mekcore.machine.MachineSnapshot;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.storage.DigitalMinerLogic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.inventory.ItemStack;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /** 单机/工厂的界面：面板字形 + 能量/流体/进度条字形 + 顶部一行状态文字。 */
 public final class MachineGui {
@@ -17,7 +19,7 @@ public final class MachineGui {
     }
 
     public static Component title(MachineBlockEntityController controller) {
-        if (controller.machine().blueprint().logic() instanceof net.kuzuanpa.cemekanism.storage.DigitalMinerLogic) {
+        if (controller.machine().blueprint().logic() instanceof DigitalMinerLogic) {
             return DigitalMinerGui.title(controller);
         }
         MachineSnapshot snapshot = controller.machine().snapshot();
@@ -123,7 +125,7 @@ public final class MachineGui {
                 controller.machine().factoryTier(), controller.blockId());
         ItemStack placeholder = GuiText.placeholder();
         ItemStack invisible = GuiText.invisiblePlaceholder();
-        boolean miner = controller.machine().blueprint().logic() instanceof net.kuzuanpa.cemekanism.storage.DigitalMinerLogic;
+        boolean miner = controller.machine().blueprint().logic() instanceof DigitalMinerLogic;
         for (int index = 0; index < controller.inventory().getSize(); index++) {
             if (controller.handler().kindAt(index) == null) {
                 setIfChanged(controller, index,
@@ -161,7 +163,7 @@ public final class MachineGui {
     private static void setIfChanged(MachineBlockEntityController controller, int index, ItemStack stack) {
         ItemStack current = controller.inventory().getItem(index);
         ItemStack next = stack == null ? null : stack.clone();
-        if (java.util.Objects.equals(current, next)) {
+        if (Objects.equals(current, next)) {
             return;
         }
         controller.inventory().setItem(index, next);

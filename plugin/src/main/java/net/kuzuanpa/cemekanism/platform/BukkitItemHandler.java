@@ -7,6 +7,7 @@ import mekcore.item.ItemSlotKind;
 import mekcore.item.ItemSlotSpec;
 import mekcore.item.ItemSlotView;
 import mekcore.resource.Transaction;
+import net.kuzuanpa.cemekanism.storage.PersonalStorageLogic;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -194,7 +195,7 @@ public final class BukkitItemHandler implements ItemHandler {
     public ItemRef extractCandidate(Predicate<ItemRef> accepted) {
         for (Slot slot : this.slots) {
             ItemStack stack = content(slot);
-            if ((slot.kind == ItemSlotKind.OUTPUT || net.kuzuanpa.cemekanism.storage.PersonalStorageLogic.isStorage(this.id)) && stack != null) {
+            if ((slot.kind == ItemSlotKind.OUTPUT || PersonalStorageLogic.isStorage(this.id)) && stack != null) {
                 ItemRef candidate = ref(stack);
                 if (accepted.test(candidate)) {
                     return candidate;
@@ -213,7 +214,7 @@ public final class BukkitItemHandler implements ItemHandler {
                 break;
             }
             ItemStack stack = content(slot);
-            if ((slot.kind != ItemSlotKind.OUTPUT && !net.kuzuanpa.cemekanism.storage.PersonalStorageLogic.isStorage(this.id)) || stack == null || !sameContent(stack, wanted)) {
+            if ((slot.kind != ItemSlotKind.OUTPUT && !PersonalStorageLogic.isStorage(this.id)) || stack == null || !sameContent(stack, wanted)) {
                 continue;
             }
             long taken = Math.min(left, stack.getAmount());

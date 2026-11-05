@@ -26,6 +26,9 @@ import net.kuzuanpa.cemekanism.CeMekanismPlugin;
 import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockHosts;
+import net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic;
+import net.kuzuanpa.cemekanism.platform.BukkitItems;
+import net.kuzuanpa.cemekanism.storage.PassiveStorageLogic;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.block.ImmutableBlockState;
 import org.bukkit.World;
@@ -34,8 +37,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.LongSupplier;
 
 /**
  * 一个世界的物流（文档 06）：四条网络 + 电网 + 端点对账。
@@ -57,7 +62,7 @@ public final class Logistics {
         SOURCE, CONSUMER, STORE
     }
 
-    private record MachineLink(String id, Machine machine, LinkKind kind, java.util.function.LongSupplier demand, boolean charge, boolean discharge) implements EnergyLink {
+    private record MachineLink(String id, Machine machine, LinkKind kind, LongSupplier demand, boolean charge, boolean discharge) implements EnergyLink {
         @Override
         public void attach(EnergyGrid grid) {
             switch (this.kind) {
@@ -320,7 +325,7 @@ public final class Logistics {
             // A removed physical transporter refunds its real payload before discarding its buffer.
             for (var ref : controller.itemNode().buffer()) {
                 org.bukkit.inventory.ItemStack item = ref.payload() instanceof org.bukkit.inventory.ItemStack payload
-                        ? payload.clone() : net.kuzuanpa.cemekanism.platform.BukkitItems.create(ref.id());
+                        ? payload.clone() : BukkitItems.create(ref.id());
                 if (item != null) {
                     long left = ref.amount();
                     while (left > 0) {
@@ -464,7 +469,7 @@ public final class Logistics {
                 || colour >= 0 && pipe.itemNode().channel() != colour) return 0;
         org.bukkit.inventory.ItemStack one = item.clone(); one.setAmount(1);
         int inserted = (int) pipe.itemNode().insert(mekcore.item.ItemRef.withPayload(
-                net.kuzuanpa.cemekanism.platform.BukkitItems.idOf(item), amount, one));
+                BukkitItems.idOf(item), amount, one));
         if (inserted > 0) pipe.markChanged();
         return inserted;
     }
@@ -604,7 +609,7 @@ public final class Logistics {
         }
         Machine machine = neighbour.machine();
         Direction back = direction.opposite();
-        if (net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic.ID.equals(machine.blueprint().id())
+        if (WasteBarrelLogic.ID.equals(machine.blueprint().id())
                 && back != Direction.UP && back != Direction.DOWN) {
             return;
         }
@@ -622,7 +627,7 @@ public final class Logistics {
                 String id = endpointId(owner, port, mode);
                 // Buffers receive surplus after consumers, avoiding self-refill through two side views.
                 int priority = mode == PortMode.PUSH && machine.blueprint().logic()
-                        instanceof net.kuzuanpa.cemekanism.storage.PassiveStorageLogic ? 100 : 0;
+                        instanceof PassiveStorageLogic ? 100 : 0;
                 fresh.put(id, NetworkEndpoint.of(id, handler, mode).withPriority(priority));
             }
         }
@@ -961,7 +966,7 @@ public final class Logistics {
     public synchronized String playerSummary(TransmitterBlockEntityController controller) {
         String title = controller.def().zh();
         if (controller.heat()) {
-            return title + " · " + String.format(java.util.Locale.ROOT, "%.1f K", controller.heatNode().temperatureK())
+            return title + " · " + String.format(Locale.ROOT, "%.1f K", controller.heatNode().temperatureK())
                     + " · 相邻连接 " + this.heatPartners.getOrDefault(controller.key(), Set.of()).size();
         }
         if (controller.itemPipe()) {
