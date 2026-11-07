@@ -345,6 +345,20 @@ recipes:
     result:
       id: mek:crafting_formula
       count: 1
+  mek:crusher:
+    type: shaped
+    pattern:
+      - RCR
+      - BXB
+      - RCR
+    ingredients:
+      B: minecraft:lava_bucket
+      C: '#mek:circuits/basic'
+      R: minecraft:redstone
+      X: mek:steel_casing
+    result:
+      id: mek:crusher
+      count: 1
   mek:dictionary:
     type: shaped
     pattern:

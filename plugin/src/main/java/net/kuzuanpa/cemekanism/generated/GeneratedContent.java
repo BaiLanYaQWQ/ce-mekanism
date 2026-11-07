@@ -30,35 +30,7 @@ import mekcore.recipe.RecipeOutput;
 import mekcore.resource.ResourceStack;
 import mekcore.resource.ResourceTypes;
 import mekcore.upgrade.Upgrades;
-import net.kuzuanpa.cemekanism.machine.SunlightGate;
-import net.kuzuanpa.cemekanism.machine.logic.BioGeneratorLogic;
-import net.kuzuanpa.cemekanism.machine.logic.ChargepadLogic;
-import net.kuzuanpa.cemekanism.machine.logic.FuelwoodHeaterLogic;
-import net.kuzuanpa.cemekanism.machine.logic.GasGeneratorLogic;
-import net.kuzuanpa.cemekanism.machine.logic.HeatGeneratorLogic;
-import net.kuzuanpa.cemekanism.machine.logic.LaserAmplifierLogic;
-import net.kuzuanpa.cemekanism.machine.logic.LaserLogic;
-import net.kuzuanpa.cemekanism.machine.logic.ResistiveHeaterLogic;
-import net.kuzuanpa.cemekanism.machine.logic.SolarGeneratorLogic;
-import net.kuzuanpa.cemekanism.machine.logic.WindGeneratorLogic;
 import net.kuzuanpa.cemekanism.multiblock.MultiblockDef;
-import net.kuzuanpa.cemekanism.multiblock.logic.BoilerLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.DynamicTankLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.EvaporationLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.FissionReactorLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.InductionMatrixLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.SpsLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.SteamTurbineLogic;
-import net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic;
-import net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic;
-import net.kuzuanpa.cemekanism.storage.BinLogic;
-import net.kuzuanpa.cemekanism.storage.DigitalMinerLogic;
-import net.kuzuanpa.cemekanism.storage.PassiveStorageLogic;
-import net.kuzuanpa.cemekanism.storage.PersonalStorageLogic;
-import net.kuzuanpa.cemekanism.storage.PumpLogic;
-import net.kuzuanpa.cemekanism.storage.QioLogic;
-import net.kuzuanpa.cemekanism.storage.SorterLogic;
 import net.kuzuanpa.cemekanism.transmitter.TransmitterDef;
 
 public final class GeneratedContent {
@@ -198,35 +170,35 @@ public final class GeneratedContent {
         r.machine(MachineBlueprint.builder("mek:advanced_bin", "高级箱柜")
                 .itemSlots(ItemSlotSpec.input("in"), ItemSlotSpec.output("out"))
                 .noUpgrades()
-                .logic(new BinLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.BinLogic())
                 .build());
         // mek:advanced_bin：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:advanced_chemical_tank", "高级化学品储罐")
                 .itemSlots()
                 .chemicalTank("stored", 256000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:advanced_chemical_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:advanced_energy_cube", "高级基础能量立方")
                 .energyBuffer(16000000L)   // 上游 GeneratorsStorageConfig；产出由逻辑写入这个缓存
                 .itemSlots()
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:advanced_energy_cube：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:advanced_fluid_tank", "高级流体储罐")
                 .itemSlots()
                 .fluidTank("stored", 64000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:advanced_fluid_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:advanced_solar_generator", "高级太阳能发电机")
                 .energyBuffer(200000L)   // 上游 GeneratorsStorageConfig；产出由逻辑写入这个缓存
                 .itemSlots()
                 .upgrades(Upgrades.MUFFLING)
-                .logic(new SolarGeneratorLogic(true))
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.SolarGeneratorLogic(true))
                 .build());
         // mek:advanced_solar_generator：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:antiprotonic_nucleosynthesizer", "反质子核合成器")
@@ -238,28 +210,28 @@ public final class GeneratedContent {
         r.machine(MachineBlueprint.builder("mek:basic_bin", "基础箱柜")
                 .itemSlots(ItemSlotSpec.input("in"), ItemSlotSpec.output("out"))
                 .noUpgrades()
-                .logic(new BinLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.BinLogic())
                 .build());
         // mek:basic_bin：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:basic_chemical_tank", "基础化学品储罐")
                 .itemSlots()
                 .chemicalTank("stored", 64000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:basic_chemical_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:basic_energy_cube", "基础基础能量立方")
                 .energyBuffer(4000000L)   // 上游 GeneratorsStorageConfig；产出由逻辑写入这个缓存
                 .itemSlots()
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:basic_energy_cube：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:basic_fluid_tank", "基础流体储罐")
                 .itemSlots()
                 .fluidTank("stored", 32000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:basic_fluid_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:bio_generator", "生物能发电机")
@@ -267,14 +239,14 @@ public final class GeneratedContent {
                 .itemSlots(ItemSlotSpec.input("fuel"))
                 .fluidTank("biofuel", 24000L)
                 .upgrades(Upgrades.MUFFLING)
-                .logic(new BioGeneratorLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.BioGeneratorLogic())
                 .build());
         // mek:bio_generator：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:chargepad", "充电台")
                 .energy(1024L, 16384L)   // 上游 UsageConfig.chargePad（J/t；1 FE = 2.5 J）；上游 AttributeEnergy.STORAGE_MULTIPLIER × 单刻耗能（4×）；项目机器缓存倍率 ×4
                 .itemSlots()
                 .noUpgrades()
-                .logic(new ChargepadLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.ChargepadLogic())
                 .build());
         // mek:chargepad：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:chemical_crystallizer", "化学结晶器")
@@ -336,7 +308,7 @@ public final class GeneratedContent {
                 .energy(40L, 200000L)   // 上游 UsageConfig.digitalMiner（J/t；1 FE = 2.5 J）；curation.yml 指定基础缓存；项目机器缓存倍率 ×4
                 .itemSlots(ItemSlotSpec.input("replace"), ItemSlotSpec.output("out"))
                 .upgrades(Upgrades.ANCHOR, Upgrades.ENERGY, Upgrades.SPEED)
-                .logic(new DigitalMinerLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.DigitalMinerLogic())
                 .build());
         // mek:digital_miner：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:electric_pump", "电动泵")
@@ -344,7 +316,7 @@ public final class GeneratedContent {
                 .itemSlots()
                 .outputTank("fluid", ResourceTypes.FLUID, 10000L)
                 .upgrades(Upgrades.ENERGY, Upgrades.FILTER, Upgrades.SPEED)
-                .logic(new PumpLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PumpLogic())
                 .build());
         // mek:electric_pump：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:electrolytic_separator", "电解分离器")
@@ -360,28 +332,28 @@ public final class GeneratedContent {
         r.machine(MachineBlueprint.builder("mek:elite_bin", "精英箱柜")
                 .itemSlots(ItemSlotSpec.input("in"), ItemSlotSpec.output("out"))
                 .noUpgrades()
-                .logic(new BinLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.BinLogic())
                 .build());
         // mek:elite_bin：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:elite_chemical_tank", "精英化学品储罐")
                 .itemSlots()
                 .chemicalTank("stored", 1024000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:elite_chemical_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:elite_energy_cube", "精英基础能量立方")
                 .energyBuffer(64000000L)   // 上游 GeneratorsStorageConfig；产出由逻辑写入这个缓存
                 .itemSlots()
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:elite_energy_cube：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:elite_fluid_tank", "精英流体储罐")
                 .itemSlots()
                 .fluidTank("stored", 128000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:elite_fluid_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:energized_smelter", "电力熔炼炉")
@@ -400,7 +372,7 @@ public final class GeneratedContent {
                 .heat(new HeatSpec(0.1, 3000.0, 0.0))   // 发电机自身温度（热力发电机用；逻辑按条件加/减热）
                 .itemSlots(ItemSlotSpec.input("fuel"))
                 .noUpgrades()
-                .logic(new FuelwoodHeaterLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.FuelwoodHeaterLogic())
                 .build());
         // mek:fuelwood_heater：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:gas_burning_generator", "燃气发电机")
@@ -408,7 +380,7 @@ public final class GeneratedContent {
                 .itemSlots()
                 .inputTank("fuel", ResourceTypes.CHEMICAL, 18000L)
                 .upgrades(Upgrades.MUFFLING)
-                .logic(new GasGeneratorLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.GasGeneratorLogic())
                 .build());
         // mek:gas_burning_generator：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:heat_generator", "热力发电机")
@@ -417,7 +389,7 @@ public final class GeneratedContent {
                 .itemSlots(ItemSlotSpec.input("fuel"))
                 .inputTank("lava", ResourceTypes.FLUID, 24000L)
                 .upgrades(Upgrades.MUFFLING)
-                .logic(new HeatGeneratorLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.HeatGeneratorLogic())
                 .build());
         // mek:heat_generator：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:isotopic_centrifuge", "同位素离心机")
@@ -432,20 +404,20 @@ public final class GeneratedContent {
                 .energy(20L, 320L)   // 上游 UsageConfig.laser（J/t；1 FE = 2.5 J）；上游 AttributeEnergy.STORAGE_MULTIPLIER × 单刻耗能（4×）；项目机器缓存倍率 ×4
                 .itemSlots()
                 .noUpgrades()
-                .logic(new LaserLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.LaserLogic())
                 .build());
         // mek:laser：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:laser_amplifier", "激光增幅器")
                 .energy(0L, 20000000L)   // ；curation.yml 指定基础缓存；项目机器缓存倍率 ×4
                 .itemSlots()
                 .noUpgrades()
-                .logic(new LaserAmplifierLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.LaserAmplifierLogic())
                 .build());
         // mek:laser_amplifier：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:logistical_sorter", "物流分类机")
                 .itemSlots()
                 .noUpgrades()
-                .logic(new SorterLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.SorterLogic())
                 .build());
         // mek:logistical_sorter：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:metallurgic_infuser", "冶金灌注机")
@@ -472,13 +444,13 @@ public final class GeneratedContent {
         r.machine(MachineBlueprint.builder("mek:personal_barrel", "私人桶")
                 .itemSlots(ItemSlotSpec.input("storage0"), ItemSlotSpec.input("storage1"), ItemSlotSpec.input("storage2"), ItemSlotSpec.input("storage3"), ItemSlotSpec.input("storage4"), ItemSlotSpec.input("storage5"), ItemSlotSpec.input("storage6"), ItemSlotSpec.input("storage7"), ItemSlotSpec.input("storage8"), ItemSlotSpec.input("storage9"), ItemSlotSpec.input("storage10"), ItemSlotSpec.input("storage11"), ItemSlotSpec.input("storage12"), ItemSlotSpec.input("storage13"), ItemSlotSpec.input("storage14"), ItemSlotSpec.input("storage15"), ItemSlotSpec.input("storage16"), ItemSlotSpec.input("storage17"), ItemSlotSpec.input("storage18"), ItemSlotSpec.input("storage19"), ItemSlotSpec.input("storage20"), ItemSlotSpec.input("storage21"), ItemSlotSpec.input("storage22"), ItemSlotSpec.input("storage23"), ItemSlotSpec.input("storage24"), ItemSlotSpec.input("storage25"), ItemSlotSpec.input("storage26"), ItemSlotSpec.input("storage27"), ItemSlotSpec.input("storage28"), ItemSlotSpec.input("storage29"), ItemSlotSpec.input("storage30"), ItemSlotSpec.input("storage31"), ItemSlotSpec.input("storage32"), ItemSlotSpec.input("storage33"), ItemSlotSpec.input("storage34"), ItemSlotSpec.input("storage35"), ItemSlotSpec.input("storage36"), ItemSlotSpec.input("storage37"), ItemSlotSpec.input("storage38"), ItemSlotSpec.input("storage39"), ItemSlotSpec.input("storage40"), ItemSlotSpec.input("storage41"), ItemSlotSpec.input("storage42"), ItemSlotSpec.input("storage43"), ItemSlotSpec.input("storage44"), ItemSlotSpec.input("storage45"), ItemSlotSpec.input("storage46"), ItemSlotSpec.input("storage47"), ItemSlotSpec.input("storage48"), ItemSlotSpec.input("storage49"), ItemSlotSpec.input("storage50"), ItemSlotSpec.input("storage51"), ItemSlotSpec.input("storage52"), ItemSlotSpec.input("storage53"))
                 .noUpgrades()
-                .logic(new PersonalStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PersonalStorageLogic())
                 .build());
         // mek:personal_barrel：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:personal_chest", "私人箱子")
                 .itemSlots(ItemSlotSpec.input("storage0"), ItemSlotSpec.input("storage1"), ItemSlotSpec.input("storage2"), ItemSlotSpec.input("storage3"), ItemSlotSpec.input("storage4"), ItemSlotSpec.input("storage5"), ItemSlotSpec.input("storage6"), ItemSlotSpec.input("storage7"), ItemSlotSpec.input("storage8"), ItemSlotSpec.input("storage9"), ItemSlotSpec.input("storage10"), ItemSlotSpec.input("storage11"), ItemSlotSpec.input("storage12"), ItemSlotSpec.input("storage13"), ItemSlotSpec.input("storage14"), ItemSlotSpec.input("storage15"), ItemSlotSpec.input("storage16"), ItemSlotSpec.input("storage17"), ItemSlotSpec.input("storage18"), ItemSlotSpec.input("storage19"), ItemSlotSpec.input("storage20"), ItemSlotSpec.input("storage21"), ItemSlotSpec.input("storage22"), ItemSlotSpec.input("storage23"), ItemSlotSpec.input("storage24"), ItemSlotSpec.input("storage25"), ItemSlotSpec.input("storage26"), ItemSlotSpec.input("storage27"), ItemSlotSpec.input("storage28"), ItemSlotSpec.input("storage29"), ItemSlotSpec.input("storage30"), ItemSlotSpec.input("storage31"), ItemSlotSpec.input("storage32"), ItemSlotSpec.input("storage33"), ItemSlotSpec.input("storage34"), ItemSlotSpec.input("storage35"), ItemSlotSpec.input("storage36"), ItemSlotSpec.input("storage37"), ItemSlotSpec.input("storage38"), ItemSlotSpec.input("storage39"), ItemSlotSpec.input("storage40"), ItemSlotSpec.input("storage41"), ItemSlotSpec.input("storage42"), ItemSlotSpec.input("storage43"), ItemSlotSpec.input("storage44"), ItemSlotSpec.input("storage45"), ItemSlotSpec.input("storage46"), ItemSlotSpec.input("storage47"), ItemSlotSpec.input("storage48"), ItemSlotSpec.input("storage49"), ItemSlotSpec.input("storage50"), ItemSlotSpec.input("storage51"), ItemSlotSpec.input("storage52"), ItemSlotSpec.input("storage53"))
                 .noUpgrades()
-                .logic(new PersonalStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PersonalStorageLogic())
                 .build());
         // mek:personal_chest：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:pigment_extractor", "颜料提取器")
@@ -519,38 +491,38 @@ public final class GeneratedContent {
         r.machine(MachineBlueprint.builder("mek:qio_dashboard", "QIO 仪表板")
                 .itemSlots()
                 .noUpgrades()
-                .logic(new QioLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.QioLogic())
                 .build());
         // mek:qio_dashboard：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:qio_drive_array", "QIO 驱动器阵列")
                 .itemSlots(ItemSlotSpec.extra("drive0"), ItemSlotSpec.extra("drive1"), ItemSlotSpec.extra("drive2"), ItemSlotSpec.extra("drive3"), ItemSlotSpec.extra("drive4"), ItemSlotSpec.extra("drive5"), ItemSlotSpec.extra("drive6"), ItemSlotSpec.extra("drive7"), ItemSlotSpec.extra("drive8"), ItemSlotSpec.extra("drive9"), ItemSlotSpec.extra("drive10"), ItemSlotSpec.extra("drive11"))
                 .noUpgrades()
-                .logic(new QioLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.QioLogic())
                 .build());
         // mek:qio_drive_array：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:qio_exporter", "QIO 输出端口")
                 .itemSlots()
                 .upgrades(Upgrades.SPEED)
-                .logic(new QioLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.QioLogic())
                 .build());
         // mek:qio_exporter：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:qio_importer", "QIO 输入端口")
                 .itemSlots()
                 .upgrades(Upgrades.SPEED)
-                .logic(new QioLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.QioLogic())
                 .build());
         // mek:qio_importer：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:qio_redstone_adapter", "QIO 红石适配器")
                 .itemSlots()
                 .noUpgrades()
-                .logic(new QioLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.QioLogic())
                 .build());
         // mek:qio_redstone_adapter：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:radioactive_waste_barrel", "放射性废料桶")
                 .itemSlots()
                 .chemicalTank("stored", 512000L)
                 .noUpgrades()
-                .logic(new WasteBarrelLogic())
+                .logic(new net.kuzuanpa.cemekanism.nuclear.WasteBarrelLogic())
                 .build());
         // mek:radioactive_waste_barrel：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:resistive_heater", "电阻型加热器")
@@ -558,7 +530,7 @@ public final class GeneratedContent {
                 .heat(new HeatSpec(0.1, 1.7976931348623157e308, 0.0))   // 发电机自身温度（热力发电机用；逻辑按条件加/减热）
                 .itemSlots()
                 .upgrades(Upgrades.MUFFLING)
-                .logic(new ResistiveHeaterLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.ResistiveHeaterLogic())
                 .build());
         // mek:resistive_heater：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:rotary_condensentrator", "回旋式气液转换机")
@@ -573,7 +545,7 @@ public final class GeneratedContent {
                 .energyBuffer(96000L)   // 上游 GeneratorsStorageConfig；产出由逻辑写入这个缓存
                 .itemSlots()
                 .upgrades(Upgrades.MUFFLING)
-                .logic(new SolarGeneratorLogic(false))
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.SolarGeneratorLogic(false))
                 .build());
         // mek:solar_generator：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:solar_neutron_activator", "太阳能中子活化器")
@@ -582,40 +554,40 @@ public final class GeneratedContent {
                 .inputTank("input", ResourceTypes.CHEMICAL, 10000L)
                 .outputTank("output", ResourceTypes.CHEMICAL, 10000L)
                 .noUpgrades()
-                .gate(new SunlightGate())
+                .gate(new net.kuzuanpa.cemekanism.machine.SunlightGate())
                 .build());
         r.machine(MachineBlueprint.builder("mek:ultimate_bin", "终极箱柜")
                 .itemSlots(ItemSlotSpec.input("in"), ItemSlotSpec.output("out"))
                 .noUpgrades()
-                .logic(new BinLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.BinLogic())
                 .build());
         // mek:ultimate_bin：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:ultimate_chemical_tank", "终极化学品储罐")
                 .itemSlots()
                 .chemicalTank("stored", 8192000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:ultimate_chemical_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:ultimate_energy_cube", "终极基础能量立方")
                 .energyBuffer(256000000L)   // 上游 GeneratorsStorageConfig；产出由逻辑写入这个缓存
                 .itemSlots()
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:ultimate_energy_cube：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:ultimate_fluid_tank", "终极流体储罐")
                 .itemSlots()
                 .fluidTank("stored", 256000L)
                 .noUpgrades()
-                .logic(new PassiveStorageLogic())
+                .logic(new net.kuzuanpa.cemekanism.storage.PassiveStorageLogic())
                 .build());
         // mek:ultimate_fluid_tank：逻辑机器（无配方）——已挂逻辑
         r.machine(MachineBlueprint.builder("mek:wind_generator", "风力发电机")
                 .energyBuffer(200000L)   // 上游 GeneratorsStorageConfig；产出由逻辑写入这个缓存
                 .itemSlots()
                 .upgrades(Upgrades.MUFFLING)
-                .logic(new WindGeneratorLogic())
+                .logic(new net.kuzuanpa.cemekanism.machine.logic.WindGeneratorLogic())
                 .build());
         // mek:wind_generator：逻辑机器（无配方）——已挂逻辑
     }
@@ -634,7 +606,7 @@ public final class GeneratedContent {
                 .addPort(new PortDefinition("cooled_coolant", ResourceTypes.CHEMICAL, 256000L, 0L, BlockRole.of("cooled_valve", "cooled_valve"), BlockSection.FACE, 1))
                 )
                 .heat(new HeatSpec(0.05, 3000.0, 0.0))
-                .logic(new BoilerLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.BoilerLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:industrial_turbine", "工业蒸汽涡轮",   // generators/java/mekanism/generators/common/content/turbine/TurbineValidator.java
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('-', BlockRoles.FRAME).legend('.', BlockRoles.INTERIOR_EMPTY).layer("#####", "#---#", "#---#", "#---#", "#####").layer("#---#", "-...-", "-...-", "-...-", "#---#").layer("#####", "#---#", "#---#", "#---#", "#####"), SizeRule.squareOddBase(5, 17, 3, 18)).edges(BlockRoles.FRAME, BlockRoles.VALVE).faces(BlockRoles.FRAME, BlockRoles.VALVE, BlockRole.of("vent", "排气口"), BlockRoles.GLASS).interior(BlockRole.of("disperser", "分压元件"), BlockRole.of("rotor", "转子"), BlockRole.of("complex", "复杂旋钮装置"), BlockRole.of("coil", "线圈"), BlockRole.of("condenser", "饱和冷凝器"), BlockRoles.INTERIOR_EMPTY)
@@ -644,7 +616,7 @@ public final class GeneratedContent {
                 .addPort(new PortDefinition("energy", ResourceTypes.ENERGY, 0L, 0L, BlockRoles.VALVE, BlockSection.FACE, 1))
                 .addPort(new PortDefinition("water", ResourceTypes.FLUID, 0L, 0L, BlockRole.of("vent", "排气口"), BlockSection.FACE, 1))
                 )
-                .logic(new SteamTurbineLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.SteamTurbineLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:thermal_evaporation_plant", "热力蒸馏塔",   // main/java/mekanism/common/content/evaporation/EvaporationValidator.java
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('-', BlockRoles.FRAME).legend('.', BlockRoles.INTERIOR_EMPTY).layer("####", "#--#", "#--#", "####").layer("#--#", "-..-", "-..-", "#--#").layer("####", "#--#", "#--#", "####"), SizeRule.square(4, 4, 3, 18)).edges(BlockRoles.FRAME, BlockRoles.CONTROLLER).faces(BlockRoles.FRAME, BlockRoles.VALVE, BlockRoles.CONTROLLER, BlockRoles.GLASS).interior(BlockRoles.INTERIOR_EMPTY)
@@ -654,7 +626,7 @@ public final class GeneratedContent {
                 .addPort(new PortDefinition("output", ResourceTypes.FLUID, 10000L, 0L, BlockRoles.VALVE, BlockSection.FACE, 1))
                 )
                 .heat(new HeatSpec(0.1, 3000.0, 0.0))
-                .logic(new EvaporationLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.EvaporationLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:dynamic_tank", "动态储罐",   // main/java/mekanism/common/content/tank/TankValidator.java
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('-', BlockRoles.FRAME).legend('.', BlockRoles.INTERIOR_EMPTY).layer("###", "#-#", "###").layer("#-#", "-.-", "#-#").layer("###", "#-#", "###"), SizeRule.of(3, 18, 3, 18)).edges(BlockRoles.FRAME, BlockRoles.VALVE).faces(BlockRoles.FRAME, BlockRoles.VALVE, BlockRoles.GLASS).interior(BlockRoles.INTERIOR_EMPTY)
@@ -662,7 +634,7 @@ public final class GeneratedContent {
                 .addPort(new PortDefinition("fluid", ResourceTypes.FLUID, 16000L, 0L, BlockRoles.VALVE, BlockSection.FACE, 1))
                 .addPort(new PortDefinition("chemical", ResourceTypes.CHEMICAL, 16000L, 0L, BlockRoles.VALVE, BlockSection.FACE, 1))
                 )
-                .logic(new DynamicTankLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.DynamicTankLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:induction_matrix", "感应矩阵",   // main/java/mekanism/common/content/matrix/MatrixValidator.java
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('-', BlockRoles.FRAME).legend('.', BlockRoles.INTERIOR_EMPTY).layer("###", "#-#", "###").layer("#-#", "-.-", "#-#").layer("###", "#-#", "###"), SizeRule.of(3, 18, 3, 18)).edges(BlockRoles.FRAME, BlockRoles.PORT).faces(BlockRoles.FRAME, BlockRoles.PORT, BlockRoles.GLASS).interior(BlockRole.of("cell", "感应元件"), BlockRole.of("provider", "感应供应器"), BlockRoles.INTERIOR_EMPTY)
@@ -670,7 +642,7 @@ public final class GeneratedContent {
                 .require(RoleRequirement.in(BlockRole.of("provider", "感应供应器"), BlockSection.INTERIOR, 1, 9999))
                 .addPort(new PortDefinition("energy", ResourceTypes.ENERGY, 0L, 0L, BlockRoles.PORT, BlockSection.FACE, 1))
                 )
-                .logic(new InductionMatrixLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.InductionMatrixLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:fission_reactor", "裂变反应堆",   // generators/java/mekanism/generators/common/content/fission/FissionReactorValidator.java
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('-', BlockRoles.FRAME).legend('.', BlockRoles.INTERIOR_EMPTY).layer("###", "#-#", "###").layer("#-#", "-.-", "#-#").layer("#-#", "-.-", "#-#").layer("###", "#-#", "###"), SizeRule.of(3, 18, 4, 18)).edges(BlockRoles.FRAME, BlockRoles.PORT).faces(BlockRoles.FRAME, BlockRoles.PORT, BlockRoles.LOGIC_ADAPTER, BlockRoles.GLASS).interior(BlockRole.of("fuel", "燃料组件"), BlockRole.of("control_rod", "控制棒"), BlockRoles.INTERIOR_EMPTY)
@@ -681,7 +653,7 @@ public final class GeneratedContent {
                 .addPort(new PortDefinition("steam", ResourceTypes.CHEMICAL, 1000000L, 0L, BlockRoles.PORT, BlockSection.FACE, 1))
                 )
                 .heat(new HeatSpec(1.0, 1000000000000.0, 0.0))
-                .logic(new FissionReactorLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.FissionReactorLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:fusion_reactor", "聚变反应堆",   // generators/java/mekanism/generators/common/content/fusion/FusionReactorValidator.java
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('s', BlockRoles.FRAME, BlockRoles.PORT, BlockRoles.CONTROLLER, BlockRoles.LOGIC_ADAPTER, BlockRole.of("laser_focus", "激光聚焦矩阵"), BlockRoles.GLASS).legend('.', BlockRoles.INTERIOR_EMPTY).legend('o', BlockRoles.ANY).layer("oo#oo", "o#s#o", "#sss#", "o#s#o", "oo#oo").layer("o#s#o", "#...#", "s...s", "#...#", "o#s#o").layer("#sss#", "s...s", "s...s", "s...s", "#sss#").layer("o#s#o", "#...#", "s...s", "#...#", "o#s#o").layer("oo#oo", "o#s#o", "#sss#", "o#s#o", "oo#oo"), SizeRule.of(5, 5, 5, 5)).fixedLayout(new StructureLayout().legend('#', BlockRoles.FRAME).legend('s', BlockRoles.FRAME, BlockRoles.PORT, BlockRoles.CONTROLLER, BlockRoles.LOGIC_ADAPTER, BlockRole.of("laser_focus", "激光聚焦矩阵"), BlockRoles.GLASS).legend('.', BlockRoles.INTERIOR_EMPTY).legend('o', BlockRoles.ANY).layer("oo#oo", "o#s#o", "#sss#", "o#s#o", "oo#oo").layer("o#s#o", "#...#", "s...s", "#...#", "o#s#o").layer("#sss#", "s...s", "s...s", "s...s", "#sss#").layer("o#s#o", "#...#", "s...s", "#...#", "o#s#o").layer("oo#oo", "o#s#o", "#sss#", "o#s#o", "oo#oo"))
@@ -695,7 +667,7 @@ public final class GeneratedContent {
                 .addPort(new PortDefinition("steam", ResourceTypes.CHEMICAL, 0L, 0L, BlockRoles.PORT, BlockSection.FACE, 1))
                 )
                 .heat(new HeatSpec(0.001, 1000000000000.0, 0.0))
-                .logic(new FusionReactorLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.FusionReactorLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:sps", "超临界移相器",   // main/java/mekanism/common/content/sps/SPSValidator.java
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('s', BlockRoles.FRAME, BlockRoles.PORT, BlockRoles.GLASS).legend('.', BlockRoles.INTERIOR_EMPTY).legend('o', BlockRoles.ANY).layer("oo###oo", "o#sss#o", "#sssss#", "#sssss#", "#sssss#", "o#sss#o", "oo###oo").layer("o#sss#o", "#.....#", "s.....s", "s.....s", "s.....s", "#.....#", "o#sss#o").layer("#sssss#", "s.....s", "s.....s", "s.....s", "s.....s", "s.....s", "#sssss#").layer("#sssss#", "s.....s", "s.....s", "s.....s", "s.....s", "s.....s", "#sssss#").layer("#sssss#", "s.....s", "s.....s", "s.....s", "s.....s", "s.....s", "#sssss#").layer("o#sss#o", "#.....#", "s.....s", "s.....s", "s.....s", "#.....#", "o#sss#o").layer("oo###oo", "o#sss#o", "#sssss#", "#sssss#", "#sssss#", "o#sss#o", "oo###oo"), SizeRule.of(7, 7, 7, 7)).fixedLayout(new StructureLayout().legend('#', BlockRoles.FRAME).legend('s', BlockRoles.FRAME, BlockRoles.PORT, BlockRoles.GLASS).legend('.', BlockRoles.INTERIOR_EMPTY).legend('o', BlockRoles.ANY).layer("oo###oo", "o#sss#o", "#sssss#", "#sssss#", "#sssss#", "o#sss#o", "oo###oo").layer("o#sss#o", "#.....#", "s.....s", "s.....s", "s.....s", "#.....#", "o#sss#o").layer("#sssss#", "s.....s", "s.....s", "s.....s", "s.....s", "s.....s", "#sssss#").layer("#sssss#", "s.....s", "s.....s", "s.....s", "s.....s", "s.....s", "#sssss#").layer("#sssss#", "s.....s", "s.....s", "s.....s", "s.....s", "s.....s", "#sssss#").layer("o#sss#o", "#.....#", "s.....s", "s.....s", "s.....s", "#.....#", "o#sss#o").layer("oo###oo", "o#sss#o", "#sssss#", "#sssss#", "#sssss#", "o#sss#o", "oo###oo")).interior(BlockRole.of("coil", "线圈"), BlockRoles.INTERIOR_EMPTY)
@@ -703,14 +675,14 @@ public final class GeneratedContent {
                 .addPort(new PortDefinition("antimatter", ResourceTypes.CHEMICAL, 1000L, 0L, BlockRoles.PORT, BlockSection.FACE, 1))
                 .addPort(new PortDefinition("energy", ResourceTypes.ENERGY, 1000000000L, 0L, BlockRole.of("coil", "线圈"), BlockSection.INTERIOR, 1))
                 )
-                .logic(new SpsLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.SpsLogic())
                 .build());
         r.multiblock(MultiblockBlueprint.builder("mek:teleporter", "传送器",   // curation
                 new StructureSpec(new StructureLayout().legend('#', BlockRoles.FRAME).legend('-', BlockRoles.INTERIOR_EMPTY).legend('.', BlockRoles.INTERIOR_EMPTY).layer("###"), SizeRule.of(1, 23, 1, 23)).edges(BlockRoles.FRAME, BlockRoles.CONTROLLER).faces(BlockRoles.INTERIOR_EMPTY).interior(BlockRoles.INTERIOR_EMPTY)
                 .require(RoleRequirement.in(BlockRoles.CONTROLLER, null, 1, 1))
                 .addPort(new PortDefinition("energy", ResourceTypes.ENERGY, 1000000L, 0L, BlockRoles.CONTROLLER, BlockSection.EDGE, 1))
                 )
-                .logic(new TeleporterLogic())
+                .logic(new net.kuzuanpa.cemekanism.multiblock.logic.TeleporterLogic())
                 .build());
     }
 
@@ -4370,6 +4342,12 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("minecraft:glowstone", 1L))
                     .ticks(500)
                     .build());
+        r.recipe(Recipe.builder("mek:nucleosynthesizing/heart_of_the_sea", "mek:antiprotonic_nucleosynthesizer")
+                    .input(ItemIngredient.tagged(1L, "mek:nether_stars"))
+                    .input(Ingredient.chemical(5L, "mek:antimatter"))
+                    .output(RecipeOutput.item("minecraft:heart_of_the_sea", 1L))
+                    .ticks(1250)
+                    .build());
         r.recipe(Recipe.builder("mek:nucleosynthesizing/iron", "mek:antiprotonic_nucleosynthesizer")
                     .input(ItemIngredient.tagged(1L, "mek:ingots/tin"))
                     .input(Ingredient.chemical(1L, "mek:antimatter"))
@@ -4386,6 +4364,12 @@ public final class GeneratedContent {
                     .input(ItemIngredient.item(1L, "minecraft:flower_pot"))
                     .input(Ingredient.chemical(3L, "mek:antimatter"))
                     .output(RecipeOutput.item("minecraft:nautilus_shell", 1L))
+                    .ticks(750)
+                    .build());
+        r.recipe(Recipe.builder("mek:nucleosynthesizing/phantom_membrane", "mek:antiprotonic_nucleosynthesizer")
+                    .input(ItemIngredient.tagged(1L, "mek:leathers"))
+                    .input(Ingredient.chemical(3L, "mek:antimatter"))
+                    .output(RecipeOutput.item("minecraft:phantom_membrane", 1L))
                     .ticks(750)
                     .build());
         r.recipe(Recipe.builder("mek:nucleosynthesizing/quartz_block", "mek:antiprotonic_nucleosynthesizer")
@@ -5092,6 +5076,9 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("minecraft:red_concrete_slab", 1L))
                     .ticks(200)
                     .build());
+    }
+
+    private static void recipes5(Registrars r) {
         r.recipe(Recipe.builder("mek:painting/concrete/slabs/white", "mek:painting_machine")
                     .input(ItemIngredient.tagged(1L, "mek:colorable/concrete/slabs"))
                     .input(Ingredient.chemical(32L, "mek:white"))
@@ -5104,9 +5091,6 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("minecraft:yellow_concrete_slab", 1L))
                     .ticks(200)
                     .build());
-    }
-
-    private static void recipes5(Registrars r) {
         r.recipe(Recipe.builder("mek:painting/concrete/stairs/black", "mek:painting_machine")
                     .input(ItemIngredient.tagged(1L, "mek:colorable/concrete/stairs"))
                     .input(Ingredient.chemical(32L, "mek:black"))
@@ -6055,6 +6039,9 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("minecraft:pink_wool", 1L))
                     .ticks(200)
                     .build());
+    }
+
+    private static void recipes6(Registrars r) {
         r.recipe(Recipe.builder("mek:painting/wool/purple", "mek:painting_machine")
                     .input(ItemIngredient.tagged(1L, "mek:colorable/wool"))
                     .input(Ingredient.chemical(256L, "mek:purple"))
@@ -6067,9 +6054,6 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("minecraft:red_wool", 1L))
                     .ticks(200)
                     .build());
-    }
-
-    private static void recipes6(Registrars r) {
         r.recipe(Recipe.builder("mek:painting/wool/slabs/black", "mek:painting_machine")
                     .input(ItemIngredient.tagged(1L, "mek:colorable/wool_slabs"))
                     .input(Ingredient.chemical(256L, "mek:black"))
@@ -6284,6 +6268,16 @@ public final class GeneratedContent {
                     .output(RecipeOutput.chemical("mek:blue", 256L))
                     .ticks(100)
                     .build());
+        r.recipe(Recipe.builder("mek:pigment_extracting/dye/brown", "mek:pigment_extractor")
+                    .input(ItemIngredient.tagged(1L, "mek:dyes/brown"))
+                    .output(RecipeOutput.chemical("mek:brown", 256L))
+                    .ticks(100)
+                    .build());
+        r.recipe(Recipe.builder("mek:pigment_extracting/dye/cyan", "mek:pigment_extractor")
+                    .input(ItemIngredient.tagged(1L, "mek:dyes/cyan"))
+                    .output(RecipeOutput.chemical("mek:cyan", 256L))
+                    .ticks(100)
+                    .build());
         r.recipe(Recipe.builder("mek:pigment_extracting/dye/gray", "mek:pigment_extractor")
                     .input(ItemIngredient.tagged(1L, "mek:dyes/gray"))
                     .output(RecipeOutput.chemical("mek:gray", 256L))
@@ -6292,6 +6286,26 @@ public final class GeneratedContent {
         r.recipe(Recipe.builder("mek:pigment_extracting/dye/green", "mek:pigment_extractor")
                     .input(ItemIngredient.tagged(1L, "mek:dyes/green"))
                     .output(RecipeOutput.chemical("mek:green", 256L))
+                    .ticks(100)
+                    .build());
+        r.recipe(Recipe.builder("mek:pigment_extracting/dye/light_blue", "mek:pigment_extractor")
+                    .input(ItemIngredient.tagged(1L, "mek:dyes/light_blue"))
+                    .output(RecipeOutput.chemical("mek:light_blue", 256L))
+                    .ticks(100)
+                    .build());
+        r.recipe(Recipe.builder("mek:pigment_extracting/dye/light_gray", "mek:pigment_extractor")
+                    .input(ItemIngredient.tagged(1L, "mek:dyes/light_gray"))
+                    .output(RecipeOutput.chemical("mek:light_gray", 256L))
+                    .ticks(100)
+                    .build());
+        r.recipe(Recipe.builder("mek:pigment_extracting/dye/lime", "mek:pigment_extractor")
+                    .input(ItemIngredient.tagged(1L, "mek:dyes/lime"))
+                    .output(RecipeOutput.chemical("mek:lime", 256L))
+                    .ticks(100)
+                    .build());
+        r.recipe(Recipe.builder("mek:pigment_extracting/dye/magenta", "mek:pigment_extractor")
+                    .input(ItemIngredient.tagged(1L, "mek:dyes/magenta"))
+                    .output(RecipeOutput.chemical("mek:magenta", 256L))
                     .ticks(100)
                     .build());
         r.recipe(Recipe.builder("mek:pigment_extracting/dye/orange", "mek:pigment_extractor")
@@ -6921,6 +6935,9 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("mek:enriched_iron", 1L))
                     .ticks(200)
                     .build());
+    }
+
+    private static void recipes7(Registrars r) {
         r.recipe(Recipe.builder("mek:processing/iron/enriched_dust", "mek:metallurgic_infuser")
                     .input(ItemIngredient.tagged(1L, "mek:dusts/iron"))
                     .input(Ingredient.tagged(ResourceTypes.INFUSION, 10L, "mek:carbon"))
@@ -6970,9 +6987,6 @@ public final class GeneratedContent {
                     .ticks(1)
                     .continuous()
                     .build());
-    }
-
-    private static void recipes7(Registrars r) {
         r.recipe(Recipe.builder("mek:processing/iron/slurry/dirty/from_ore", "mek:chemical_dissolution_chamber")
                     .input(ItemIngredient.tagged(1L, "mek:ores/iron"))
                     .input(Ingredient.chemical(1L, "mek:sulfuric_acid").perTickUsage())
@@ -7866,6 +7880,9 @@ public final class GeneratedContent {
                     .ticks(1)
                     .continuous()
                     .build());
+    }
+
+    private static void recipes8(Registrars r) {
         r.recipe(Recipe.builder("mek:rotary/hydrogen_chloride/condense", "mek:rotary_condensentrator")
                     .input(Ingredient.chemical(1L, "mek:hydrogen_chloride"))
                     .output(RecipeOutput.fluid("mek:hydrogen_chloride", 1L))
@@ -7914,9 +7931,6 @@ public final class GeneratedContent {
                     .ticks(1)
                     .continuous()
                     .build());
-    }
-
-    private static void recipes8(Registrars r) {
         r.recipe(Recipe.builder("mek:rotary/steam/condense", "mek:rotary_condensentrator")
                     .input(Ingredient.chemical(1L, "mek:steam"))
                     .output(RecipeOutput.fluid("mek:steam", 1L))
@@ -8787,6 +8801,9 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("minecraft:stripped_pale_oak_log", 1L))
                     .ticks(200)
                     .build());
+    }
+
+    private static void recipes9(Registrars r) {
         r.recipe(Recipe.builder("mek:sawing/shelf/poplar", "mek:precision_sawmill")
                     .input(ItemIngredient.item(1L, "minecraft:poplar_shelf"))
                     .output(RecipeOutput.item("minecraft:stripped_poplar_log", 1L))
@@ -8831,9 +8848,6 @@ public final class GeneratedContent {
                     .output(RecipeOutput.item("mek:sawdust", 1L))
                     .ticks(200)
                     .build());
-    }
-
-    private static void recipes9(Registrars r) {
         r.recipe(Recipe.builder("mek:sawing/torch", "mek:precision_sawmill")
                     .input(ItemIngredient.item(4L, "minecraft:torch"))
                     .output(RecipeOutput.item("minecraft:stick", 1L))
@@ -8949,6 +8963,7 @@ public final class GeneratedContent {
         r.itemTag("mek:birch_logs", "minecraft:birch_log", "minecraft:birch_wood", "minecraft:stripped_birch_log", "minecraft:stripped_birch_wood");
         r.itemTag("mek:bookshelves", "minecraft:bookshelf");
         r.tag(ResourceTypes.FLUID, "mek:brine", "mek:brine", "mek:flowing_brine");
+        r.itemTag("mek:buckets/lava", "minecraft:lava_bucket");
         r.tag(ResourceTypes.INFUSION, "mek:carbon", "mek:carbon");
         r.itemTag("mek:cherry_logs", "minecraft:cherry_log", "minecraft:cherry_wood", "minecraft:stripped_cherry_log", "minecraft:stripped_cherry_wood");
         r.itemTag("mek:chests/wooden", "minecraft:chest");
@@ -9034,8 +9049,14 @@ public final class GeneratedContent {
         r.itemTag("mek:dusts/wood", "mek:sawdust");
         r.itemTag("mek:dyes/black", "minecraft:black_dye");
         r.itemTag("mek:dyes/blue", "minecraft:blue_dye");
+        r.itemTag("mek:dyes/brown", "minecraft:brown_dye");
+        r.itemTag("mek:dyes/cyan", "minecraft:cyan_dye");
         r.itemTag("mek:dyes/gray", "minecraft:gray_dye");
         r.itemTag("mek:dyes/green", "minecraft:green_dye");
+        r.itemTag("mek:dyes/light_blue", "minecraft:light_blue_dye");
+        r.itemTag("mek:dyes/light_gray", "minecraft:light_gray_dye");
+        r.itemTag("mek:dyes/lime", "minecraft:lime_dye");
+        r.itemTag("mek:dyes/magenta", "minecraft:magenta_dye");
         r.itemTag("mek:dyes/orange", "minecraft:orange_dye");
         r.itemTag("mek:dyes/pink", "minecraft:pink_dye");
         r.itemTag("mek:dyes/purple", "minecraft:purple_dye");
@@ -9087,6 +9108,7 @@ public final class GeneratedContent {
         r.itemTag("mek:ingots/tin", "mek:ingot_tin");
         r.itemTag("mek:ingots/uranium", "mek:ingot_uranium");
         r.itemTag("mek:jungle_logs", "minecraft:jungle_log", "minecraft:jungle_wood", "minecraft:stripped_jungle_log", "minecraft:stripped_jungle_wood");
+        r.itemTag("mek:leathers", "minecraft:leather");
         r.itemTag("mek:leaves", "minecraft:acacia_leaves", "minecraft:azalea_leaves", "minecraft:birch_leaves", "minecraft:cherry_leaves", "minecraft:dark_oak_leaves", "minecraft:flowering_azalea_leaves", "minecraft:jungle_leaves", "minecraft:mangrove_leaves", "minecraft:oak_leaves", "minecraft:orange_poplar_leaves", "minecraft:pale_oak_leaves", "minecraft:red_poplar_leaves", "minecraft:spruce_leaves", "minecraft:yellow_poplar_leaves");
         r.tag(ResourceTypes.FLUID, "mek:lithium", "mek:flowing_lithium", "mek:lithium");
         r.itemTag("mek:logs", "minecraft:acacia_log", "minecraft:acacia_wood", "minecraft:birch_log", "minecraft:birch_wood", "minecraft:cherry_log", "minecraft:cherry_wood", "minecraft:crimson_hyphae", "minecraft:crimson_stem", "minecraft:dark_oak_log", "minecraft:dark_oak_wood", "minecraft:jungle_log", "minecraft:jungle_wood", "minecraft:mangrove_log", "minecraft:mangrove_wood", "minecraft:oak_log", "minecraft:oak_wood", "minecraft:pale_oak_log", "minecraft:pale_oak_wood", "minecraft:poplar_log", "minecraft:poplar_wood", "minecraft:spruce_log", "minecraft:spruce_wood", "minecraft:stripped_acacia_log", "minecraft:stripped_acacia_wood", "minecraft:stripped_birch_log", "minecraft:stripped_birch_wood", "minecraft:stripped_cherry_log", "minecraft:stripped_cherry_wood", "minecraft:stripped_crimson_hyphae", "minecraft:stripped_crimson_stem", "minecraft:stripped_dark_oak_log", "minecraft:stripped_dark_oak_wood", "minecraft:stripped_jungle_log", "minecraft:stripped_jungle_wood", "minecraft:stripped_mangrove_log", "minecraft:stripped_mangrove_wood", "minecraft:stripped_oak_log", "minecraft:stripped_oak_wood", "minecraft:stripped_pale_oak_log", "minecraft:stripped_pale_oak_wood", "minecraft:stripped_poplar_log", "minecraft:stripped_poplar_wood", "minecraft:stripped_spruce_log", "minecraft:stripped_spruce_wood", "minecraft:stripped_warped_hyphae", "minecraft:stripped_warped_stem", "minecraft:warped_hyphae", "minecraft:warped_stem");
@@ -9094,6 +9116,7 @@ public final class GeneratedContent {
         r.itemTag("mek:mangrove_logs", "minecraft:mangrove_log", "minecraft:mangrove_wood", "minecraft:stripped_mangrove_log", "minecraft:stripped_mangrove_wood");
         r.itemTag("mek:moss_blocks", "minecraft:moss_block", "minecraft:pale_moss_block");
         r.itemTag("mek:mushrooms", "minecraft:brown_mushroom", "minecraft:red_mushroom", "minecraft:shelf_mushroom");
+        r.itemTag("mek:nether_stars", "minecraft:nether_star");
         r.itemTag("mek:netherracks", "minecraft:netherrack");
         r.itemTag("mek:nuggets/bronze", "mek:nugget_bronze");
         r.itemTag("mek:nuggets/lead", "mek:nugget_lead");
