@@ -1,6 +1,12 @@
 package net.kuzuanpa.cemekanism.storage;
 
+import mekcore.api.MekCore;
+import mekcore.machine.Direction;
+import mekcore.machine.FactoryTier;
+import mekcore.machine.Machine;
+import mekcore.machine.SideMode;
 import mekcore.persist.MapDataTag;
+import net.kuzuanpa.cemekanism.generated.GeneratedContent;
 import java.util.HashSet;
 import java.util.List;
 
@@ -63,6 +69,39 @@ public final class StorageSelfTest {
         ItemSelection legacyRestored = new ItemSelection(); legacyRestored.load(legacyFilter);
         check(legacyRestored.rules.size() == 2 && legacyRestored.enabled("minecraft:iron_ore"),
                 "legacy filter migration");
+        defaultEnergyFaces();
         System.out.println("B5 storage self-test: " + checks + " checks passed");
+    }
+
+    private static void defaultEnergyFaces() {
+        var core = MekCore.create(GeneratedContent::register);
+        var separator = new Machine(core.registrars().machines().require("mek:electrolytic_separator"),
+                FactoryTier.SINGLE, core.registrars().recipes(), 1, null);
+        StorageRuntime.defaults(separator, Direction.NORTH);
+        for (Direction side : Direction.values()) {
+            check(separator.side("energy", side) == SideMode.INPUT, "consumer energy input on " + side);
+            check(separator.itemSide(side) == SideMode.NONE, "default energy does not enable items on " + side);
+            for (String port : separator.portNames()) {
+                if (!"energy".equals(port)) {
+                    check(separator.side(port, side) == SideMode.NONE,
+                            "default energy does not enable " + port + " on " + side);
+                }
+            }
+        }
+
+        var heater = new Machine(core.registrars().machines().require("mek:resistive_heater"),
+                FactoryTier.SINGLE, core.registrars().recipes(), 1, null);
+        StorageRuntime.defaults(heater, Direction.NORTH);
+        check(heater.side("energy", Direction.EAST) == SideMode.INPUT
+                        && heater.side("energy", Direction.WEST) == SideMode.INPUT
+                        && heater.side("energy", Direction.NORTH) == SideMode.NONE,
+                "special machine energy faces stay upstream-compatible");
+
+        var cube = new Machine(core.registrars().machines().require("mek:ultimate_energy_cube"),
+                FactoryTier.SINGLE, core.registrars().recipes(), 1, null);
+        StorageRuntime.defaults(cube, Direction.NORTH);
+        for (Direction side : Direction.values()) {
+            check(cube.side("energy", side) == SideMode.BOTH, "energy cube remains bidirectional on " + side);
+        }
     }
 }

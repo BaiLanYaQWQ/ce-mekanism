@@ -3,6 +3,7 @@ package net.kuzuanpa.cemekanism.storage;
 import mekcore.machine.*;
 import mekcore.spec.V10Tables;
 import net.kuzuanpa.cemekanism.machine.MachineBlockEntityController;
+import net.kuzuanpa.cemekanism.machine.logic.GeneratorLogic;
 import net.kuzuanpa.cemekanism.i18n.I18n;
 
 import java.util.List;
@@ -57,6 +58,8 @@ public final class StorageRuntime {
         } else if (id.endsWith("_bin") || PersonalStorageLogic.isStorage(id)) {
             for (Direction d : Direction.values()) m.defaultItemSide(d, SideMode.BOTH);
             for (String port : m.portNames()) for (Direction d : Direction.values()) m.defaultSide(port, d, SideMode.INPUT);
+        } else if (m.blueprint().hasEnergyPort() && !(m.blueprint().logic() instanceof GeneratorLogic)) {
+            for (Direction d : Direction.values()) m.defaultSide("energy", d, SideMode.INPUT);
         }
     }
     /** Manual water/lava bucket transfers share the real tank and its tick budget. */
